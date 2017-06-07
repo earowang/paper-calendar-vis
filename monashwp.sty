@@ -119,9 +119,9 @@
         }}
 \def\titlepage{{\cover\newpage\setstretch{1}\pageone\newpage\blindtitle}}
 
-\def\blind{\def\titlepage{{\blindtitle}}}
+\def\blind{\def\titlepage{{\blindtitle}}\let\maketitle\blindtitle}
 \def\titlepageonly{\def\titlepage{{\pageone\end{document}}}}
-\def\nocover{\def\titlepage{{\newpage\pageone\newpage\blindtitle}}}
+\def\nocover{\def\titlepage{{\newpage\setstretch{1}\pageone\newpage\blindtitle}}\let\maketitle\titlepage}
 
 \let\maketitle\titlepage
 
@@ -160,7 +160,7 @@
 \newenvironment{keywords}{\par\vspace{0.75cm}\noindent{\sffamily\textbf{Keywords:}}}{}
 
 %% ABSTRACT
-\renewenvironment{abstract}{\begin{minipage}{\textwidth}\parskip=1.4ex\noindent{\sffamily\textbf{\abstractname}}\\}
+\renewenvironment{abstract}{\begin{minipage}{\textwidth}\parskip=1.4ex\noindent{\sffamily\textbf{\abstractname}}\newline}
   {\end{minipage}}
 
 

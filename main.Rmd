@@ -1,20 +1,38 @@
 ---
 title: "Calendar-based graphics for visualising people's daily schedules"
-author: "Earo Wang, Di Cook, Rob J Hyndman"
+author:
+  - familyname: Wang
+    othernames: Earo
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : earo.wang@monash.edu
+    correspondingauthor: true
+  - familyname: Cook
+    othernames: Di
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : dicook@monash.edu
+  - familyname: Hyndman
+    othernames: Rob
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : rob.hyndman@monash.edu
 fontsize: 11pt
 papersize: a4
 fontfamily: mathpazo
+blind: false
+cover: true
+wpnumber: no/yr
+jelcodes: C10,C14,C22
 bibliography: references.bib
 biblio-style: authoryear-comp
+abstract: "A brief summary of our ideas"
+keywords: "blah, blah"
 subparagraph: true
 toc: false
 output: 
   bookdown::pdf_document2:
+    template: monashwp.tex
     fig_caption: yes
     fig_height: 5
     fig_width: 8
-    includes:
-      in_header: preamble.tex
     number_sections: yes
     citation_package: biblatex
 ---
@@ -25,16 +43,6 @@ opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
   fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
   fig.show = 'hold', cache = TRUE, external = TRUE, dev = "svglite")
 ```
-
-\begin{abstract}
- A brief summary of our ideas
-\end{abstract}
-
-\begin{keywords}
-  blah, blah
-\end{keywords}
-
-\newpage
 
 # Introduction
 
