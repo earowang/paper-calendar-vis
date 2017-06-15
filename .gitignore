@@ -2,3 +2,4 @@
 cache/
 *.run.xml
 .Rproj.user
+data/

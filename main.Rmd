@@ -46,7 +46,9 @@ opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
 
 # Introduction
 
-## Construction
+# Literature review
+
+# Construction
 
 The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar, requires cells for days, embedded in blocks corresponding to months, organised into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday-Sunday, which is determined by the year of the calendar. Months are of different length days, ranging form 28-31, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
 
@@ -93,7 +95,7 @@ Note that for the vertical direction, the top left is the starting point of the 
 
 The major reference lines are placed on the far left and the bottom for every month panel: for each $m$, the vertical separation is $\min{(x)}$; for each $n$, the horizontal separation is $\min{(y)}$. The month labels located on the top is obtaining $\max{(y)}$ for each $n$. The minor reference lines for every daily grids are placed on the starting positions: for each $i$, the vertical line is $\min{(x)}$; for each $j$, the horizontal line is $\min{(y)}$.
 
-## Extensions
+# Extensions
 
 The algorithm can be extended relatively easily to layout multiple years, or to lay out different calendar formats like weeks of a year. A longer term plan is to construct a new facet system for the grammar of graphics, extending the R package `ggplot2`, incorporating this structure, to enable for hierarchical faceting. 
 
@@ -101,7 +103,7 @@ The algorithm can be extended relatively easily to layout multiple years, or to 
 
 We shall enable interactivity in the calendar-based graphics for time series data. It will allow users to transform different temporal components and switch displays between overlaying and faceting through key strokes or mouse clicks.
 
-## Application
+# Application
 
 The calendar-based visualisation provides data plots in the familiar (at least for the Western world) format of an everyday tool. Special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, rather than a typical work day. 
 
