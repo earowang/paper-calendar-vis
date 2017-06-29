@@ -1,7 +1,8 @@
 library(viridis)
 library(forcats)
 library(geofacet)
-library(sugrrants)
+devtools::load_all("~/Rpkg/sugrrants")
+# library(sugrrants)
 library(tidyverse)
 library(lubridate)
 
@@ -13,7 +14,7 @@ pm25_2016 <- pm25 %>%
   filter(Year == 2016)
 pm25_2016_cal <- pm25_2016 %>% 
   group_by(Site) %>% 
-  frame_calendar(Hour, "Value", Date)
+  frame_calendar(Hour, Value, Date)
 
 pm25_2016_cal %>% 
   ggplot(aes(x = .Hour, y = .Value, group = Date)) +
@@ -43,7 +44,17 @@ pm25_2016_mday %>%
 
 pm25_day_max <- pm25_2016 %>% 
   group_by(Date, Site) %>% 
-  summarise(Max = max(Value))
+  summarise(Max = max(Value), Min = min(Value))
+
+pm25_mm_cal <- pm25_day_max %>% 
+  group_by(Site) %>% 
+  frame_calendar(1, y = c("Max", "Min"), Date)
+
+pm25_mm_cal %>% 
+  ggplot() +
+  geom_rect(aes(xmin = .x - 0.01, xmax = .x + 0.01,
+                ymin = .Min, ymax = .Max)) +
+  facet_wrap(~ Site)
 
 pm25_index <- fct_inorder(c("Good", "Moderate", 
   "Unhealthy for Sensitive Groups",
@@ -68,15 +79,11 @@ site_grid <- tribble(
 )
 
 pm25_label_cal <- pm25_day_label %>% 
-  mutate(
-    Day = 1,
-    Value = 1
-  ) %>% 
   group_by(Site) %>% 
-  frame_calendar(Day, "Value", Date) # could pass a single integer as "identity"
+  frame_calendar(1, 1, Date) # could pass a single integer as "identity"
 
 pm25_label_cal %>% 
-  ggplot(aes(.Day, .Value, fill = Level, colour = "grey50")) +
+  ggplot(aes(.x, .y, fill = Level, colour = "grey50")) +
   geom_tile() +
   facet_geo(~ Site, grid = site_grid) +
   scale_fill_viridis(discrete = TRUE)
