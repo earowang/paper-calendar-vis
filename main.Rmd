@@ -11,7 +11,7 @@ author:
     address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
     email : dicook@monash.edu
   - familyname: Hyndman
-    othernames: Rob
+    othernames: Rob J
     address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
     email : rob.hyndman@monash.edu
 fontsize: 11pt
@@ -39,16 +39,18 @@ output:
 
 ```{r initial, echo = FALSE, cache = FALSE, results = 'hide'}
 library(knitr)
-opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
+opts_chunk$set(
+  warning = FALSE, message = FALSE, echo = FALSE,
   fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
-  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "svglite")
+  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "svglite"
+)
 ```
 
 # Introduction
 
-Calendar-based visualisation proves useful in unfolding human-related activities in temporal context. For example, @van_wijk_cluster_1999 developed a calendar view of heatmap to represent the number of employees in the office over a year, where colours indicate different clusters derived from the days. It effectively contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. However, their technique is too constrained to colour-encoding graphics, we shall extend this calendar-based arrangement to allow for a broader range of glyphs using linear algebra tools. It has been implemented into the `sugrrants` package using [@r].
+Calendar-based visualisation proves useful in unfolding human-related activities in temporal context. For example, @van_wijk_cluster_1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It effectively contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. However, their technique is too constrained to colour-encoding graphics. We shall extend this calendar-based arrangement using linear algebra tools from a single type of heatmap to a broader range of glyphs, from univariate to multivariate cases, from one type of calendar to three types. The proposed algorithm has been implemented into the `sugrrants` package [@sugrrants] using R [@r].
 
-This work is motivated by studying hourly foot traffic in Melbourne city. Visualisation provides insights into understanding people's daily schedules or patterns, but it is often a difficult task to visually represent such type of data at the overall level. For example, pedestrian counts in city centre collected at hourly intervals would help with understanding the pulse of city life or improvement of district administration management. However, (1) this kind of data is typically related to multiple seasonal types including time of day, day of week, day of year; (2) owing to higher than daily frequency, the data is usually coupled with long time span; (3) most variations arise from days of week due to normal human activities, and it is of most interest to inspect days as a basic time unit. [@van_wijk_cluster_1999] developed a calendar-based heatmap to visualise (some data), which clearly contrasted weekday versus weekend effects.  Information-dense visual encoding that provides maximal information at the overall level.
+This work is partly motivated by studying hourly foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed across downtown Melbourne since 2009 in order to capture the pulse of city life. (FIGURE ?: weekday at multiple sensors) Figure (?) lends itself to addressing some of the issues: (1) to simultaneously exhibit multiple seasons including time of day, day of week, and day of year, (2) to visualise long historical time series data in an information-dense way at the overview level, (3) to compare and contrast multiple time series on a common scale, (4) to quickly look up the date when there are unexpected events happening without interactivity.
 
 # Construction
 
@@ -97,22 +99,22 @@ Then the final points for making the calendar line plots of the pedestrian senso
 
 Note that for the vertical direction, the top left is the starting point of the grid, hence the subtractions, and resulting negative values to lay out the cells. Within each cell, the starting position is bottom left. 
 
+The algorithm can be extended relatively easily to layout multiple years, or to lay out different calendar formats like weeks of a year.
+
 ## Scales
 
 ## Reference lines and labels
 
 The major reference lines are placed on the far left and the bottom for every month panel: for each $m$, the vertical separation is $\min{(x)}$; for each $n$, the horizontal separation is $\min{(y)}$. The month labels located on the top is obtaining $\max{(y)}$ for each $n$. The minor reference lines for every daily grids are placed on the starting positions: for each $i$, the vertical line is $\min{(x)}$; for each $j$, the horizontal line is $\min{(y)}$.
 
-# Extensions
-
-The algorithm can be extended relatively easily to layout multiple years, or to lay out different calendar formats like weeks of a year. A longer term plan is to construct a new facet system for the grammar of graphics, extending the R package `ggplot2`, incorporating this structure, to enable for hierarchical faceting. 
-
-## Interactive graphics
-
-We shall enable interactivity in the calendar-based graphics for time series data. It will allow users to transform different temporal components and switch displays between overlaying and faceting through key strokes or mouse clicks.
+(INTERACTIVITY COULD BE DISCUSSED HERE) We shall enable interactivity in the calendar-based graphics for time series data. It will allow users to transform different temporal components and switch displays between overlaying and faceting through key strokes or mouse clicks.
 
 # Applications
 
 The calendar-based visualisation provides data plots in the familiar (at least for the Western world) format of an everyday tool. Special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, rather than a typical work day. 
 
 This sort of layout may be useful for studying consumer trends, or human behaviour, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity.
+
+# Conclusions
+
+The limitation is also evident: hard to perceive trend as not on the common scale.
