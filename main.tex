@@ -56,47 +56,69 @@ The abstract of the article.
 
 \section{Introduction}\label{introduction}
 
-Calendar-based visualisation turns out to be a useful tool in unfolding
-human-related activities in temporal context. For example,
-\citet{VanWijkCluster1999} developed a calendar view of heatmap to
-represent the number of employees in the work place over a year, where
-colours indicate different clusters derived from the days. It
-effectively contrasts weekdays and weekends, highlights public holiday,
-and presents other known seasons like school vacations, all of which
-have influence over the turn-outs in the office. The calendar-based
-heatmap was implemented in a couple of R packages: \texttt{ggTimeSeries}
-\citep{R-ggTimeSeries} and \texttt{ggcal} \citep{R-ggcal}. However,
-their techniques are too constrained to colour-encoding graphics. We
-shall extend this calendar-based arrangement using linear algebra tools
-from a single type of heatmap to a broader range of glyphs, from
-univariate to multivariate cases, from one calendar format to three
-formats. The proposed algorithm has been developed in the
-\texttt{sugrrants} package \citep{R-sugrrants} using R \citep{R-base}.
-
-This work was originally motivated by studying hourly foot traffic in
-the city of Melbourne \citep{ped}. There have been 43 sensors installed
-across downtown Melbourne since 2009 in order to capture the pulse of
-city life. (FIGURE ?: weekday at multiple sensors) Figure (?) lends
-itself to addressing some of the issues:
+This work was originally motivated by studying foot traffic in the city
+of Melbourne \citep{ped}. Since 2009, there have been 43 installed
+sensors counting pedestrians every hour across downtown Melbourne. The
+dataset can shed lights into understanding people's daily schedules, or
+assisting administration and business planning. (FIGURE ?: weekday at
+multiple sensors) Figure (?) lends itself to a number of issues that
+make exploratory data visualisation challenging in many temporal-context
+applications involving human behaviours:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  to simultaneously exhibit multiple seasons including time of day, day
-  of week, and day of year
+  Variations primarily result from multiple time scales including time
+  of day, day of week, and day of year (such as public holiday and
+  recurred events).
 \item
-  to visualise long historical time series data in an information-dense
-  way at the overview level
+  Since the data are often collected at daily frequency or a time scale
+  more frequent than daily, they typically involve large number of
+  observations spanning over a long time period.
 \item
-  to compare and contrast multiple time series on a common scale
-\item
-  to quickly look up the date when there are unexpected events happening
-  without interactivity.
+  Measurements of a single type are made at multiple locations at a
+  given time point, which creates a need in comparing and contrasting
+  between locations.
 \end{enumerate}
 
-\section{The function and its
-construction}\label{the-function-and-its-construction}
+Calendar-based graphics turn out to be a useful tool in unfolding
+human-related activities in temporal context (cite). For example,
+\citet{VanWijkCluster1999} developed a calendar view of heatmap to
+represent the number of employees in the work place over a year, where
+colours indicate different clusters derived from the days. It remarkably
+contrasts weekdays and weekends, highlights public holiday, and presents
+other known seasons like school vacations, all of which have influence
+over the turn-outs in the office. The calendar-based heatmap was
+implemented in a couple of R packages: \pkg{ggTimeSeries}
+\citep{R-ggTimeSeries} and \pkg{ggcal} \citep{R-ggcal}. However, these
+techniques are too constrained to colour-encoding graphics and day of
+week considered as the smallest time window. Time of day, which serves
+as one of the most important aspect in explaining variations arising
+from pedestrian sensor data, will be neglected through daily
+aggregation. Additionally if simply using colours encoded as quantities,
+it may becomes less perceivable of the actual variations or behaviours
+from the viewer's perspective.
+
+We propose a new algorithm via linear algebra tools to go beyond the
+calendar-based heatmap. The approach is developed with these conditions
+in mind: (1) to make time of day present in addition to the existing
+temporal components such as day of week and day of year, (2) to add line
+graphs along with other types of glyphs to the visual toolkit, (3) to
+enable an overlaying plot consisting of multiple time series. The
+proposed algorithm has been implemented as the \code{frame_calendar}
+function in the \pkg{sugrrants} package \citep{R-sugrrants} using
+\proglang{R} \citep{R-base}.
+
+The remainder of the paper is organised as follows. Section
+\ref{sec:algorithm} describes the \code{frame_calendar} function and its
+construction in detail. Section \ref{sec:examples} presents examples
+using a range of geometric objects. Section \ref{sec:discussion}
+discusses the advantages and disadvantages of the method.
+
+\section{Construction}\label{construction}
+
+\label{sec:algorithm}
 
 In the section, the algorithms to construct calendar grids, different
 scales, and reference lines and labels are discussed in detail.
@@ -269,7 +291,11 @@ the whole canvas, that is \(\min{(y)}\).
 
 \section{Examples}\label{examples}
 
+\label{sec:examples}
+
 \section{Discussion}\label{discussion}
+
+\label{sec:discussion}
 
 The calendar-based visualisation provides data plots in the familiar (at
 least for the Western world) format of an everyday tool. Special events
