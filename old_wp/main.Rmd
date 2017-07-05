@@ -1,41 +1,40 @@
 ---
+title: "Calendar-based graphics for visualising people's daily schedules"
 author:
-  - name: Earo Wang
-    affiliation: Monash University
-    address: >
-      Department of Econometrics and Business Statistics,
-      Monash University, VIC 3800
-      Australia
-    email: \email{earo.wang@monash.edu}
-  - name: Di Cook
-    affiliation: Monash Univeristy
-    address: >
-      Department of Econometrics and Business Statistics,
-      Monash University, VIC 3800
-      Australia
-    email: \email{dicook@monash.edu}
-  - name: Rob J Hyndman
-    affiliation: Monash Univeristy
-    address: >
-      Department of Econometrics and Business Statistics,
-      Monash University, VIC 3800
-      Australia
-    email: \email{rob.hyndman@monash.edu}
-title:
-  formatted: "Calendar-based graphics for visualising people's daily schedules"
-  plain: "Calendar-based graphics for visualising people's daily schedules"
-abstract: >
-  The abstract of the article.
-keywords:
-  # at least one keyword must be supplied
-  formatted: [calendar-based visualisation, temporal-context data]
-  plain:     [calendar-based visualisation, temporal-context data]
-preamble: >
-  \usepackage{amsmath}
-output: 
-  rticles::jss_article:
-  citation_package: biblatex
+  - familyname: Wang
+    othernames: Earo
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : earo.wang@monash.edu
+    correspondingauthor: true
+  - familyname: Cook
+    othernames: Di
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : dicook@monash.edu
+  - familyname: Hyndman
+    othernames: Rob J
+    address: Department of Econometrics and Business Statistics, \newline Monash University, VIC 3800 \newline Australia.
+    email : rob.hyndman@monash.edu
+fontsize: 11pt
+papersize: a4
+fontfamily: mathpazo
+blind: false
+cover: true
+wpnumber: no/yr
+jelcodes: C10,C14,C22
 bibliography: ["references.bib", "packages.bib"]
+biblio-style: authoryear-comp
+abstract: "A brief summary of our ideas"
+keywords: "blah, blah"
+subparagraph: true
+toc: false
+output: 
+  bookdown::pdf_document2:
+    template: monashwp.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    number_sections: yes
+    citation_package: biblatex
 ---
 
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
@@ -53,7 +52,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-Calendar-based visualisation turns out to be a useful tool in unfolding human-related activities in temporal context. For example, @VanWijkCluster1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It effectively contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in a couple of R packages: `ggTimeSeries` [@R-ggTimeSeries] and `ggcal` [@R-ggcal]. However, their techniques are too constrained to colour-encoding graphics. We shall extend this calendar-based arrangement using linear algebra tools from a single type of heatmap to a broader range of glyphs, from univariate to multivariate cases, from one calendar format to three formats. The proposed algorithm has been developed in the `sugrrants` package [@R-sugrrants] using R [@R-base].
+Calendar-based visualisation turns out to be a useful tool in unfolding human-related activities in temporal context. For example, @van_wijk_cluster_1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It effectively contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in a couple of R packages: `ggTimeSeries` [@R-ggTimeSeries] and `ggcal` [@R-ggcal]. However, their techniques are too constrained to colour-encoding graphics. We shall extend this calendar-based arrangement using linear algebra tools from a single type of heatmap to a broader range of glyphs, from univariate to multivariate cases, from one calendar format to three formats. The proposed algorithm has been developed in the `sugrrants` package [@R-sugrrants] using R [@R-base].
 
 This work was originally motivated by studying hourly foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed across downtown Melbourne since 2009 in order to capture the pulse of city life. (FIGURE ?: weekday at multiple sensors) Figure (?) lends itself to addressing some of the issues: 
 
@@ -62,11 +61,11 @@ This work was originally motivated by studying hourly foot traffic in the city o
 3. to compare and contrast multiple time series on a common scale 
 4. to quickly look up the date when there are unexpected events happening without interactivity.
 
-# The function and its construction
+# The `frame_calendar` function and its construction
 
 In the section, the algorithms to construct calendar grids, different scales, and reference lines and labels are discussed in detail.
 
-```
+```{r args, eval = FALSE, echo = TRUE}
 frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
   nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
@@ -87,17 +86,17 @@ The grid position for any day in the month is given by
 \begin{equation}
   \begin{aligned}
   i &= \lceil (g \mod 35) / 7\rceil, \\
-  j &= g \mod 7. \label{eq:grid}
+  j &= g \mod 7. (\#eq:grid)
   \end{aligned}
 \end{equation}
 
-Figure \ref{fig:month-diagram} illustrates this $(i,j)$ layout for a month where $k=5$. 
+Figure \@ref(fig:month-diagram) illustrates this $(i,j)$ layout for a month where $k=5$. 
 
 ```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "Illustration of the indexing layout for cells in a month."}
 include_graphics("figure/month.pdf")
 ```
 
-To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, label this $b$. Figure \ref{fig:year-diagram} illustrates this  layout.
+To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, label this $b$. Figure \@ref(fig:year-diagram) illustrates this  layout.
 
 ```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "Illustration of the indexing layout for months of one year."}
 include_graphics("figure/year.pdf")
@@ -110,7 +109,7 @@ Then the final points for making the calendar line plots of the pedestrian senso
 \begin{equation}
   \begin{aligned}
   x &= i + (i - 1) \times m + (m - 1) \times b + h, \\
-  y &= -j - (j - 1) \times n - (n - 1) \times b + c. \label{eq:final}
+  y &= -j - (j - 1) \times n - (n - 1) \times b + c. (\#eq:final)
   \end{aligned}
 \end{equation}
 
