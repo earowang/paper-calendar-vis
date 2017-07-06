@@ -13,12 +13,12 @@ Earo Wang\\Monash University \And Di Cook\\Monash Univeristy \And Rob J Hyndman\
 \Plaintitle{Calendar-based graphics for visualising people's daily schedules}
 
 \Abstract{
-It is often challenging to visualise people's daily schedules as the
-data are of multiple seasons and of long length. One such example is
+It is challenging to visualise people's daily schedules as such data are
+often of multiple seasons and of long time span. One example is
 Melbourne pedestrian sensor data which are collected at hourly interval
 and at a number of locations. Owing to human-related activities, the
 primary depiction of the data features multiple temopral scales such as
-time of day, day of week, day of year. We introduce the
+time of day, day of week, day of year. We develop the
 \code{frame\_calendar} function that provides a method for rearranging
 such kind of data in a calendar-based format and accomplishing
 visualisation with the grammar of graphics, and describe its
@@ -160,16 +160,16 @@ follows:
 \tightlist
 \item
   \(k = 1, \dots , 7\) is the day of the week that is the first day of
-  the month
+  the month.
 \item
   \(d = 28, 29, 30\) or \(31\) representing the number of days in any
-  month
+  month.
 \item
   \((i, j)\) is the grid position where \(1 \le i \le 5\) is week within
   the month, \(1 \le j \le 7\), is day of the week.
 \item
   \(g = k, \dots,(k+d)\) indexes the day in the month, inside the 35
-  possible cells
+  possible cells.
 \end{itemize}
 
 The grid position for any day in the month is given by
@@ -217,8 +217,8 @@ to have limits \([0, 1]\) horizontally and vertically. For the
 pedestrian sensor data, within each cell hour is plotted horizontally
 and count is plotted vertically. Each variable is scaled to have values
 between \([0,1]\), using the minimum and maximum of all the data values
-to be displayed. Let \(h\) be the scaled hour, and \(c\) the scaled
-count.
+to be displayed assuming of fixed scales. Let \(h\) be the scaled hour,
+and \(c\) the scaled count.
 
 Then the final points for making the calendar line plots of the
 pedestrian sensor data is given by:
@@ -235,31 +235,33 @@ of the grid, hence the subtractions, and resulting negative values to
 lay out the cells. Within each cell, the starting position is bottom
 left.
 
-The algorithm can be extended relatively easily to layout from one
-single month to multiple years depending on the time span to be
-visualised. The month-by-month arrangement can be determined by the
-user's choice through \(M\) and \(N\). If one would like to compare and
-contrast January, February and so on across multiple years, \(M = 12\)
-and \(N\) depending on the number of years could be setup.
+The algorithm can be relatively easily extended to layout from a single
+month to a few years, based on the period of time to be visualised.
+\((M, N)\) can be determined by the user using the arguments of
+\code{nrow} and \code{ncol}. If the one would like to visualise data
+spanning over three years, for example, \(M = 12\) and \(N = 3\) seem to
+be an appropriate choice when assessing the differences of a given month
+across the years.
 
-Monthly calendar format provides an effective layout to emphasise
-differences between weekdays and weekends as well as day of year (for
-example, public holiday) simultaneously, however, either one of which is
-sufficient in certain visualisation applications. If there is apparent
-depiction of weekday effects but none of yearly effects, weekly calendar
-format (weeks of a year) could be considered employing; otherwise days
-of a month could be laid out for standing-out yearly behaviours.
+The algorithm can be simplified to accommodate the other two types of
+calendar formats. One is comprised of days of a week in columns and
+weeks of a year in rows, and the other is days of a month in columns and
+months of a year in rows, which we refer to as ``weekly'' and ``daily''
+calendar respectively. Due to the arrangements, the weekly calendar puts
+more emphases on days of a week over days of a year, whereas the daily
+one serves as the opposite. The monthly format can be considered as the
+advanced twist of both weekly and daily. Temporal patterns lead to which
+format to be employed. The weekly calendar can be a nice attempt if the
+most variations can be characterised by days of a week. On the other
+hand, the absence of weekly effect but the presence of yearly effect can
+direct to the daily calendar. When both are present, the monthly
+calendar appears to be a better choice.
 
-(MAKE TWO DIAGRAMS ON WEEKLY AND DAILY CALENDAR FORMATS IN KEYNOTE).
-Weekly and daily calendar formats are the simplifications of monthly
-calendar.
-
-We only illustrate that calendar grids are laid out on the horizontal
-direction. The vertical direction can be enabled by swapping \(i\) and
-\(j\) in the algorithm stated above. It is useful for users in some
-countries where they get used to calendars of vertical organisation and
-other possible comparisons like Mondays across the columns rather than
-rows.
+We only illustrate that grids are laid out over the horizontal direction
+in the paper. The vertical direction can be enabled by swapping \(i\)
+and \(j\) in the algorithm stated above. It is particularly useful for
+those users who get accustomed to calendars of vertical organisation in
+some countries.
 
 \subsection{Scales}\label{scales}
 
