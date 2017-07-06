@@ -131,17 +131,17 @@ We only illustrate that grids are laid out over the horizontal direction in the 
 
 Section \ref{sec:grid} discusses the implementation applied to the fixed scale which is using the whole range of all the data values. In addition to the fixed scale (\code{fixed}), the remaining options include free scale on all the days (\code{free}), day of the week only (\code{free_wday}), and day of the month only (\code{free_mday}) for different comparisons.
 
-Grouping the cells according to the common days give rise to these scales. The minimums and maximums computed for every $(i, j)$ together with every $(m, n)$ allow for individual scale over all the single days. Similarly, $j$ indexing day of the week is bundled to determine the scales on days of a week, and $g$ representing the day in the month is for the scales on days of a month.
+Grouping the cells according to the common period give rise to these scales. The minimums and maximums obtained for every $(i, j)$ and $(m, n)$ allow for individual scale over all the single days. Similarly, $j$ indexing day of the week is bundled to determine the scales on days of a week, and $g$ representing the day in the month is for the scales on days of a month.
 
 All the figures shown before are drawn on the fixed scale so that it makes the magnitudes comparable over the whole period of time. On the other hand, some sub-series of small magnitudes yet worth-noting shapes possibly become invisible whilst embedded in the overall picture. These sorts of scales, as a result, complements the calendar-based visualisation in general. (NEED FIGURES)
 
 ## Reference lines and labels
 
-It can be noted that reference lines separating each cell and panel and labels indicating weekday and month are also constructed in order to make calendar-based graphics more accessible and informative. 
+Reference lines dividing each cell and block as well as labels indicating weekday and month are also provided in order to make calendar-based graphics more accessible and informative. 
 
-Regarding the monthly calendar format, the major reference lines separate every month panel and the minor ones separate every day cell, represented by the think and thin lines respectively. The major reference lines are placed on the far left and right as well as the bottom and top of every month panel: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are computed by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are placed on the initial positions: for each $i$, the vertical line is $\min{(x)}$; for each $j$, the horizontal line is $\min{(y)}$.
+Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the think and thin lines respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
 
-The abbreviated month labels located on the top left are obtained through $(\min{(x)}, \max{(y)})$ for every $m$ and $n$. The weekday texts with a single letter are uniformly placed on the bottom of the whole canvas, that is $\min{(y)}$.
+The abbreviated month labels located on the top left are obtained through $(\min{(x)}, \max{(y)})$ for every $m$ and $n$. The weekday texts with a single letter are uniformly placed on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
 
 # Examples
 \label{sec:examples}
@@ -154,8 +154,6 @@ The calendar-based visualisation provides data plots in the familiar (at least f
 This sort of layout may be useful for studying consumer trends, or human behaviour, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity.
 
 The limitation is also evident: hard to perceive trend as not on the common scale.
-
-We shall enable interactivity in the calendar-based graphics for time series data. It will allow users to transform different temporal components and switch displays between overlaying and faceting through key strokes or mouse clicks.
 
 ```{r write-bib}
 write_bib(c( .packages()), 'packages.bib')
