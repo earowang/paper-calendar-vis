@@ -70,9 +70,9 @@ This work was originally motivated by studying foot traffic in the city
 of Melbourne \citep{ped}. There have been 43 installed sensors counting
 pedestrians every hour across downtown Melbourne until recently. The
 dataset can shed lights into understanding people's daily schedules, or
-assisting administration and business planning. (FIGURE ?: weekday at
-multiple sensors) Figure (?) lends itself to a number of issues that
-make exploratory data visualisation challenging in many temporal-context
+assisting administration and business planning. Figure
+\ref{fig:facet-time} lends itself to a number of issues that make
+exploratory data visualisation challenging in many temporal-context
 applications involving human behaviours:
 
 \begin{enumerate}
@@ -92,6 +92,28 @@ applications involving human behaviours:
   between locations.
 \end{enumerate}
 
+\begin{CodeChunk}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/time-series-plot-1} 
+
+}
+
+\caption[Time series plot]{Time series plot}\label{fig:time-series-plot}
+\end{figure}
+\end{CodeChunk}
+
+\begin{CodeChunk}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/facet-time-1} 
+
+}
+
+\caption[Time facet]{Time facet}\label{fig:facet-time}
+\end{figure}
+\end{CodeChunk}
+
 Calendar-based graphics turn out to be a useful tool in unfolding
 human-related activities in temporal context (cite). For example,
 \citet{VanWijkCluster1999} developed a calendar view of heatmap to
@@ -103,12 +125,12 @@ over the turn-outs in the office. The calendar-based heatmap was
 implemented in a couple of R packages: \pkg{ggTimeSeries}
 \citep{R-ggTimeSeries} and \pkg{ggcal} \citep{R-ggcal}. However, these
 techniques are too constrained to colour-encoding graphics and day of
-week considered as the smallest time window. Time of day, which serves
-as one of the most important aspect in explaining variations arising
-from pedestrian sensor data, will be neglected through daily
-aggregation. Additionally if simply using colours encoded as quantities,
-it may becomes less perceivable of the actual variations or behaviours
-from the viewer's perspective.
+week as the smallest time scale. Time of day, which serves as one of the
+most important aspect in explaining variations arising from pedestrian
+sensor data, will be neglected through daily aggregation. Additionally
+if simply using colours encoded as quantities, it may becomes less
+perceivable of the actual variations or behaviours from the viewer's
+perspective.
 
 We propose a new algorithm via linear algebra tools to go beyond the
 calendar-based heatmap. The approach is developed with these conditions
@@ -139,6 +161,13 @@ frame_calendar(
   nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
 )
 \end{verbatim}
+
+\begin{CodeChunk}
+
+
+\begin{center}\includegraphics[width=\textwidth]{figure/flinders-2016-1} \end{center}
+
+\end{CodeChunk}
 
 \subsection{Grid construction}\label{grid-construction}
 
@@ -288,6 +317,13 @@ possibly become invisible whilst embedded in the overall picture. These
 sorts of scales, as a result, complements the calendar-based
 visualisation in general. (NEED FIGURES)
 
+\begin{CodeChunk}
+
+
+\begin{center}\includegraphics[width=\textwidth]{figure/flinders-free-1} \end{center}
+
+\end{CodeChunk}
+
 \subsection{Reference lines and
 labels}\label{reference-lines-and-labels}
 
@@ -314,6 +350,27 @@ cell \(x / 2\) for each \(j\).
 \section{Examples}\label{examples}
 
 \label{sec:examples}
+
+\begin{CodeChunk}
+
+
+\begin{center}\includegraphics[width=\textwidth]{figure/scatterplot-1} \end{center}
+
+\end{CodeChunk}
+
+\begin{CodeChunk}
+
+
+\begin{center}\includegraphics[width=\textwidth]{figure/overlay-1} \end{center}
+
+\end{CodeChunk}
+
+\begin{CodeChunk}
+
+
+\begin{center}\includegraphics[width=\textwidth]{figure/boxplot-1} \end{center}
+
+\end{CodeChunk}
 
 \section{Discussion}\label{discussion}
 

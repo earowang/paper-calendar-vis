@@ -14,5 +14,7 @@ pedestrian_2014 <- ped_full %>%
     Day = wday2(Date_Time, abbr = FALSE, label = TRUE)
   ) %>% 
   arrange(Sensor_ID, Date_Time)
+# remove duplicates
+pedestrian_2014 <- pedestrian_2014[!duplicated(pedestrian_2014), ]
 
 write_rds(pedestrian_2014, path = "data/pedestrian-2014.rds")

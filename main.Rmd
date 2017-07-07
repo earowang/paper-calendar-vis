@@ -41,9 +41,10 @@ bibliography: ["references.bib", "packages.bib"]
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
 library(knitr)
 opts_chunk$set(
-  warning = FALSE, message = FALSE, echo = FALSE,
+  warning = FALSE, message = FALSE, echo = FALSE, 
   fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
-  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "svglite"
+  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "pdf",
+  fig.height = 5, fig.width = 8, out.width = "\\textwidth"
 )
 read_chunk('src/main.R')
 ```
@@ -53,13 +54,19 @@ read_chunk('src/main.R')
 
 # Introduction
 
-This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across downtown Melbourne until recently. The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. (FIGURE ?: weekday at multiple sensors) Figure (?) lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
+This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across downtown Melbourne until recently. The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. Figure \ref{fig:facet-time} lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurred events).
 2. Since the data are often collected at daily frequency or a time scale more frequent than daily, they typically involve a large number of observations spanning over a long time period.
 3. Measurements of a single type are made at multiple locations at a given time point, which creates a need in comparing and contrasting between locations.
+  
+```{r time-series-plot, fig.cap = "Time series plot"}
+```
 
-Calendar-based graphics turn out to be a useful tool in unfolding human-related activities in temporal context (cite). For example, @VanWijkCluster1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It remarkably contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in a couple of R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are too constrained to colour-encoding graphics and day of week considered as the smallest time window. Time of day, which serves as one of the most important aspect in explaining variations arising from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colours encoded as quantities, it may becomes less perceivable of the actual variations or behaviours from the viewer's perspective.
+```{r facet-time, fig.cap = "Time facet"}
+```
+
+Calendar-based graphics turn out to be a useful tool in unfolding human-related activities in temporal context (cite). For example, @VanWijkCluster1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It remarkably contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in a couple of R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are too constrained to colour-encoding graphics and day of week as the smallest time scale. Time of day, which serves as one of the most important aspect in explaining variations arising from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colours encoded as quantities, it may becomes less perceivable of the actual variations or behaviours from the viewer's perspective.
 
 We propose a new algorithm via linear algebra tools to go beyond the calendar-based heatmap. The approach is developed with these conditions in mind: (1) to make time of day present in addition to the existing temporal components such as day of week and day of year, (2) to add line graphs along with other types of glyphs to the visual toolkit, (3) to enable an overlaying plot consisting of multiple time series. The proposed algorithm has been implemented as the \code{frame_calendar} function in the \pkg{sugrrants} package [@R-sugrrants] using \proglang{R} [@R-base].
 
@@ -75,6 +82,9 @@ frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
   nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
 )
+```
+
+```{r flinders-2016, fig.height = 6.5}
 ```
 
 ## Grid construction
@@ -135,6 +145,9 @@ Grouping the cells according to the common period give rise to these scales. The
 
 All the figures shown before are drawn on the fixed scale so that it makes the magnitudes comparable over the whole period of time. On the other hand, some sub-series of small magnitudes yet worth-noting shapes possibly become invisible whilst embedded in the overall picture. These sorts of scales, as a result, complements the calendar-based visualisation in general. (NEED FIGURES)
 
+```{r flinders-free, fig.height = 6.5}
+```
+
 ## Reference lines and labels
 
 Reference lines dividing each cell and block as well as labels indicating weekday and month are also provided in order to make calendar-based graphics more accessible and informative. 
@@ -145,6 +158,15 @@ The abbreviated month labels located on the top left are obtained through $(\min
 
 # Examples
 \label{sec:examples}
+
+```{r scatterplot, fig.height = 5}
+```
+
+```{r overlay, fig.height = 6.5}
+```
+
+```{r boxplot, fig.height = 6.5}
+```
 
 # Discussion
 \label{sec:discussion}
