@@ -105,9 +105,19 @@ prettify(p_two, size = 3, label.padding = unit(0.15, "lines"))
 pedestrian_2016 <- pedestrian_2014 %>% 
   filter(Year == 2016, Month == "December") %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date)
+dat <- mutate(group_by(pedestrian_2016, Date_Time), Mean = mean(.Hourly_Counts))
 p_boxplot <- pedestrian_2016 %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date_Time)) +
-  geom_boxplot(outlier.size = 0.3, width = 0.004, position = "identity")
+  ggplot() +
+  geom_boxplot(
+    aes(x = .Time, y = .Hourly_Counts, group = Date_Time),
+    outlier.size = 0.3, width = 0.004, position = "identity",
+    colour = "grey50"
+  ) +
+  geom_line(
+    data = dat,
+    aes(x = .Time, y = Mean, group = Date),
+    colour = "#d95f02", size = 1,
+  )
 prettify(p_boxplot)
 
 ## END
