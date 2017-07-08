@@ -54,16 +54,16 @@ read_chunk('src/main.R')
 
 # Introduction
 
-This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across downtown Melbourne until recently. The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. Figure \ref{fig:facet-time} lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
+This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across the downtown area until recently. The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. Figure \ref{fig:facet-time} lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurred events).
 2. Since the data are often collected at daily frequency or a time scale more frequent than daily, they typically involve a large number of observations spanning over a long time period.
-3. Measurements of a single type are made at multiple locations at a given time point, which creates a need in comparing and contrasting between locations.
-  
-```{r time-series-plot, fig.cap = "Time series plot"}
+3. Measurements of a single type are made at multiple locations at a given time point, which creates the need for comparing and contrasting between locations.
+
+```{r time-series-plot, fig.height = 4.5, fig.cap = "Time series plot about the number of pedestrians over the year of 2016 at two train stations in the city of Melbourne. Small multiples of line graphs demonstrate some common periodic behaviours, for example weekly patterns, possessed by both sensors."}
 ```
 
-```{r facet-time, fig.cap = "Time facet"}
+```{r facet-time, fig.cap = "Hourly pedestrian counts facetted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--at both stations primarily driven by the commuting traffic. There are much more weekenders around Flinders Street Station than Flagstaff Station."}
 ```
 
 Calendar-based graphics turn out to be a useful tool in unfolding human-related activities in temporal context (cite). For example, @VanWijkCluster1999 developed a calendar view of heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It remarkably contrasts weekdays and weekends, highlights public holiday, and presents other known seasons like school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in a couple of R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are too constrained to colour-encoding graphics and day of week as the smallest time scale. Time of day, which serves as one of the most important aspect in explaining variations arising from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colours encoded as quantities, it may becomes less perceivable of the actual variations or behaviours from the viewer's perspective.
@@ -84,7 +84,7 @@ frame_calendar(
 )
 ```
 
-```{r flinders-2016, fig.height = 6.5}
+```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of 3 by 4 on the monthly calendar format presents all the traffic in 2016. The disparities between weekday and weekend along with public holiday pop out to viewers in a clearer manner."}
 ```
 
 ## Grid construction
@@ -145,7 +145,7 @@ Grouping the cells according to the common period give rise to these scales. The
 
 All the figures shown before are drawn on the fixed scale so that it makes the magnitudes comparable over the whole period of time. On the other hand, some sub-series of small magnitudes yet worth-noting shapes possibly become invisible whilst embedded in the overall picture. These sorts of scales, as a result, complements the calendar-based visualisation in general. (NEED FIGURES)
 
-```{r flinders-free, fig.height = 6.5}
+```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape becomes more distinctive at the expense of the magnitude comparison loss."}
 ```
 
 ## Reference lines and labels
@@ -159,13 +159,19 @@ The abbreviated month labels located on the top left are obtained through $(\min
 # Examples
 \label{sec:examples}
 
-```{r scatterplot, fig.height = 5}
+## Lag scatterplot
+
+```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot on the `daily' calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The stronger association between the one-hour-ahead count and the present takes place on non-working days."}
 ```
 
-```{r overlay, fig.height = 6.5}
+## Overlaying graph
+
+```{r overlay, fig.height = 6.5, fig.cap = "Superimposing line graphs of two sensors on the monthly calendar. The orange line, represented by the number of pedestrians at Flinders Street Station, is on top of the green one indicating Flagstaff Station. Flinders Street Station attracts more pedestrians during the afternoon time and non-working days."}
 ```
 
-```{r boxplot, fig.height = 6.5}
+## Boxplot
+
+```{r boxplot, fig.height = 6.5, fig.cap = "Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
 ```
 
 # Discussion

@@ -68,7 +68,7 @@ usage by applying to the pedetrian data.
 
 This work was originally motivated by studying foot traffic in the city
 of Melbourne \citep{ped}. There have been 43 installed sensors counting
-pedestrians every hour across downtown Melbourne until recently. The
+pedestrians every hour across the downtown area until recently. The
 dataset can shed lights into understanding people's daily schedules, or
 assisting administration and business planning. Figure
 \ref{fig:facet-time} lends itself to a number of issues that make
@@ -88,7 +88,7 @@ applications involving human behaviours:
   observations spanning over a long time period.
 \item
   Measurements of a single type are made at multiple locations at a
-  given time point, which creates a need in comparing and contrasting
+  given time point, which creates the need for comparing and contrasting
   between locations.
 \end{enumerate}
 
@@ -99,7 +99,7 @@ applications involving human behaviours:
 
 }
 
-\caption[Time series plot]{Time series plot}\label{fig:time-series-plot}
+\caption[Time series plot about the number of pedestrians over the year of 2016 at two train stations in the city of Melbourne]{Time series plot about the number of pedestrians over the year of 2016 at two train stations in the city of Melbourne. Small multiples of line graphs demonstrate some common periodic behaviours, for example weekly patterns, possessed by both sensors.}\label{fig:time-series-plot}
 \end{figure}
 \end{CodeChunk}
 
@@ -110,7 +110,7 @@ applications involving human behaviours:
 
 }
 
-\caption[Time facet]{Time facet}\label{fig:facet-time}
+\caption[Hourly pedestrian counts facetted by sensors and days of the week using lines]{Hourly pedestrian counts facetted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--at both stations primarily driven by the commuting traffic. There are much more weekenders around Flinders Street Station than Flagstaff Station.}\label{fig:facet-time}
 \end{figure}
 \end{CodeChunk}
 
@@ -163,10 +163,14 @@ frame_calendar(
 \end{verbatim}
 
 \begin{CodeChunk}
+\begin{figure}
 
+{\centering \includegraphics[width=\textwidth]{figure/flinders-2016-1} 
 
-\begin{center}\includegraphics[width=\textwidth]{figure/flinders-2016-1} \end{center}
+}
 
+\caption[The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs]{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of 3 by 4 on the monthly calendar format presents all the traffic in 2016. The disparities between weekday and weekend along with public holiday pop out to viewers in a clearer manner.}\label{fig:flinders-2016}
+\end{figure}
 \end{CodeChunk}
 
 \subsection{Grid construction}\label{grid-construction}
@@ -318,10 +322,14 @@ sorts of scales, as a result, complements the calendar-based
 visualisation in general. (NEED FIGURES)
 
 \begin{CodeChunk}
+\begin{figure}
 
+{\centering \includegraphics[width=\textwidth]{figure/flinders-free-1} 
 
-\begin{center}\includegraphics[width=\textwidth]{figure/flinders-free-1} \end{center}
+}
 
+\caption[Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days]{Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape becomes more distinctive at the expense of the magnitude comparison loss.}\label{fig:flinders-free}
+\end{figure}
 \end{CodeChunk}
 
 \subsection{Reference lines and
@@ -351,25 +359,43 @@ cell \(x / 2\) for each \(j\).
 
 \label{sec:examples}
 
+\subsection{Lag scatterplot}\label{lag-scatterplot}
+
 \begin{CodeChunk}
+\begin{figure}
 
+{\centering \includegraphics[width=\textwidth]{figure/scatterplot-1} 
 
-\begin{center}\includegraphics[width=\textwidth]{figure/scatterplot-1} \end{center}
+}
 
+\caption[Lag scatterplot on the `daily' calendar]{Lag scatterplot on the `daily' calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The stronger association between the one-hour-ahead count and the present takes place on non-working days.}\label{fig:scatterplot}
+\end{figure}
 \end{CodeChunk}
 
+\subsection{Overlaying graph}\label{overlaying-graph}
+
 \begin{CodeChunk}
+\begin{figure}
 
+{\centering \includegraphics[width=\textwidth]{figure/overlay-1} 
 
-\begin{center}\includegraphics[width=\textwidth]{figure/overlay-1} \end{center}
+}
 
+\caption[Superimposing line graphs of two sensors on the monthly calendar]{Superimposing line graphs of two sensors on the monthly calendar. The orange line, represented by the number of pedestrians at Flinders Street Station, is on top of the green one indicating Flagstaff Station. Flinders Street Station attracts more pedestrians during the afternoon time and non-working days.}\label{fig:overlay}
+\end{figure}
 \end{CodeChunk}
 
+\subsection{Boxplot}\label{boxplot}
+
 \begin{CodeChunk}
+\begin{figure}
 
+{\centering \includegraphics[width=\textwidth]{figure/boxplot-1} 
 
-\begin{center}\includegraphics[width=\textwidth]{figure/boxplot-1} \end{center}
+}
 
+\caption[Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages]{Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
+\end{figure}
 \end{CodeChunk}
 
 \section{Discussion}\label{discussion}
