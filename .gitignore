@@ -2,5 +2,5 @@
 cache/
 *.run.xml
 .Rproj.user
-data/
+data/*.csv
 *.bbl

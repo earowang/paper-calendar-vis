@@ -1,25 +1,40 @@
 ## ---- load
+library(ggmap)
 library(lubridate)
 library(tidyverse)
 library(sugrrants)
 
-pedestrian_2014 <- read_rds("data/pedestrian-2014.rds")
+pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
+
+## ---- ped-map
+ped_loc <- pedestrian_2016 %>% 
+  distinct(Longitude, Latitude)
+melb_map <- get_map(
+  location = c(min(ped_loc$Longitude), min(ped_loc$Latitude),
+               max(ped_loc$Longitude), max(ped_loc$Latitude)),
+  zoom = 14
+)
+
+ggmap(melb_map) +
+  geom_point(data = ped_loc, aes(x = Longitude, y = Latitude),
+    colour = "#756bb1", alpha = 0.8, size = 3) +
+  xlab("Longitude") +
+  ylab("Latitude")
 
 ## ---- time-series-plot
-two_sensors <- c(
+sensors10 <- c(
+  "Bourke Street Mall (North)",
   "Flagstaff Station",
+  "State Library",
+  "Chinatown-Bourke St (South)",
+  "Melbourne Convention Exhibition Centre",
+  "QV Market-Elizabeth St (West)",
+  "Lonsdale St (South)",
   "Flinders Street Station Underpass"
 )
-subset_df <- pedestrian_2014 %>% 
-  filter(
-    Sensor_Name %in% two_sensors,
-    Year < 2017
-)
-
-subset_df_2016 <- subset_df %>% 
-  filter(Year == 2016)
-
-subset_df_2016 %>% 
+subdat <- pedestrian_2016 %>% 
+  filter(Sensor_Name %in% sensors10)
+subdat %>% 
   ggplot(aes(x = Date_Time, y = Hourly_Counts, colour = Sensor_Name)) +
   geom_line(size = 0.3) +
   facet_grid(
@@ -35,7 +50,7 @@ subset_df_2016 %>%
   ylab("Hourly Counts")
 
 ## ---- facet-time
-subset_df_2016 %>% 
+subdat %>% 
   ggplot(aes(x = Time, y = Hourly_Counts, group = Date, colour = Sensor_Name)) +
   geom_line(size = 0.3) +
   facet_grid(
@@ -52,39 +67,46 @@ subset_df_2016 %>%
   ylab("Hourly Counts")
 
 ## ---- flinders-2016
-flinders_2016 <- subset_df_2016 %>% 
+flinders <- subdat %>% 
   filter(Sensor_Name == "Flinders Street Station Underpass")
 
-flinders_cal_2016 <- flinders_2016 %>% 
+flinders_cal <- flinders %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date)
 
-p_flinders <- flinders_cal_2016 %>% 
+p_flinders <- flinders_cal %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-  geom_line(colour = "#d95f02")
+  geom_line()
 prettify(p_flinders, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- flinders-free
-flinders_cal_free <- flinders_2016 %>% 
+flinders_cal_free <- flinders %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, scale = "free")
 
 p_flinders_free <- flinders_cal_free %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-  geom_line(colour = "#d95f02")
+  geom_line()
 prettify(p_flinders_free, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- scatterplot
-flinders_cal_day <- flinders_2016 %>% 
+flinders_cal_day <- flinders %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Hourly_Counts, y = Lagged_Counts, date = Date, 
     calendar = "daily")
 
 p_flinders_day <- flinders_cal_day %>% 
   ggplot(aes(x = .Hourly_Counts, y = .Lagged_Counts, group = Date)) +
-  geom_point(colour = "#d95f02", size = 0.5)
+  geom_point(size = 0.5)
 prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- overlay
-subset_cal <- subset_df_2016 %>% 
+two_sensors <- c(
+  "Flagstaff Station",
+  "Flinders Street Station Underpass"
+)
+subset_df <- pedestrian_2016 %>% 
+  filter(Sensor_Name %in% two_sensors)
+
+subset_cal <- subset_df %>% 
   frame_calendar(Time, Hourly_Counts, Date)
 
 p_two <- subset_cal %>% 
@@ -102,11 +124,11 @@ p_two <- subset_cal %>%
 prettify(p_two, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot
-pedestrian_2016 <- pedestrian_2014 %>% 
-  filter(Year == 2016, Month == "December") %>% 
+pedestrian_dec <- pedestrian_2016 %>% 
+  filter(Month == "December") %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date)
-dat <- mutate(group_by(pedestrian_2016, Date_Time), Mean = mean(.Hourly_Counts))
-p_boxplot <- pedestrian_2016 %>% 
+dat <- mutate(group_by(pedestrian_dec, Date_Time), Mean = mean(.Hourly_Counts))
+p_boxplot <- pedestrian_dec %>% 
   ggplot() +
   geom_boxplot(
     aes(x = .Time, y = .Hourly_Counts, group = Date_Time),
