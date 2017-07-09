@@ -1,5 +1,6 @@
 ## ---- load
 library(ggmap)
+library(forcats)
 library(lubridate)
 library(tidyverse)
 library(sugrrants)
@@ -33,7 +34,8 @@ sensors10 <- c(
   "Flinders Street Station Underpass"
 )
 subdat <- pedestrian_2016 %>% 
-  filter(Sensor_Name %in% sensors10)
+  filter(Sensor_Name %in% sensors10) %>% 
+  mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude))
 subdat %>% 
   ggplot(aes(x = Date_Time, y = Hourly_Counts, colour = Sensor_Name)) +
   geom_line(size = 0.3) +
@@ -141,42 +143,3 @@ p_boxplot <- pedestrian_dec %>%
     colour = "#d95f02", size = 1,
   )
 prettify(p_boxplot)
-
-## END
-
-## ---- rect
-# two_sensors_wide <- subset_df_2016 %>% 
-#   select(-Sensor_ID) %>% 
-#   spread(key = Sensor_Name, value = Hourly_Counts) %>% 
-#   rename(
-#     Flinders = `Flinders Street Station Underpass`,
-#     Flagstaff = `Flagstaff Station`
-#   ) %>% 
-#   mutate(
-#     Diff = Flinders - Flagstaff,
-#     More = if_else(Diff > 0, "Flinders Street Station Underpass", 
-#       "Flagstaff Station")
-#   )
-# sensors_wide_calendar <- two_sensors_wide %>% 
-#   frame_calendar(x = Time, y = vars(Flinders, Flagstaff), date = Date)
-# p_rect <- sensors_wide_calendar %>%
-#   ggplot() +
-#   geom_rect(aes(xmin = .Time, xmax = .Time + 0.003,
-#     ymin = .Flagstaff, ymax = .Flinders, fill = More
-#   )) +
-#   scale_fill_brewer(palette = "Dark2") +
-#   theme(legend.position = "bottom")
-# prettify(p_rect)
-
-## ---- flinders-years
-# flinders_1416 <- pedestrian_2014 %>% 
-#   filter(
-#     Year < 2017,
-#     Sensor_Name == "Flinders Street Station Underpass"
-#   ) %>%  
-#   frame_calendar(x = Time, y = Hourly_Counts, date = Date, nrow = 3)
-# p_full <- flinders_1416 %>% 
-#   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-#   geom_line(colour = "#d95f02")
-# prettify(p_full, size = 3, label.padding = unit(0.15, "lines"))
-#

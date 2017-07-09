@@ -7,7 +7,7 @@ author:
       Monash University, VIC 3800
       Australia
     email: \email{earo.wang@monash.edu}
-  - name: Di Cook
+  - name: Dianne Cook
     affiliation: Monash Univeristy
     address: >
       Department of Econometrics and Business Statistics,
@@ -25,7 +25,7 @@ title:
   formatted: "Calendar-based graphics for visualising people's daily schedules"
   plain: "Calendar-based graphics for visualising people's daily schedules"
 abstract: >
-  It is challenging to visualise people's daily schedules as such data are often of multiple seasons and of long time span. One example is Melbourne pedestrian sensor data which are collected at hourly interval and at a number of locations. Owing to human-related activities, the primary depiction of the data features multiple temopral scales such as time of day, day of week, day of year. We develop the \code{frame\_calendar} function that provides a method for rearranging such kind of data in a calendar-based format and accomplishing visualisation with the grammar of graphics, and describe its construction in detail. We provide some examples to demonstrate its usage by applying to the pedetrian data.
+  It is challenging to visualise people's daily schedules as such data are often of multiple seasons and of long time span. One example is Melbourne pedestrian sensor data which are collected at hourly interval and at a number of locations. Owing to human activities, the data features multiple temopral scales such as time of day, day of week, day of year. We develop the \code{frame\_calendar} function that provides a method for rearranging such kind of data in a calendar-based format and accomplishing visualisation with the grammar of graphics, and describe its construction in detail. We provide some examples to demonstrate its usage by applying to the pedetrian data.
 keywords:
   # at least one keyword must be supplied
   formatted: [calendar-based visualisation, temporal-context data]
@@ -54,7 +54,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across the downtown area until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. To take a glimpse at such temporal-context data, we start with the conventional time series plot (Figure \ref{fig:time-series-plot}). Figure \ref{fig:facet-time} lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
+This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across the downtown area until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to take a glimpse at such data. Small multiples, shown as Figure \ref{fig:time-series-plot}, give an overall picture of foot traffic at a selection of 7 sensors. Figure \ref{fig:facet-time}, complemented to the Figure \ref{fig:time-series-plot}, provides another aspect of temporal patterns in the more detailed level by faceting day of the week. It lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurred events).
 2. Since the data are often collected at daily frequency or a time scale more frequent than daily, they typically involve a large number of observations spanning over a long time period.
@@ -63,7 +63,7 @@ This work was originally motivated by studying foot traffic in the city of Melbo
 ```{r ped-map, fig.width = 4, out.width = "0.55\\linewidth", fig.cap = "Map of the Melbourne city along with purple dots indicating sensor locations."}
 ```
 
-```{r time-series-plot, fig.height = 10.5, fig.cap = "Time series plot about the number of pedestrians over the year of 2016 at a selection of 7 sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show the foot traffic varies from one sensor to another in terms of both time and number. The traffic, specifically at two train stations (Flagstaff Station and Flinders Street Station), is primarily driven by the commuters, as depicted in the graph."}
+```{r time-series-plot, fig.height = 10.5, fig.cap = "Time series plot about the number of pedestrians over the year of 2016 at a selection of 7 sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The traffic, specifically at two train stations (Flagstaff Station and Flinders Street Station), is primarily driven by the commuters, as depicted in the graph."}
 ```
 
 ```{r facet-time, fig.height = 10.5, fig.cap = "Hourly pedestrian counts facetted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--across all the sensors. The temporal patterns are subject to the sensor locations too."}
@@ -73,22 +73,24 @@ Calendar-based graphics turn out to be a useful tool in unfolding human-related 
 
 We propose a new algorithm via linear algebra tools to go beyond the calendar-based heatmap. The approach is developed with these conditions in mind: (1) to make time of day present in addition to the existing temporal components such as day of week and day of year, (2) to add line graphs along with other types of glyphs to the visual toolkit, (3) to enable an overlaying plot consisting of multiple time series. The proposed algorithm has been implemented as the \code{frame_calendar} function in the \pkg{sugrrants} package [@R-sugrrants] using \proglang{R} [@R-base].
 
-The remainder of the paper is organised as follows. Section \ref{sec:algorithm} describes the \code{frame_calendar} function and the detailed construction. Section \ref{sec:examples} presents some examples of its usage. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
+The remainder of the paper is organised as follows. Section \ref{sec:algorithm} describes the \code{frame_calendar} function and its construction. Section \ref{sec:examples} presents some examples of its usage. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
 
 # Construction 
 \label{sec:algorithm}
 
-In the section, the algorithms to construct calendar grids, different scales, and reference lines and labels are discussed in detail.
+Figure \ref{fig:flinders-2016} shows the line glyphs organised in the monthly calendar over the year of 2016. This is achieved by the \code{frame_calendar} function computing the new coordinates according to the input data variables; in turn the rearranged data values are plotted using the \pkg{ggplot2} package [@R-ggplot2], which is the implementation of the grammar of graphics (@wilkinson2006grammar and @wickham2010layered). The \code{frame_calendar} function assumes that the underlying data structure is tidy data [@wickham2014tidy].
 
-```
-frame_calendar(
-  data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
-  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
-)
+<!-- ``` -->
+<!-- frame_calendar( -->
+<!--   data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE,  -->
+<!--   nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed" -->
+<!-- ) -->
+<!-- ``` -->
+
+```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of 3 by 4 on the monthly calendar format presents all the traffic in 2016. The disparities between weekday and weekend along with public holiday pop out to viewers in the clearer manner."}
 ```
 
-```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of 3 by 4 on the monthly calendar format presents all the traffic in 2016. The disparities between weekday and weekend along with public holiday pop out to viewers in a clearer manner."}
-```
+The algorithms to construct calendar grids, several scales, as well as reference lines and labels are described in the section.
 
 ## Grid construction
 \label{sec:grid}
@@ -136,19 +138,19 @@ Note that for the vertical direction, the top left is the starting point of the 
 
 The algorithm can be relatively easily extended to layout from a single month to a few years, based on the period of time to be visualised. $(M, N)$ can be determined by the user using the arguments of \code{nrow} and \code{ncol}. If the one would like to visualise data spanning over three years, for example, $M = 12$ and $N = 3$ seem to be an appropriate choice when assessing the differences of a given month across the years.
 
-The algorithm can be simplified to accommodate the other two types of calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as "weekly" and "daily" calendar respectively. Due to the arrangements, the weekly calendar puts more emphases on days of a week over days of a year, whereas the daily one serves as the opposite. The monthly format can be considered as the advanced twist of both weekly and daily. Temporal patterns lead to which format to be employed. The weekly calendar can be a nice attempt if the most variations can be characterised by days of a week. On the other hand, the absence of weekly effect but the presence of yearly effect can direct to the daily calendar. When both are present, the monthly calendar appears to be a better choice.
+The algorithm can be simplified to accommodate the other two types of calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as "weekly" and "daily" calendar respectively. Due to the way of the arrangement, the weekly calendar puts more emphases on days of a week over days of a year, whereas the daily one serves as the opposite. The monthly format can be considered as the advanced twist of both weekly and daily. Temporal patterns lead to which format to be employed. The weekly calendar can be a nice attempt if the most variations can be characterised by days of a week. On the other hand, the absence of weekly effect but the presence of yearly effect can direct to the daily calendar. When both are present, the monthly calendar appears to be a better choice.
 
-We only illustrate that grids are laid out over the horizontal direction in the paper. The vertical direction can be enabled by swapping $i$ and $j$ in the algorithm stated above. It is particularly useful for those users who get accustomed to calendars of vertical organisation in some countries.
+We only illustrate that grids are laid out over the horizontal direction in the paper. The vertical direction can be enabled by swapping $i$ and $j$ in the algorithm stated above. It particularly benefits those users who get accustomed to calendars of vertical organisation in some countries.
 
 ## Scales
 
-Section \ref{sec:grid} discusses the implementation applied to the fixed scale which is using the whole range of all the data values. In addition to the fixed scale (\code{fixed}), the remaining options include free scale on all the days (\code{free}), day of the week only (\code{free_wday}), and day of the month only (\code{free_mday}) for different comparisons.
+Section \ref{sec:grid} discusses the implementation applied to the fixed scale which is using the whole range of all the data values. The \code{scale} argument controls the scaling of the display. In addition to the fixed scale (\code{fixed}), the remaining options include free scale on all the days (\code{free}), day of the week only (\code{free_wday}), and day of the month only (\code{free_mday}) for different comparisons.
 
-Grouping the cells according to the common period give rise to these scales. The minimums and maximums obtained for every $(i, j)$ and $(m, n)$ allow for individual scale over all the single days. Similarly, $j$ indexing day of the week is bundled to determine the scales on days of a week, and $g$ representing the day in the month is for the scales on days of a month.
+Grouping the cells according to the common period give rise to these scales. The minimums and maximums obtained for every $(i, j)$ and $(m, n)$ allow for individual scale over all the single days. Similarly, $j$ indexing day of the week is grouped to determine the scales on days of a week, and $g$ representing the day in the month is for the scales on days of a month.
 
-All the figures shown before are drawn on the fixed scale so that it makes the magnitudes comparable over the whole period of time. On the other hand, some sub-series of small magnitudes yet worth-noting shapes possibly become invisible whilst embedded in the overall picture. These sorts of scales, as a result, complements the calendar-based visualisation in general. (NEED FIGURES)
+Figure \ref{fig:flinders-2016} is drawn on the fixed scale so that it makes the magnitudes comparable over the whole period of time. On the other hand, some sub-series of small magnitudes yet worth-noting behaviours may become invisible whilst embedded in the overall picture. These sorts of scales, as a result, complements the calendar-based visualisation in general. Figure \ref{fig:flinders-free} provides an example of the free scale on all the days.
 
-```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape becomes more distinctive at the expense of the magnitude comparison loss."}
+```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive at the expense of the magnitude comparison loss."}
 ```
 
 ## Reference lines and labels
@@ -164,7 +166,7 @@ The abbreviated month labels located on the top left are obtained through $(\min
 
 ## Lag scatterplot
 
-```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot on the `daily' calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The stronger association between the one-hour-ahead count and the present takes place on non-working days."}
+```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot on the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days."}
 ```
 
 ## Overlaying graph
@@ -183,8 +185,6 @@ The abbreviated month labels located on the top left are obtained through $(\min
 The calendar-based visualisation provides data plots in the familiar (at least for the Western world) format of an everyday tool. Special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, rather than a typical work day. 
 
 This sort of layout may be useful for studying consumer trends, or human behaviour, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity.
-
-The limitation is also evident: hard to perceive trend as not on the common scale.
 
 ```{r write-bib}
 write_bib(c( .packages()), 'packages.bib')
