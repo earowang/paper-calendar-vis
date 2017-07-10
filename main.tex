@@ -378,22 +378,9 @@ weekday texts with a single letter are uniformly placed on the bottom of
 the whole canvas, that is \(\min{(y)}\), with the central position of a
 cell \(x / 2\) for each \(j\).
 
-\section{Other variations}\label{other-variations}
+\section{Variations}\label{variations}
 
 \label{sec:examples}
-
-\subsection{Lag scatterplot}\label{lag-scatterplot}
-
-\begin{CodeChunk}
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/scatterplot-1} 
-
-}
-
-\caption[Lag scatterplot on the daily calendar]{Lag scatterplot on the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days.}\label{fig:scatterplot}
-\end{figure}
-\end{CodeChunk}
 
 \subsection{Overlaying subsets}\label{overlaying-subsets}
 
@@ -426,7 +413,18 @@ The nighttime events, such as White Night and New Year Evening Firework,
 has barely affected the operation of Flagstaff Station but heavily
 affected the incoming traffic to Flinders Street Station on these days.
 
-\subsection{Boxplot}\label{boxplot}
+\subsection{Different types of plots}\label{different-types-of-plots}
+
+\begin{CodeChunk}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/scatterplot-1} 
+
+}
+
+\caption[Lag scatterplot on the daily calendar]{Lag scatterplot on the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days.}\label{fig:scatterplot}
+\end{figure}
+\end{CodeChunk}
 
 \begin{CodeChunk}
 \begin{figure}
@@ -435,7 +433,7 @@ affected the incoming traffic to Flinders Street Station on these days.
 
 }
 
-\caption[Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages]{Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
+\caption[Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages]{Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
 

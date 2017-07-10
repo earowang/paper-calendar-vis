@@ -138,4 +138,4 @@ p_boxplot <- pedestrian_dec %>%
     aes(x = .Time, y = Mean, group = Date),
     colour = "#d95f02", size = 1,
   )
-prettify(p_boxplot)
+prettify(p_boxplot, label = c("label", "text", "text2"))

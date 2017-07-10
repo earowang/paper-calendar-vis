@@ -181,7 +181,7 @@ The nighttime events, such as White Night and New Year Evening Firework, has bar
 ```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot on the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days."}
 ```
 
-```{r boxplot, fig.height = 6.5, fig.cap = "Boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
+```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
 ```
 
 # Discussion
