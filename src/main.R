@@ -23,18 +23,13 @@ ggmap(melb_map) +
   ylab("Latitude")
 
 ## ---- time-series-plot
-sensors10 <- c(
-  "Bourke Street Mall (North)",
-  "Flagstaff Station",
+sensors <- c(
   "State Library",
-  "Chinatown-Bourke St (South)",
-  "Melbourne Convention Exhibition Centre",
-  "QV Market-Elizabeth St (West)",
-  "Lonsdale St (South)",
+  "Flagstaff Station",
   "Flinders Street Station Underpass"
 )
 subdat <- pedestrian_2016 %>% 
-  filter(Sensor_Name %in% sensors10) %>% 
+  filter(Sensor_Name %in% sensors) %>% 
   mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude))
 subdat %>% 
   ggplot(aes(x = Date_Time, y = Hourly_Counts, colour = Sensor_Name)) +
@@ -101,12 +96,8 @@ p_flinders_day <- flinders_cal_day %>%
 prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- overlay
-two_sensors <- c(
-  "Flagstaff Station",
-  "Flinders Street Station Underpass"
-)
 subset_df <- pedestrian_2016 %>% 
-  filter(Sensor_Name %in% two_sensors)
+  filter(Sensor_Name %in% sensors)
 
 subset_cal <- subset_df %>% 
   frame_calendar(Time, Hourly_Counts, Date)
@@ -114,14 +105,19 @@ subset_cal <- subset_df %>%
 p_two <- subset_cal %>% 
   ggplot() +
   geom_line(
-    data = filter(subset_cal, Sensor_Name == two_sensors[1]),
+    data = filter(subset_cal, Sensor_Name == sensors[1]),
     aes(.Time, .Hourly_Counts, group = Date),
-    colour = "#1b9e77", alpha = 0.8
+    colour = "#1b9e77"
   ) +
   geom_line(
-    data = filter(subset_cal, Sensor_Name == two_sensors[2]),
+    data = filter(subset_cal, Sensor_Name == sensors[2]),
     aes(.Time, .Hourly_Counts, group = Date),
-    colour = "#d95f02", alpha = 0.8
+    colour = "#d95f02"
+  ) +
+  geom_line(
+    data = filter(subset_cal, Sensor_Name == sensors[3]),
+    aes(.Time, .Hourly_Counts, group = Date),
+    colour = "#7570b3"
   )
 prettify(p_two, size = 3, label.padding = unit(0.15, "lines"))
 
