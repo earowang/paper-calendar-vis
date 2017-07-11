@@ -84,6 +84,15 @@ p_flinders_free <- flinders_cal_free %>%
   geom_line()
 prettify(p_flinders_free, size = 3, label.padding = unit(0.15, "lines"))
 
+## ---- flinders-polar
+flinders_polar <- flinders %>% 
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date, polar = TRUE)
+
+p_flinders_polar <- flinders_polar %>% 
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
+  geom_path()
+prettify(p_flinders_polar, size = 3, label.padding = unit(0.15, "lines"))
+
 ## ---- scatterplot
 flinders_cal_day <- flinders %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
@@ -102,7 +111,7 @@ subset_df <- pedestrian_2016 %>%
 subset_cal <- subset_df %>% 
   frame_calendar(Time, Hourly_Counts, Date)
 
-p_two <- subset_cal %>% 
+p_three <- subset_cal %>% 
   ggplot() +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[1]),
@@ -119,7 +128,7 @@ p_two <- subset_cal %>%
     aes(.Time, .Hourly_Counts, group = Date),
     colour = "#7570b3"
   )
-prettify(p_two, size = 3, label.padding = unit(0.15, "lines"))
+prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot
 pedestrian_dec <- pedestrian_2016 %>% 

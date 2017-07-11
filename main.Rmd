@@ -159,6 +159,9 @@ Figure \ref{fig:flinders-2016} is drawn on the fixed scale so that it makes the 
 
 ## Polar coordinates
 
+```{r flinders-polar, fig.height = 6.5, fig.cap = "Line gplyphs on polar coordinates."}
+```
+
 ## Reference lines and labels
 
 Reference lines dividing each cell and block as well as labels indicating weekday and month are also provided in order to make calendar-based graphics more accessible and informative. 
