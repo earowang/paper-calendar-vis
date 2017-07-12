@@ -181,19 +181,19 @@ The comparison of one sensor to another adds additional insights to the dataset,
 ```{r overlay, fig.height = 6.5, fig.cap = "Superimposing line graphs of three sensors in the monthly calendar. The orange line and the purple line, represented by the number of pedestrians at Flagstaff Station and Flinders Street Station, are on top of the green one indicating State Library. Flagstaff station is not as busy as the other two on non-work days."}
 ```
 
-The nighttime events, such as White Night and New Year Evening Firework, has barely affected the operation of Flagstaff Station but heavily affected the incoming traffic to Flinders Street Station and State Library on these days.
+The nighttime events, such as White Night and New Year Evening Firework, has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library on these days.
 
 ## Different types of plots
 
-```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days."}
+The \code{frame_calendar} does not constrain itself to mapping only temporal variable to the \code{x}. Figure \ref{fig:scatterplot} shows the lag scatterplot where hourly counts are assigned to the \code{x} and lagged themselves to the \code{y}. It provides a visual tool for identifying repeating patterns.
+
+```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at lag 1. The correlation between them is more consitent on non-work days than work days."}
 ```
 
-The newly computed coordinates not only work with the simple geoms such as lines and points, but also boxplot and other complex geoms. Figure \ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth line superimposed as an example. It shows the distribution of hourly counts across all the 43 sensors. 
+The newly computed coordinates not only work with the simple geoms such as lines and points, but also boxplot and other complex geoms. Figure \ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth line superimposed as an example. It shows the distribution of hourly counts across all the 43 sensors. In general, bimodality features work days whereas unimodality features the rest of the days. The last week of December is just the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and hanging out for the firework in the New Year Evening.
 
 ```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
 ```
-
-In general, unimodality features the non-work days whereas bimodality on work days. The last week of December is just the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and hanging out for the firework in the New Year Evening.
 
 # Discussion
 \label{sec:discussion}

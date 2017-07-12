@@ -11,8 +11,10 @@ pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 ped_loc <- pedestrian_2016 %>% 
   distinct(Longitude, Latitude)
 melb_map <- get_map(
-  location = c(min(ped_loc$Longitude), min(ped_loc$Latitude),
-               max(ped_loc$Longitude), max(ped_loc$Latitude)),
+  location = c(
+    min(ped_loc$Longitude), min(ped_loc$Latitude),
+    max(ped_loc$Longitude), max(ped_loc$Latitude)
+  ),
   zoom = 14
 )
 
@@ -93,17 +95,6 @@ p_flinders_polar <- flinders_polar %>%
   geom_path()
 prettify(p_flinders_polar, size = 3, label.padding = unit(0.15, "lines"))
 
-## ---- scatterplot
-flinders_cal_day <- flinders %>% 
-  mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
-  frame_calendar(x = Hourly_Counts, y = Lagged_Counts, date = Date, 
-    calendar = "daily")
-
-p_flinders_day <- flinders_cal_day %>% 
-  ggplot(aes(x = .Hourly_Counts, y = .Lagged_Counts, group = Date)) +
-  geom_point(size = 0.5)
-prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
-
 ## ---- overlay
 subset_df <- pedestrian_2016 %>% 
   filter(Sensor_Name %in% sensors)
@@ -129,6 +120,17 @@ p_three <- subset_cal %>%
     colour = "#7570b3"
   )
 prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
+
+## ---- scatterplot
+flinders_cal_day <- flinders %>% 
+  mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
+  frame_calendar(x = Hourly_Counts, y = Lagged_Counts, date = Date, 
+    calendar = "daily")
+
+p_flinders_day <- flinders_cal_day %>% 
+  ggplot(aes(x = .Hourly_Counts, y = .Lagged_Counts, group = Date)) +
+  geom_point(size = 0.5)
+prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot
 pedestrian_dec <- pedestrian_2016 %>% 

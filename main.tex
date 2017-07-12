@@ -435,10 +435,16 @@ similar temporal trend as Flinders Street Station on non-work days.
 
 The nighttime events, such as White Night and New Year Evening Firework,
 has barely affected the operation of Flagstaff Station but heavily
-affected the incoming traffic to Flinders Street Station and State
-Library on these days.
+affected the incoming and outgoing traffic to Flinders Street Station
+and State Library on these days.
 
 \subsection{Different types of plots}\label{different-types-of-plots}
+
+The \code{frame_calendar} does not constrain itself to mapping only
+temporal variable to the \code{x}. Figure \ref{fig:scatterplot} shows
+the lag scatterplot where hourly counts are assigned to the \code{x} and
+lagged themselves to the \code{y}. It provides a visual tool for
+identifying repeating patterns.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -447,7 +453,7 @@ Library on these days.
 
 }
 
-\caption[Lag scatterplot in the daily calendar]{Lag scatterplot in the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days.}\label{fig:scatterplot}
+\caption[Lag scatterplot in the daily calendar]{Lag scatterplot in the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at lag 1. The correlation between them is more consitent on non-work days than work days.}\label{fig:scatterplot}
 \end{figure}
 \end{CodeChunk}
 
@@ -455,7 +461,11 @@ The newly computed coordinates not only work with the simple geoms such
 as lines and points, but also boxplot and other complex geoms. Figure
 \ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth
 line superimposed as an example. It shows the distribution of hourly
-counts across all the 43 sensors.
+counts across all the 43 sensors. In general, bimodality features work
+days whereas unimodality features the rest of the days. The last week of
+December is just the holiday season: people are off work on the day
+before Christmas, go shopping on the Boxing day, and hanging out for the
+firework in the New Year Evening.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -467,11 +477,6 @@ counts across all the 43 sensors.
 \caption[Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day]{Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
-
-In general, unimodality features the non-work days whereas bimodality on
-work days. The last week of December is just the holiday season: people
-are off work on the day before Christmas, go shopping on the Boxing day,
-and hanging out for the firework in the New Year Evening.
 
 \section{Discussion}\label{discussion}
 
