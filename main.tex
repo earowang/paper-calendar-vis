@@ -115,7 +115,7 @@ involving human behaviours:
 
 }
 
-\caption[Time series plot about the number of pedestrians over the year of 2016 at a selection of 3 sensors in the city of Melbourne]{Time series plot about the number of pedestrians over the year of 2016 at a selection of 3 sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The traffic, specifically at two train stations (Flagstaff Station and Flinders Street Station), is primarily driven by the commuters, as depicted in the graph.}\label{fig:time-series-plot}
+\caption[Time series plot about the number of pedestrians over the year of 2016 at a selection of 3 sensors in the city of Melbourne]{Time series plot about the number of pedestrians over the year of 2016 at a selection of 3 sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distincitve across these 3 sensors. There is an eye-catching spike occurred to State Library, which is caused by the annual event--White Night--on 20th of Feburary.}\label{fig:time-series-plot}
 \end{figure}
 \end{CodeChunk}
 
@@ -151,16 +151,16 @@ perspective.
 We propose a new algorithm via linear algebra tools to go beyond the
 calendar-based heatmap. The approach is developed with these conditions
 in mind: (1) to make time of day present in addition to the existing
-temporal components such as day of week and day of year, (2) to add line
-graphs along with other types of glyphs to the visual toolkit, (3) to
-enable an overlaying plot consisting of multiple time series. The
-proposed algorithm has been implemented as the \code{frame_calendar}
-function in the \pkg{sugrrants} package \citep{R-sugrrants} using
-\proglang{R} \citep{R-base}.
+temporal components such as day of week and day of year, (2) to
+incorporate line graphs and other types of glyphs into the graphical
+toolkit for the calendar layout, (3) to enable an overlaying plot
+consisting of multiple time series. The proposed algorithm has been
+implemented as the \code{frame_calendar} function in the \pkg{sugrrants}
+package \citep{R-sugrrants} using \proglang{R} \citep{R-base}.
 
 The remainder of the paper is organised as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
-in detail. Section \ref{sec:opt} lists and describes the options that
+in depth. Section \ref{sec:opt} lists and describes the options that
 come with the \code{frame_calendar} function. Section \ref{sec:examples}
 presents some variations of its usage. Section \ref{sec:discussion}
 discusses the advantages and disadvantages of the method.
@@ -317,8 +317,8 @@ Figure \ref{fig:flinders-2016}, for example, the \code{x} is the
 variable specifying the time of the day, and the \code{y} is the
 variable suggesting the hourly counts. The \code{date} argument is given
 by the date variable that determines the correct order in the calendar
-layout. We shall describe some of the arguments that control the
-graphics in different ways.
+layout. We shall describe some of the arguments that allow for different
+displays.
 
 \subsection{Layouts}\label{layouts}
 
