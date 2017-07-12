@@ -67,7 +67,7 @@ subdat %>%
 flinders <- subdat %>% 
   filter(Sensor_Name == "Flinders Street Station Underpass")
 
-flinders_cal <- flinders %>% 
+flinders_cal <- flinders %>%
   frame_calendar(x = Time, y = Hourly_Counts, date = Date)
 
 p_flinders <- flinders_cal %>% 
@@ -133,8 +133,9 @@ prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
 ## ---- boxplot
 pedestrian_dec <- pedestrian_2016 %>% 
   filter(Month == "December") %>% 
-  frame_calendar(x = Time, y = Hourly_Counts, date = Date)
-dat <- mutate(group_by(pedestrian_dec, Date_Time), Mean = mean(.Hourly_Counts))
+  frame_calendar(
+    x = Time, y = Hourly_Counts, date = Date, width = 0.97, height = 0.97
+)
 p_boxplot <- pedestrian_dec %>% 
   ggplot() +
   geom_boxplot(
@@ -142,9 +143,8 @@ p_boxplot <- pedestrian_dec %>%
     outlier.size = 0.3, width = 0.004, position = "identity",
     colour = "grey50"
   ) +
-  geom_line(
-    data = dat,
-    aes(x = .Time, y = Mean, group = Date),
-    colour = "#d95f02", size = 1,
+  geom_smooth(
+    aes(.Time, .Hourly_Counts, group = Date), 
+    se = FALSE, method = "loess"
   )
 prettify(p_boxplot, label = c("label", "text", "text2"))

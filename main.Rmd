@@ -54,7 +54,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across the downtown area until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to take a glimpse at such data. Small multiples, shown as Figure \ref{fig:time-series-plot}, give an overall picture of foot traffic at a selection of 3 sensors. Figure \ref{fig:facet-time}, complemented to the Figure \ref{fig:time-series-plot}, provides another aspect of temporal patterns in the more detailed level by faceting day of the week. It lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
+This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 installed sensors counting pedestrians every hour across the downtown area until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed lights into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. Small multiples, shown as Figure \ref{fig:time-series-plot}, give an overall picture of foot traffic at a selection of 3 sensors. Figure \ref{fig:facet-time}, complemented to the Figure \ref{fig:time-series-plot}, provides another aspect of temporal patterns in the more detailed level by faceting day of the week. It lends itself to a number of issues that make exploratory data visualisation challenging in many temporal-context applications involving human behaviours: 
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurred events).
 2. Since the data are often collected at daily frequency or a time scale more frequent than daily, they typically involve a large number of observations spanning over a long time period.
@@ -78,7 +78,7 @@ The remainder of the paper is organised as follows. Section \ref{sec:algorithm} 
 # Construction 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs organised in the monthly calendar over the year of 2016. This is achieved by the \code{frame_calendar} function computing the new coordinates according to the input data variables; in turn the rearranged data values are plotted using the \pkg{ggplot2} package [@R-ggplot2], which is the implementation of the grammar of graphics (@wilkinson2006grammar and @wickham2010layered). 
+Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year of 2016. This is achieved by the \code{frame_calendar} function computing the new coordinates according to the input data variables; in turn the rearranged data values are plotted using the \pkg{ggplot2} package [@R-ggplot2], which is the implementation of the grammar of graphics (@wilkinson2006grammar and @wickham2010layered). 
 
 ```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of 3 by 4 on the monthly calendar format presents all the traffic in 2016. The disparities between weekday and weekend along with public holiday pop out to viewers in the clearer manner."}
 ```
@@ -138,13 +138,19 @@ The \code{frame_calendar} function assumes that the underlying data structure is
 ```
 frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
-  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
+  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed",
+  width = 0.95, height = 0.95
 )
 ```
 
 ## Layouts
 
 The algorithm can be simplified to accommodate the other two types of calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as "weekly" and "daily" calendar respectively. Due to the way of the arrangement, the weekly calendar puts more emphases on days of a week over days of a year, whereas the daily one serves as the opposite. The monthly format can be considered as the advanced twist of both weekly and daily. Temporal patterns lead to which format to be employed. The weekly calendar can be a nice attempt if the most variations can be characterised by days of a week. On the other hand, the absence of weekly effect but the presence of yearly effect can direct to the daily calendar. When both are present, the monthly calendar appears to be a better choice.
+
+## Polar coordinates
+
+```{r flinders-polar, fig.height = 6.5, fig.cap = "Line gplyphs on polar coordinates."}
+```
 
 ## Scales
 
@@ -157,16 +163,11 @@ Figure \ref{fig:flinders-2016} is drawn on the fixed scale so that it makes the 
 ```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive at the expense of the magnitude comparison loss."}
 ```
 
-## Polar coordinates
-
-```{r flinders-polar, fig.height = 6.5, fig.cap = "Line gplyphs on polar coordinates."}
-```
-
 ## Reference lines and labels
 
 Reference lines dividing each cell and block as well as labels indicating weekday and month are also provided in order to make calendar-based graphics more accessible and informative. 
 
-Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the think and thin lines respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
+Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
 
 The abbreviated month labels located on the top left are obtained through $(\min{(x)}, \max{(y)})$ for every $m$ and $n$. The weekday texts with a single letter are uniformly placed on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
 
@@ -187,8 +188,12 @@ The nighttime events, such as White Night and New Year Evening Firework, has bar
 ```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar. Lagged hourly counts are plotted against current ones to demonstrate the autocorrelation at the order of 1. The positive association between the one-hour-ahead count and the present regardless of the data values takes place on non-working days."}
 ```
 
-```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
+The newly computed coordinates not only work with the simple geoms such as lines and points, but also boxplot and other complex geoms. Figure \ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth line superimposed as an example. It shows the distribution of hourly counts across all the 43 sensors. 
+
+```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
 ```
+
+In general, unimodality features the non-work days whereas bimodality on work days. The last week of December is just the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and hanging out for the firework in the New Year Evening.
 
 # Discussion
 \label{sec:discussion}

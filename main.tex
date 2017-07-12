@@ -71,7 +71,7 @@ pedestrians every hour across the downtown area until the end of 2016
 (see Figure \ref{fig:ped-map}). The dataset can shed lights into
 understanding people's daily schedules, or assisting administration and
 business planning. We start off with the conventional time series plot
-to take a glimpse at such data. Small multiples, shown as Figure
+to catch a glimpse of such data. Small multiples, shown as Figure
 \ref{fig:time-series-plot}, give an overall picture of foot traffic at a
 selection of 3 sensors. Figure \ref{fig:facet-time}, complemented to the
 Figure \ref{fig:time-series-plot}, provides another aspect of temporal
@@ -169,7 +169,7 @@ discusses the advantages and disadvantages of the method.
 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs organised in the
+Figure \ref{fig:flinders-2016} shows the line glyphs framed in the
 monthly calendar over the year of 2016. This is achieved by the
 \code{frame_calendar} function computing the new coordinates according
 to the input data variables; in turn the rearranged data values are
@@ -308,7 +308,8 @@ structure is tidy data \citep{wickham2014tidy}.
 \begin{verbatim}
 frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
-  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed"
+  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed",
+  width = 0.95, height = 0.95
 )
 \end{verbatim}
 
@@ -327,6 +328,19 @@ a nice attempt if the most variations can be characterised by days of a
 week. On the other hand, the absence of weekly effect but the presence
 of yearly effect can direct to the daily calendar. When both are
 present, the monthly calendar appears to be a better choice.
+
+\subsection{Polar coordinates}\label{polar-coordinates}
+
+\begin{CodeChunk}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/flinders-polar-1} 
+
+}
+
+\caption[Line gplyphs on polar coordinates]{Line gplyphs on polar coordinates.}\label{fig:flinders-polar}
+\end{figure}
+\end{CodeChunk}
 
 \subsection{Scales}\label{scales}
 
@@ -364,19 +378,6 @@ example of the free scale on all the days.
 \end{figure}
 \end{CodeChunk}
 
-\subsection{Polar coordinates}\label{polar-coordinates}
-
-\begin{CodeChunk}
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/flinders-polar-1} 
-
-}
-
-\caption[Line gplyphs on polar coordinates]{Line gplyphs on polar coordinates.}\label{fig:flinders-polar}
-\end{figure}
-\end{CodeChunk}
-
 \subsection{Reference lines and
 labels}\label{reference-lines-and-labels}
 
@@ -386,7 +387,7 @@ calendar-based graphics more accessible and informative.
 
 Regarding the monthly calendar, the major reference lines separate every
 month panel and the minor ones separate every cell, represented by the
-think and thin lines respectively. The major reference lines are placed
+thick and thin lines respectively. The major reference lines are placed
 surrounding every month block: for each \(m\), the vertical lines are
 determined by \(\min{(x)}\) and \(\max{(x)}\); for each \(n\), the
 horizontal lines are given by \(\min{(y)}\) and \(\max{(y)}\). The minor
@@ -450,6 +451,12 @@ Library on these days.
 \end{figure}
 \end{CodeChunk}
 
+The newly computed coordinates not only work with the simple geoms such
+as lines and points, but also boxplot and other complex geoms. Figure
+\ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth
+line superimposed as an example. It shows the distribution of hourly
+counts across all the 43 sensors.
+
 \begin{CodeChunk}
 \begin{figure}
 
@@ -457,9 +464,14 @@ Library on these days.
 
 }
 
-\caption[Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages]{Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing hourly averages. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
+\caption[Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day]{Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
+
+In general, unimodality features the non-work days whereas bimodality on
+work days. The last week of December is just the holiday season: people
+are off work on the day before Christmas, go shopping on the Boxing day,
+and hanging out for the firework in the New Year Evening.
 
 \section{Discussion}\label{discussion}
 
