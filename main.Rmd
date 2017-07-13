@@ -176,14 +176,17 @@ The abbreviated month labels located on the top left are obtained through $(\min
 # Variations
 \label{sec:examples}
 
-## Overlaying subsets
+## Overlaying and faceting subsets
 
-The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns occurred to both train stations--Flinders Street Station and Flagstaff station--are together driven by the commuters on the work days; however, the former is overwhelmed by the number of pedestrians during the weekends and public holidays, compared to the latter. It suggests that Flagstaff station limits its functionality as simply the public transport hub for day-to-day commuters, but various activities take place around the Flinders Street Station other than commuting. Because Flinders Street Station closely lies to South Bank and other places of attractions where the locals go for leisure and the tourists for travelling. It can be noted from Figure \ref{fig:overlay} that State Library follows the similar temporal trend as Flinders Street Station on non-work days.
+The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns occurred to both train stations--Flinders Street Station and Flagstaff station--are together driven by the commuters on the work days; however, the former is overwhelmed by the number of pedestrians during the weekends and public holidays, compared to the latter. It suggests that Flagstaff station limits its functionality as simply the public transport hub for day-to-day commuters, but various activities take place around the Flinders Street Station other than commuting. Because Flinders Street Station closely lies to South Bank and other places of attractions where the locals go for leisure and the tourists for travelling. It can be noted from Figure \ref{fig:overlay} that State Library follows the similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year Evening Firework, has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library on these days.
 
-```{r overlay, fig.height = 6.5, fig.cap = "Superimposing line graphs of three sensors in the monthly calendar. The orange line and the purple line, represented by the number of pedestrians at Flagstaff Station and Flinders Street Station, are on top of the green one indicating State Library. Flagstaff station is not as busy as the other two on non-work days."}
+```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days."}
 ```
 
-The nighttime events, such as White Night and New Year Evening Firework, has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library on these days.
+As 
+
+```{r facet, fig.height = 11, fig.cap = "Line graphs faceted by the 3 sensors in the monthly calendar."}
+```
 
 ## Different types of plots
 

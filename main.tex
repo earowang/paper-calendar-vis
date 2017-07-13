@@ -418,7 +418,8 @@ whole canvas, that is \(\min{(y)}\), with the central position of a cell
 
 \label{sec:examples}
 
-\subsection{Overlaying subsets}\label{overlaying-subsets}
+\subsection{Overlaying and faceting
+subsets}\label{overlaying-and-faceting-subsets}
 
 The comparison of one sensor to another adds additional insights to the
 dataset, which is commonly done with an overlaying plot such as Figure
@@ -433,7 +434,11 @@ Flinders Street Station other than commuting. Because Flinders Street
 Station closely lies to South Bank and other places of attractions where
 the locals go for leisure and the tourists for travelling. It can be
 noted from Figure \ref{fig:overlay} that State Library follows the
-similar temporal trend as Flinders Street Station on non-work days.
+similar temporal trend as Flinders Street Station on non-work days. The
+nighttime events, such as White Night and New Year Evening Firework, has
+barely affected the operation of Flagstaff Station but heavily affected
+the incoming and outgoing traffic to Flinders Street Station and State
+Library on these days.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -442,14 +447,22 @@ similar temporal trend as Flinders Street Station on non-work days.
 
 }
 
-\caption[Superimposing line graphs of three sensors in the monthly calendar]{Superimposing line graphs of three sensors in the monthly calendar. The orange line and the purple line, represented by the number of pedestrians at Flagstaff Station and Flinders Street Station, are on top of the green one indicating State Library. Flagstaff station is not as busy as the other two on non-work days.}\label{fig:overlay}
+\caption[Overlaying line graphs of the 3 sensors in the monthly calendar]{Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days.}\label{fig:overlay}
 \end{figure}
 \end{CodeChunk}
 
-The nighttime events, such as White Night and New Year Evening Firework,
-has barely affected the operation of Flagstaff Station but heavily
-affected the incoming and outgoing traffic to Flinders Street Station
-and State Library on these days.
+As
+
+\begin{CodeChunk}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/facet-1} 
+
+}
+
+\caption[Line graphs faceted by the 3 sensors in the monthly calendar]{Line graphs faceted by the 3 sensors in the monthly calendar.}\label{fig:facet}
+\end{figure}
+\end{CodeChunk}
 
 \subsection{Different types of plots}\label{different-types-of-plots}
 

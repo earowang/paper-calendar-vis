@@ -96,30 +96,59 @@ p_flinders_polar <- flinders_polar %>%
 prettify(p_flinders_polar, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- overlay
-subset_df <- pedestrian_2016 %>% 
-  filter(Sensor_Name %in% sensors)
-
-subset_cal <- subset_df %>% 
+subset_cal <- subdat %>% 
   frame_calendar(Time, Hourly_Counts, Date)
 
+sensor_cols <- c(
+  "#1b9e77" = "#1b9e77", 
+  "#d95f02" = "#d95f02", 
+  "#7570b3" = "#7570b3"
+) # Dark2
 p_three <- subset_cal %>% 
   ggplot() +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[1]),
-    aes(.Time, .Hourly_Counts, group = Date),
-    colour = "#1b9e77"
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[1])
   ) +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[2]),
-    aes(.Time, .Hourly_Counts, group = Date),
-    colour = "#d95f02"
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[2])
   ) +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[3]),
-    aes(.Time, .Hourly_Counts, group = Date),
-    colour = "#7570b3"
-  )
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[3])
+  ) +
+  scale_colour_identity(
+    name = "Sensor",
+    breaks = names(sensor_cols),
+    labels = c(
+      "State Library", 
+      "Flagstaff Station",
+      "Flinders Street Station Underpass"
+    ),
+    guide = "legend"
+  ) +
+  theme(legend.position = "bottom")
 prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
+
+## ---- facet
+facet_cal <- subdat %>% 
+  group_by(Sensor_Name) %>% 
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date, nrow = 2)
+
+p_facet <- facet_cal %>% 
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
+  geom_line(aes(colour = Sensor_Name)) +
+  facet_grid(
+    Sensor_Name ~ ., 
+    labeller = labeller(Sensor_Name = label_wrap_gen(20))
+  ) +
+  scale_colour_brewer(
+    palette = "Dark2", 
+    guide = guide_legend(title = "Sensor")
+  ) +
+  theme(legend.position = "bottom")
+prettify(p_facet, label = NULL)
 
 ## ---- scatterplot
 flinders_cal_day <- flinders %>% 
