@@ -72,10 +72,9 @@ pedestrians every hour across the downtown area until the end of 2016
 (see Figure \ref{fig:ped-map}). The dataset can shed lights into
 understanding people's daily schedules, or assisting administration and
 business planning. We start off with the conventional time series plot
-to catch a glimpse of such data. Small multiples, shown as Figure
-\ref{fig:time-series-plot}, give an overall picture of foot traffic at a
-selection of 3 sensors. Figure \ref{fig:facet-time}, which is
-complementary to the Figure \ref{fig:time-series-plot}, provides another
+to catch a glimpse of such data. A small multiples, shown in Figure
+\ref{fig:time-series-plot}, gives an overall picture of foot traffic at
+a selection of 3 sensors. Figure \ref{fig:facet-time} provides another
 aspect of temporal patterns in the more detailed level by faceting day
 of the week. It lends itself to a number of issues that make exploratory
 data visualisation challenging in many temporal-context applications
@@ -87,14 +86,14 @@ involving human behaviours:
 \item
   Variations primarily result from multiple time scales including time
   of day, day of week, and day of year (such as public holiday and
-  recurred events).
+  recurred events). 
 \item
   Since the data are often collected at daily frequency or a time scale
   more frequent than daily, they typically involve a large number of
   observations spanning over a long time period.
 \item
   Measurements of a single type are made at multiple locations at a
-  given time point, which creates the need for comparing and contrasting
+  given time point, which creates the need in comparing and contrasting
   between locations.
 \end{enumerate}
 
@@ -105,7 +104,7 @@ involving human behaviours:
 
 }
 
-\caption[Map of the Melbourne city along with purple dots indicating sensor locations]{Map of the Melbourne city along with purple dots indicating sensor locations.}\label{fig:ped-map}
+\caption[Map of the Melbourne city with purple dots indicating sensor locations]{Map of the Melbourne city with purple dots indicating sensor locations.}\label{fig:ped-map}
 \end{figure}
 \end{CodeChunk}
 
@@ -131,23 +130,31 @@ involving human behaviours:
 \end{figure}
 \end{CodeChunk}
 
-Calendar-based graphics turn out to be a useful tool in unfolding
-human-related activities in temporal context. For example,
+A collection of data plots, organised in a familiar format, offer a
+useful and intuitive way to tell a richer story and reveal more complex
+relationships. \citet{Wickham2012glyph} embedded a sequence of daily
+temperature line charts into a glyph map according to the spatial
+locations; and \citet{R-geofacet} provided methods to arrange the data
+plots of many types into a preserved geographical grid. They both
+attempt to have the self-contained data plots in spatial context.
+
+Alternatively, calendar-based graphics turn out to be a useful tool in
+unfolding human-related activities in temporal context. For example,
 \citet{VanWijkCluster1999} developed a calendar view of heatmap to
 represent the number of employees in the work place over a year, where
-colours indicate different clusters derived from the days. It remarkably
-contrasts weekdays and weekends, highlights public holiday, and presents
-other known seasons like school vacations, all of which have influence
-over the turn-outs in the office. The calendar-based heatmap was
-implemented in a couple of R packages: \pkg{ggTimeSeries}
-\citep{R-ggTimeSeries} and \pkg{ggcal} \citep{R-ggcal}. However, these
-techniques are too constrained to colour-encoding graphics and day of
-week as the smallest time scale. Time of day, which serves as one of the
-most important aspect in explaining variations arisen from pedestrian
-sensor data, will be neglected through daily aggregation. Additionally
-if simply using coloured blocks rather than curves, it may become
-perceptually difficult to accurately judge the shape positions and
-changes, although the glyphs come with the cost of more display capacity
+colours indicate different clusters derived from the days. It contrasts
+weekdays and weekends, highlights public holiday, and presents other
+known seasons like school vacations, all of which have influence over
+the turn-outs in the office. The calendar-based heatmap was implemented
+in a couple of R packages: \pkg{ggTimeSeries} \citep{R-ggTimeSeries} and
+\pkg{ggcal} \citep{R-ggcal}. However, these techniques are too
+constrained to colour-encoding graphics and day of week as the smallest
+time scale. Time of day, which serves as one of the most important
+aspect in explaining variations arisen from pedestrian sensor data, will
+be neglected through daily aggregation. Additionally if simply using
+coloured blocks rather than curves, it may become perceptually difficult
+to estimate the shape positions and changes, although using the curves
+comes with the cost of more display capacity
 \citep{cleveland1984graphical, lam2007overview}.
 
 We propose a new algorithm via linear algebra tools to go beyond the
@@ -157,7 +164,7 @@ temporal components such as day of week and day of year, (2) to
 incorporate line graphs and other types of glyphs into the graphical
 toolkit for the calendar layout, (3) to enable an overlaying plot
 consisting of multiple time series. The proposed algorithm has been
-implemented as the \code{frame_calendar} function in the \pkg{sugrrants}
+implemented to the \code{frame_calendar} function in the \pkg{sugrrants}
 package \citep{R-sugrrants} using \proglang{R} \citep{R-base}.
 
 The remainder of the paper is organised as follows. Section
@@ -367,7 +374,7 @@ fixed scale which is using the whole range of all the data values. The
 to the fixed scale (\code{fixed}), the remaining options include free
 scale on all the days (\code{free}), day of the week only
 (\code{free_wday}), and day of the month only (\code{free_mday}) for
-different comparisons.
+different comparisons and emphases.
 
 Grouping the cells according to the common period gives rise to these
 scales. The minimums and maximums obtained for every \((i, j)\) and
