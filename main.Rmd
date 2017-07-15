@@ -211,5 +211,5 @@ The calendar-based visualisation provides data plots in the familiar (at least f
 This sort of layout may be useful for studying consumer trends, or human behaviour, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity.
 
 ```{r write-bib}
-write_bib(c(.packages(), "geofacet"), 'packages.bib')
+write_bib(.packages(), 'packages.bib')
 ```
