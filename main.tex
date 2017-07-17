@@ -13,17 +13,18 @@ Earo Wang\\Monash University \And Dianne Cook\\Monash University \And Rob J Hynd
 \Plaintitle{Calendar-based graphics for visualising people's daily schedules}
 
 \Abstract{
-It is challenging to visualise people's daily schedules as such data are
-often of multiple seasons and of long time span. One example is
-Melbourne pedestrian sensor data which are collected at hourly interval
-and at a number of locations. Owing to human activities, the data
-features multiple temporal scales such as time of day, day of week, day
-of year. We develop the \code{frame\_calendar} function that provides a
-method for rearranging such kind of data in a calendar-based format and
-accomplishing visualisation with the grammar of graphics. We describe
-its construction along with a few options. We provide some variations to
-demonstrate its usage by applying to the pedetrian data over one-year
-period of 2016.
+We develop the \code{frame\_calendar} function that provides a method
+for arranging the data, which are collected at daily frequency or a time
+scale more frequent than daily, in a calendar-based format and
+accomplishes visualisation with the grammar of graphics. The
+calendar-based layout serves as a familiar format for the Western world
+and it is particularly useful to visualise people's daily schedules. One
+example is Melbourne pedestrian counts which are captured at hourly
+interval by a number of sensors. Owing to human activities, the data
+feature multiple temporal scales such as time of day, day of week, day
+of year. We describe its construction along with a few options. We
+provide some variations to demonstrate its usage by applying to the
+pedetrian data over one-year period of 2016.
 }
 
 \Keywords{calendar-based visualisation, temporal-context data}
@@ -86,7 +87,7 @@ involving human behaviours:
 \item
   Variations primarily result from multiple time scales including time
   of day, day of week, and day of year (such as public holiday and
-  recurred events). 
+  recurred events).
 \item
   Since the data are often collected at daily frequency or a time scale
   more frequent than daily, they typically involve a large number of
@@ -135,8 +136,9 @@ useful and intuitive way to tell a richer story and reveal more complex
 relationships. \citet{Wickham2012glyph} embedded a sequence of daily
 temperature line charts into a glyph map according to the spatial
 locations; and \citet{R-geofacet} provided methods to arrange the data
-plots of many types into a preserved geographical grid. They both
-attempt to have the self-contained data plots in spatial context.
+plots of many types into a preserved geographical grid in the
+\pkg{geofacet} package. They both attempt to have the self-contained
+data plots in spatial context.
 
 Alternatively, calendar-based graphics turn out to be a useful tool in
 unfolding human-related activities in temporal context. For example,
