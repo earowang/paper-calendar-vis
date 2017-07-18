@@ -372,26 +372,30 @@ as the spiral display of Figure \ref{fig:flinders-2016}.
 
 Section \ref{sec:algorithm} discusses the implementation applied to the
 fixed scale which is using the whole range of all the data values. The
-\code{scale} argument controls the scaling of the display. In addition
-to the fixed scale (\code{fixed}), the remaining options include free
-scale on all the days (\code{free}), day of the week only
-(\code{free_wday}), and day of the month only (\code{free_mday}) for
-different comparisons and emphases.
+\code{scale} argument controls the scaling of the display. The fixed
+scale (\code{fixed}) is the default, meaning the data values in all
+positions to be scaled. The remaining options include free scale within
+each cell (\code{free}), cells derived from the same day of the week
+(\code{free_wday}), or cells from the same day of the month
+(\code{free_mday}). It utilises the comparisons of absolute or relative
+values, and the emphases of various types of variations.
 
-Grouping the cells according to the common period gives rise to these
-scales. The minimums and maximums obtained for every \((i, j)\) and
-\((m, n)\) allow for individual scale over all the single days.
-Similarly, \(j\) indexing day of the week is grouped to determine the
-scales on days of a week, and \(g\) representing the day in the month is
-for the scales on days of a month.
+Grouping the cells based on the same time period gives rise to the
+different scales. For example, the minimums and maximums obtained from
+each cell, that is every day \((i, j)\) together with \((m, n)\), result
+in local scale. The overall variation gives way to the individual shape.
+Figure \ref{fig:flinders-free} is an example of plotting line charts
+scaled locally. The daily variation is made more distinctive, compared
+to Figure \ref{fig:flinders-2016}.
 
-Figure \ref{fig:flinders-2016} is drawn on the fixed scale so that it
-makes the magnitudes comparable over the whole period of time. On the
-other hand, some sub-series of small magnitudes yet worth-noting
-behaviours may become invisible whilst embedded in the overall picture.
-These sorts of scales, as a result, complements the calendar-based
-visualisation in general. Figure \ref{fig:flinders-free} provides an
-example of the free scale on all the days.
+Similarly, the same \(j\) indexing day of the week is grouped to compute
+the scales in days of a week; in other words, the same value within a
+given \(j\) corresponds to the same position across each
+\(j\)\textsuperscript{th} cell. To construct the scales for days of the
+month, \(g\) representing day of the month is used. This makes it easier
+to compare shape of a given day across each month block. The scaling
+option combined with the calendar layouts offers a number of varieties
+to construct the plot.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -423,7 +427,7 @@ horizontal is \(\min{(y)}\).
 
 The abbreviated month labels located on the top left are obtained
 through \((\min{(x)}, \max{(y)})\) for every \((m, n)\). The weekday
-texts with a single letter are uniformly placed on the bottom of the
+texts with a single letter are uniformly positioned on the bottom of the
 whole canvas, that is \(\min{(y)}\), with the central position of a cell
 \(x / 2\) for each \(j\).
 
