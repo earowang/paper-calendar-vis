@@ -18,13 +18,13 @@ for arranging the data, which are collected at daily frequency or a time
 scale more frequent than daily, in a calendar-based format and
 accomplishes visualisation with the grammar of graphics. The
 calendar-based layout serves as a familiar format for the Western world
-and it is particularly useful to visualise people's daily schedules. One
-example is Melbourne pedestrian counts which are captured at hourly
-interval by a number of sensors. Owing to human activities, the data
-feature multiple temporal scales such as time of day, day of week, day
-of year. We describe its construction along with a few options. We
-provide some variations to demonstrate its usage by applying to the
-pedetrian data over one-year period of 2016.
+and it is particularly useful to visualise people's daily schedules. Our
+motivating application is Melbourne pedestrian counts which are captured
+at hourly interval by a number of sensors. Owing to human activities,
+the data feature multiple temporal scales such as time of day, day of
+week, day of year. We describe its construction along with a few
+options. We provide some variations to demonstrate its usage by applying
+to the pedetrian data over one-year period of 2016.
 }
 
 \Keywords{calendar-based visualisation, temporal-context data}
@@ -514,8 +514,8 @@ which is also supported by Figure \ref{fig:flinders-2016}.
 
 The newly computed coordinates not only work with the simple geoms such
 as lines and points, but also boxplot and other complex geoms. Figure
-\ref{fig:boxplot} uses the side-by-side boxplots with the loess smooth
-line superimposed as an example. It shows the distribution of hourly
+\ref{fig:boxplot} uses the loess smooth line superimposed atop the
+side-by-side boxplots as an example. It shows the distribution of hourly
 counts across all the 43 sensors. In general, bimodality features work
 days whereas unimodality features the rest of the days. The last week of
 December is just the holiday season: people are off work on the day
