@@ -25,11 +25,12 @@ title:
   formatted: "Calendar-based graphics for visualising people's daily schedules"
   plain: "Calendar-based graphics for visualising people's daily schedules"
 abstract: >
-  We develop the \code{frame\_calendar} function that provides a method for arranging the data, which are collected at daily frequency or a time scale more frequent than daily, in a calendar-based format and accomplishes visualisation with the grammar of graphics. The calendar-based layout serves as a familiar format for the Western world and it is particularly useful to visualise people's daily schedules. Our motivating application is Melbourne pedestrian counts which are captured at hourly interval by a number of sensors. Owing to human activities, the data feature multiple temporal scales such as time of day, day of week, day of year. We describe its construction along with a few options. We provide some variations to demonstrate its usage by applying to the pedetrian data over one-year period of 2016.
+  This paper describes a \code{frame\_calendar} function that organises and displays temporal data, collected on sub-daily resolution, into a calendar layout. Calendars are broadly used in society to display temporal information, and events. The \code{frame\_calendar} utilizes linear algebra on the date  variable to create the layout. It utilizes the grammar of graphics to create the plots inside each cell, and thus synchronises neatly with \pkg{ggplot2} graphics. The motivating application is studying pedestrian behavior, based on counts which are captured at hourly interval by sensors scattered around the city. Facetting by the usual features such as day and month, was not sufficient to examine the behaviour. Making displays on a monthly calendar format helps to understand pedestrian patterns relative to  events such as work days, weekends, holidays, and special events. The layout algorithm has several format variations and options. It is implemented in the R package \pkg{sugrrants}.
+
 keywords:
   # at least one keyword must be supplied
-  formatted: [calendar-based visualisation, temporal-context data]
-  plain:     [calendar-based visualisation, temporal-context data]
+  formatted: [data visualisation, statistical graphics, time series, R package, grammar of graphics]
+  plain:     [data visualisation, statistical graphics, time series, R package, grammar of graphics]
 preamble: >
   \usepackage{amsmath}
 output: 
