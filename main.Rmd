@@ -33,6 +33,7 @@ keywords:
   plain:     [data visualisation, statistical graphics, time series, R package, grammar of graphics]
 preamble: >
   \usepackage{amsmath}
+  \usepackage{tikz}
 output: 
   rticles::jss_article:
   citation_package: biblatex
@@ -55,7 +56,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides more details of the temporal patterns by facetting on day of the week. The sensor data, like many temporal datasets on human behaviours, lends itself to a number of exploratory data visualisation challenges:
+This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides more details of the temporal patterns by faceting on day of the week. The sensor data, like many temporal datasets on human behaviours, lends itself to a number of exploratory data visualisation challenges:
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
@@ -137,7 +138,7 @@ The abbreviated month labels located on the top left are obtained through $(\min
 # Options
 \label{sec:opt}
 
-There are several options provided for the \code{frame_calendar} function to initialize and adjust the display of a calander plot:
+There are several options provided for the \code{frame_calendar} function to initialize and adjust the display of a calender plot:
 
 ```
 frame_calendar(
@@ -180,12 +181,12 @@ Similarly, the same $j$ indexing day of the week is grouped to compute the scale
 
 ## Overlaying and faceting subsets
 
-The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street station has higher pedesterian counts during the weekends and public holidays. This suggests that Flagstaff station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library. 
+The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street station has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library. 
 
 ```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days."}
 ```
 
-To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of facetting calendar plots. This allows comparing the overall structure between sensors, while emphasising indivdual sensor variation. 
+To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasising individual sensor variation. 
 
 ```{r facet, fig.height = 11, fig.cap = "Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
 ```
@@ -200,6 +201,9 @@ The \code{frame_calendar} function does not constrain itself to mapping only the
 The newly computed coordinates can work with more complicated plots, such as the boxplot. Figure \ref{fig:boxplot} uses the loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. In general, bimodality features on work days whereas unimodality features on the rest of the days. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.
 
 ```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
+```
+
+```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "Figure 12 with Chinese text labels."}
 ```
 
 # Discussion

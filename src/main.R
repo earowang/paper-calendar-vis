@@ -179,3 +179,10 @@ p_boxplot <- pedestrian_dec %>%
     se = FALSE, method = "loess"
   )
 prettify(p_boxplot, label = c("label", "text", "text2"))
+
+## ---- chn
+prettify(
+  p_boxplot, locale = "zh", abbr = FALSE, 
+  size = 3, label.padding = unit(0.15, "lines"),
+  label = c("label", "text", "text2"), family = "GB1"
+)
