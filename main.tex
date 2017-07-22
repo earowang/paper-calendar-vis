@@ -7,13 +7,13 @@
 \author{
 Earo Wang\\Monash University \And Dianne Cook\\Monash University \And Rob J Hyndman\\Monash University
 }
-\title{Calendar-based graphics for visualising people's daily schedules}
+\title{Calendar-based graphics for visualizing people's daily schedules}
 
 \Plainauthor{Earo Wang, Dianne Cook, Rob J Hyndman}
-\Plaintitle{Calendar-based graphics for visualising people's daily schedules}
+\Plaintitle{Calendar-based graphics for visualizing people's daily schedules}
 
 \Abstract{
-This paper describes a \code{frame\_calendar} function that organises
+This paper describes a \code{frame\_calendar} function that organizes
 and displays temporal data, collected on sub-daily resolution, into a
 calendar layout. Calendars are broadly used in society to display
 temporal information, and events. The \code{frame\_calendar} utilizes
@@ -30,8 +30,8 @@ several format options and variations. It is implemented in the R
 package \pkg{sugrrants}.
 }
 
-\Keywords{data visualisation, statistical graphics, time series, R package, grammar of graphics}
-\Plainkeywords{data visualisation, statistical graphics, time series, R package, grammar of graphics}
+\Keywords{data visualization, statistical graphics, time series, R package, grammar of graphics}
+\Plainkeywords{data visualization, statistical graphics, time series, R package, grammar of graphics}
 
 %% publication information
 %% \Volume{50}
@@ -80,8 +80,8 @@ to catch a glimpse of such data. A small multiples, shown in Figure
 \ref{fig:time-series-plot}, gives an overall picture of the foot traffic
 at 3 different sensors. Figure \ref{fig:facet-time} provides more
 details of the temporal patterns by faceting on day of the week. The
-sensor data, like many temporal datasets on human behaviours, lends
-itself to a number of exploratory data visualisation challenges:
+sensor data, like many temporal datasets on human behaviors, lends
+itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -132,7 +132,7 @@ itself to a number of exploratory data visualisation challenges:
 \end{figure}
 \end{CodeChunk}
 
-A collection of data plots, organised in a familiar format, offer a
+A collection of data plots, organized in a familiar format, offer a
 useful and intuitive way to understand complex data.
 \citet{Wickham2012glyph} embedded a sequence of daily temperature line
 charts into a glyph map according to the spatial locations; and
@@ -170,7 +170,7 @@ consisting of multiple time series. The proposed algorithm has been
 implemented in the \code{frame_calendar} function in the \pkg{sugrrants}
 package \citep{R-sugrrants} using \proglang{R} \citep{R-base}.
 
-The remainder of the paper is organised as follows. Section
+The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
 in depth. Section \ref{sec:opt} lists and describes the options that
 come with the \code{frame_calendar} function. Section \ref{sec:examples}
@@ -203,7 +203,7 @@ implementation of the grammar of graphics
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
 \citep{Wickham2012glyph}. To make a year long calendar, requires cells
-for days, embedded in blocks corresponding to months, organised into a
+for days, embedded in blocks corresponding to months, organized into a
 grid layout for a year. Each month can be captured with 35 (5 \(\times\)
 7) cells, where the top left is Monday of week 1, and the bottom right
 is Sunday of week 5. These cells provide a micro canvas on which to plot
@@ -340,7 +340,7 @@ of the calendar layout.
 The algorithm can be extended to display data from a single month up to
 a few years. The number of rows and columns in the layout can be
 specified with the arguments \code{nrow} and \code{ncol}. If the one
-would like to visualise data spanning over three years, for example,
+would like to visualize data spanning over three years, for example,
 \code{nrow = 12} and \code{ncol = 3} would be an appropriate choice when
 assessing the differences of a given month across the years.
 
@@ -348,7 +348,7 @@ In Section \ref{sec:algorithm} we only illustrated that grids are laid
 out horizontally. The vertical direction can be enabled by swapping
 \(i\) and \(j\) in equation \ref{eq:grid}, which occurs when the
 argument \code{dir} is set to \code{"v"}. This benefits users who are
-accustomed to calendars that are organised vertically, which is common
+accustomed to calendars that are organized vertically, which is common
 in some countries. Next we shall describe some of the arguments that
 allow for alternate displays.
 
@@ -385,7 +385,7 @@ as the spiral display of Figure \ref{fig:flinders-2016}.
 
 }
 
-\caption[Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates]{Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates. The periodic behaviours on workdays are clearly visible.}\label{fig:flinders-polar}
+\caption[Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates]{Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates. The periodic behaviors on workdays are clearly visible.}\label{fig:flinders-polar}
 \end{figure}
 \end{CodeChunk}
 
@@ -485,7 +485,7 @@ only the temporal variable to the \code{x} argument. Figure
 \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street
 Station, where the current hourly count is assigned to the \code{x}
 argument and the lagged hourly count to the \code{y} argument. This
-figure is organised in the daily calendar layout. It provides a visual
+figure is organized in the daily calendar layout. It provides a visual
 tool for identifying repeating patterns. Figure \ref{fig:scatterplot}
 indicates two separate paths in the work-day glyphs, suggesting that an
 hour of a work day with many pedestrians is likely to be followed in the
@@ -540,14 +540,14 @@ Boxing day, and stay out for the fireworks on New Year's Eve.
 
 \label{sec:discussion}
 
-The calendar-based visualisation provides data plots in the familiar (at
+The calendar-based visualization provides data plots in the familiar (at
 least for the Western world) format of an everyday tool. Special events
 for the region, like Anzac Day in Australia, or Thanksgiving Day in the
 USA, more easily pop out to the viewer as public holidays, rather than a
 typical work day.
 
 This sort of layout may be useful for studying consumer trends, or human
-behaviour, like the pedestrian patterns. It may not work so well for
+behavior, like the pedestrian patterns. It may not work so well for
 physical patterns like temperature, which are not typically affected by
 human activity.
 
