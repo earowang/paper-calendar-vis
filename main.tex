@@ -22,7 +22,7 @@ the grammar of graphics to create the plots inside each cell, and thus
 synchronises neatly with \pkg{ggplot2} graphics. The motivating
 application is studying pedestrian behavior, based on counts which are
 captured at hourly interval by sensors scattered around the city.
-Facetting by the usual features such as day and month, was insufficient
+Faceting by the usual features such as day and month, was insufficient
 to examine the behavior. Making displays on a monthly calendar format
 helps to understand pedestrian patterns relative to events such as work
 days, weekends, holidays, and special events. The layout algorithm has
@@ -81,18 +81,22 @@ package \pkg{sugrrants}.
 
 \section{Introduction}\label{introduction}
 
-This work was originally motivated by studying foot traffic in the city
-of Melbourne \citep{ped}. There have been 43 sensors installed that
-count pedestrians every hour across the downtown area up until the end
-of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into
-understanding people's daily schedules, or assisting administration and
-business planning. We start off with the conventional time series plot
-to catch a glimpse of such data. A small multiples, shown in Figure
-\ref{fig:time-series-plot}, gives an overall picture of the foot traffic
-at 3 different sensors. Figure \ref{fig:facet-time} provides more
-details of the temporal patterns by faceting on day of the week. The
-sensor data, like many temporal datasets on human behaviors, lends
-itself to a number of exploratory data visualization challenges:
+We propose a method for organising and visualising temporal data,
+collected on sub-daily interval, into a calendar layout. We hope this
+calendar-based visualization to provide insights into people's daily
+schedules relative to events such as work days, weekends, holidays, and
+special events. This work was originally motivated by studying foot
+traffic in the city of Melbourne \citep{ped}. There have been 43 sensors
+installed that count pedestrians every hour across the downtown area up
+until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can
+shed light into understanding people's daily schedules, or assisting
+administration and business planning. We start off with the conventional
+time series plot to catch a glimpse of such data. A small multiples,
+shown in Figure \ref{fig:time-series-plot}, gives an overall picture of
+the foot traffic at 3 different sensors. Figure \ref{fig:facet-time}
+provides more details of the temporal patterns by faceting on day of the
+week. The sensor data, like many temporal datasets on human behaviors,
+lends itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -245,13 +249,13 @@ implementation of the grammar of graphics
 
 \caption[The calendar-based display of hourly foot
 traffic at Flinders Street Station using line glyphs. The arrangement of
-the data into a 3 by 4 monthly grid represents all the traffic in 2016.
-The disparities between weekday and weekend along with public holiday
-are immediately apparent.]{The calendar-based display of hourly foot
+the data into a \(3 \times 4\) monthly grid represents all the traffic
+in 2016. The disparities between weekday and weekend along with public
+holiday are immediately apparent.]{The calendar-based display of hourly foot
 traffic at Flinders Street Station using line glyphs. The arrangement of
-the data into a 3 by 4 monthly grid represents all the traffic in 2016.
-The disparities between weekday and weekend along with public holiday
-are immediately apparent.}\label{fig:flinders-2016}
+the data into a \(3 \times 4\) monthly grid represents all the traffic
+in 2016. The disparities between weekday and weekend along with public
+holiday are immediately apparent.}\label{fig:flinders-2016}
 \end{figure}
 \end{CodeChunk}
 
@@ -333,8 +337,8 @@ this layout.
 }
 
 \caption[Illustration of the indexing layout for months of
-one year.]{Illustration of the indexing layout for months of
-one year.}\label{fig:year-diagram}
+one year, with \(M = 3\) and \(N = 4\).]{Illustration of the indexing layout for months of
+one year, with \(M = 3\) and \(N = 4\).}\label{fig:year-diagram}
 \end{figure}
 \end{CodeChunk}
 
@@ -364,9 +368,10 @@ of the grid which is why subtraction is performed. The resulting
 negative values place the cells down the vertical direction. Within each
 cell, the starting position is the bottom left.
 
-Reference lines dividing each cell and block as well as labels
-indicating weekday and month are also provided in order to make
-calendar-based graphics more accessible and informative.
+In order to make calendar-based graphics more accessible and
+informative, reference lines dividing each cell and block as well as
+labels indicating weekday and month are also computed before plotting
+construction.
 
 Regarding the monthly calendar, the major reference lines separate every
 month panel and the minor ones separate every cell, represented by the
@@ -412,12 +417,12 @@ The algorithm can be extended to display data from a single month up to
 a few years. The number of rows and columns in the layout can be
 specified with the arguments \code{nrow} and \code{ncol}. If the one
 would like to visualize data spanning over three years, for example,
-\code{nrow = 12} and \code{ncol = 3} would be an appropriate choice when
+\code{nrow = 3} and \code{ncol = 12} would be an appropriate choice when
 assessing the differences of a given month across the years.
 
 In Section \ref{sec:algorithm} we only illustrated that grids are laid
 out horizontally. The vertical direction can be enabled by swapping
-\(i\) and \(j\) in equation \ref{eq:grid}, which occurs when the
+\(i\) and \(j\) in equation \eqref{eq:grid}, which occurs when the
 argument \code{dir} is set to \code{"v"}. This benefits users who are
 accustomed to calendars that are organized vertically, which is common
 in some countries. Next we shall describe some of the arguments that
@@ -446,8 +451,8 @@ would be a better choice.
 
 When \code{polar = TRUE}, the polar transformation is carried out on the
 data. The computation is similar to the one described in
-\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} is considered
-as the spiral display of Figure \ref{fig:flinders-2016}.
+\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} is equivalent
+to Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -456,11 +461,11 @@ as the spiral display of Figure \ref{fig:flinders-2016}.
 
 }
 
-\caption[Star plots of hourly pedestrian counts at
-Flinders Street Station, which are line charts placed in polar
-coordinates. The periodic behaviors on workdays are clearly visible.]{Star plots of hourly pedestrian counts at
-Flinders Street Station, which are line charts placed in polar
-coordinates. The periodic behaviors on workdays are clearly visible.}\label{fig:flinders-polar}
+\caption[Figure \ref{fig:flinders-2016} in circular
+layout, which is referred to as star plots. The periodic behaviors on
+workdays are clearly visible.]{Figure \ref{fig:flinders-2016} in circular
+layout, which is referred to as star plots. The periodic behaviors on
+workdays are clearly visible.}\label{fig:flinders-polar}
 \end{figure}
 \end{CodeChunk}
 
@@ -484,17 +489,18 @@ Grouping the cells based on the same time period gives rise to the
 different scales. For example, the minimums and maximums obtained from
 each cell produce a local scale. The overall variation gives way to the
 individual shape. Figure \ref{fig:flinders-free} is an example of
-plotting line charts scaled locally. The daily variation is more
-distinctive compared to Figure \ref{fig:flinders-2016}.
+plotting line charts scaled locally using \code{scale = "free"}. The
+daily variation is more distinctive compared to Figure
+\ref{fig:flinders-2016}.
 
-Similarly, the same \(j\) indexing day of the week is grouped to compute
-the scales in days of a week; in other words, the same value within a
-given \(j\) corresponds to the same position across each
-\(j\)\textsuperscript{th} cell. To construct the scales for days of the
-month, \(g\) representing day of the month is used. This makes it easier
-to compare shape of a given day across each month block. The scaling
-option combined with the calendar layouts offers a number of varieties
-to construct the plot.
+The \code{free_wday} suggests that the scales are common for a given
+week day across all weeks, but different for each week days within a
+week. In other words, the same value within a given Monday, for example,
+corresponds to the same position across all Mondays but the different
+position in other week days. Similarly, the \code{free_mday} suggests
+free scaling for any day within a given month. The scaling option
+combined with the calendar layouts offers a number of varieties to
+construct the plot.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -648,10 +654,12 @@ Year's Eve.
 \caption[Side-by-side boxplot of hourly counts across all the
 43 sensors in December of 2016, with the superimposing loess smooth line
 for each day. It shows the hourly distribution in the city as a whole.
-Christmas stands out as the quietest day in December.]{Side-by-side boxplot of hourly counts across all the
+There is one sensor attracting a larger number of people on New Year's
+Eve than the rest.]{Side-by-side boxplot of hourly counts across all the
 43 sensors in December of 2016, with the superimposing loess smooth line
 for each day. It shows the hourly distribution in the city as a whole.
-Christmas stands out as the quietest day in December.}\label{fig:boxplot}
+There is one sensor attracting a larger number of people on New Year's
+Eve than the rest.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
 
@@ -659,6 +667,12 @@ Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 
 
 
+
+
+These calendar layouts, especially the monthly calendar, become widely
+used in most countries around the world. We offer languages other than
+English for text labelling. Figure \ref{fig:chn} shows the same plot as
+Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -667,9 +681,15 @@ Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 
 }
 
-\caption[Figure \ref{fig:boxplot} with Chinese text labels.]{Figure \ref{fig:boxplot} with Chinese text labels.}\label{fig:chn}
+\caption[The same side-by-side boxplot as Figure \ref{fig:boxplot},
+but with the month and weekday labels in Chinese. It demonstrates the
+natural support for languages other than English.]{The same side-by-side boxplot as Figure \ref{fig:boxplot},
+but with the month and weekday labels in Chinese. It demonstrates the
+natural support for languages other than English.}\label{fig:chn}
 \end{figure}
 \end{CodeChunk}
+
+
 
 
 
@@ -677,11 +697,10 @@ Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 
 \label{sec:discussion}
 
-The calendar-based visualization provides data plots in the familiar (at
-least for the Western world) format of an everyday tool. Special events
-for the region, like Anzac Day in Australia, or Thanksgiving Day in the
-USA, more easily pop out to the viewer as public holidays, rather than a
-typical work day.
+The calendar-based visualization provides data plots in the familiar
+format of an everyday tool. Special events for the region, like Anzac
+Day in Australia, or Thanksgiving Day in the USA, more easily pop out to
+the viewer as public holidays, rather than a typical work day.
 
 This sort of layout may be useful for studying consumer trends, or human
 behavior, like the pedestrian patterns. It may not work so well for
