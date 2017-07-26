@@ -66,6 +66,17 @@ package \pkg{sugrrants}.
 
 \usepackage{amsmath} \usepackage{tikz}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 \begin{document}
 
 \section{Introduction}\label{introduction}
@@ -106,9 +117,14 @@ itself to a number of exploratory data visualization challenges:
 
 }
 
-\caption[Map of the Melbourne city with purple dots indicating sensor locations]{Map of the Melbourne city with purple dots indicating sensor locations.}\label{fig:ped-map}
+\caption[Map of the Melbourne city with purple dots indicating
+sensor locations.]{Map of the Melbourne city with purple dots indicating
+sensor locations.}\label{fig:ped-map}
 \end{figure}
 \end{CodeChunk}
+
+
+
 
 \begin{CodeChunk}
 \begin{figure}
@@ -117,9 +133,29 @@ itself to a number of exploratory data visualization challenges:
 
 }
 
-\caption[Time series plot about the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne]{Time series plot about the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distincitve across these 3 sensors. There is an eye-catching spike which occurred at State Library, caused by the annual event--White Night--on 20th of Feburary.}\label{fig:time-series-plot}
+\caption[Time series plot about the number of
+pedestrians in 2016 measured at 3 different sensors in the city of
+Melbourne. Coloured by the sensors, small multiples of lines show that
+the foot traffic varies from one sensor to another in terms of both time
+and number. The weekly patterns look distinctive across these 3 sensors.
+There is an eye-catching spike which occurred at State Library, caused
+by the annual event--White Night--on 20th of February.]{Time series plot about the number of
+pedestrians in 2016 measured at 3 different sensors in the city of
+Melbourne. Coloured by the sensors, small multiples of lines show that
+the foot traffic varies from one sensor to another in terms of both time
+and number. The weekly patterns look distinctive across these 3 sensors.
+There is an eye-catching spike which occurred at State Library, caused
+by the annual event--White Night--on 20th of February.}\label{fig:time-series-plot}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
+
+
+
 
 \begin{CodeChunk}
 \begin{figure}
@@ -128,9 +164,20 @@ itself to a number of exploratory data visualization challenges:
 
 }
 
-\caption[Hourly pedestrian counts facetted by sensors and days of the week using lines]{Hourly pedestrian counts facetted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--across all the sensors. The temporal patterns are subject to the sensor locations too.}\label{fig:facet-time}
+\caption[Hourly pedestrian counts faceted by sensors and
+days of the week using lines. It features at least two types of
+seasons--time of day and day of week--across all the sensors. The
+temporal patterns are subject to the sensor locations too.]{Hourly pedestrian counts faceted by sensors and
+days of the week using lines. It features at least two types of
+seasons--time of day and day of week--across all the sensors. The
+temporal patterns are subject to the sensor locations too.}\label{fig:facet-time}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
 
 A collection of data plots, organized in a familiar format, offer a
 useful and intuitive way to understand complex data.
@@ -196,9 +243,23 @@ implementation of the grammar of graphics
 
 }
 
-\caption[The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs]{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between weekday and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
+\caption[The calendar-based display of hourly foot
+traffic at Flinders Street Station using line glyphs. The arrangement of
+the data into a 3 by 4 monthly grid represents all the traffic in 2016.
+The disparities between weekday and weekend along with public holiday
+are immediately apparent.]{The calendar-based display of hourly foot
+traffic at Flinders Street Station using line glyphs. The arrangement of
+the data into a 3 by 4 monthly grid represents all the traffic in 2016.
+The disparities between weekday and weekend along with public holiday
+are immediately apparent.}\label{fig:flinders-2016}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
+
 
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
@@ -249,9 +310,14 @@ month where \(k=5\).
 
 }
 
-\caption[Illustration of the indexing layout for cells in a month]{Illustration of the indexing layout for cells in a month.}\label{fig:month-diagram}
+\caption[Illustration of the indexing layout for cells in
+a month.]{Illustration of the indexing layout for cells in
+a month.}\label{fig:month-diagram}
 \end{figure}
 \end{CodeChunk}
+
+
+
 
 To create the layout for a full year, \((m, n)\) denotes the position of
 the month arranged in the plot, where \(1 \le m \le M\) and
@@ -266,9 +332,14 @@ this layout.
 
 }
 
-\caption[Illustration of the indexing layout for months of one year]{Illustration of the indexing layout for months of one year.}\label{fig:year-diagram}
+\caption[Illustration of the indexing layout for months of
+one year.]{Illustration of the indexing layout for months of
+one year.}\label{fig:year-diagram}
 \end{figure}
 \end{CodeChunk}
+
+
+
 
 Each cell forms a canvas on which to draw the data. Consider the canvas
 to have limits \([0, 1]\) horizontally and vertically. For the
@@ -330,12 +401,12 @@ frame_calendar(
 
 Assuming that tidy data \citep{wickham2014tidy} is the underlying data
 structure, the parameter \code{x} takes a variable that will be mapped
-to the x axis and the parameter \code{y} mapped to the y axis for plot
-construction. In Figure \ref{fig:flinders-2016}, for example, the
-\code{x} is the variable specifying the time of the day, and the
-\code{y} is the variable representing the hourly counts. The \code{date}
-argument is given by the date variable that determines the correct order
-of the calendar layout.
+to the horizontal axis and the parameter \code{y} mapped to the vertical
+axis for plot construction. In Figure \ref{fig:flinders-2016}, for
+example, the \code{x} is the variable specifying the time of the day,
+and the \code{y} is the variable representing the hourly counts. The
+\code{date} argument is given by the date variable that determines the
+correct order of the calendar layout.
 
 The algorithm can be extended to display data from a single month up to
 a few years. The number of rows and columns in the layout can be
@@ -385,9 +456,17 @@ as the spiral display of Figure \ref{fig:flinders-2016}.
 
 }
 
-\caption[Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates]{Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates. The periodic behaviors on workdays are clearly visible.}\label{fig:flinders-polar}
+\caption[Star plots of hourly pedestrian counts at
+Flinders Street Station, which are line charts placed in polar
+coordinates. The periodic behaviors on workdays are clearly visible.]{Star plots of hourly pedestrian counts at
+Flinders Street Station, which are line charts placed in polar
+coordinates. The periodic behaviors on workdays are clearly visible.}\label{fig:flinders-polar}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
 
 \subsection{Scales}\label{scales}
 
@@ -424,9 +503,20 @@ to construct the plot.
 
 }
 
-\caption[Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days]{Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is more difficult to compare the size of peaks between days.}\label{fig:flinders-free}
+\caption[Line glyphs on the calendar format showing
+hourly foot traffic at Flinders Street Station, scaled over all the
+days. The individual shape on a single day becomes more distinctive,
+however it is more difficult to compare the size of peaks between days.]{Line glyphs on the calendar format showing
+hourly foot traffic at Flinders Street Station, scaled over all the
+days. The individual shape on a single day becomes more distinctive,
+however it is more difficult to compare the size of peaks between days.}\label{fig:flinders-free}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
 
 \section{Variations}\label{variations}
 
@@ -457,9 +547,17 @@ Library.
 
 }
 
-\caption[Overlaying line graphs of the 3 sensors in the monthly calendar]{Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days.}\label{fig:overlay}
+\caption[Overlaying line graphs of the 3 sensors in the monthly
+calendar. Flagstaff station is not as busy as the other two on non-work
+days.]{Overlaying line graphs of the 3 sensors in the monthly
+calendar. Flagstaff station is not as busy as the other two on non-work
+days.}\label{fig:overlay}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
 
 To avoid the overlapping problem, the calendar layout can be embedded
 into a series of subplots for the different sensors. Figure
@@ -474,9 +572,20 @@ emphasising individual sensor variation.
 
 }
 
-\caption[Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors]{Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
+\caption[Line charts, embedded in the 6 by 2 monthly calendar,
+coloured and faceted by the 3 sensors. The variations of an individual
+sensor are emphasised, and the shapes can be compared across the cells
+and sensors.]{Line charts, embedded in the 6 by 2 monthly calendar,
+coloured and faceted by the 3 sensors. The variations of an individual
+sensor are emphasised, and the shapes can be compared across the cells
+and sensors.}\label{fig:facet}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
 
 \subsection{Different types of plots}\label{different-types-of-plots}
 
@@ -501,18 +610,33 @@ also supported by Figure \ref{fig:flinders-2016}.
 
 }
 
-\caption[Lag scatterplot in the daily calendar layout]{Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
+\caption[Lag scatterplot in the daily calendar layout.
+Previous hour's count is plotted against each hour's count at Flinders
+Street Station to demonstrate the autocorrelation at lag 1. The
+correlation between them is more consistent on non-work days than work
+days.]{Lag scatterplot in the daily calendar layout.
+Previous hour's count is plotted against each hour's count at Flinders
+Street Station to demonstrate the autocorrelation at lag 1. The
+correlation between them is more consistent on non-work days than work
+days.}\label{fig:scatterplot}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
+
 
 The newly computed coordinates can work with more complicated plots,
 such as the boxplot. Figure \ref{fig:boxplot} uses the loess smooth line
 superimposed on side-by-side boxplots. It shows the distribution of
-hourly counts across all 43 sensors during December. In general,
-bimodality features on work days whereas unimodality features on the
-rest of the days. The last week of December is the holiday season:
-people are off work on the day before Christmas, go shopping on the
-Boxing day, and stay out for the fireworks on New Year's Eve.
+hourly counts across all 43 sensors at a given time point during
+December. In general, bimodality features on work days whereas
+unimodality features on the rest of the days. The last week of December
+is the holiday season: people are off work on the day before Christmas,
+go shopping on the Boxing day, and stay out for the fireworks on New
+Year's Eve.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -521,9 +645,20 @@ Boxing day, and stay out for the fireworks on New Year's Eve.
 
 }
 
-\caption[Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day]{Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.}\label{fig:boxplot}
+\caption[Side-by-side boxplot of hourly counts across all the
+43 sensors in December of 2016, with the superimposing loess smooth line
+for each day. It shows the hourly distribution in the city as a whole.
+Christmas stands out as the quietest day in December.]{Side-by-side boxplot of hourly counts across all the
+43 sensors in December of 2016, with the superimposing loess smooth line
+for each day. It shows the hourly distribution in the city as a whole.
+Christmas stands out as the quietest day in December.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
+
+
+
+
+
 
 \begin{CodeChunk}
 \begin{figure}
@@ -532,9 +667,11 @@ Boxing day, and stay out for the fireworks on New Year's Eve.
 
 }
 
-\caption[Figure 12 with Chinese text labels]{Figure 12 with Chinese text labels.}\label{fig:chn}
+\caption[Figure \ref{fig:boxplot} with Chinese text labels.]{Figure \ref{fig:boxplot} with Chinese text labels.}\label{fig:chn}
 \end{figure}
 \end{CodeChunk}
+
+
 
 \section{Discussion}\label{discussion}
 

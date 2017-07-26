@@ -35,7 +35,8 @@ preamble: >
   \usepackage{amsmath}
   \usepackage{tikz}
 output: 
-  rticles::jss_article:
+  bookdown::pdf_book:
+    base_format: rticles::jss_article
   citation_package: biblatex
 bibliography: ["references.bib", "packages.bib"]
 ---
@@ -62,14 +63,20 @@ This work was originally motivated by studying foot traffic in the city of Melbo
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
 3. Measurements of a single type are made at multiple locations at a given time point, which creates the need for comparing and contrasting between locations.
 
-```{r ped-map, fig.width = 4, out.width = "0.55\\linewidth", fig.cap = "Map of the Melbourne city with purple dots indicating sensor locations."}
+```{r ped-map, fig.width = 4, out.width = "0.55\\linewidth", fig.cap = "(ref:ped-map-cap)"}
 ```
 
-```{r time-series-plot, fig.height = 6, fig.cap = "Time series plot about the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distincitve across these 3 sensors. There is an eye-catching spike which occurred at State Library, caused by the annual event--White Night--on 20th of Feburary."}
+(ref:ped-map-cap) Map of the Melbourne city with purple dots indicating sensor locations.
+
+```{r time-series-plot, fig.height = 6, fig.cap = "(ref:time-series-plot-cap)"}
 ```
 
-```{r facet-time, fig.height = 6, fig.cap = "Hourly pedestrian counts facetted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--across all the sensors. The temporal patterns are subject to the sensor locations too."}
+(ref:time-series-plot-cap) Time series plot about the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Coloured by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these 3 sensors. There is an eye-catching spike which occurred at State Library, caused by the annual event--White Night--on 20th of February.
+
+```{r facet-time, fig.height = 6, fig.cap = "(ref:facet-time-cap)"}
 ```
+
+(ref:facet-time-cap) Hourly pedestrian counts faceted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--across all the sensors. The temporal patterns are subject to the sensor locations too.
 
 A collection of data plots, organized in a familiar format, offer a useful and intuitive way to understand complex data. 
 @Wickham2012glyph embedded a sequence of daily temperature line charts into a glyph map according to the spatial locations; and @R-geofacet provided methods in the \pkg{geofacet} package to arrange data plots into a grid, while preserving the geographical layout. They both attempt to enable one to see the spatial context of each self-contained data plot.
@@ -85,8 +92,10 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year of 2016. This is achieved by the \code{frame_calendar} function computing the new coordinates according to the input data variables; in turn the rearranged data values are plotted using the \pkg{ggplot2} package [@R-ggplot2], which is an implementation of the grammar of graphics [@wilkinson2006grammar; @wickham2010layered]. 
 
-```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between weekday and weekend along with public holiday are immediately apparent."}
+```{r flinders-2016, fig.height = 6.5, fig.cap = "(ref:flinders-2016-cap)"}
 ```
+
+(ref:flinders-2016-cap) The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between weekday and weekend along with public holiday are immediately apparent.
 
 The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar, requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday-Sunday, which is determined by the year of the calendar. Months are of different length days, ranging from 28-31, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
 
@@ -106,15 +115,19 @@ The grid position for any day in the month is given by
 
 Figure \ref{fig:month-diagram} illustrates this $(i,j)$ layout for a month where $k=5$. 
 
-```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "Illustration of the indexing layout for cells in a month."}
+```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:month-diagram-cap)"}
 include_graphics("figure/month.pdf")
 ```
 
+(ref:month-diagram-cap) Illustration of the indexing layout for cells in a month.
+
 To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, label this $b$. Figure \ref{fig:year-diagram} illustrates this  layout.
 
-```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "Illustration of the indexing layout for months of one year."}
+```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:year-diagram-cap)"}
 include_graphics("figure/year.pdf")
 ```
+
+(ref:year-diagram-cap) Illustration of the indexing layout for months of one year.
 
 Each cell forms a canvas on which to draw the data. Consider the canvas to have limits $[0, 1]$ horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0,1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
 
@@ -148,7 +161,7 @@ frame_calendar(
 )
 ```
 
-Assuming that tidy data [@wickham2014tidy] is the underlying data structure, the parameter \code{x} takes a variable that will be mapped to the x axis and the parameter \code{y} mapped to the y axis for plot construction. In Figure \ref{fig:flinders-2016}, for example, the \code{x} is the variable specifying the time of the day, and the \code{y} is the variable representing the hourly counts. The \code{date} argument is given by the date variable that determines the correct order of the calendar layout. 
+Assuming that tidy data [@wickham2014tidy] is the underlying data structure, the parameter \code{x} takes a variable that will be mapped to the horizontal axis and the parameter \code{y} mapped to the vertical axis for plot construction. In Figure \ref{fig:flinders-2016}, for example, the \code{x} is the variable specifying the time of the day, and the \code{y} is the variable representing the hourly counts. The \code{date} argument is given by the date variable that determines the correct order of the calendar layout. 
 
 The algorithm can be extended to display data from a single month up to a few years. The number of rows and columns in the layout can be specified with the arguments \code{nrow} and \code{ncol}. If the one would like to visualize data spanning over three years, for example, \code{nrow = 12} and \code{ncol = 3} would be an appropriate choice when assessing the differences of a given month across the years.
 
@@ -162,8 +175,10 @@ The algorithm described in Section \ref{sec:algorithm} is for the most common ca
 
 When \code{polar = TRUE}, the polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} is considered as the spiral display of Figure \ref{fig:flinders-2016}.
 
-```{r flinders-polar, fig.height = 6.5, fig.cap = "Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates. The periodic behaviors on workdays are clearly visible."}
+```{r flinders-polar, fig.height = 6.5, fig.cap = "(ref:flinders-polar-cap)"}
 ```
+
+(ref:flinders-polar-cap) Star plots of hourly pedestrian counts at Flinders Street Station, which are line charts placed in polar coordinates. The periodic behaviors on workdays are clearly visible.
 
 ## Scales
 
@@ -173,8 +188,10 @@ Grouping the cells based on the same time period gives rise to the different sca
 
 Similarly, the same $j$ indexing day of the week is grouped to compute the scales in days of a week; in other words, the same value within a given $j$ corresponds to the same position across each $j$\textsuperscript{th} cell. To construct the scales for days of the month, $g$ representing day of the month is used. This makes it easier to compare shape of a given day across each month block. The scaling option combined with the calendar layouts offers a number of varieties to construct the plot.
 
-```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is more difficult to compare the size of peaks between days."}
+```{r flinders-free, fig.height = 6.5, fig.cap = "(ref:flinders-free-cap)"}
 ```
+
+(ref:flinders-free-cap) Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is more difficult to compare the size of peaks between days.
 
 # Variations
 \label{sec:examples}
@@ -183,28 +200,38 @@ Similarly, the same $j$ indexing day of the week is grouped to compute the scale
 
 The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street station has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library. 
 
-```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days."}
+```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
+
+(ref:overlay-cap) Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days.
 
 To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasising individual sensor variation. 
 
-```{r facet, fig.height = 11, fig.cap = "Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
+```{r facet, fig.height = 11, fig.cap = "(ref:facet-cap)"}
 ```
+
+(ref:facet-cap) Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.
 
 ## Different types of plots
 
 The \code{frame_calendar} function does not constrain itself to mapping only the temporal variable to the \code{x} argument. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. It provides a visual tool for identifying repeating patterns. Figure \ref{fig:scatterplot} indicates two separate paths in the work-day glyphs, suggesting that an hour of a work day with many pedestrians is likely to be followed in the next hour with either greater or fewer numbers of pedestrians. However, this pattern is not present on non-work days. There is a bimodality on work days while there is unimodality on the rest of the days, which is also supported by Figure \ref{fig:flinders-2016}.
 
-```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
+```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
 
-The newly computed coordinates can work with more complicated plots, such as the boxplot. Figure \ref{fig:boxplot} uses the loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. In general, bimodality features on work days whereas unimodality features on the rest of the days. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.
+(ref:scatterplot-cap) Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
 
-```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December."}
+The newly computed coordinates can work with more complicated plots, such as the boxplot. Figure \ref{fig:boxplot} uses the loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors at a given time point during December. In general, bimodality features on work days whereas unimodality features on the rest of the days. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.
+
+```{r boxplot, fig.height = 6.5, fig.cap = "(ref:boxplot-cap)"}
 ```
 
-```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "Figure 12 with Chinese text labels."}
+(ref:boxplot-cap) Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. Christmas stands out as the quietest day in December.
+
+```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"}
 ```
+
+(ref:chn-cap) Figure \ref{fig:boxplot} with Chinese text labels.
 
 # Discussion
 \label{sec:discussion}
