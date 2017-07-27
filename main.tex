@@ -81,7 +81,7 @@ package \pkg{sugrrants}.
 
 \section{Introduction}\label{introduction}
 
-We propose a method for organising and visualising temporal data,
+We develop a method for organizing and visualizing temporal data,
 collected on sub-daily interval, into a calendar layout. We hope this
 calendar-based visualization to provide insights into people's daily
 schedules relative to events such as work days, weekends, holidays, and
@@ -94,9 +94,9 @@ administration and business planning. We start off with the conventional
 time series plot to catch a glimpse of such data. A small multiples,
 shown in Figure \ref{fig:time-series-plot}, gives an overall picture of
 the foot traffic at 3 different sensors. Figure \ref{fig:facet-time}
-provides more details of the temporal patterns by faceting on day of the
-week. The sensor data, like many temporal datasets on human behaviors,
-lends itself to a number of exploratory data visualization challenges:
+provides daily and sub-daily patterns by faceting on day of the week.
+The sensor data, like many temporal datasets on human behaviors, lends
+itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -183,8 +183,8 @@ temporal patterns are subject to the sensor locations too.}\label{fig:facet-time
 
 
 
-A collection of data plots, organized in a familiar format, offer a
-useful and intuitive way to understand complex data.
+A collection of data plots, organized in a familiar format, offer an
+intuitive and contextual way to understand complex data.
 \citet{Wickham2012glyph} embedded a sequence of daily temperature line
 charts into a glyph map according to the spatial locations; and
 \citet{R-geofacet} provided methods in the \pkg{geofacet} package to
@@ -197,7 +197,7 @@ unfolding human-related activities over time. For example,
 \citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
 colours indicate different clusters derived from the days. It contrasts
-weekdays and weekends, highlights public holidays, and presents other
+week days and weekends, highlights public holidays, and presents other
 known seasons like school vacations; all of which have influence over
 the turn-outs in the office. The calendar-based heatmap was implemented
 in two R packages: \pkg{ggTimeSeries} \citep{R-ggTimeSeries} and
@@ -206,7 +206,7 @@ colour-encoding graphics and are unable to use time scales smaller than
 day. Time of day, which serves as one of the most important aspects in
 explaining variations arisen from pedestrian sensor data, will be
 neglected through daily aggregation. Additionally if simply using
-coloured blocks rather than curves, it may become perceptually difficult
+colored blocks rather than curves, it may become perceptually difficult
 to estimate the shape positions and changes, although using the curves
 comes with the cost of more display capacity
 \citep{cleveland1984graphical, lam2007overview}.
@@ -250,11 +250,11 @@ implementation of the grammar of graphics
 \caption[The calendar-based display of hourly foot
 traffic at Flinders Street Station using line glyphs. The arrangement of
 the data into a \(3 \times 4\) monthly grid represents all the traffic
-in 2016. The disparities between weekday and weekend along with public
+in 2016. The disparities between week day and weekend along with public
 holiday are immediately apparent.]{The calendar-based display of hourly foot
 traffic at Flinders Street Station using line glyphs. The arrangement of
 the data into a \(3 \times 4\) monthly grid represents all the traffic
-in 2016. The disparities between weekday and weekend along with public
+in 2016. The disparities between week day and weekend along with public
 holiday are immediately apparent.}\label{fig:flinders-2016}
 \end{figure}
 \end{CodeChunk}
@@ -271,13 +271,13 @@ similar to that used in the glyph map displays for spatio-temporal data
 for days, embedded in blocks corresponding to months, organized into a
 grid layout for a year. Each month can be captured with 35 (5 \(\times\)
 7) cells, where the top left is Monday of week 1, and the bottom right
-is Sunday of week 5. These cells provide a micro canvas on which to plot
-the data. The first day of the month could be any of Monday-Sunday,
-which is determined by the year of the calendar. Months are of different
-length days, ranging from 28-31, and each month could extend over six
-weeks but the convention in these months is to wrap the last few days up
-to the top row of the block. The notation for creating these cells is as
-follows:
+is Sunday of week 5 by default. These cells provide a micro canvas on
+which to plot the data. The first day of the month could be any of
+Monday-Sunday, which is determined by the year of the calendar. Months
+are of different length days, ranging from 28 to 31, and each month
+could extend over six weeks but the convention in these months is to
+wrap the last few days up to the top row of the block. The notation for
+creating these cells is as follows:
 
 \begin{itemize}
 \tightlist
@@ -326,8 +326,8 @@ a month.}\label{fig:month-diagram}
 To create the layout for a full year, \((m, n)\) denotes the position of
 the month arranged in the plot, where \(1 \le m \le M\) and
 \(1 \le n \le N\). Between each month requires some small amount of
-white space, label this \(b\). Figure \ref{fig:year-diagram} illustrates
-this layout.
+white space, denoted by \(b\). Figure \ref{fig:year-diagram} illustrates
+this layout where \(M = 3\) and \(N = 4\).
 
 \begin{CodeChunk}
 \begin{figure}
@@ -337,57 +337,58 @@ this layout.
 }
 
 \caption[Illustration of the indexing layout for months of
-one year, with \(M = 3\) and \(N = 4\).]{Illustration of the indexing layout for months of
-one year, with \(M = 3\) and \(N = 4\).}\label{fig:year-diagram}
+one year.]{Illustration of the indexing layout for months of
+one year.}\label{fig:year-diagram}
 \end{figure}
 \end{CodeChunk}
 
 
 
 
-Each cell forms a canvas on which to draw the data. Consider the canvas
-to have limits \([0, 1]\) horizontally and vertically. For the
-pedestrian sensor data, within each cell, hour is plotted horizontally
-and count is plotted vertically. Each variable is scaled to have values
-in \([0,1]\), using the minimum and maximum of all the data values to be
-displayed, assuming fixed scales. Let \(h\) be the scaled hour, and
-\(c\) the scaled count.
+Each cell forms a canvas on which to draw the data. Initialize the
+canvas to have limits \([0, 1]\) both horizontally and vertically. For
+the pedestrian sensor data, within each cell, hour is plotted
+horizontally and count is plotted vertically. Each variable is scaled to
+have values in \([0,1]\), using the minimum and maximum of all the data
+values to be displayed, assuming fixed scales. Let \(h\) be the scaled
+hour, and \(c\) the scaled count.
 
 Then the final points for making the calendar line plots of the
 pedestrian sensor data is given by:
 
 \begin{equation}
   \begin{aligned}
-  x &= i + (i - 1) \times m + (m - 1) \times b + h, \\
-  y &= -j - (j - 1) \times n - (n - 1) \times b + c. \label{eq:final}
+  x &= j + (n - 1) \times 7 + (n - 1) \times b + h, \\
+  y &= i - (m - 1) \times 5 - (m - 1) \times b + c. \label{eq:final}
   \end{aligned}
 \end{equation}
 
 Note that for the vertical direction, the top left is the starting point
-of the grid which is why subtraction is performed. The resulting
-negative values place the cells down the vertical direction. Within each
-cell, the starting position is the bottom left.
+of the grid (in Figure \ref{fig:month-diagram}) which is why subtraction
+is performed. Within each cell, the starting position is the bottom
+left.
 
 In order to make calendar-based graphics more accessible and
 informative, reference lines dividing each cell and block as well as
-labels indicating weekday and month are also computed before plotting
+labels indicating week day and month are also computed before plotting
 construction.
 
 Regarding the monthly calendar, the major reference lines separate every
 month panel and the minor ones separate every cell, represented by the
-thick and thin lines respectively. The major reference lines are placed
-surrounding every month block: for each \(m\), the vertical lines are
-determined by \(\min{(x)}\) and \(\max{(x)}\); for each \(n\), the
-horizontal lines are given by \(\min{(y)}\) and \(\max{(y)}\). The minor
-reference lines are placed on the left side of every cell: for each
-\(i\), the vertical division is \(\min{(x)}\); for each \(j\), the
-horizontal is \(\min{(y)}\).
+thick and thin lines in Figure \ref{fig:flinders-2016}, respectively.
+The major reference lines are placed surrounding every month block: for
+each \(m\), the vertical lines are determined by \(\min{(x)}\) and
+\(\max{(x)}\); for each \(n\), the horizontal lines are given by
+\(\min{(y)}\) and \(\max{(y)}\). The minor reference lines are only
+placed on the left side of every cell: for each \(i\), the vertical
+division is \(\min{(x)}\); for each \(j\), the horizontal is
+\(\min{(y)}\).
 
-The abbreviated month labels located on the top left are obtained
-through \((\min{(x)}, \max{(y)})\) for every \((m, n)\). The weekday
-texts with a single letter are uniformly positioned on the bottom of the
-whole canvas, that is \(\min{(y)}\), with the central position of a cell
-\(x / 2\) for each \(j\).
+The month labels located on the top left are obtained through
+\((\min{(x)}, \max{(y)})\) for every \((m, n)\). The week day texts are
+uniformly positioned on the bottom of the whole canvas, that is
+\(\min{(y)}\), with the central position of a cell \(x / 2\) for each
+\(j\).
 
 \section{Options}\label{options}
 
@@ -451,8 +452,9 @@ would be a better choice.
 
 When \code{polar = TRUE}, the polar transformation is carried out on the
 data. The computation is similar to the one described in
-\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} is equivalent
-to Figure \ref{fig:flinders-2016} placed in polar coordinates.
+\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} shows star
+plots embedded in the monthly calendar layout, which is equivalent to
+Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -485,10 +487,10 @@ each cell (\code{free}), cells derived from the same day of the week
 (\code{free_mday}). The scaling allows for the comparisons of absolute
 or relative values, and the emphasis of different temporal variations.
 
-Grouping the cells based on the same time period gives rise to the
-different scales. For example, the minimums and maximums obtained from
-each cell produce a local scale. The overall variation gives way to the
-individual shape. Figure \ref{fig:flinders-free} is an example of
+Grouping the cells based on the corresponding time period gives rise to
+the different scales. For example, the minimums and maximums obtained
+from each cell produce a local scale. The overall variation gives way to
+the individual shape. Figure \ref{fig:flinders-free} is an example of
 plotting line charts scaled locally using \code{scale = "free"}. The
 daily variation is more distinctive compared to Figure
 \ref{fig:flinders-2016}.
@@ -532,16 +534,16 @@ however it is more difficult to compare the size of peaks between days.}\label{f
 subsets}\label{overlaying-and-faceting-subsets}
 
 The comparison of one sensor to another adds additional insights to the
-dataset, which is commonly done with an overlaying plot such as Figure
+dataset, which is often done with an overlaying plot such as Figure
 \ref{fig:overlay}. For instance, the dominant patterns that occurred at
 Flinders Street and Flagstaff train stations are driven by the commuters
-on work days; however, Flinders Street station has higher pedestrian
+on work days; however, Flinders Street Station has higher pedestrian
 counts during the weekends and public holidays. This suggests that
-Flagstaff station limits its functionality on non-work days, but various
+Flagstaff Station limits its functionality on non-work days, but various
 activities take place around the Flinders Street Station other than
 commuting. Figure \ref{fig:overlay} also shows that State Library
 follows a similar temporal trend as Flinders Street Station on non-work
-days. The nighttime events, such as White Night and New Year's Eve has
+days. The nighttime events, such as White Night and New Year's Eve, have
 barely affected the operation of Flagstaff Station but heavily affected
 the incoming and outgoing traffic to Flinders Street Station and State
 Library.
@@ -578,13 +580,13 @@ emphasising individual sensor variation.
 
 }
 
-\caption[Line charts, embedded in the 6 by 2 monthly calendar,
-coloured and faceted by the 3 sensors. The variations of an individual
-sensor are emphasised, and the shapes can be compared across the cells
-and sensors.]{Line charts, embedded in the 6 by 2 monthly calendar,
-coloured and faceted by the 3 sensors. The variations of an individual
-sensor are emphasised, and the shapes can be compared across the cells
-and sensors.}\label{fig:facet}
+\caption[Line charts, embedded in the \(6 \times 2\) monthly
+calendar, coloured and faceted by the 3 sensors. The variations of an
+individual sensor are emphasised, and the shapes can be compared across
+the cells and sensors.]{Line charts, embedded in the \(6 \times 2\) monthly
+calendar, coloured and faceted by the 3 sensors. The variations of an
+individual sensor are emphasised, and the shapes can be compared across
+the cells and sensors.}\label{fig:facet}
 \end{figure}
 \end{CodeChunk}
 
@@ -605,9 +607,9 @@ tool for identifying repeating patterns. Figure \ref{fig:scatterplot}
 indicates two separate paths in the work-day glyphs, suggesting that an
 hour of a work day with many pedestrians is likely to be followed in the
 next hour with either greater or fewer numbers of pedestrians. However,
-this pattern is not present on non-work days. There is a bimodality on
-work days while there is unimodality on the rest of the days, which is
-also supported by Figure \ref{fig:flinders-2016}.
+this pattern is absent on non-work days. There is a bimodality on work
+days while there is unimodality on the rest of the days, which is also
+supported by Figure \ref{fig:flinders-2016}.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -670,9 +672,9 @@ Eve than the rest.}\label{fig:boxplot}
 
 
 These calendar layouts, especially the monthly calendar, become widely
-used in most countries around the world. We offer languages other than
-English for text labelling. Figure \ref{fig:chn} shows the same plot as
-Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
+used in society. We offer languages other than English for text
+labelling. Figure \ref{fig:chn} shows the same plot as Figure
+\ref{fig:boxplot} labelled using simplified Chinese characters.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -682,9 +684,9 @@ Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
 }
 
 \caption[The same side-by-side boxplot as Figure \ref{fig:boxplot},
-but with the month and weekday labels in Chinese. It demonstrates the
+but with the month and week day labels in Chinese. It demonstrates the
 natural support for languages other than English.]{The same side-by-side boxplot as Figure \ref{fig:boxplot},
-but with the month and weekday labels in Chinese. It demonstrates the
+but with the month and week day labels in Chinese. It demonstrates the
 natural support for languages other than English.}\label{fig:chn}
 \end{figure}
 \end{CodeChunk}

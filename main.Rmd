@@ -57,7 +57,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-We propose a method for organising and visualising temporal data, collected on sub-daily interval, into a calendar layout. We hope this calendar-based visualization to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides more details of the temporal patterns by faceting on day of the week. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
+We develop a method for organizing and visualizing temporal data, collected on sub-daily interval, into a calendar layout. We hope this calendar-based visualization to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides daily and sub-daily patterns by faceting on day of the week. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
 
 1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
@@ -78,10 +78,9 @@ We propose a method for organising and visualising temporal data, collected on s
 
 (ref:facet-time-cap) Hourly pedestrian counts faceted by sensors and days of the week using lines. It features at least two types of seasons--time of day and day of week--across all the sensors. The temporal patterns are subject to the sensor locations too.
 
-A collection of data plots, organized in a familiar format, offer a useful and intuitive way to understand complex data. 
-@Wickham2012glyph embedded a sequence of daily temperature line charts into a glyph map according to the spatial locations; and @R-geofacet provided methods in the \pkg{geofacet} package to arrange data plots into a grid, while preserving the geographical layout. They both attempt to enable one to see the spatial context of each self-contained data plot.
+A collection of data plots, organized in a familiar format, offer an intuitive and contextual way to understand complex data. @Wickham2012glyph embedded a sequence of daily temperature line charts into a glyph map according to the spatial locations; and @R-geofacet provided methods in the \pkg{geofacet} package to arrange data plots into a grid, while preserving the geographical layout. They both attempt to enable one to see the spatial context of each self-contained data plot.
 
-Alternatively, calendar-based graphics turn out to be a useful tool in unfolding human-related activities over time. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It contrasts weekdays and weekends, highlights public holidays, and presents other known seasons like school vacations; all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to colour-encoding graphics and are unable to use time scales smaller than day. Time of day, which serves as one of the most important aspects in explaining variations arisen from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using coloured blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using the curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
+Alternatively, calendar-based graphics turn out to be a useful tool in unfolding human-related activities over time. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasons like school vacations; all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to colour-encoding graphics and are unable to use time scales smaller than day. Time of day, which serves as one of the most important aspects in explaining variations arisen from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using the curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
 
 We propose a new algorithm via linear algebra tools to go beyond the calendar-based heatmap. The approach is developed with these conditions in mind: (1) to make time of day present in addition to the existing temporal components such as day of week and day of year, (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout, (3) to enable an overlaying plot consisting of multiple time series. The proposed algorithm has been implemented in the \code{frame_calendar} function in the \pkg{sugrrants} package [@R-sugrrants] using \proglang{R} [@R-base].
 
@@ -95,9 +94,9 @@ Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calen
 ```{r flinders-2016, fig.height = 6.5, fig.cap = "(ref:flinders-2016-cap)"}
 ```
 
-(ref:flinders-2016-cap) The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between weekday and weekend along with public holiday are immediately apparent.
+(ref:flinders-2016-cap) The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.
 
-The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar, requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday-Sunday, which is determined by the year of the calendar. Months are of different length days, ranging from 28-31, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
+The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar, requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday-Sunday, which is determined by the year of the calendar. Months are of different length days, ranging from 28 to 31, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
 
 * $k = 1, \dots , 7$ is the day of the week that is the first day of the month.
 * $d = 28, 29, 30$ or $31$ representing the number of days in any month.
@@ -121,32 +120,32 @@ include_graphics("figure/month.pdf")
 
 (ref:month-diagram-cap) Illustration of the indexing layout for cells in a month.
 
-To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, label this $b$. Figure \ref{fig:year-diagram} illustrates this  layout.
+To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, denoted by $b$. Figure \ref{fig:year-diagram} illustrates this layout where $M = 3$ and $N = 4$.
 
 ```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:year-diagram-cap)"}
 include_graphics("figure/year.pdf")
 ```
 
-(ref:year-diagram-cap) Illustration of the indexing layout for months of one year, with $M = 3$ and $N = 4$.
+(ref:year-diagram-cap) Illustration of the indexing layout for months of one year.
 
-Each cell forms a canvas on which to draw the data. Consider the canvas to have limits $[0, 1]$ horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0,1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
+Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0,1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
 
 Then the final points for making the calendar line plots of the pedestrian sensor data is given by:
 
 \begin{equation}
   \begin{aligned}
-  x &= i + (i - 1) \times m + (m - 1) \times b + h, \\
-  y &= -j - (j - 1) \times n - (n - 1) \times b + c. \label{eq:final}
+  x &= j + (n - 1) \times 7 + (n - 1) \times b + h, \\
+  y &= i - (m - 1) \times 5 - (m - 1) \times b + c. \label{eq:final}
   \end{aligned}
 \end{equation}
 
-Note that for the vertical direction, the top left is the starting point of the grid which is why subtraction is performed. The resulting negative values place the cells down the vertical direction. Within each cell, the starting position is the bottom left. 
+Note that for the vertical direction, the top left is the starting point of the grid (in Figure \ref{fig:month-diagram}) which is why subtraction is performed. Within each cell, the starting position is the bottom left. 
  
-In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating weekday and month are also computed before plotting construction. 
+In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating week day and month are also computed before plotting construction. 
 
-Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
+Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines in Figure \ref{fig:flinders-2016}, respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are only placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
 
-The abbreviated month labels located on the top left are obtained through $(\min{(x)}, \max{(y)})$ for every $(m, n)$. The weekday texts with a single letter are uniformly positioned on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
+The month labels located on the top left are obtained through $(\min{(x)}, \max{(y)})$ for every $(m, n)$. The week day texts are uniformly positioned on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
 
 # Options
 \label{sec:opt}
@@ -173,7 +172,7 @@ The algorithm described in Section \ref{sec:algorithm} is for the most common ca
 
 ## Polar transformation
 
-When \code{polar = TRUE}, the polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
+When \code{polar = TRUE}, the polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
 ```{r flinders-polar, fig.height = 6.5, fig.cap = "(ref:flinders-polar-cap)"}
 ```
@@ -184,7 +183,7 @@ When \code{polar = TRUE}, the polar transformation is carried out on the data. T
 
 Section \ref{sec:algorithm} discusses the implementation applied to a fixed scale, which uses the range over all data values. The \code{scale} argument controls the scaling of the display. The fixed scale (\code{fixed}) is the default, meaning that the data values in all positions are scaled. The remaining options include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free_wday}), or cells from the same day of the month (\code{free_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
-Grouping the cells based on the same time period gives rise to the different scales. For example, the minimums and maximums obtained from each cell produce a local scale. The overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} is an example of plotting line charts scaled locally using \code{scale = "free"}. The daily variation is more distinctive compared to Figure \ref{fig:flinders-2016}. 
+Grouping the cells based on the corresponding time period gives rise to the different scales. For example, the minimums and maximums obtained from each cell produce a local scale. The overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} is an example of plotting line charts scaled locally using \code{scale = "free"}. The daily variation is more distinctive compared to Figure \ref{fig:flinders-2016}. 
 
 The \code{free_wday} suggests that the scales are common for a given week day across all weeks, but different for each week days within a week. In other words, the same value within a given Monday, for example, corresponds to the same position across all Mondays but the different position in other week days. Similarly, the \code{free_mday} suggests free scaling for any day within a given month. The scaling option combined with the calendar layouts offers a number of varieties to construct the plot.
 
@@ -198,7 +197,7 @@ The \code{free_wday} suggests that the scales are common for a given week day ac
 
 ## Overlaying and faceting subsets
 
-The comparison of one sensor to another adds additional insights to the dataset, which is commonly done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street station has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve has barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library. 
+The comparison of one sensor to another adds additional insights to the dataset, which is often done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street Station has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and State Library. 
 
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
@@ -210,11 +209,11 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 ```{r facet, fig.height = 11, fig.cap = "(ref:facet-cap)"}
 ```
 
-(ref:facet-cap) Line charts, embedded in the 6 by 2 monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.
+(ref:facet-cap) Line charts, embedded in the $6 \times 2$ monthly calendar, coloured and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.
 
 ## Different types of plots
 
-The \code{frame_calendar} function does not constrain itself to mapping only the temporal variable to the \code{x} argument. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. It provides a visual tool for identifying repeating patterns. Figure \ref{fig:scatterplot} indicates two separate paths in the work-day glyphs, suggesting that an hour of a work day with many pedestrians is likely to be followed in the next hour with either greater or fewer numbers of pedestrians. However, this pattern is not present on non-work days. There is a bimodality on work days while there is unimodality on the rest of the days, which is also supported by Figure \ref{fig:flinders-2016}.
+The \code{frame_calendar} function does not constrain itself to mapping only the temporal variable to the \code{x} argument. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. It provides a visual tool for identifying repeating patterns. Figure \ref{fig:scatterplot} indicates two separate paths in the work-day glyphs, suggesting that an hour of a work day with many pedestrians is likely to be followed in the next hour with either greater or fewer numbers of pedestrians. However, this pattern is absent on non-work days. There is a bimodality on work days while there is unimodality on the rest of the days, which is also supported by Figure \ref{fig:flinders-2016}.
 
 ```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
@@ -228,12 +227,12 @@ The newly computed coordinates can work with more complicated plots, such as the
 
 (ref:boxplot-cap) Side-by-side boxplot of hourly counts across all the 43 sensors in December of 2016, with the superimposing loess smooth line for each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest.
 
-These calendar layouts, especially the monthly calendar, become widely used in most countries around the world. We offer languages other than English for text labelling. Figure \ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
+These calendar layouts, especially the monthly calendar, become widely used in society. We offer languages other than English for text labelling. Figure \ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
 
 ```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"}
 ```
 
-(ref:chn-cap) The same side-by-side boxplot as Figure \ref{fig:boxplot}, but with the month and weekday labels in Chinese. It demonstrates the natural support for languages other than English.
+(ref:chn-cap) The same side-by-side boxplot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.
 
 # Discussion
 \label{sec:discussion}
