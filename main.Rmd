@@ -33,7 +33,6 @@ keywords:
   plain:     [data visualization, statistical graphics, time series, R package, grammar of graphics]
 preamble: >
   \usepackage{amsmath}
-  \usepackage{tikz}
 output: 
   bookdown::pdf_book:
     base_format: rticles::jss_article
@@ -57,9 +56,9 @@ read_chunk('src/main.R')
 
 # Introduction
 
-We develop a method for organizing and visualizing temporal data, collected on sub-daily interval, into a calendar layout. We hope this calendar-based visualization to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily schedules, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides daily and sub-daily patterns by faceting on day of the week. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
+We develop a method for organizing and visualizing temporal data, collected on sub-daily interval, into a calendar layout. We hope this calendar-based visualization to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area up until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily rhythms, or assisting administration and business planning. We start off with the conventional time series plot to catch a glimpse of such data. A small multiples, shown in Figure \ref{fig:time-series-plot}, gives an overall picture of the foot traffic at 3 different sensors. Figure \ref{fig:facet-time} provides daily and sub-daily patterns by faceting on day of the week. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
 
-1. Variations primarily result from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
+1. Variations primarily source from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
 3. Measurements of a single type are made at multiple locations at a given time point, which creates the need for comparing and contrasting between locations.
 
@@ -80,7 +79,7 @@ We develop a method for organizing and visualizing temporal data, collected on s
 
 A collection of data plots, organized in a familiar format, offer an intuitive and contextual way to understand complex data. @Wickham2012glyph embedded a sequence of daily temperature line charts into a glyph map according to the spatial locations; and @R-geofacet provided methods in the \pkg{geofacet} package to arrange data plots into a grid, while preserving the geographical layout. They both attempt to enable one to see the spatial context of each self-contained data plot.
 
-Alternatively, calendar-based graphics turn out to be a useful tool in unfolding human-related activities over time. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasons like school vacations; all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to colour-encoding graphics and are unable to use time scales smaller than day. Time of day, which serves as one of the most important aspects in explaining variations arisen from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using the curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
+Alternatively, calendar-based graphics turn out to be a useful tool in unfolding human-related activities over time. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colours indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasons like school vacations; all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to colour-encoding graphics and are unable to use time scales smaller than day. Time of day, which serves as one of the most important aspects in explaining substantial variations arisen from pedestrian sensor data, will be neglected through daily aggregation. Additionally if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using the curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
 
 We propose a new algorithm via linear algebra tools to go beyond the calendar-based heatmap. The approach is developed with these conditions in mind: (1) to make time of day present in addition to the existing temporal components such as day of week and day of year, (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout, (3) to enable an overlaying plot consisting of multiple time series. The proposed algorithm has been implemented in the \code{frame_calendar} function in the \pkg{sugrrants} package [@R-sugrrants] using \proglang{R} [@R-base].
 
@@ -177,7 +176,7 @@ When \code{polar = TRUE}, the polar transformation is carried out on the data. T
 ```{r flinders-polar, fig.height = 6.5, fig.cap = "(ref:flinders-polar-cap)"}
 ```
 
-(ref:flinders-polar-cap) Figure \ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The periodic behaviors on workdays are clearly visible.
+(ref:flinders-polar-cap) Figure \ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.
 
 ## Scales
 
@@ -185,7 +184,7 @@ Section \ref{sec:algorithm} discusses the implementation applied to a fixed scal
 
 Grouping the cells based on the corresponding time period gives rise to the different scales. For example, the minimums and maximums obtained from each cell produce a local scale. The overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} is an example of plotting line charts scaled locally using \code{scale = "free"}. The daily variation is more distinctive compared to Figure \ref{fig:flinders-2016}. 
 
-The \code{free_wday} suggests that the scales are common for a given week day across all weeks, but different for each week days within a week. In other words, the same value within a given Monday, for example, corresponds to the same position across all Mondays but the different position in other week days. Similarly, the \code{free_mday} suggests free scaling for any day within a given month. The scaling option combined with the calendar layouts offers a number of varieties to construct the plot.
+The \code{free_wday} suggests that the scales are common for a given week day across all weeks, but different for each week days within a week. In other words, the same value within a given Monday, for example, corresponds to the same position across all Mondays but the different position in other week days. Similarly, the \code{free_mday} suggests free scaling for any day within a given month. The scaling choices combined with the calendar layouts offers a number of varieties to construct the plot.
 
 ```{r flinders-free, fig.height = 6.5, fig.cap = "(ref:flinders-free-cap)"}
 ```

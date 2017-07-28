@@ -64,7 +64,7 @@ package \pkg{sugrrants}.
 
 % Pandoc header
 
-\usepackage{amsmath} \usepackage{tikz}
+\usepackage{amsmath}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[section]
@@ -89,7 +89,7 @@ special events. This work was originally motivated by studying foot
 traffic in the city of Melbourne \citep{ped}. There have been 43 sensors
 installed that count pedestrians every hour across the downtown area up
 until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can
-shed light into understanding people's daily schedules, or assisting
+shed light into understanding people's daily rhythms, or assisting
 administration and business planning. We start off with the conventional
 time series plot to catch a glimpse of such data. A small multiples,
 shown in Figure \ref{fig:time-series-plot}, gives an overall picture of
@@ -102,7 +102,7 @@ itself to a number of exploratory data visualization challenges:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Variations primarily result from multiple time scales including time
+  Variations primarily source from multiple time scales including time
   of day, day of week, and day of year (such as public holiday and
   recurring events).
 \item
@@ -204,11 +204,11 @@ in two R packages: \pkg{ggTimeSeries} \citep{R-ggTimeSeries} and
 \pkg{ggcal} \citep{R-ggcal}. However, these techniques are limited to
 colour-encoding graphics and are unable to use time scales smaller than
 day. Time of day, which serves as one of the most important aspects in
-explaining variations arisen from pedestrian sensor data, will be
-neglected through daily aggregation. Additionally if simply using
-colored blocks rather than curves, it may become perceptually difficult
-to estimate the shape positions and changes, although using the curves
-comes with the cost of more display capacity
+explaining substantial variations arisen from pedestrian sensor data,
+will be neglected through daily aggregation. Additionally if simply
+using colored blocks rather than curves, it may become perceptually
+difficult to estimate the shape positions and changes, although using
+the curves comes with the cost of more display capacity
 \citep{cleveland1984graphical, lam2007overview}.
 
 We propose a new algorithm via linear algebra tools to go beyond the
@@ -464,10 +464,10 @@ Figure \ref{fig:flinders-2016} placed in polar coordinates.
 }
 
 \caption[Figure \ref{fig:flinders-2016} in circular
-layout, which is referred to as star plots. The periodic behaviors on
-workdays are clearly visible.]{Figure \ref{fig:flinders-2016} in circular
-layout, which is referred to as star plots. The periodic behaviors on
-workdays are clearly visible.}\label{fig:flinders-polar}
+layout, which is referred to as star plots. The daily periodicity on
+work days are clearly visible.]{Figure \ref{fig:flinders-2016} in circular
+layout, which is referred to as star plots. The daily periodicity on
+work days are clearly visible.}\label{fig:flinders-polar}
 \end{figure}
 \end{CodeChunk}
 
@@ -500,7 +500,7 @@ week day across all weeks, but different for each week days within a
 week. In other words, the same value within a given Monday, for example,
 corresponds to the same position across all Mondays but the different
 position in other week days. Similarly, the \code{free_mday} suggests
-free scaling for any day within a given month. The scaling option
+free scaling for any day within a given month. The scaling choices
 combined with the calendar layouts offers a number of varieties to
 construct the plot.
 
