@@ -21,7 +21,7 @@ linear algebra on the date variable to create the layout. It utilizes
 the grammar of graphics to create the plots inside each cell, and thus
 synchronises neatly with \pkg{ggplot2} graphics. The motivating
 application is studying pedestrian behavior, based on counts which are
-captured at hourly interval by sensors scattered around the city.
+captured at hourly intervals by sensors scattered around the city.
 Faceting by the usual features such as day and month, was insufficient
 to examine the behavior. Making displays on a monthly calendar format
 helps to understand pedestrian patterns relative to events such as work
@@ -62,8 +62,6 @@ package \pkg{sugrrants}.
   
   }
 
-% Pandoc header
-
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -82,20 +80,22 @@ package \pkg{sugrrants}.
 \section{Introduction}\label{introduction}
 
 We develop a method for organizing and visualizing temporal data,
-collected on sub-daily interval, into a calendar layout. We hope this
-calendar-based visualization to provide insights into people's daily
-schedules relative to events such as work days, weekends, holidays, and
-special events. This work was originally motivated by studying foot
-traffic in the city of Melbourne \citep{ped}. There have been 43 sensors
-installed that count pedestrians every hour across the downtown area up
-until the end of 2016 (see Figure \ref{fig:ped-map}). The dataset can
-shed light into understanding people's daily rhythms, or assisting
-administration and business planning. We start off with the conventional
-time series plot to catch a glimpse of such data. A small multiples,
-shown in Figure \ref{fig:time-series-plot}, gives an overall picture of
-the foot traffic at 3 different sensors. Figure \ref{fig:facet-time}
-provides daily and sub-daily patterns by faceting on day of the week.
-The sensor data, like many temporal datasets on human behaviors, lends
+collected on sub-daily interval, into a calendar layout. The purpose of
+the calendar-based visualization is to provide insights into people's
+daily schedules relative to events such as work days, weekends,
+holidays, and special events. This work was originally motivated by
+studying foot traffic in the city of Melbourne \citep{ped}. There have
+been 43 sensors installed that count pedestrians every hour across the
+downtown area (Figure \ref{fig:ped-map}). The dataset can shed light
+into understanding people's daily rhythms, to assist the city
+administration and local businesses with event planning and operational
+management. A routine examination of the data would be constructing a
+conventional time series plot to catch a glimpse of temporal patterns.
+The facetted plots in Figure \ref{fig:time-series-plot}, give an overall
+picture of the foot traffic at 3 different sensors over 2016. Further
+facetting by day of the week (Figure \ref{fig:facet-time}) provides a
+better glimpse at the daily and sub-daily, like commuter, patterns. The
+sensor data, like many temporal datasets on human behaviors, lends
 itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
@@ -113,6 +113,9 @@ itself to a number of exploratory data visualization challenges:
   given time point, which creates the need for comparing and contrasting
   between locations.
 \end{enumerate}
+
+and the conventional ways to display time series and constructing
+facetted displays don't completely address these challenges.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -183,17 +186,16 @@ temporal patterns are subject to the sensor locations too.}\label{fig:facet-time
 
 
 
-A collection of data plots, organized in a familiar format, offer an
-intuitive and contextual way to understand complex data.
-\citet{Wickham2012glyph} embedded a sequence of daily temperature line
-charts into a glyph map according to the spatial locations; and
-\citet{R-geofacet} provided methods in the \pkg{geofacet} package to
-arrange data plots into a grid, while preserving the geographical
-layout. They both attempt to enable one to see the spatial context of
-each self-contained data plot.
+The work is inspired by \citet{Wickham2012glyph}, which uses linear
+algebra to display spatio-temporal data as glyphs on maps. It is also
+related to recent work by \citet{R-geofacet} which provides methods in
+the \pkg{geofacet} package to arrange data plots into a grid, while
+preserving the geographical position. Both of these show data in a
+spatial context.
 
-Alternatively, calendar-based graphics turn out to be a useful tool in
-unfolding human-related activities over time. For example,
+In constrast, calendar-based graphics unpacks the temporal variable, at
+different resolutions, to digest multiple seasonalities, and special
+events. There is some existing work in this area. For example,
 \citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
 colours indicate different clusters derived from the days. It contrasts
@@ -204,11 +206,11 @@ in two R packages: \pkg{ggTimeSeries} \citep{R-ggTimeSeries} and
 \pkg{ggcal} \citep{R-ggcal}. However, these techniques are limited to
 colour-encoding graphics and are unable to use time scales smaller than
 day. Time of day, which serves as one of the most important aspects in
-explaining substantial variations arisen from pedestrian sensor data,
-will be neglected through daily aggregation. Additionally if simply
+explaining substantial variations arising from pedestrian sensor data,
+will be neglected through daily aggregation. Additionally, if simply
 using colored blocks rather than curves, it may become perceptually
 difficult to estimate the shape positions and changes, although using
-the curves comes with the cost of more display capacity
+curves comes with the cost of more display capacity
 \citep{cleveland1984graphical, lam2007overview}.
 
 We propose a new algorithm via linear algebra tools to go beyond the
@@ -216,7 +218,7 @@ calendar-based heatmap. The approach is developed with these conditions
 in mind: (1) to make time of day present in addition to the existing
 temporal components such as day of week and day of year, (2) to
 incorporate line graphs and other types of glyphs into the graphical
-toolkit for the calendar layout, (3) to enable an overlaying plot
+toolkit for the calendar layout, (3) to enable an overlaying plots
 consisting of multiple time series. The proposed algorithm has been
 implemented in the \code{frame_calendar} function in the \pkg{sugrrants}
 package \citep{R-sugrrants} using \proglang{R} \citep{R-base}.
