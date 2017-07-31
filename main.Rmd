@@ -125,7 +125,7 @@ include_graphics("figure/month.pdf")
 To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, denoted by $b$. Figure \ref{fig:year-diagram} illustrates this layout where $M = 3$ and $N = 4$.
 
 ```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:year-diagram-cap)"}
-include_graphics("figure/year.pdf")
+include_graphics("figure/year-diagram.pdf")
 ```
 
 (ref:year-diagram-cap) Illustration of the indexing layout for months of one year.
