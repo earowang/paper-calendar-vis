@@ -93,9 +93,9 @@ into understanding people's daily rhythms, to assist the city
 administration and local businesses with event planning and operational
 management. A routine examination of the data would be constructing a
 conventional time series plot to catch a glimpse of temporal patterns.
-The facetted plots in Figure \ref{fig:time-series-plot}, give an overall
+The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
 picture of the foot traffic at 3 different sensors over 2016. Further
-facetting by day of the week (Figure \ref{fig:facet-time}) provides a
+faceting by day of the week (Figure \ref{fig:facet-time}) provides a
 better glimpse at the daily and sub-daily, like commuter, patterns. The
 sensor data, like many temporal datasets on human behaviors, lends
 itself to a number of exploratory data visualization challenges:
@@ -116,8 +116,8 @@ itself to a number of exploratory data visualization challenges:
   between locations.
 \end{enumerate}
 
-and the conventional ways to display time series and constructing
-facetted displays don't completely address these challenges.
+The conventional ways to display time series and constructing faceted
+displays are insufficient to address these challenges.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -711,7 +711,9 @@ the viewer as public holidays, rather than a typical work day.
 This sort of layout may be useful for studying consumer trends, or human
 behavior, like the pedestrian patterns. It may not work so well for
 physical patterns like temperature, which are not typically affected by
-human activity.
+human activity. Additionally, it is perceptually difficult to discover
+an overall trend of less significance, since there is the lack of a
+common baseline due to the rows and columns of a display matrix.
 
 \bibliography{packages.bib,references.bib}
 

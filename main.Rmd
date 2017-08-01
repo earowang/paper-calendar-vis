@@ -56,13 +56,13 @@ read_chunk('src/main.R')
 
 # Introduction
 
-We develop a method for organizing and visualizing temporal data, collected on sub-daily interval, into a calendar layout. The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily rhythms, to assist the city administration and local businesses with event planning and operational management. A routine examination of the data would be constructing a conventional time series plot to catch a glimpse of temporal patterns. The facetted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further facetting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse at the daily and sub-daily, like commuter, patterns. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
+We develop a method for organizing and visualizing temporal data, collected on sub-daily interval, into a calendar layout. The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light into understanding people's daily rhythms, to assist the city administration and local businesses with event planning and operational management. A routine examination of the data would be constructing a conventional time series plot to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse at the daily and sub-daily, like commuter, patterns. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
 
 1. Variations primarily source from multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
 3. Measurements of a single type are made at multiple locations at a given time point, which creates the need for comparing and contrasting between locations.
 
-and the conventional ways to display time series and constructing facetted displays don't completely address these challenges. 
+The conventional ways to display time series and constructing faceted displays are insufficient to address these challenges. 
 
 ```{r ped-map, fig.width = 4, out.width = "0.55\\linewidth", fig.cap = "(ref:ped-map-cap)"}
 ```
@@ -241,7 +241,7 @@ These calendar layouts, especially the monthly calendar, become widely used in s
 
 The calendar-based visualization provides data plots in the familiar format of an everyday tool. Special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, rather than a typical work day. 
 
-This sort of layout may be useful for studying consumer trends, or human behavior, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity.
+This sort of layout may be useful for studying consumer trends, or human behavior, like the pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity. Additionally, it is perceptually difficult to discover an overall trend of less significance, since there is the lack of a common baseline due to the rows and columns of a display matrix.
 
 ```{r write-bib}
 write_bib(.packages(), 'packages.bib')
