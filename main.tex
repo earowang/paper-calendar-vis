@@ -16,18 +16,18 @@ Earo Wang\\Monash University \And Dianne Cook\\Monash University \And Rob J Hynd
 This paper describes a \code{frame\_calendar} function that organizes
 and displays temporal data, collected on sub-daily resolution, into a
 calendar layout. Calendars are broadly used in society to display
-temporal information, and events. The \code{frame\_calendar} utilizes
-linear algebra on the date variable to create the layout. It utilizes
-the grammar of graphics to create the plots inside each cell, and thus
+temporal information, and events. The \code{frame\_calendar} uses linear
+algebra on the date variable to create the layout. It utilizes the
+grammar of graphics to create the plots inside each cell, and thus
 synchronises neatly with \pkg{ggplot2} graphics. The motivating
-application is studying pedestrian behavior, based on counts which are
-captured at hourly intervals by sensors scattered around the city.
-Faceting by the usual features such as day and month, was insufficient
-to examine the behavior. Making displays on a monthly calendar format
-helps to understand pedestrian patterns relative to events such as work
-days, weekends, holidays, and special events. The layout algorithm has
-several format options and variations. It is implemented in the R
-package \pkg{sugrrants}.
+application is studying pedestrian behavior in Melbourne, Australia,
+based on counts which are captured at hourly intervals by sensors
+scattered around the city. Faceting by the usual features such as day
+and month, was insufficient to examine the behavior. Making displays on
+a monthly calendar format helps to understand pedestrian patterns
+relative to events such as work days, weekends, holidays, and special
+events. The layout algorithm has several format options and variations.
+It is implemented in the R package \pkg{sugrrants}.
 }
 
 \Keywords{data visualization, statistical graphics, time series, R package, grammar of graphics}
@@ -82,31 +82,30 @@ package \pkg{sugrrants}.
 \section{Introduction}\label{introduction}
 
 We develop a method for organizing and visualizing temporal data,
-collected on sub-daily interval, into a calendar layout. The purpose of
+collected at sub-daily intervals, into a calendar layout. The purpose of
 the calendar-based visualization is to provide insights into people's
 daily schedules relative to events such as work days, weekends,
 holidays, and special events. This work was originally motivated by
-studying foot traffic in the city of Melbourne \citep{ped}. There have
-been 43 sensors installed that count pedestrians every hour across the
-downtown area (Figure \ref{fig:ped-map}). The dataset can shed light
-into understanding people's daily rhythms, to assist the city
-administration and local businesses with event planning and operational
-management. A routine examination of the data would be constructing a
-conventional time series plot to catch a glimpse of temporal patterns.
-The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
-picture of the foot traffic at 3 different sensors over 2016. Further
-faceting by day of the week (Figure \ref{fig:facet-time}) provides a
-better glimpse at the daily and sub-daily, like commuter, patterns. The
-sensor data, like many temporal datasets on human behaviors, lends
-itself to a number of exploratory data visualization challenges:
+studying foot traffic in the city of Melbourne, Australia \citep{ped}.
+There have been 43 sensors installed that count pedestrians every hour
+across the downtown area (Figure \ref{fig:ped-map}). The dataset can
+shed light on people's daily rhythms, and assist the city administration
+and local businesses with event planning and operational management. A
+routine examination of the data would involve constructing conventional
+time series plots to catch a glimpse of temporal patterns. The faceted
+plots in Figure \ref{fig:time-series-plot}, give an overall picture of
+the foot traffic at 3 different sensors over 2016. Further faceting by
+day of the week (Figure \ref{fig:facet-time}) provides a better glimpse
+of the daily and sub-daily pedestrian patterns. The sensor data, like
+many temporal datasets on human behaviors, lends itself to a number of
+exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Variations primarily source from multiple time scales including time
-  of day, day of week, and day of year (such as public holiday and
-  recurring events).
+  Variations exist on multiple time scales including time of day, day of
+  week, and day of year (such as public holiday and recurring events).
 \item
   Since the data are often collected at sub-daily frequencies, they
   typically involve a large number of observations.
@@ -126,9 +125,9 @@ displays are insufficient to address these challenges.
 
 }
 
-\caption[Map of the Melbourne city with purple dots indicating
-sensor locations.]{Map of the Melbourne city with purple dots indicating
-sensor locations.}\label{fig:ped-map}
+\caption[Map of the Melbourne city area with purple dots
+indicating sensor locations.]{Map of the Melbourne city area with purple dots
+indicating sensor locations.}\label{fig:ped-map}
 \end{figure}
 \end{CodeChunk}
 
@@ -142,19 +141,19 @@ sensor locations.}\label{fig:ped-map}
 
 }
 
-\caption[Time series plot about the number of
+\caption[Time series plot showing the number of
 pedestrians in 2016 measured at 3 different sensors in the city of
 Melbourne. Coloured by the sensors, small multiples of lines show that
 the foot traffic varies from one sensor to another in terms of both time
 and number. The weekly patterns look distinctive across these 3 sensors.
-There is an eye-catching spike which occurred at State Library, caused
-by the annual event--White Night--on 20th of February.]{Time series plot about the number of
+There is an eye-catching spike which occurred at the State Library,
+caused by the annual White Night event on 20th of February.]{Time series plot showing the number of
 pedestrians in 2016 measured at 3 different sensors in the city of
 Melbourne. Coloured by the sensors, small multiples of lines show that
 the foot traffic varies from one sensor to another in terms of both time
 and number. The weekly patterns look distinctive across these 3 sensors.
-There is an eye-catching spike which occurred at State Library, caused
-by the annual event--White Night--on 20th of February.}\label{fig:time-series-plot}
+There is an eye-catching spike which occurred at the State Library,
+caused by the annual White Night event on 20th of February.}\label{fig:time-series-plot}
 \end{figure}
 \end{CodeChunk}
 
@@ -175,14 +174,11 @@ by the annual event--White Night--on 20th of February.}\label{fig:time-series-pl
 
 \caption[Hourly pedestrian counts faceted by sensors and
 days of the week using lines. It features at least two types of
-seasons--time of day and day of week--across all the sensors. The
-temporal patterns are subject to the sensor locations too.]{Hourly pedestrian counts faceted by sensors and
+seasons---time of day and day of week---across all the sensors.]{Hourly pedestrian counts faceted by sensors and
 days of the week using lines. It features at least two types of
-seasons--time of day and day of week--across all the sensors. The
-temporal patterns are subject to the sensor locations too.}\label{fig:facet-time}
+seasons---time of day and day of week---across all the sensors.}\label{fig:facet-time}
 \end{figure}
 \end{CodeChunk}
-
 
 
 
@@ -195,35 +191,35 @@ the \pkg{geofacet} package to arrange data plots into a grid, while
 preserving the geographical position. Both of these show data in a
 spatial context.
 
-In constrast, calendar-based graphics unpacks the temporal variable, at
+In contrast, calendar-based graphics unpacks the temporal variable, at
 different resolutions, to digest multiple seasonalities, and special
 events. There is some existing work in this area. For example,
 \citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
 colours indicate different clusters derived from the days. It contrasts
 week days and weekends, highlights public holidays, and presents other
-known seasons like school vacations; all of which have influence over
-the turn-outs in the office. The calendar-based heatmap was implemented
-in two R packages: \pkg{ggTimeSeries} \citep{R-ggTimeSeries} and
-\pkg{ggcal} \citep{R-ggcal}. However, these techniques are limited to
-colour-encoding graphics and are unable to use time scales smaller than
-day. Time of day, which serves as one of the most important aspects in
-explaining substantial variations arising from pedestrian sensor data,
-will be neglected through daily aggregation. Additionally, if simply
-using colored blocks rather than curves, it may become perceptually
-difficult to estimate the shape positions and changes, although using
-curves comes with the cost of more display capacity
-\citep{cleveland1984graphical, lam2007overview}.
+known seasonal variation such as school vacations, all of which have
+influence over the turn-outs in the office. The calendar-based heatmap
+was implemented in two R packages: \pkg{ggTimeSeries}
+\citep{R-ggTimeSeries} and \pkg{ggcal} \citep{R-ggcal}. However, these
+techniques are limited to colour-encoding graphics and are unable to use
+time scales smaller than a day. Time of day, which serves as one of the
+most important aspects in explaining substantial variations arising from
+pedestrian sensor data, will be neglected through daily aggregation.
+Additionally, if simply using colored blocks rather than curves, it may
+become perceptually difficult to estimate the shape positions and
+changes, although using curves comes with the cost of more display
+capacity \citep{cleveland1984graphical, lam2007overview}.
 
-We propose a new algorithm via linear algebra tools to go beyond the
-calendar-based heatmap. The approach is developed with these conditions
-in mind: (1) to make time of day present in addition to the existing
-temporal components such as day of week and day of year, (2) to
-incorporate line graphs and other types of glyphs into the graphical
-toolkit for the calendar layout, (3) to enable an overlaying plots
-consisting of multiple time series. The proposed algorithm has been
-implemented in the \code{frame_calendar} function in the \pkg{sugrrants}
-package \citep{R-sugrrants} using \proglang{R} \citep{R-base}.
+We propose a new algorithm to go beyond the calendar-based heatmap. The
+approach is developed with three conditions in mind: (1) to display
+time-of-day variation in addition to longer temporal components such as
+day-of-week and day-of-year; (2) to incorporate line graphs and other
+types of glyphs into the graphical toolkit for the calendar layout; (3)
+to enable overlaying plots consisting of multiple time series. The
+proposed algorithm has been implemented in the \code{frame_calendar}
+function in the \pkg{sugrrants} package \citep{R-sugrrants} using
+\proglang{R} \citep{R-base}.
 
 The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
@@ -237,7 +233,7 @@ discusses the advantages and disadvantages of the method.
 \label{sec:algorithm}
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the
-monthly calendar over the year of 2016. This is achieved by the
+monthly calendar over the year 2016. This is achieved by the
 \code{frame_calendar} function computing the new coordinates according
 to the input data variables; in turn the rearranged data values are
 plotted using the \pkg{ggplot2} package \citep{R-ggplot2}, which is an
@@ -271,14 +267,14 @@ holiday are immediately apparent.}\label{fig:flinders-2016}
 
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
-\citep{Wickham2012glyph}. To make a year long calendar, requires cells
+\citep{Wickham2012glyph}. To make a year long calendar requires cells
 for days, embedded in blocks corresponding to months, organized into a
 grid layout for a year. Each month can be captured with 35 (5 \(\times\)
 7) cells, where the top left is Monday of week 1, and the bottom right
 is Sunday of week 5 by default. These cells provide a micro canvas on
 which to plot the data. The first day of the month could be any of
-Monday-Sunday, which is determined by the year of the calendar. Months
-are of different length days, ranging from 28 to 31, and each month
+Monday--Sunday, which is determined by the year of the calendar. Months
+are of different lengths, ranging from 28 to 31 days, and each month
 could extend over six weeks but the convention in these months is to
 wrap the last few days up to the top row of the block. The notation for
 creating these cells is as follows:
@@ -399,7 +395,7 @@ uniformly positioned on the bottom of the whole canvas, that is
 \label{sec:opt}
 
 There are several options provided for the \code{frame_calendar}
-function to initialize and adjust the display of a calender plot:
+function to initialize and adjust the display of a calendar plot:
 
 \begin{verbatim}
 frame_calendar(
@@ -437,24 +433,24 @@ allow for alternate displays.
 
 The algorithm described in Section \ref{sec:algorithm} is for the most
 common calendar layout, the ``monthly'' calendar, but it can be
-simplified to accommodate the other two types of calendar formats. One
-is comprised of days of a week in columns and weeks of a year in rows,
-and the other is days of a month in columns and months of a year in
-rows, which we refer to as the ``weekly'' and ``daily'' calendar,
+simplified to accommodate two other types calendar formats. One is
+comprised of days of a week in columns and weeks of a year in rows, and
+the other is days of a month in columns and months of a year in rows,
+which we refer to as the ``weekly'' and ``daily'' calendar,
 respectively. The layout to be used is controlled by the \code{calendar}
 argument. The weekly calendar puts more emphasis on days of a week over
-days of a year, whereas the daily calender does the opposite. The
-monthly calender can be considered as the advanced variant of both
+days of a year, whereas the daily calendar does the opposite. The
+monthly calendar can be considered as the advanced variant of both
 weekly and daily. Temporal patterns motivate which variant should be
 employed. The weekly calendar is appropriate if most of the variation
 can be characterised by days of the week. On the other hand, the daily
 calendar should be used when there is a yearly effect but not a weekly
-effect in the data. When both effects are present, the monthly calendar
-would be a better choice.
+effect in the data (for example weather data). When both effects are
+present, the monthly calendar would be a better choice.
 
 \subsection{Polar transformation}\label{polar-transformation}
 
-When \code{polar = TRUE}, the polar transformation is carried out on the
+When \code{polar = TRUE}, a polar transformation is carried out on the
 data. The computation is similar to the one described in
 \citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} shows star
 plots embedded in the monthly calendar layout, which is equivalent to
@@ -500,9 +496,9 @@ daily variation is more distinctive compared to Figure
 \ref{fig:flinders-2016}.
 
 The \code{free_wday} suggests that the scales are common for a given
-week day across all weeks, but different for each week days within a
+week day across all weeks, but different for each week day within a
 week. In other words, the same value within a given Monday, for example,
-corresponds to the same position across all Mondays but the different
+corresponds to the same position across all Mondays but a different
 position in other week days. Similarly, the \code{free_mday} suggests
 free scaling for any day within a given month. The scaling choices
 combined with the calendar layouts offers a number of varieties to
@@ -518,10 +514,10 @@ construct the plot.
 \caption[Line glyphs on the calendar format showing
 hourly foot traffic at Flinders Street Station, scaled over all the
 days. The individual shape on a single day becomes more distinctive,
-however it is more difficult to compare the size of peaks between days.]{Line glyphs on the calendar format showing
+however it is impossible to compare the size of peaks between days.]{Line glyphs on the calendar format showing
 hourly foot traffic at Flinders Street Station, scaled over all the
 days. The individual shape on a single day becomes more distinctive,
-however it is more difficult to compare the size of peaks between days.}\label{fig:flinders-free}
+however it is impossible to compare the size of peaks between days.}\label{fig:flinders-free}
 \end{figure}
 \end{CodeChunk}
 
@@ -545,12 +541,12 @@ on work days; however, Flinders Street Station has higher pedestrian
 counts during the weekends and public holidays. This suggests that
 Flagstaff Station limits its functionality on non-work days, but various
 activities take place around the Flinders Street Station other than
-commuting. Figure \ref{fig:overlay} also shows that State Library
+commuting. Figure \ref{fig:overlay} also shows that the State Library
 follows a similar temporal trend as Flinders Street Station on non-work
 days. The nighttime events, such as White Night and New Year's Eve, have
 barely affected the operation of Flagstaff Station but heavily affected
-the incoming and outgoing traffic to Flinders Street Station and State
-Library.
+the incoming and outgoing traffic to Flinders Street Station and the
+State Library.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -601,8 +597,8 @@ the cells and sensors.}\label{fig:facet}
 
 \subsection{Different types of plots}\label{different-types-of-plots}
 
-The \code{frame_calendar} function does not constrain itself to mapping
-only the temporal variable to the \code{x} argument. Figure
+The \code{frame_calendar} function is not constrained to mapping only
+the temporal variable to the \code{x} argument. Figure
 \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street
 Station, where the current hourly count is assigned to the \code{x}
 argument and the lagged hourly count to the \code{y} argument. This
@@ -640,15 +636,13 @@ days.}\label{fig:scatterplot}
 
 
 
-The newly computed coordinates can work with more complicated plots,
-such as the boxplot. Figure \ref{fig:boxplot} uses the loess smooth line
-superimposed on side-by-side boxplots. It shows the distribution of
-hourly counts across all 43 sensors at a given time point during
-December. In general, bimodality features on work days whereas
-unimodality features on the rest of the days. The last week of December
-is the holiday season: people are off work on the day before Christmas,
-go shopping on the Boxing day, and stay out for the fireworks on New
-Year's Eve.
+The newly computed coordinates can also work with more complicated
+plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth
+line superimposed on side-by-side boxplots. It shows the distribution of
+hourly counts across all 43 sensors during December. The last week of
+December is the holiday season: people are off work on the day before
+Christmas, go shopping on the Boxing day, and stay out for the fireworks
+on New Year's Eve.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -675,10 +669,9 @@ Eve than the rest.}\label{fig:boxplot}
 
 
 
-These calendar layouts, especially the monthly calendar, become widely
-used in society. We offer languages other than English for text
-labelling. Figure \ref{fig:chn} shows the same plot as Figure
-\ref{fig:boxplot} labelled using simplified Chinese characters.
+We also offer languages other than English for text labelling. Figure
+\ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled
+using simplified Chinese characters.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -709,11 +702,11 @@ Day in Australia, or Thanksgiving Day in the USA, more easily pop out to
 the viewer as public holidays, rather than a typical work day.
 
 This sort of layout may be useful for studying consumer trends, or human
-behavior, like the pedestrian patterns. It may not work so well for
+behavior, such as pedestrian patterns. It may not work so well for
 physical patterns like temperature, which are not typically affected by
 human activity. Additionally, it is perceptually difficult to discover
-an overall trend of less significance, since there is the lack of a
-common baseline due to the rows and columns of a display matrix.
+an overall trend, since there is no common baseline due to the rows and
+columns of a display matrix.
 
 \bibliography{packages.bib,references.bib}
 
