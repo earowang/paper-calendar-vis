@@ -170,13 +170,19 @@ caused by the annual White Night event on 20th of February.}\label{fig:time-seri
 
 }
 
-\caption[Hourly pedestrian counts faceted by sensors and
-days of the week using lines. It features at least two types of
-seasons---time of day and day of week---across all the sensors.]{Hourly pedestrian counts faceted by sensors and
-days of the week using lines. It features at least two types of
-seasons---time of day and day of week---across all the sensors.}\label{fig:facet-time}
+\caption[Hourly pedestrian counts for 2016 faceted by
+sensors and days of the week using lines. It features at least two types
+of seasons---time of day and day of week---across all the sensors. The
+white night effect increasing pedestrian counts can be seen on Saturday
+in February at State Library.]{Hourly pedestrian counts for 2016 faceted by
+sensors and days of the week using lines. It features at least two types
+of seasons---time of day and day of week---across all the sensors. The
+white night effect increasing pedestrian counts can be seen on Saturday
+in February at State Library.}\label{fig:facet-time}
 \end{figure}
 \end{CodeChunk}
+
+
 
 
 
@@ -313,10 +319,13 @@ month where \(k=5\).
 }
 
 \caption[Illustration of the indexing layout for cells in
-a month.]{Illustration of the indexing layout for cells in
-a month.}\label{fig:month-diagram}
+a month. \(k\) is day of the week, \(g\) is day of the month, \(i,j\)
+indicates grid position.]{Illustration of the indexing layout for cells in
+a month. \(k\) is day of the week, \(g\) is day of the month, \(i,j\)
+indicates grid position.}\label{fig:month-diagram}
 \end{figure}
 \end{CodeChunk}
+
 
 
 
@@ -335,10 +344,13 @@ this layout where \(M = 3\) and \(N = 4\).
 }
 
 \caption[Illustration of the indexing layout for months of
-one year.]{Illustration of the indexing layout for months of
-one year.}\label{fig:year-diagram}
+one year. \(M,N\) indicate number of rows and columns, \(b\) is a space
+parameter separating cells.]{Illustration of the indexing layout for months of
+one year. \(M,N\) indicate number of rows and columns, \(b\) is a space
+parameter separating cells.}\label{fig:year-diagram}
 \end{figure}
 \end{CodeChunk}
+
 
 
 
@@ -649,15 +661,15 @@ on New Year's Eve.
 
 }
 
-\caption[Side-by-side boxplot of hourly counts across all the
-43 sensors in December of 2016, with the superimposing loess smooth line
-for each day. It shows the hourly distribution in the city as a whole.
-There is one sensor attracting a larger number of people on New Year's
-Eve than the rest.]{Side-by-side boxplot of hourly counts across all the
-43 sensors in December of 2016, with the superimposing loess smooth line
-for each day. It shows the hourly distribution in the city as a whole.
-There is one sensor attracting a larger number of people on New Year's
-Eve than the rest.}\label{fig:boxplot}
+\caption[Side-by-side boxplots of hourly counts for all the 43
+sensors in December 2016, with the loess smooth line superimposed on
+each day. It shows the hourly distribution in the city as a whole. There
+is one sensor attracting a larger number of people on New Year's Eve
+than the rest.]{Side-by-side boxplots of hourly counts for all the 43
+sensors in December 2016, with the loess smooth line superimposed on
+each day. It shows the hourly distribution in the city as a whole. There
+is one sensor attracting a larger number of people on New Year's Eve
+than the rest.}\label{fig:boxplot}
 \end{figure}
 \end{CodeChunk}
 
@@ -678,11 +690,11 @@ using simplified Chinese characters.
 
 }
 
-\caption[The same side-by-side boxplot as Figure \ref{fig:boxplot},
-but with the month and week day labels in Chinese. It demonstrates the
-natural support for languages other than English.]{The same side-by-side boxplot as Figure \ref{fig:boxplot},
-but with the month and week day labels in Chinese. It demonstrates the
-natural support for languages other than English.}\label{fig:chn}
+\caption[The same plot as Figure \ref{fig:boxplot}, but with the
+month and week day labels in Chinese. It demonstrates the natural
+support for languages other than English.]{The same plot as Figure \ref{fig:boxplot}, but with the
+month and week day labels in Chinese. It demonstrates the natural
+support for languages other than English.}\label{fig:chn}
 \end{figure}
 \end{CodeChunk}
 
@@ -699,6 +711,11 @@ format of an everyday tool. Patterns on special events for the region,
 like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily
 pop out to the viewer as public holidays, than they would on a more
 commonly used week day and month facetted layout.
+
+The focus is on the western calendar layout because most countries have
+adopted this format. However the language of labels would differ across
+countries, and so support was added for changing the label language
+simply.
 
 This sort of layout will be useful for studying consumer trends, or
 human behavior, such as pedestrian patterns or pollution peaks. It will
