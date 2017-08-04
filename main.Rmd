@@ -238,9 +238,11 @@ We also offer languages other than English for text labelling. Figure \ref{fig:c
 # Discussion
 \label{sec:discussion}
 
-The calendar-based visualization provides data plots in the familiar format of an everyday tool. Special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, rather than a typical work day. 
+The calendar-based visualization provides data plots in the familiar format of an everyday tool. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on a more commonly used week day and month facetted layout. 
 
-This sort of layout may be useful for studying consumer trends, or human behavior, such as pedestrian patterns. It may not work so well for physical patterns like temperature, which are not typically affected by human activity. Additionally, it is perceptually difficult to discover an overall trend, since there is no common baseline due to the rows and columns of a display matrix.
+This sort of layout will be useful for studying consumer trends, or human behavior, such as pedestrian patterns or pollution peaks. It will not be so useful for physical patterns like temperature, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations, in order to study general trends.  
+
+The layout is achieved by utilizing linear combinations of temporal components and measured variables. This provides the data with the most screen real estate. It could be useful to develop this into a fully-fledged facetting method, with formal labels and axes. This is a future goal.
 
 ```{r write-bib}
 write_bib(.packages(), 'packages.bib')
