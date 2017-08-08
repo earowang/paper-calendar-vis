@@ -165,11 +165,9 @@ It is assumed that the `data` is in tidy format [@wickham2014tidy], and \code{x}
 
 The algorithm handles displaying a single month or several years. The  arguments \code{nrow} and \code{ncol} specify the layout of multiple months. For some time frames, some arrangements may be more beneficial than others. For example, to display data for three years, setting \code{nrow = 3} and \code{ncol = 12} would show each year on a single row. 
 
-By default, grids are laid out horizontally. This can be transposed by setting the \code{dir} parameter to \code{"v"}, in which case $i$ and $j$ are swapped in the equation \eqref{eq:grid}. This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
-
 ## Layouts
 
-The algorithm described in Section \ref{sec:algorithm} is for the most common calendar layout, the "monthly" calendar, but it can be simplified to accommodate two other types calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as the "weekly" and "daily" calendar, respectively. The layout to be used is controlled by the \code{calendar} argument. The weekly calendar puts more emphasis on days of a week over days of a year, whereas the daily calendar does the opposite. The monthly calendar can be considered as the advanced variant of both weekly and daily. Temporal patterns motivate which variant should be employed. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice.
+The monthly calendar is the default, but two other formats, weekly and daily, are available with the \code{calendar} argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
 
 ## Polar transformation
 
@@ -182,23 +180,31 @@ When \code{polar = TRUE}, a polar transformation is carried out on the data. The
 
 ## Scales
 
-Section \ref{sec:algorithm} discusses the implementation applied to a fixed scale, which uses the range over all data values. The \code{scale} argument controls the scaling of the display. The fixed scale (\code{fixed}) is the default, meaning that the data values in all positions are scaled. The remaining options include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free_wday}), or cells from the same day of the month (\code{free_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
+By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. for temporal data this would harness the temporal components.  The choices include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free_wday}), or cells from the same day of the month (\code{free_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
-Grouping the cells based on the corresponding time period gives rise to the different scales. For example, the minimums and maximums obtained from each cell produce a local scale. The overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} is an example of plotting line charts scaled locally using \code{scale = "free"}. The daily variation is more distinctive compared to Figure \ref{fig:flinders-2016}. 
+With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} shows the same data as Figure \ref{fig:flinders-2016} scaled locally using \code{scale = "free"}. The daily trends are magnified. 
 
-The \code{free_wday} suggests that the scales are common for a given week day across all weeks, but different for each week day within a week. In other words, the same value within a given Monday, for example, corresponds to the same position across all Mondays but a different position in other week days. Similarly, the \code{free_mday} suggests free scaling for any day within a given month. The scaling choices combined with the calendar layouts offers a number of varieties to construct the plot.
+The \code{free_wday} scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends vs week days to be examined. Similarly, the \code{free_mday} uses free scaling for any day within a given month. 
 
 ```{r flinders-free, fig.height = 6.5, fig.cap = "(ref:flinders-free-cap)"}
 ```
 
 (ref:flinders-free-cap) Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.
 
+## Orientation
+
+By default, grids are laid out horizontally. This can be transposed by setting the \code{dir} parameter to \code{"v"}, in which case $i$ and $j$ are swapped in the equation \eqref{eq:grid}. This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
+
+## Language support
+
+We also offer languages other than English for text labelling. Figure \ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
+
 # Variations
 \label{sec:examples}
 
 ## Overlaying and faceting subsets
 
-The comparison of one sensor to another adds additional insights to the dataset, which is often done with an overlaying plot such as Figure \ref{fig:overlay}. For instance, the dominant patterns that occurred at Flinders Street and Flagstaff train stations are driven by the commuters on work days; however, Flinders Street Station has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station limits its functionality on non-work days, but various activities take place around the Flinders Street Station other than commuting. Figure \ref{fig:overlay} also shows that the State Library follows a similar temporal trend as Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and the State Library. 
+Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Difference between the pedetrian patterns for Flinders Street and Flagstaff train stations can be seen. Both Flinders Street and Flagstaff train stations exhibit strong  commuters patterns, but, Flinders Street has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days, but other activities occur around the Flinders Street Station. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and the State Library. 
 
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
@@ -214,21 +220,19 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 
 ## Different types of plots
 
-The \code{frame_calendar} function is not constrained to mapping only the temporal variable to the \code{x} argument. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. It provides a visual tool for identifying repeating patterns. Figure \ref{fig:scatterplot} indicates two separate paths in the work-day glyphs, suggesting that an hour of a work day with many pedestrians is likely to be followed in the next hour with either greater or fewer numbers of pedestrians. However, this pattern is absent on non-work days. There is a bimodality on work days while there is unimodality on the rest of the days, which is also supported by Figure \ref{fig:flinders-2016}.
+The \code{frame_calendar} function is not constrained to line plots. The full range of ggplot geoms is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
 
 ```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
 
 (ref:scatterplot-cap) Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
 
-The newly computed coordinates can also work with more complicated plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve. 
+The algorithm can also produce more complicated plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve. 
 
 ```{r boxplot, fig.height = 6.5, fig.cap = "(ref:boxplot-cap)"}
 ```
 
 (ref:boxplot-cap) Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest.
-
-We also offer languages other than English for text labelling. Figure \ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
 
 ```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"}
 ```
