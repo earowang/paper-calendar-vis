@@ -127,7 +127,7 @@ To create the layout for a full year, $(m, n)$ denotes the position of the month
 include_graphics("figure/year-diagram.pdf")
 ```
 
-(ref:year-diagram-cap) Illustration of the indexing layout for months of one year. $M,N$ indicate number of rows and columns, $b$ is a space parameter separating cells.
+(ref:year-diagram-cap) Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells.
 
 Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0,1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
 
