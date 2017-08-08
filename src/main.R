@@ -154,11 +154,11 @@ prettify(p_facet, label = NULL)
 flinders_cal_day <- flinders %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Hourly_Counts, y = Lagged_Counts, date = Date, 
-    calendar = "daily")
+    calendar = "daily", width = 0.95, height = 0.8)
 
 p_flinders_day <- flinders_cal_day %>% 
   ggplot(aes(x = .Hourly_Counts, y = .Lagged_Counts, group = Date)) +
-  geom_point(size = 0.5)
+  geom_point(size = 0.5, alpha = 0.6)
 prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot

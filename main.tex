@@ -305,8 +305,8 @@ The grid position for any day in the month is given by
 
 \begin{equation}
   \begin{aligned}
-  i &= \lceil (g\,\mod 35) / 7\rceil, \\
-  j &= g\,\mod 7. \label{eq:grid}
+  i &= \lceil (g \text{ mod } 35) / 7\rceil, \\
+  j &= g \text{ mod } 7. \label{eq:grid}
   \end{aligned}
 \end{equation}
 
@@ -455,7 +455,7 @@ days of a year, whereas the daily calendar does the opposite. The
 monthly calendar can be considered as the advanced variant of both
 weekly and daily. Temporal patterns motivate which variant should be
 employed. The weekly calendar is appropriate if most of the variation
-can be characterised by days of the week. On the other hand, the daily
+can be characterized by days of the week. On the other hand, the daily
 calendar should be used when there is a yearly effect but not a weekly
 effect in the data (for example weather data). When both effects are
 present, the monthly calendar would be a better choice.

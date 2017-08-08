@@ -108,8 +108,8 @@ The grid position for any day in the month is given by
 
 \begin{equation}
   \begin{aligned}
-  i &= \lceil (g \mod 35) / 7\rceil, \\
-  j &= g \mod 7. \label{eq:grid}
+  i &= \lceil (g \text{ mod } 35) / 7\rceil, \\
+  j &= g \text{ mod } 7. \label{eq:grid}
   \end{aligned}
 \end{equation}
 
@@ -169,7 +169,7 @@ In Section \ref{sec:algorithm} we only illustrated that grids are laid out horiz
 
 ## Layouts
 
-The algorithm described in Section \ref{sec:algorithm} is for the most common calendar layout, the "monthly" calendar, but it can be simplified to accommodate two other types calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as the "weekly" and "daily" calendar, respectively. The layout to be used is controlled by the \code{calendar} argument. The weekly calendar puts more emphasis on days of a week over days of a year, whereas the daily calendar does the opposite. The monthly calendar can be considered as the advanced variant of both weekly and daily. Temporal patterns motivate which variant should be employed. The weekly calendar is appropriate if most of the variation can be characterised by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice.
+The algorithm described in Section \ref{sec:algorithm} is for the most common calendar layout, the "monthly" calendar, but it can be simplified to accommodate two other types calendar formats. One is comprised of days of a week in columns and weeks of a year in rows, and the other is days of a month in columns and months of a year in rows, which we refer to as the "weekly" and "daily" calendar, respectively. The layout to be used is controlled by the \code{calendar} argument. The weekly calendar puts more emphasis on days of a week over days of a year, whereas the daily calendar does the opposite. The monthly calendar can be considered as the advanced variant of both weekly and daily. Temporal patterns motivate which variant should be employed. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice.
 
 ## Polar transformation
 
