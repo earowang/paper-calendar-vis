@@ -119,7 +119,7 @@ Figure \ref{fig:month-diagram} illustrates this $(i,j)$ layout for a month where
 include_graphics("figure/month.pdf")
 ```
 
-(ref:month-diagram-cap) Illustration of the indexing layout for cells in a month. $k$ is day of the week, $g$ is day of the month, $i,j$ indicates grid position.
+(ref:month-diagram-cap) Illustration of the indexing layout for cells in a month, where $k$ is day of the week, $g$ is day of the month, $i,j$ indicates grid position.
 
 To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, denoted by $b$. Figure \ref{fig:year-diagram} illustrates this layout where $M = 3$ and $N = 4$.
 

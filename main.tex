@@ -62,6 +62,8 @@ It is implemented in the R package \pkg{sugrrants}.
   
   }
 
+% Pandoc header
+
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -303,8 +305,8 @@ The grid position for any day in the month is given by
 
 \begin{equation}
   \begin{aligned}
-  i &= \lceil (g \mod 35) / 7\rceil, \\
-  j &= g \mod 7. \label{eq:grid}
+  i &= \lceil (g\,\mod 35) / 7\rceil, \\
+  j &= g\,\mod 7. \label{eq:grid}
   \end{aligned}
 \end{equation}
 
@@ -319,10 +321,10 @@ month where \(k=5\).
 }
 
 \caption[Illustration of the indexing layout for cells in
-a month. \(k\) is day of the week, \(g\) is day of the month, \(i,j\)
-indicates grid position.]{Illustration of the indexing layout for cells in
-a month. \(k\) is day of the week, \(g\) is day of the month, \(i,j\)
-indicates grid position.}\label{fig:month-diagram}
+a month, where \(k\) is day of the week, \(g\) is day of the month,
+\(i,j\) indicates grid position.]{Illustration of the indexing layout for cells in
+a month, where \(k\) is day of the week, \(g\) is day of the month,
+\(i,j\) indicates grid position.}\label{fig:month-diagram}
 \end{figure}
 \end{CodeChunk}
 
