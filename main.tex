@@ -62,6 +62,8 @@ It is implemented in the R package \pkg{sugrrants}.
   
   }
 
+% Pandoc header
+
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -241,9 +243,8 @@ monthly calendar over the year 2016. This is achieved by the
 \code{frame_calendar} function, which computes the coordinates on the
 calendar for the input data variables. These can then be plotted using
 the usual \pkg{ggplot2} package \citep{R-ggplot2} functions. All of the
-grammar of graphics \citep{wilkinson2006grammar, wickham2010layered} can
-be applied. XXX use Hadley's book as the reference rather than the JCGS
-paper
+grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2} can
+be applied.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -479,7 +480,7 @@ work days are clearly visible.}\label{fig:flinders-polar}
 By default, global scaling is done for values in each plot, with the
 global minimum and maximum used to fit values into each cell. If the
 emphasis is comparing trend rather than magnitude, it is useful to scale
-locally. for temporal data this would harness the temporal components.
+locally. For temporal data this would harness the temporal components.
 The choices include: free scale within each cell (\code{free}), cells
 derived from the same day of the week (\code{free_wday}), or cells from
 the same day of the month (\code{free_mday}). The scaling allows for the
@@ -541,12 +542,12 @@ subsets}\label{overlaying-and-faceting-subsets}
 
 Plots can be layered. The comparison of sensors can be done by
 overlaying plot the values for each (Figure \ref{fig:overlay}).
-Difference between the pedetrian patterns for Flinders Street and
+Difference between the pedestrian patterns for Flinders Street and
 Flagstaff train stations can be seen. Both Flinders Street and Flagstaff
-train stations exhibit strong commuters patterns, but, Flinders Street
-has higher pedestrian counts during the weekends and public holidays.
-This suggests that Flagstaff Station has limited functionality on
-non-work days, but other activities occur around the Flinders Street
+train stations exhibit strong commuters patterns, however, Flinders
+Street has higher pedestrian counts during the weekends and public
+holidays. This suggests that Flagstaff Station has limited functionality
+on non-work days, but other activities occur around the Flinders Street
 Station. From Figure \ref{fig:overlay} it can be seen that the State
 Library has a similar temporal trend to Flinders Street Station on
 non-work days. The nighttime events, such as White Night and New Year's
@@ -700,7 +701,7 @@ The calendar-based visualization provides data plots in the familiar
 format of an everyday tool. Patterns on special events for the region,
 like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily
 pop out to the viewer as public holidays, than they would on a more
-commonly used week day and month facetted layout.
+commonly used week day and month faceted layout.
 
 The focus is on the western calendar layout because most countries have
 adopted this format. However the language of labels would differ across
@@ -718,7 +719,7 @@ overall summaries and deviations, in order to study general trends.
 The layout is achieved by utilizing linear combinations of temporal
 components and measured variables. This provides the data with the most
 screen real estate. It could be useful to develop this into a
-fully-fledged facetting method, with formal labels and axes. This is a
+fully-fledged faceting method, with formal labels and axes. This is a
 future goal.
 
 \bibliography{packages.bib,references.bib}

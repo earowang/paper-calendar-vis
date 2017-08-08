@@ -90,7 +90,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 # Construction 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \code{frame_calendar} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \pkg{ggplot2} package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2010layered] can be applied. XXX use Hadley's book as the reference rather than the JCGS paper
+Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \code{frame_calendar} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \pkg{ggplot2} package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
 ```{r flinders-2016, fig.height = 6.5, fig.cap = "(ref:flinders-2016-cap)"}
 ```
@@ -180,7 +180,7 @@ When \code{polar = TRUE}, a polar transformation is carried out on the data. The
 
 ## Scales
 
-By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. for temporal data this would harness the temporal components.  The choices include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free_wday}), or cells from the same day of the month (\code{free_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
+By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components.  The choices include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free_wday}), or cells from the same day of the month (\code{free_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
 With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} shows the same data as Figure \ref{fig:flinders-2016} scaled locally using \code{scale = "free"}. The daily trends are magnified. 
 
@@ -204,7 +204,7 @@ We also offer languages other than English for text labelling. Figure \ref{fig:c
 
 ## Overlaying and faceting subsets
 
-Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Difference between the pedetrian patterns for Flinders Street and Flagstaff train stations can be seen. Both Flinders Street and Flagstaff train stations exhibit strong  commuters patterns, but, Flinders Street has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days, but other activities occur around the Flinders Street Station. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and the State Library. 
+Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Difference between the pedestrian patterns for Flinders Street and Flagstaff train stations can be seen. Both Flinders Street and Flagstaff train stations exhibit strong  commuters patterns, however, Flinders Street has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days, but other activities occur around the Flinders Street Station. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and the State Library. 
 
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
@@ -242,13 +242,13 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 # Discussion
 \label{sec:discussion}
 
-The calendar-based visualization provides data plots in the familiar format of an everyday tool. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on a more commonly used week day and month facetted layout. 
+The calendar-based visualization provides data plots in the familiar format of an everyday tool. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on a more commonly used week day and month faceted layout. 
 
 The focus is on the western calendar layout because most countries have adopted this format. However the language of labels would differ across countries, and so support was added for changing the label language simply.
 
 This sort of layout will be useful for studying consumer trends, or human behavior, such as pedestrian patterns or pollution peaks. It will not be so useful for physical patterns like temperature, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations, in order to study general trends.  
 
-The layout is achieved by utilizing linear combinations of temporal components and measured variables. This provides the data with the most screen real estate. It could be useful to develop this into a fully-fledged facetting method, with formal labels and axes. This is a future goal.
+The layout is achieved by utilizing linear combinations of temporal components and measured variables. This provides the data with the most screen real estate. It could be useful to develop this into a fully-fledged faceting method, with formal labels and axes. This is a future goal.
 
 ```{r write-bib}
 write_bib(.packages(), 'packages.bib')
