@@ -62,8 +62,6 @@ It is implemented in the R package \pkg{sugrrants}.
   
   }
 
-% Pandoc header
-
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -240,11 +238,12 @@ discusses the advantages and disadvantages of the method.
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the
 monthly calendar over the year 2016. This is achieved by the
-\code{frame_calendar} function computing the new coordinates according
-to the input data variables; in turn the rearranged data values are
-plotted using the \pkg{ggplot2} package \citep{R-ggplot2}, which is an
-implementation of the grammar of graphics
-\citep{wilkinson2006grammar, wickham2010layered}.
+\code{frame_calendar} function, which computes the coordinates on the
+calendar for the input data variables. These can then be plotted using
+the usual \pkg{ggplot2} package \citep{R-ggplot2} functions. All of the
+grammar of graphics \citep{wilkinson2006grammar, wickham2010layered} can
+be applied. XXX use Hadley's book as the reference rather than the JCGS
+paper
 
 \begin{CodeChunk}
 \begin{figure}
@@ -382,7 +381,7 @@ left.
 
 In order to make calendar-based graphics more accessible and
 informative, reference lines dividing each cell and block as well as
-labels indicating week day and month are also computed before plotting
+labels indicating week day and month are also computed before plot
 construction.
 
 Regarding the monthly calendar, the major reference lines separate every
@@ -396,7 +395,7 @@ placed on the left side of every cell: for each \(i\), the vertical
 division is \(\min{(x)}\); for each \(j\), the horizontal is
 \(\min{(y)}\).
 
-The month labels located on the top left are obtained through
+The month labels located on the top left using
 \((\min{(x)}, \max{(y)})\) for every \((m, n)\). The week day texts are
 uniformly positioned on the bottom of the whole canvas, that is
 \(\min{(y)}\), with the central position of a cell \(x / 2\) for each
@@ -406,8 +405,10 @@ uniformly positioned on the bottom of the whole canvas, that is
 
 \label{sec:opt}
 
-There are several options provided for the \code{frame_calendar}
-function to initialize and adjust the display of a calendar plot:
+The algorithm has several optional parameters that modify the layout,
+direction of display, scales, white space and switching to polar
+coordinates. These are accessible to the user by the inputs to the
+function \code{frame_calendar}:
 
 \begin{verbatim}
 frame_calendar(
@@ -417,29 +418,25 @@ frame_calendar(
 )
 \end{verbatim}
 
-Assuming that tidy data \citep{wickham2014tidy} is the underlying data
-structure, the parameter \code{x} takes a variable that will be mapped
-to the horizontal axis and the parameter \code{y} mapped to the vertical
-axis for plot construction. In Figure \ref{fig:flinders-2016}, for
-example, the \code{x} is the variable specifying the time of the day,
-and the \code{y} is the variable representing the hourly counts. The
-\code{date} argument is given by the date variable that determines the
-correct order of the calendar layout.
+It is assumed that the \texttt{data} is in tidy format
+\citep{wickham2014tidy}, and \code{x}, \code{y} are the variables that
+will be mapped to the horizontal and vertical axes in each cell. For
+example, the \code{x} is the time of the day, and \code{y} is the count
+(Figure \ref{fig:flinders-2016}). The \code{date} argument specifies the
+date variable used to construct the calendar layout.
 
-The algorithm can be extended to display data from a single month up to
-a few years. The number of rows and columns in the layout can be
-specified with the arguments \code{nrow} and \code{ncol}. If the one
-would like to visualize data spanning over three years, for example,
-\code{nrow = 3} and \code{ncol = 12} would be an appropriate choice when
-assessing the differences of a given month across the years.
+The algorithm handles displaying a single month or several years. The
+arguments \code{nrow} and \code{ncol} specify the layout of multiple
+months. For some time frames, some arrangements may be more beneficial
+than others. For example, to display data for three years, setting
+\code{nrow = 3} and \code{ncol = 12} would show each year on a single
+row.
 
-In Section \ref{sec:algorithm} we only illustrated that grids are laid
-out horizontally. The vertical direction can be enabled by swapping
-\(i\) and \(j\) in equation \eqref{eq:grid}, which occurs when the
-argument \code{dir} is set to \code{"v"}. This benefits users who are
-accustomed to calendars that are organized vertically, which is common
-in some countries. Next we shall describe some of the arguments that
-allow for alternate displays.
+By default, grids are laid out horizontally. This can be transposed by
+setting the \code{dir} parameter to \code{"v"}, in which case \(i\) and
+\(j\) are swapped in the equation \eqref{eq:grid}. This can be useful
+for creating calendar layouts for countries where vertical layout is the
+convention.
 
 \subsection{Layouts}\label{layouts}
 
