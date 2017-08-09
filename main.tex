@@ -19,7 +19,7 @@ calendar layout. Calendars are broadly used in society to display
 temporal information, and events. The \code{frame\_calendar} uses linear
 algebra on the date variable to create the layout. It utilizes the
 grammar of graphics to create the plots inside each cell, and thus
-synchronises neatly with \pkg{ggplot2} graphics. The motivating
+synchronizes neatly with \pkg{ggplot2} graphics. The motivating
 application is studying pedestrian behavior in Melbourne, Australia,
 based on counts which are captured at hourly intervals by sensors
 scattered around the city. Faceting by the usual features such as day
@@ -141,15 +141,15 @@ indicating sensor locations.}\label{fig:ped-map}
 
 }
 
-\caption[Time series plot showing the number of
+\caption[Time series plots showing the number of
 pedestrians in 2016 measured at 3 different sensors in the city of
-Melbourne. Coloured by the sensors, small multiples of lines show that
+Melbourne. Colored by the sensors, small multiples of lines show that
 the foot traffic varies from one sensor to another in terms of both time
 and number. The weekly patterns look distinctive across these 3 sensors.
 There is an eye-catching spike which occurred at the State Library,
-caused by the annual White Night event on 20th of February.]{Time series plot showing the number of
+caused by the annual White Night event on 20th of February.]{Time series plots showing the number of
 pedestrians in 2016 measured at 3 different sensors in the city of
-Melbourne. Coloured by the sensors, small multiples of lines show that
+Melbourne. Colored by the sensors, small multiples of lines show that
 the foot traffic varies from one sensor to another in terms of both time
 and number. The weekly patterns look distinctive across these 3 sensors.
 There is an eye-catching spike which occurred at the State Library,
@@ -175,12 +175,12 @@ caused by the annual White Night event on 20th of February.}\label{fig:time-seri
 \caption[Hourly pedestrian counts for 2016 faceted by
 sensors and days of the week using lines. It features at least two types
 of seasons---time of day and day of week---across all the sensors. The
-white night effect increasing pedestrian counts can be seen on Saturday
-in February at State Library.]{Hourly pedestrian counts for 2016 faceted by
+White Night effect on increasing pedestrian counts can be seen on
+Saturday in February at the State Library.]{Hourly pedestrian counts for 2016 faceted by
 sensors and days of the week using lines. It features at least two types
 of seasons---time of day and day of week---across all the sensors. The
-white night effect increasing pedestrian counts can be seen on Saturday
-in February at State Library.}\label{fig:facet-time}
+White Night effect on increasing pedestrian counts can be seen on
+Saturday in February at the State Library.}\label{fig:facet-time}
 \end{figure}
 \end{CodeChunk}
 
@@ -197,21 +197,21 @@ the \pkg{geofacet} package to arrange data plots into a grid, while
 preserving the geographical position. Both of these show data in a
 spatial context.
 
-In contrast, calendar-based graphics unpacks the temporal variable, at
+In contrast, calendar-based graphics unpack the temporal variable, at
 different resolutions, to digest multiple seasonalities, and special
 events. There is some existing work in this area. For example,
 \citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
-colours indicate different clusters derived from the days. It contrasts
+colors indicate different clusters derived from the days. It contrasts
 week days and weekends, highlights public holidays, and presents other
 known seasonal variation such as school vacations, all of which have
 influence over the turn-outs in the office. The calendar-based heatmap
 was implemented in two R packages: \pkg{ggTimeSeries}
 \citep{R-ggTimeSeries} and \pkg{ggcal} \citep{R-ggcal}. However, these
-techniques are limited to colour-encoding graphics and are unable to use
+techniques are limited to color-encoding graphics and are unable to use
 time scales smaller than a day. Time of day, which serves as one of the
 most important aspects in explaining substantial variations arising from
-pedestrian sensor data, will be neglected through daily aggregation.
+the pedestrian sensor data, will be neglected through daily aggregation.
 Additionally, if simply using colored blocks rather than curves, it may
 become perceptually difficult to estimate the shape positions and
 changes, although using curves comes with the cost of more display
@@ -322,9 +322,9 @@ month where \(k=5\).
 
 \caption[Illustration of the indexing layout for cells in
 a month, where \(k\) is day of the week, \(g\) is day of the month,
-\(i,j\) indicates grid position.]{Illustration of the indexing layout for cells in
+\((i, j)\) indicates grid position.]{Illustration of the indexing layout for cells in
 a month, where \(k\) is day of the week, \(g\) is day of the month,
-\(i,j\) indicates grid position.}\label{fig:month-diagram}
+\((i, j)\) indicates grid position.}\label{fig:month-diagram}
 \end{figure}
 \end{CodeChunk}
 
@@ -407,16 +407,14 @@ uniformly positioned on the bottom of the whole canvas, that is
 \label{sec:opt}
 
 The algorithm has several optional parameters that modify the layout,
-direction of display, scales, white space and switching to polar
+direction of display, scales, plot size and switching to polar
 coordinates. These are accessible to the user by the inputs to the
 function \code{frame_calendar}:
 
 \begin{verbatim}
-frame_calendar(
-  data, x, y, date, calendar = "monthly", dir = "h", sunday = FALSE, 
-  nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed",
-  width = 0.95, height = 0.95
-)
+frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
+               sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
+               scale = "fixed", width = 0.95, height = 0.95)
 \end{verbatim}
 
 It is assumed that the \texttt{data} is in tidy format
@@ -494,8 +492,8 @@ daily trends are magnified.
 
 The \code{free_wday} scales each week day together. It can be useful to
 comparing trends across week days, allowing relative patterns for
-weekends vs week days to be examined. Similarly, the \code{free_mday}
-uses free scaling for any day within a given month.
+weekends versus week days to be examined. Similarly, the
+\code{free_mday} uses free scaling for any day within a given month.
 
 \begin{CodeChunk}
 \begin{figure}
@@ -529,9 +527,11 @@ convention.
 
 \subsection{Language support}\label{language-support}
 
-We also offer languages other than English for text labelling. Figure
-\ref{fig:chn} shows the same plot as Figure \ref{fig:boxplot} labelled
-using simplified Chinese characters.
+Most countries have adopted this western calendar layout, while the
+languages used for week day and month would be different across
+countries. We also offer languages other than English for text
+labelling. Figure \ref{fig:chn} shows the same plot as Figure
+\ref{fig:boxplot} labelled using simplified Chinese characters.
 
 \section{Variations}\label{variations}
 
@@ -542,7 +542,7 @@ subsets}\label{overlaying-and-faceting-subsets}
 
 Plots can be layered. The comparison of sensors can be done by
 overlaying plot the values for each (Figure \ref{fig:overlay}).
-Difference between the pedestrian patterns for Flinders Street and
+Differences between the pedestrian patterns for Flinders Street and
 Flagstaff train stations can be seen. Both Flinders Street and Flagstaff
 train stations exhibit strong commuters patterns, however, Flinders
 Street has higher pedestrian counts during the weekends and public
@@ -588,10 +588,10 @@ emphasising individual sensor variation.
 }
 
 \caption[Line charts, embedded in the \(6 \times 2\) monthly
-calendar, coloured and faceted by the 3 sensors. The variations of an
+calendar, colored and faceted by the 3 sensors. The variations of an
 individual sensor are emphasised, and the shapes can be compared across
 the cells and sensors.]{Line charts, embedded in the \(6 \times 2\) monthly
-calendar, coloured and faceted by the 3 sensors. The variations of an
+calendar, colored and faceted by the 3 sensors. The variations of an
 individual sensor are emphasised, and the shapes can be compared across
 the cells and sensors.}\label{fig:facet}
 \end{figure}
@@ -605,11 +605,11 @@ the cells and sensors.}\label{fig:facet}
 \subsection{Different types of plots}\label{different-types-of-plots}
 
 The \code{frame_calendar} function is not constrained to line plots. The
-full range of ggplot geoms is essentially available. Figure
-\ref{fig:scatterplot} shows a lag scatterplot at Flinders Street
-Station, where the current hourly count is assigned to the \code{x}
-argument and the lagged hourly count to the \code{y} argument. This
-figure is organized in the daily calendar layout. Figure
+full range of plotting capabilities in \pkg{ggplot2} is essentially
+available. Figure \ref{fig:scatterplot} shows a lag scatterplot at
+Flinders Street Station, where the current hourly count is assigned to
+the \code{x} argument and the lagged hourly count to the \code{y}
+argument. This figure is organized in the daily calendar layout. Figure
 \ref{fig:scatterplot} indicates two primary patterns, strong
 autocorrelation on weekends, and weaker autocorrelation on work days. At
 the higher counts, on week days, the next hour sees possibly substantial
@@ -703,7 +703,7 @@ like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily
 pop out to the viewer as public holidays, than they would on a more
 commonly used week day and month faceted layout.
 
-The focus is on the western calendar layout because most countries have
+The focus is on the western calendar layout, because most countries have
 adopted this format. However the language of labels would differ across
 countries, and so support was added for changing the label language
 simply.
