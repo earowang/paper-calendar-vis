@@ -31,7 +31,7 @@ It is implemented in the \proglang{R} package \pkg{sugrrants}.
 }
 
 \Keywords{data visualization, statistical graphics, time series, grammar of graphics, \proglang{R}}
-\Plainkeywords{data visualization, statistical graphics, time series, R package, grammar of graphics}
+\Plainkeywords{data visualization, statistical graphics, time series, grammar of graphics, R}
 
 %% publication information
 %% \Volume{50}
@@ -85,7 +85,10 @@ It is implemented in the \proglang{R} package \pkg{sugrrants}.
 \section{Introduction}\label{introduction}
 
 We develop a method for organizing and visualizing temporal data,
-collected at sub-daily intervals, into a calendar layout. The purpose of
+collected at sub-daily intervals, into a calendar layout. The calendar
+format is created using linear algebra, and fits into the
+\pkg{tidyverse} \citep{R-tidyverse} and grammar of graphics
+\citep{wickham2009ggplot2} framework for exploring data. The purpose of
 the calendar-based visualization is to provide insights into people's
 daily schedules relative to events such as work days, weekends,
 holidays, and special events. This work was originally motivated by
