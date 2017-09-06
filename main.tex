@@ -13,21 +13,23 @@ Earo Wang\\Monash University \And Dianne Cook\\Monash University \And Rob J Hynd
 \Plaintitle{Calendar-based graphics for visualizing people's daily schedules}
 
 \Abstract{
-This paper describes a \code{frame\_calendar} function that organizes
-and displays temporal data, collected on sub-daily resolution, into a
-calendar layout. Calendars are broadly used in society to display
-temporal information, and events. The \code{frame\_calendar} uses linear
-algebra on the date variable to create the layout. It utilizes the
-grammar of graphics to create the plots inside each cell, and thus
-synchronizes neatly with \pkg{ggplot2} graphics. The motivating
-application is studying pedestrian behavior in Melbourne, Australia,
-based on counts which are captured at hourly intervals by sensors
-scattered around the city. Faceting by the usual features such as day
-and month, was insufficient to examine the behavior. Making displays on
-a monthly calendar format helps to understand pedestrian patterns
-relative to events such as work days, weekends, holidays, and special
-events. The layout algorithm has several format options and variations.
-It is implemented in the \proglang{R} package \pkg{sugrrants}.
+Calendars are broadly used in society to display temporal information,
+and events. This paper describes a new \proglang{R} package with
+functionality to organize and display temporal data, collected on
+sub-daily resolution, into a calendar layout. The function
+\code{frame\_calendar} uses linear algebra on the date variable to
+re-structure data into a format lending itself to calendar layouts. The
+user can apply the grammar of graphics to create plots inside each
+calendar cell, and thus the displays synchronize neatly with
+\pkg{ggplot2} graphics. The motivating application is studying
+pedestrian behavior in Melbourne, Australia, based on counts which are
+captured at hourly intervals by sensors scattered around the city.
+Faceting by the usual features such as day and month, was insufficient
+to examine the behavior. Making displays on a monthly calendar format
+helps to understand pedestrian patterns relative to events such as work
+days, weekends, holidays, and special events. The layout algorithm has
+several format options and variations. It is implemented in the
+\proglang{R} package \pkg{sugrrants}.
 }
 
 \Keywords{data visualization, statistical graphics, time series, grammar of graphics, \proglang{R}}
@@ -62,8 +64,6 @@ It is implemented in the \proglang{R} package \pkg{sugrrants}.
   
   }
 
-% Pandoc header
-
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -75,37 +75,37 @@ It is implemented in the \proglang{R} package \pkg{sugrrants}.
 \newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[section]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 
 \section{Introduction}\label{introduction}
 
 We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
-format is created using linear algebra, fitting nicely into the
-\pkg{tidyverse} \citep{R-tidyverse} suite. In particular, the resulting
-coordinates synchronize with \pkg{ggplot2} \citep{R-ggplot2} graphics
-for exploring data. The purpose of the calendar-based visualization is
-to provide insights into people's daily schedules relative to events
-such as work days, weekends, holidays, and special events. This work was
-originally motivated by studying foot traffic in the city of Melbourne,
-Australia \citep{ped}. There have been 43 sensors installed that count
-pedestrians every hour across the downtown area (Figure
-\ref{fig:ped-map}). The dataset can shed light on people's daily
-rhythms, and assist the city administration and local businesses with
-event planning and operational management. A routine examination of the
-data would involve constructing conventional time series plots to catch
-a glimpse of temporal patterns. The faceted plots in Figure
-\ref{fig:time-series-plot}, give an overall picture of the foot traffic
-at 3 different sensors over 2016. Further faceting by day of the week
-(Figure \ref{fig:facet-time}) provides a better glimpse of the daily and
-sub-daily pedestrian patterns. The sensor data, like many temporal
-datasets on human behaviors, lends itself to a number of exploratory
-data visualization challenges:
+format is created using linear algebra, giving a restructuring of the
+data, that can then be piped into grammar of graphics definitions of
+plots, as used in \pkg{ggplot2} \citep{R-ggplot2}. The data
+restructuring approach is consistent with the tidy data principles
+available in the \pkg{tidyverse} \citep{R-tidyverse} suite. The methods
+are implemented in a new package called \pkg{sugrrants}.
+
+The purpose of the calendar-based visualization is to provide insights
+into people's daily schedules relative to events such as work days,
+weekends, holidays, and special events. This work was originally
+motivated by studying foot traffic in the city of Melbourne, Australia
+\citep{ped}. There have been 43 sensors installed that count pedestrians
+every hour across the downtown area (Figure \ref{fig:ped-map}). The
+dataset can shed light on people's daily rhythms, and assist the city
+administration and local businesses with event planning and operational
+management. A routine examination of the data would involve constructing
+conventional time series plots to catch a glimpse of temporal patterns.
+The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
+picture of the foot traffic at 3 different sensors over 2016. Further
+faceting by day of the week (Figure \ref{fig:facet-time}) provides a
+better glimpse of the daily and sub-daily pedestrian patterns. The
+sensor data, like many temporal datasets on human behaviors, lends
+itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
