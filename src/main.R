@@ -4,6 +4,7 @@ library(forcats)
 library(lubridate)
 library(tidyverse)
 library(sugrrants)
+library(showtext)
 
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
@@ -181,8 +182,10 @@ p_boxplot <- pedestrian_dec %>%
 prettify(p_boxplot, label = c("label", "text", "text2"))
 
 ## ---- chn
+showtext.auto()
 prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
   size = 3, label.padding = unit(0.15, "lines"),
-  label = c("label", "text", "text2"), family = "GB1"
+  label = c("label", "text", "text2")
 )
+showtext.auto(FALSE) 
