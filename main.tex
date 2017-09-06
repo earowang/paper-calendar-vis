@@ -86,25 +86,26 @@ It is implemented in the \proglang{R} package \pkg{sugrrants}.
 
 We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
-format is created using linear algebra, and fits into the
-\pkg{tidyverse} \citep{R-tidyverse} and grammar of graphics
-\citep{wickham2009ggplot2} framework for exploring data. The purpose of
-the calendar-based visualization is to provide insights into people's
-daily schedules relative to events such as work days, weekends,
-holidays, and special events. This work was originally motivated by
-studying foot traffic in the city of Melbourne, Australia \citep{ped}.
-There have been 43 sensors installed that count pedestrians every hour
-across the downtown area (Figure \ref{fig:ped-map}). The dataset can
-shed light on people's daily rhythms, and assist the city administration
-and local businesses with event planning and operational management. A
-routine examination of the data would involve constructing conventional
-time series plots to catch a glimpse of temporal patterns. The faceted
-plots in Figure \ref{fig:time-series-plot}, give an overall picture of
-the foot traffic at 3 different sensors over 2016. Further faceting by
-day of the week (Figure \ref{fig:facet-time}) provides a better glimpse
-of the daily and sub-daily pedestrian patterns. The sensor data, like
-many temporal datasets on human behaviors, lends itself to a number of
-exploratory data visualization challenges:
+format is created using linear algebra, fitting nicely into the
+\pkg{tidyverse} \citep{R-tidyverse} suite. In particular, the resulting
+coordinates synchronize with \pkg{ggplot2} \citep{R-ggplot2} graphics
+for exploring data. The purpose of the calendar-based visualization is
+to provide insights into people's daily schedules relative to events
+such as work days, weekends, holidays, and special events. This work was
+originally motivated by studying foot traffic in the city of Melbourne,
+Australia \citep{ped}. There have been 43 sensors installed that count
+pedestrians every hour across the downtown area (Figure
+\ref{fig:ped-map}). The dataset can shed light on people's daily
+rhythms, and assist the city administration and local businesses with
+event planning and operational management. A routine examination of the
+data would involve constructing conventional time series plots to catch
+a glimpse of temporal patterns. The faceted plots in Figure
+\ref{fig:time-series-plot}, give an overall picture of the foot traffic
+at 3 different sensors over 2016. Further faceting by day of the week
+(Figure \ref{fig:facet-time}) provides a better glimpse of the daily and
+sub-daily pedestrian patterns. The sensor data, like many temporal
+datasets on human behaviors, lends itself to a number of exploratory
+data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
