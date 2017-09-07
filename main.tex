@@ -18,7 +18,7 @@ and events. This paper describes a new \proglang{R} package with
 functionality to organize and display temporal data, collected on
 sub-daily resolution, into a calendar layout. The function
 \code{frame\_calendar} uses linear algebra on the date variable to
-re-structure data into a format lending itself to calendar layouts. The
+restructure data into a format lending itself to calendar layouts. The
 user can apply the grammar of graphics to create plots inside each
 calendar cell, and thus the displays synchronize neatly with
 \pkg{ggplot2} graphics. The motivating application is studying
@@ -64,6 +64,8 @@ several format options and variations. It is implemented in the
   
   }
 
+% Pandoc header
+
 \usepackage{amsmath}
 
 \usepackage{amsthm}
@@ -75,8 +77,11 @@ several format options and variations. It is implemented in the
 \newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 
 \section{Introduction}\label{introduction}
@@ -88,7 +93,8 @@ data, that can then be piped into grammar of graphics definitions of
 plots, as used in \pkg{ggplot2} \citep{R-ggplot2}. The data
 restructuring approach is consistent with the tidy data principles
 available in the \pkg{tidyverse} \citep{R-tidyverse} suite. The methods
-are implemented in a new package called \pkg{sugrrants}.
+are implemented in a new package called \pkg{sugrrants}
+\citep{R-sugrrants} .
 
 The purpose of the calendar-based visualization is to provide insights
 into people's daily schedules relative to events such as work days,
@@ -231,8 +237,8 @@ day-of-week and day-of-year; (2) to incorporate line graphs and other
 types of glyphs into the graphical toolkit for the calendar layout; (3)
 to enable overlaying plots consisting of multiple time series. The
 proposed algorithm has been implemented in the \code{frame_calendar}
-function in the \pkg{sugrrants} package \citep{R-sugrrants} using
-\proglang{R} \citep{R-base}.
+function in the \pkg{sugrrants} package using \proglang{R}
+\citep{R-base}.
 
 The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
@@ -417,6 +423,8 @@ The algorithm has several optional parameters that modify the layout,
 direction of display, scales, plot size and switching to polar
 coordinates. These are accessible to the user by the inputs to the
 function \code{frame_calendar}:
+
+\newpage
 
 \begin{verbatim}
 frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
