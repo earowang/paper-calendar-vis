@@ -186,6 +186,7 @@ showtext.auto()
 prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
   size = 3, label.padding = unit(0.15, "lines"),
-  label = c("label", "text", "text2")
+  label = c("label", "text", "text2"),
+  family = "wqy-microhei"
 )
 showtext.auto(FALSE) 

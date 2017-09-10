@@ -235,7 +235,7 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 
 (ref:boxplot-cap) Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest.
 
-```{r chn, dev.args = list(family = "GB1"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"}
+```{r chn, dev.args = list(family = "wqy-microhei"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"}
 ```
 
 (ref:chn-cap) The same plot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.
