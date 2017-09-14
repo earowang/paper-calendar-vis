@@ -6,9 +6,11 @@ library(tidyverse)
 library(sugrrants)
 library(showtext)
 
+# loading data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
 ## ---- ped-map
+# plotting the sensor locations using ggmap
 ped_loc <- pedestrian_2016 %>% 
   distinct(Longitude, Latitude)
 melb_map <- get_map(
@@ -26,6 +28,7 @@ ggmap(melb_map) +
   ylab("Latitude")
 
 ## ---- time-series-plot
+# subsetting the data
 sensors <- c(
   "State Library",
   "Flagstaff Station",
@@ -34,6 +37,7 @@ sensors <- c(
 subdat <- pedestrian_2016 %>% 
   filter(Sensor_Name %in% sensors) %>% 
   mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude))
+# conventional time series plot
 subdat %>% 
   ggplot(aes(x = Date_Time, y = Hourly_Counts, colour = Sensor_Name)) +
   geom_line(size = 0.3) +
@@ -50,6 +54,7 @@ subdat %>%
   ylab("Hourly Counts")
 
 ## ---- facet-time
+# time series plot faceted by sensors and day of week
 subdat %>% 
   ggplot(aes(x = Time, y = Hourly_Counts, group = Date, colour = Sensor_Name)) +
   geom_line(size = 0.3) +
@@ -67,6 +72,7 @@ subdat %>%
   ylab("Hourly Counts")
 
 ## ---- flinders-2016
+# calendar plot for flinders street station
 flinders <- subdat %>% 
   filter(Sensor_Name == "Flinders Street Station Underpass")
 
@@ -79,6 +85,7 @@ p_flinders <- flinders_cal %>%
 prettify(p_flinders, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- flinders-free
+# calendar plot for flinders street station using local scale
 flinders_cal_free <- flinders %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, scale = "free")
 
@@ -88,6 +95,7 @@ p_flinders_free <- flinders_cal_free %>%
 prettify(p_flinders_free, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- flinders-polar
+# calendar plot for flinders street station in polar coordinates
 flinders_polar <- flinders %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, polar = TRUE)
 
@@ -97,6 +105,7 @@ p_flinders_polar <- flinders_polar %>%
 prettify(p_flinders_polar, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- overlay
+# overlaying calendar plots 
 subset_cal <- subdat %>% 
   frame_calendar(Time, Hourly_Counts, Date)
 
@@ -133,6 +142,7 @@ p_three <- subset_cal %>%
 prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- facet
+# calendar plots faceted by the sensors
 facet_cal <- subdat %>% 
   group_by(Sensor_Name) %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, nrow = 2)
@@ -152,6 +162,7 @@ p_facet <- facet_cal %>%
 prettify(p_facet, label = NULL)
 
 ## ---- scatterplot
+# lagged scatterplot for flinders street station in the daily calendar format
 flinders_cal_day <- flinders %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Hourly_Counts, y = Lagged_Counts, date = Date, 
@@ -163,6 +174,7 @@ p_flinders_day <- flinders_cal_day %>%
 prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot
+# boxplots for hourly counts across all the sensors in 2016 December
 pedestrian_dec <- pedestrian_2016 %>% 
   filter(Month == "December") %>% 
   frame_calendar(
@@ -182,6 +194,8 @@ p_boxplot <- pedestrian_dec %>%
 prettify(p_boxplot, label = c("label", "text", "text2"))
 
 ## ---- chn
+# boxplots for hourly counts across all the sensors in 2016 Dec with Chinese 
+# labels
 showtext.auto()
 prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
