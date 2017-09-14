@@ -36,7 +36,7 @@ output:
   bookdown::pdf_book:
     base_format: rticles::jss_article
   citation_package: biblatex
-bibliography: ["references.bib", "packages.bib"]
+bibliography: "references.bib"
 ---
 
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
