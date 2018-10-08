@@ -76,11 +76,11 @@ displays are insufficient to address these challenges.
 \begin{Schunk}
 \begin{figure}
 
-{\centering \includegraphics[width=0.55\linewidth]{figure/ped-map-1} 
+{\centering \includegraphics[width=0.7\linewidth]{figure/ped-map-1} 
 
 }
 
-\caption[Map of the Melbourne city area with purple dots indicating sensor locations]{Map of the Melbourne city area with purple dots indicating sensor locations.}\label{fig:ped-map}
+\caption[Map of the Melbourne city area with dots indicating sensor locations]{Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper.}\label{fig:ped-map}
 \end{figure}
 \end{Schunk}
 
@@ -168,7 +168,7 @@ the grammar of graphics (Wilkinson 2005; Wickham 2009) can be applied.
 
 }
 
-\caption[The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs]{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3  imes 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
+\caption[The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs]{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
 \end{figure}
 \end{Schunk}
 
@@ -301,7 +301,7 @@ function \code{frame\_calendar}:
 frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", 
   sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
-  scale = "fixed", width = 0.95, height = 0.95
+  scale = "fixed", width = 0.95, height = 0.95, margin = NULL
 )
 \end{verbatim}
 
@@ -455,7 +455,7 @@ emphasising individual sensor variation.
 
 }
 
-\caption[Line charts, embedded in the $6    imes 2$ monthly calendar, colored and faceted by the 3 sensors]{Line charts, embedded in the $6     imes 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
+\caption[Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors]{Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
 \end{figure}
 \end{Schunk}
 

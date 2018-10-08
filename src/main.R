@@ -9,10 +9,22 @@ library(showtext)
 # loading data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
+# selected sensors
+sensors <- c(
+  "State Library",
+  "Flagstaff Station",
+  "Flinders Street Station Underpass"
+)
+
 ## ---- ped-map
 # plotting the sensor locations using ggmap
 ped_loc <- pedestrian_2016 %>% 
-  distinct(Longitude, Latitude)
+  distinct(Longitude, Latitude, Sensor_Name) %>% 
+  mutate(
+    Highlight = if_else(Sensor_Name %in% sensors, Sensor_Name, "Other"),
+    Highlight = factor(Highlight, levels = c(sensors, "Other")),
+    Selected = if_else(Sensor_Name %in% sensors, TRUE, FALSE)
+  )
 melb_map <- get_map(
   location = c(
     min(ped_loc$Longitude), min(ped_loc$Latitude),
@@ -21,19 +33,37 @@ melb_map <- get_map(
   zoom = 14
 )
 
+selected <- ped_loc %>% 
+  filter(Selected)
+nonselected <- ped_loc %>% 
+  filter(!Selected)
+sensor_cols <- c(
+  "State Library" = "#1b9e77", 
+  "Flagstaff Station" = "#d95f02", 
+  "Flinders Street Station Underpass" = "#7570b3",
+  "Other" = "grey70"
+) # Dark2
 ggmap(melb_map) +
-  geom_point(data = ped_loc, aes(x = Longitude, y = Latitude),
-    colour = "#756bb1", alpha = 0.8, size = 3) +
+  geom_point(
+    data = nonselected, aes(x = Longitude, y = Latitude, colour = Highlight),
+    alpha = 0.8, size = 3
+  ) +
+  geom_point(
+    data = selected, aes(x = Longitude, y = Latitude, colour = Highlight),
+    size = 6
+  ) +
   xlab("Longitude") +
-  ylab("Latitude")
+  ylab("Latitude") +
+  scale_colour_manual(
+    name = "Sensor",
+    breaks = names(sensor_cols),
+    values = sensor_cols,
+    guide = "legend"
+  ) +
+  theme(legend.position = "bottom")
 
 ## ---- time-series-plot
 # subsetting the data
-sensors <- c(
-  "State Library",
-  "Flagstaff Station",
-  "Flinders Street Station Underpass"
-)
 subdat <- pedestrian_2016 %>% 
   filter(Sensor_Name %in% sensors) %>% 
   mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude))
@@ -74,35 +104,45 @@ subdat %>%
 ## ---- flinders-2016
 # calendar plot for flinders street station
 flinders <- subdat %>% 
-  filter(Sensor_Name == "Flinders Street Station Underpass")
+  filter(Sensor_Name == "Flinders Street Station Underpass") %>% 
+  mutate(
+    Weekend = if_else(Day %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+  )
 
 flinders_cal <- flinders %>%
-  frame_calendar(x = Time, y = Hourly_Counts, date = Date)
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date, margin = 0.05)
 
 p_flinders <- flinders_cal %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-  geom_line()
-prettify(p_flinders, size = 3, label.padding = unit(0.15, "lines"))
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+  geom_line() +
+  theme(legend.position = "bottom")
+prettify(p_flinders, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- flinders-free
 # calendar plot for flinders street station using local scale
 flinders_cal_free <- flinders %>% 
-  frame_calendar(x = Time, y = Hourly_Counts, date = Date, scale = "free")
+  frame_calendar(
+    x = Time, y = Hourly_Counts, date = Date, scale = "free", margin = 0.05
+  )
 
 p_flinders_free <- flinders_cal_free %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-  geom_line()
-prettify(p_flinders_free, size = 3, label.padding = unit(0.15, "lines"))
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+  geom_line() +
+  theme(legend.position = "bottom")
+prettify(p_flinders_free, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- flinders-polar
 # calendar plot for flinders street station in polar coordinates
 flinders_polar <- flinders %>% 
-  frame_calendar(x = Time, y = Hourly_Counts, date = Date, polar = TRUE)
+  frame_calendar(
+    x = Time, y = Hourly_Counts, date = Date, polar = TRUE, margin = 0.05
+  )
 
 p_flinders_polar <- flinders_polar %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date)) +
-  geom_path()
-prettify(p_flinders_polar, size = 3, label.padding = unit(0.15, "lines"))
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+  geom_path() +
+  theme(legend.position = "bottom")
+prettify(p_flinders_polar, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- overlay
 # overlaying calendar plots 
@@ -169,8 +209,11 @@ flinders_cal_day <- flinders %>%
     calendar = "daily", width = 0.95, height = 0.8)
 
 p_flinders_day <- flinders_cal_day %>% 
-  ggplot(aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date)) +
-  geom_point(size = 0.5, alpha = 0.6)
+  ggplot(
+    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Weekend)
+  ) +
+  geom_point(size = 0.5, alpha = 0.6) +
+  theme(legend.position = "bottom")
 prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot

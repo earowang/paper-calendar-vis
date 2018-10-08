@@ -57,7 +57,7 @@ The purpose of the calendar-based visualization is to provide insights into peop
 
 The conventional ways to display time series and constructing faceted displays are insufficient to address these challenges. 
 
-```{r ped-map, fig.width = 4, out.width = "0.55\\linewidth", fig.cap = "Map of the Melbourne city area with purple dots indicating sensor locations."}
+```{r ped-map, fig.width = 7, out.width = "0.7\\linewidth", fig.cap = "Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper."}
 ```
 
 ```{r time-series-plot, fig.height = 6, fig.cap = "Time series plots showing the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these 3 sensors. There is an eye-catching spike which occurred at the State Library, caused by the annual White Night event on 20th of February."}
@@ -79,7 +79,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \code{frame\_calendar} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \pkg{ggplot2} package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
-```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
+```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
 ```
 
 The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
@@ -138,7 +138,7 @@ The algorithm has several optional parameters that modify the layout, direction 
 frame_calendar(
   data, x, y, date, calendar = "monthly", dir = "h", 
   sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
-  scale = "fixed", width = 0.95, height = 0.95
+  scale = "fixed", width = 0.95, height = 0.95, margin = NULL
 )
 ```
 
@@ -188,7 +188,7 @@ Plots can be layered. The comparison of sensors can be done by overlaying plot t
 
 To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasising individual sensor variation. 
 
-```{r facet, fig.height = 11, fig.cap = "Line charts, embedded in the $6 \times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
+```{r facet, fig.height = 11, fig.cap = "Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
 ```
 
 ## Different types of plots
