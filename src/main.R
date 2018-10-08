@@ -147,7 +147,7 @@ prettify(p_flinders_polar, size = 3, label.padding = unit(0.18, "lines"))
 ## ---- overlay
 # overlaying calendar plots 
 subset_cal <- subdat %>% 
-  frame_calendar(Time, Hourly_Counts, Date)
+  frame_calendar(Time, Hourly_Counts, Date, margin = 0.05)
 
 sensor_cols <- c(
   "#1b9e77" = "#1b9e77", 
@@ -179,7 +179,7 @@ p_three <- subset_cal %>%
     guide = "legend"
   ) +
   theme(legend.position = "bottom")
-prettify(p_three, size = 3, label.padding = unit(0.15, "lines"))
+prettify(p_three, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- facet
 # calendar plots faceted by the sensors
