@@ -28,7 +28,7 @@ output:
   rticles::rjournal_article:
   includes:
     in_header: preamble.tex
-bibliography: ["references.bib", "packages.bib"]
+bibliography: ["RJreferences.bib"]
 ---
 
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
@@ -47,7 +47,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in \pkg{ggplot2} [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the \pkg{tidyverse} [@R-tidyverse] suite. The methods are implemented in a new package called \pkg{sugrrants} [@R-sugrrants] .
+We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in \CRANpkg{ggplot2} [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the \CRANpkg{tidyverse} [@R-tidyverse] suite. The methods are implemented in a new package called \CRANpkg{sugrrants} [@R-sugrrants] .
 
 The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
 
@@ -66,7 +66,7 @@ The conventional ways to display time series and constructing faceted displays a
 ```{r facet-time, fig.height = 6, fig.cap = "Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library."}
 ```
 
-The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps.  It is also related to recent work by @R-geofacet which provides methods in the \pkg{geofacet} package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
+The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps.  It is also related to recent work by @R-geofacet which provides methods in the \CRANpkg{geofacet} package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
 
 In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities, and special events. There is some existing work in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
 
