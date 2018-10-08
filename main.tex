@@ -297,12 +297,12 @@ direction of display, scales, plot size and switching to polar
 coordinates. These are accessible to the user by the inputs to the
 function \code{frame\_calendar}:
 
-\newpage
-
 \begin{verbatim}
-frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
-               sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
-               scale = "fixed", width = 0.95, height = 0.95)
+frame_calendar(
+  data, x, y, date, calendar = "monthly", dir = "h", 
+  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
+  scale = "fixed", width = 0.95, height = 0.95
+)
 \end{verbatim}
 
 It is assumed that the \texttt{data} is in tidy format (Wickham 2014),
@@ -465,8 +465,8 @@ emphasising individual sensor variation.
 The \code{frame\_calendar} function is not constrained to line plots.
 The full range of plotting capabilities in \pkg{ggplot2} is essentially
 available. Figure \ref{fig:scatterplot} shows a lag scatterplot at
-Flinders Street Station, where the current hourly count is assigned to
-the \code{x} argument and the lagged hourly count to the \code{y}
+Flinders Street Station, where the lagged hourly count is assigned to
+the \code{x} argument and the current hourly count to the \code{y}
 argument. This figure is organized in the daily calendar layout. Figure
 \ref{fig:scatterplot} indicates two primary patterns, strong
 autocorrelation on weekends, and weaker autocorrelation on work days. At
@@ -482,7 +482,7 @@ distribution of consecutive counts, as supported by Figure
 
 }
 
-\caption[Lag scatterplot in the daily calendar layout]{Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
+\caption[Lag scatterplot in the daily calendar layout]{Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
 \end{figure}
 \end{Schunk}
 
@@ -544,6 +544,10 @@ components and measured variables. This provides the data with the most
 screen real estate. It could be useful to develop this into a
 fully-fledged faceting method, with formal labels and axes. This is a
 future goal.
+
+\hypertarget{bibliography}{%
+\section*{Bibliography}\label{bibliography}}
+\addcontentsline{toc}{section}{Bibliography}
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-ped}{}%

@@ -134,12 +134,12 @@ The month labels located on the top left using $(\min{(x)}, \max{(y)})$ for ever
 
 The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function  \code{frame\_calendar}:
 
-\newpage
-
 ```
-frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
-               sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
-               scale = "fixed", width = 0.95, height = 0.95)
+frame_calendar(
+  data, x, y, date, calendar = "monthly", dir = "h", 
+  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
+  scale = "fixed", width = 0.95, height = 0.95
+)
 ```
 
 It is assumed that the `data` is in tidy format [@wickham2014tidy], and \code{x}, \code{y} are the variables that will be mapped to the horizontal and vertical axes in each cell. For example, the \code{x} is the time of the day, and \code{y} is the count (Figure \ref{fig:flinders-2016}). The \code{date} argument specifies the date variable used to construct the calendar layout. 
@@ -193,9 +193,9 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 
 ## Different types of plots
 
-The \code{frame\_calendar} function is not constrained to line plots. The full range of plotting capabilities in \pkg{ggplot2} is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the current hourly count is assigned to the \code{x} argument and the lagged hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
+The \code{frame\_calendar} function is not constrained to line plots. The full range of plotting capabilities in \pkg{ggplot2} is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the lagged hourly count is assigned to the \code{x} argument and the current hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
 
-```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Previous hour's count is plotted against each hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
+```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
 ```
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve. 
@@ -225,3 +225,4 @@ The layout is achieved by utilizing linear combinations of temporal components a
 write_bib(c("ggplot2", "tidyverse", "sugrrants", "geofacet", .packages()), 'packages.bib')
 ```
 
+# Bibliography
