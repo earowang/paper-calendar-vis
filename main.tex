@@ -1,28 +1,92 @@
-% !TeX root = RJwrapper.tex
-\title{Calendar-based graphics for visualizing people's daily schedules}
-\author{by Earo Wang, Dianne Cook, Rob J Hyndman}
+% !TeX program = pdfLaTeX
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{textcomp}
+\usepackage[hyphens]{url} % not crucial - just used below for the URL
+\usepackage{hyperref}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\maketitle
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
 
-\abstract{%
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+%% load any required packages here
+
+
+
+
+\begin{document}
+
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0\blind
+{
+  \title{\bf Calendar-based graphics for visualizing people's daily schedules}
+
+  \author{
+        Earo Wang \\
+    Department of Econometrics and Business Statistics, Monash University\\
+     and \\     Dianne Cook \\
+    Department of Econometrics and Business Statistics, Monash University\\
+     and \\     Rob J Hyndman \\
+    Department of Econometrics and Business Statistics, Monash University\\
+      }
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Calendar-based graphics for visualizing people's daily schedules}
+  \end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
 Calendars are broadly used in society to display temporal information,
 and events. This paper describes a new R package with functionality to
 organize and display temporal data, collected on sub-daily resolution,
-into a calendar layout. The function \code{frame\_calendar} uses linear
-algebra on the date variable to restructure data into a format lending
-itself to calendar layouts. The user can apply the grammar of graphics
-to create plots inside each calendar cell, and thus the displays
-synchronize neatly with \pkg{ggplot2} graphics. The motivating
-application is studying pedestrian behavior in Melbourne, Australia,
-based on counts which are captured at hourly intervals by sensors
-scattered around the city. Faceting by the usual features such as day
-and month, was insufficient to examine the behavior. Making displays on
-a monthly calendar format helps to understand pedestrian patterns
-relative to events such as work days, weekends, holidays, and special
-events. The layout algorithm has several format options and variations.
-It is implemented in the R package \pkg{sugrrants}.
-}
+into a calendar layout. The function \texttt{frame\_calendar} uses
+linear algebra on the date variable to restructure data into a format
+lending itself to calendar layouts. The user can apply the grammar of
+graphics to create plots inside each calendar cell, and thus the
+displays synchronize neatly with \textbf{ggplot2} graphics. The
+motivating application is studying pedestrian behavior in Melbourne,
+Australia, based on counts which are captured at hourly intervals by
+sensors scattered around the city. Faceting by the usual features such
+as day and month, was insufficient to examine the behavior. Making
+displays on a monthly calendar format helps to understand pedestrian
+patterns relative to events such as work days, weekends, holidays, and
+special events. The layout algorithm has several format options and
+variations. It is implemented in the R package \textbf{sugrrants}.
+\end{abstract}
 
+\noindent%
+{\it Keywords:} data visualization, statistical graphics, time series, grammar of graphics, R
+\vfill
+
+\newpage
+\spacingset{1.45} % DON'T change the spacing!
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -31,29 +95,28 @@ We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
 format is created using linear algebra, giving a restructuring of the
 data, that can then be piped into grammar of graphics definitions of
-plots, as used in \CRANpkg{ggplot2} (Wickham et al. 2018). The data
+plots, as used in \textbf{ggplot2} \citep{R-ggplot2}. The data
 restructuring approach is consistent with the tidy data principles
-available in the \CRANpkg{tidyverse} (Wickham 2017) suite. The methods
-are implemented in a new package called \CRANpkg{sugrrants} (Wang, Cook,
-and Hyndman 2018) .
+available in the \textbf{tidyverse} \citep{R-tidyverse} suite. The
+methods are implemented in a new package called \textbf{sugrrants}
+\citep{R-sugrrants} .
 
 The purpose of the calendar-based visualization is to provide insights
 into people's daily schedules relative to events such as work days,
 weekends, holidays, and special events. This work was originally
 motivated by studying foot traffic in the city of Melbourne, Australia
-(City of Melbourne 2017). There have been 43 sensors installed that
-count pedestrians every hour across the downtown area (Figure
-\ref{fig:ped-map}). The dataset can shed light on people's daily
-rhythms, and assist the city administration and local businesses with
-event planning and operational management. A routine examination of the
-data would involve constructing conventional time series plots to catch
-a glimpse of temporal patterns. The faceted plots in Figure
-\ref{fig:time-series-plot}, give an overall picture of the foot traffic
-at 3 different sensors over 2016. Further faceting by day of the week
-(Figure \ref{fig:facet-time}) provides a better glimpse of the daily and
-sub-daily pedestrian patterns. The sensor data, like many temporal
-datasets on human behaviors, lends itself to a number of exploratory
-data visualization challenges:
+\citep{ped}. There have been 43 sensors installed that count pedestrians
+every hour across the downtown area (Figure \ref{fig:ped-map}). The
+dataset can shed light on people's daily rhythms, and assist the city
+administration and local businesses with event planning and operational
+management. A routine examination of the data would involve constructing
+conventional time series plots to catch a glimpse of temporal patterns.
+The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
+picture of the foot traffic at 3 different sensors over 2016. Further
+faceting by day of the week (Figure \ref{fig:facet-time}) provides a
+better glimpse of the daily and sub-daily pedestrian patterns. The
+sensor data, like many temporal datasets on human behaviors, lends
+itself to a number of exploratory data visualization challenges:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -73,65 +136,59 @@ data visualization challenges:
 The conventional ways to display time series and constructing faceted
 displays are insufficient to address these challenges.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=0.7\linewidth]{figure/ped-map-1} 
 
 }
 
-\caption[Map of the Melbourne city area with dots indicating sensor locations]{Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper.}\label{fig:ped-map}
+\caption{Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper.}\label{fig:ped-map}
 \end{figure}
-\end{Schunk}
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/time-series-plot-1} 
 
 }
 
-\caption[Time series plots showing the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne]{Time series plots showing the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these 3 sensors. There is an eye-catching spike which occurred at the State Library, caused by the annual White Night event on 20th of February.}\label{fig:time-series-plot}
+\caption{Time series plots showing the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these 3 sensors. There is an eye-catching spike which occurred at the State Library, caused by the annual White Night event on 20th of February.}\label{fig:time-series-plot}
 \end{figure}
-\end{Schunk}
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/facet-time-1} 
 
 }
 
-\caption[Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines]{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library.}\label{fig:facet-time}
+\caption{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library.}\label{fig:facet-time}
 \end{figure}
-\end{Schunk}
 
-The work is inspired by Wickham et al. (2012), which uses linear algebra
-to display spatio-temporal data as glyphs on maps. It is also related to
-recent work by Hafen (2018) which provides methods in the
-\CRANpkg{geofacet} package to arrange data plots into a grid, while
+The work is inspired by \citet{Wickham2012glyph}, which uses linear
+algebra to display spatio-temporal data as glyphs on maps. It is also
+related to recent work by \citet{R-geofacet} which provides methods in
+the \textbf{geofacet} package to arrange data plots into a grid, while
 preserving the geographical position. Both of these show data in a
 spatial context.
 
 In contrast, calendar-based graphics unpack the temporal variable, at
 different resolutions, to digest multiple seasonalities, and special
-events. There is some existing work in this area. For example, Van Wijk
-and Van Selow (1999) developed a calendar view of the heatmap to
+events. There is some existing work in this area. For example,
+\citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
 colors indicate different clusters derived from the days. It contrasts
 week days and weekends, highlights public holidays, and presents other
 known seasonal variation such as school vacations, all of which have
 influence over the turn-outs in the office. The calendar-based heatmap
-was implemented in two R packages: \pkg{ggTimeSeries} (Kothari and Ather
-2016) and \pkg{ggcal} (Jacobs 2017). However, these techniques are
-limited to color-encoding graphics and are unable to use time scales
-smaller than a day. Time of day, which serves as one of the most
-important aspects in explaining substantial variations arising from the
-pedestrian sensor data, will be neglected through daily aggregation.
-Additionally, if simply using colored blocks rather than curves, it may
-become perceptually difficult to estimate the shape positions and
-changes, although using curves comes with the cost of more display
-capacity (Cleveland and McGill 1984; Lam, Munzner, and Kincaid 2007).
+was implemented in two R packages: \textbf{ggTimeSeries}
+\citep{R-ggTimeSeries} and \textbf{ggcal} \citep{R-ggcal}. However,
+these techniques are limited to color-encoding graphics and are unable
+to use time scales smaller than a day. Time of day, which serves as one
+of the most important aspects in explaining substantial variations
+arising from the pedestrian sensor data, will be neglected through daily
+aggregation. Additionally, if simply using colored blocks rather than
+curves, it may become perceptually difficult to estimate the shape
+positions and changes, although using curves comes with the cost of more
+display capacity \citep{cleveland1984graphical, lam2007overview}.
 
 We propose a new algorithm to go beyond the calendar-based heatmap. The
 approach is developed with three conditions in mind: (1) to display
@@ -139,13 +196,13 @@ time-of-day variation in addition to longer temporal components such as
 day-of-week and day-of-year; (2) to incorporate line graphs and other
 types of glyphs into the graphical toolkit for the calendar layout; (3)
 to enable overlaying plots consisting of multiple time series. The
-proposed algorithm has been implemented in the \code{frame\_calendar}
-function in the \pkg{sugrrants} package using R.
+proposed algorithm has been implemented in the \texttt{frame\_calendar}
+function in the \textbf{sugrrants} package using R.
 
 The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
 in depth. Section \ref{sec:opt} lists and describes the options that
-come with the \code{frame\_calendar} function. Section
+come with the \texttt{frame\_calendar} function. Section
 \ref{sec:examples} presents some variations of its usage. Section
 \ref{sec:discussion} discusses the advantages and disadvantages of the
 method.
@@ -157,30 +214,29 @@ method.
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the
 monthly calendar over the year 2016. This is achieved by the
-\code{frame\_calendar} function, which computes the coordinates on the
+\texttt{frame\_calendar} function, which computes the coordinates on the
 calendar for the input data variables. These can then be plotted using
-the usual \pkg{ggplot2} package (Wickham et al. 2018) functions. All of
-the grammar of graphics (Wilkinson 2005; Wickham 2009) can be applied.
+the usual \textbf{ggplot2} package \citep{R-ggplot2} functions. All of
+the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}
+can be applied.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/flinders-2016-1} 
 
 }
 
-\caption[The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs]{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
+\caption{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
 \end{figure}
-\end{Schunk}
 
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
-(Wickham et al. 2012). To make a year long calendar requires cells for
-days, embedded in blocks corresponding to months, organized into a grid
-layout for a year. Each month can be captured with 35 (5 \(\times\) 7)
-cells, where the top left is Monday of week 1, and the bottom right is
-Sunday of week 5 by default. These cells provide a micro canvas on which
-to plot the data. The first day of the month could be any of
+\citep{Wickham2012glyph}. To make a year long calendar requires cells
+for days, embedded in blocks corresponding to months, organized into a
+grid layout for a year. Each month can be captured with 35 (5 \(\times\)
+7) cells, where the top left is Monday of week 1, and the bottom right
+is Sunday of week 5 by default. These cells provide a micro canvas on
+which to plot the data. The first day of the month could be any of
 Monday--Sunday, which is determined by the year of the calendar. Months
 are of different lengths, ranging from 28 to 31 days, and each month
 could extend over six weeks but the convention in these months is to
@@ -215,16 +271,14 @@ The grid position for any day in the month is given by
 Figure \ref{fig:month-diagram} illustrates this \((i,j)\) layout for a
 month where \(k=5\).
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=360pt,height=250pt]{img/month} 
 
 }
 
-\caption[Illustration of the indexing layout for cells in a month, where $k$ is day of the week, $g$ is day of the month, $(i, j)$ indicates grid position]{Illustration of the indexing layout for cells in a month, where $k$ is day of the week, $g$ is day of the month, $(i, j)$ indicates grid position.}\label{fig:month-diagram}
+\caption{Illustration of the indexing layout for cells in a month, where $k$ is day of the week, $g$ is day of the month, $(i, j)$ indicates grid position.}\label{fig:month-diagram}
 \end{figure}
-\end{Schunk}
 
 To create the layout for a full year, \((m, n)\) denotes the position of
 the month arranged in the plot, where \(1 \le m \le M\) and
@@ -232,16 +286,14 @@ the month arranged in the plot, where \(1 \le m \le M\) and
 white space, denoted by \(b\). Figure \ref{fig:year-diagram} illustrates
 this layout where \(M = 3\) and \(N = 4\).
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=360pt,height=250pt]{img/year-diagram} 
 
 }
 
-\caption[Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells]{Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells.}\label{fig:year-diagram}
+\caption{Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells.}\label{fig:year-diagram}
 \end{figure}
-\end{Schunk}
 
 Each cell forms a canvas on which to draw the data. Initialize the
 canvas to have limits \([0, 1]\) both horizontally and vertically. For
@@ -296,7 +348,7 @@ uniformly positioned on the bottom of the whole canvas, that is
 The algorithm has several optional parameters that modify the layout,
 direction of display, scales, plot size and switching to polar
 coordinates. These are accessible to the user by the inputs to the
-function \code{frame\_calendar}:
+function \texttt{frame\_calendar}:
 
 \begin{verbatim}
 frame_calendar(
@@ -306,25 +358,25 @@ frame_calendar(
 )
 \end{verbatim}
 
-It is assumed that the \texttt{data} is in tidy format (Wickham 2014),
-and \code{x}, \code{y} are the variables that will be mapped to the
-horizontal and vertical axes in each cell. For example, the \code{x} is
-the time of the day, and \code{y} is the count (Figure
-\ref{fig:flinders-2016}). The \code{date} argument specifies the date
-variable used to construct the calendar layout.
+It is assumed that the \texttt{data} is in tidy format
+\citep{wickham2014tidy}, and \texttt{x}, \texttt{y} are the variables
+that will be mapped to the horizontal and vertical axes in each cell.
+For example, the \texttt{x} is the time of the day, and \texttt{y} is
+the count (Figure \ref{fig:flinders-2016}). The \texttt{date} argument
+specifies the date variable used to construct the calendar layout.
 
 The algorithm handles displaying a single month or several years. The
-arguments \code{nrow} and \code{ncol} specify the layout of multiple
+arguments \texttt{nrow} and \texttt{ncol} specify the layout of multiple
 months. For some time frames, some arrangements may be more beneficial
 than others. For example, to display data for three years, setting
-\code{nrow = 3} and \code{ncol = 12} would show each year on a single
-row.
+\texttt{nrow\ =\ 3} and \texttt{ncol\ =\ 12} would show each year on a
+single row.
 
 \hypertarget{layouts}{%
 \subsection{Layouts}\label{layouts}}
 
 The monthly calendar is the default, but two other formats, weekly and
-daily, are available with the \code{calendar} argument. The daily
+daily, are available with the \texttt{calendar} argument. The daily
 calendar arranges days along a row, one row per month. The weekly
 calendar stacks weeks of the year vertically, one row for each week, and
 one column for each day. The reader can scan down all the Mondays of the
@@ -339,13 +391,12 @@ patterns motivate which variant should be employed.
 \hypertarget{polar-transformation}{%
 \subsection{Polar transformation}\label{polar-transformation}}
 
-When \code{polar = TRUE}, a polar transformation is carried out on the
-data. The computation is similar to the one described in Wickham et al.
-(2012). Figure \ref{fig:flinders-polar} shows star plots embedded in the
-monthly calendar layout, which is equivalent to Figure
-\ref{fig:flinders-2016} placed in polar coordinates.
+When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
+the data. The computation is similar to the one described in
+\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} shows star
+plots embedded in the monthly calendar layout, which is equivalent to
+Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/flinders-polar-1} 
@@ -354,7 +405,6 @@ monthly calendar layout, which is equivalent to Figure
 
 \caption{Figure \ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:flinders-polar}
 \end{figure}
-\end{Schunk}
 
 \hypertarget{scales}{%
 \subsection{Scales}\label{scales}}
@@ -363,40 +413,38 @@ By default, global scaling is done for values in each plot, with the
 global minimum and maximum used to fit values into each cell. If the
 emphasis is comparing trend rather than magnitude, it is useful to scale
 locally. For temporal data this would harness the temporal components.
-The choices include: free scale within each cell (\code{free}), cells
-derived from the same day of the week (\code{free\_wday}), or cells from
-the same day of the month (\code{free\_mday}). The scaling allows for
-the comparisons of absolute or relative values, and the emphasis of
+The choices include: free scale within each cell (\texttt{free}), cells
+derived from the same day of the week (\texttt{free\_wday}), or cells
+from the same day of the month (\texttt{free\_mday}). The scaling allows
+for the comparisons of absolute or relative values, and the emphasis of
 different temporal variations.
 
 With local scaling, the overall variation gives way to the individual
 shape. Figure \ref{fig:flinders-free} shows the same data as Figure
-\ref{fig:flinders-2016} scaled locally using \code{scale = "free"}. The
-daily trends are magnified.
+\ref{fig:flinders-2016} scaled locally using \texttt{scale\ =\ "free"}.
+The daily trends are magnified.
 
-The \code{free\_wday} scales each week day together. It can be useful to
-comparing trends across week days, allowing relative patterns for
+The \texttt{free\_wday} scales each week day together. It can be useful
+to comparing trends across week days, allowing relative patterns for
 weekends versus week days to be examined. Similarly, the
-\code{free\_mday} uses free scaling for any day within a given month.
+\texttt{free\_mday} uses free scaling for any day within a given month.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/flinders-free-1} 
 
 }
 
-\caption[Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days]{Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:flinders-free}
+\caption{Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:flinders-free}
 \end{figure}
-\end{Schunk}
 
 \hypertarget{orientation}{%
 \subsection{Orientation}\label{orientation}}
 
 By default, grids are laid out horizontally. This can be transposed by
-setting the \code{dir} parameter to \code{"v"}, in which case \(i\) and
-\(j\) are swapped in the Equation \ref{eq:grid}. This can be useful for
-creating calendar layouts for countries where vertical layout is the
+setting the \texttt{dir} parameter to \texttt{"v"}, in which case \(i\)
+and \(j\) are swapped in the Equation \ref{eq:grid}. This can be useful
+for creating calendar layouts for countries where vertical layout is the
 convention.
 
 \hypertarget{language-support}{%
@@ -432,16 +480,14 @@ Eve, have barely affected the operation of Flagstaff Station but heavily
 affected the incoming and outgoing traffic to Flinders Street Station
 and the State Library.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/overlay-1} 
 
 }
 
-\caption[Overlaying line graphs of the 3 sensors in the monthly calendar]{Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days.}\label{fig:overlay}
+\caption{Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days.}\label{fig:overlay}
 \end{figure}
-\end{Schunk}
 
 To avoid the overlapping problem, the calendar layout can be embedded
 into a series of subplots for the different sensors. Figure
@@ -449,43 +495,39 @@ into a series of subplots for the different sensors. Figure
 allows comparing the overall structure between sensors, while
 emphasising individual sensor variation.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/facet-1} 
 
 }
 
-\caption[Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors]{Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
+\caption{Line charts, embedded in the 6 by 2 monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
 \end{figure}
-\end{Schunk}
 
 \hypertarget{different-types-of-plots}{%
 \subsection{Different types of plots}\label{different-types-of-plots}}
 
-The \code{frame\_calendar} function is not constrained to line plots.
-The full range of plotting capabilities in \pkg{ggplot2} is essentially
-available. Figure \ref{fig:scatterplot} shows a lag scatterplot at
-Flinders Street Station, where the lagged hourly count is assigned to
-the \code{x} argument and the current hourly count to the \code{y}
-argument. This figure is organized in the daily calendar layout. Figure
-\ref{fig:scatterplot} indicates two primary patterns, strong
-autocorrelation on weekends, and weaker autocorrelation on work days. At
-the higher counts, on week days, the next hour sees possibly substantial
-increase or decrease in counts, essentially revealing a bimodal
-distribution of consecutive counts, as supported by Figure
+The \texttt{frame\_calendar} function is not constrained to line plots.
+The full range of plotting capabilities in \textbf{ggplot2} is
+essentially available. Figure \ref{fig:scatterplot} shows a lag
+scatterplot at Flinders Street Station, where the lagged hourly count is
+assigned to the \texttt{x} argument and the current hourly count to the
+\texttt{y} argument. This figure is organized in the daily calendar
+layout. Figure \ref{fig:scatterplot} indicates two primary patterns,
+strong autocorrelation on weekends, and weaker autocorrelation on work
+days. At the higher counts, on week days, the next hour sees possibly
+substantial increase or decrease in counts, essentially revealing a
+bimodal distribution of consecutive counts, as supported by Figure
 \ref{fig:flinders-2016}.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/scatterplot-1} 
 
 }
 
-\caption[Lag scatterplot in the daily calendar layout]{Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
+\caption{Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
 \end{figure}
-\end{Schunk}
 
 The algorithm can also produce more complicated plots, such as boxplots.
 Figure \ref{fig:boxplot} uses a loess smooth line superimposed on
@@ -494,18 +536,15 @@ all 43 sensors during December. The last week of December is the holiday
 season: people are off work on the day before Christmas, go shopping on
 the Boxing day, and stay out for the fireworks on New Year's Eve.
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/boxplot-1} 
 
 }
 
-\caption[Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day]{Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest.}\label{fig:boxplot}
+\caption{Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest.}\label{fig:boxplot}
 \end{figure}
-\end{Schunk}
 
-\begin{Schunk}
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{img/chn-1-embedded} 
@@ -514,7 +553,6 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 
 \caption{The same plot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.}\label{fig:chn-embedded}
 \end{figure}
-\end{Schunk}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -546,96 +584,7 @@ screen real estate. It could be useful to develop this into a
 fully-fledged faceting method, with formal labels and axes. This is a
 future goal.
 
-\hypertarget{bibliography}{%
-\section*{Bibliography}\label{bibliography}}
-\addcontentsline{toc}{section}{Bibliography}
+\bibliographystyle{agsm}
+\bibliography{bibliography.bib}
 
-\hypertarget{refs}{}
-\leavevmode\hypertarget{ref-ped}{}%
-City of Melbourne. 2017. \emph{Pedestrian Volume in Melbourne}. City of
-Melbourne, Australia. \url{http://www.pedestrian.melbourne.vic.gov.au}.
-
-\leavevmode\hypertarget{ref-cleveland1984graphical}{}%
-Cleveland, William S, and Robert McGill. 1984. ``Graphical Perception:
-Theory, Experimentation, and Application to the Development of Graphical
-Methods.'' \emph{Journal of the American Statistical Association} 79
-(387). Taylor \& Francis: 531--54.
-
-\leavevmode\hypertarget{ref-R-geofacet}{}%
-Hafen, Ryan. 2018. \emph{Geofacet: 'Ggplot2' Faceting Utilities for
-Geographical Data}. \url{https://CRAN.R-project.org/package=geofacet}.
-
-\leavevmode\hypertarget{ref-R-ggcal}{}%
-Jacobs, Jay. 2017. \emph{Ggcal: Calendar Plot Using Ggplot2}.
-\url{https://github.com/jayjacobs/ggcal}.
-
-\leavevmode\hypertarget{ref-R-ggTimeSeries}{}%
-Kothari, Aditya, and Ather. 2016. \emph{ggTimeSeries: Nicer Time Series
-Visualisations with Ggplot Syntax.}
-\url{https://github.com/Ather-Energy/ggTimeSeries}.
-
-\leavevmode\hypertarget{ref-lam2007overview}{}%
-Lam, Heidi, Tamara Munzner, and Robert Kincaid. 2007. ``Overview Use in
-Multiple Visual Information Resolution Interfaces.'' \emph{IEEE
-Transactions on Visualization and Computer Graphics} 13 (6). IEEE:
-1278--85.
-
-\leavevmode\hypertarget{ref-VanWijkCluster1999}{}%
-Van Wijk, Jarke J., and Edward R. Van Selow. 1999. ``Cluster and
-Calendar Based Visualization of Time Series Data.'' In \emph{Information
-Visualization, 1999. INFOVIS 1999 Proceedings. IEEE Symposium on}, 4--9.
-IEEE.
-
-\leavevmode\hypertarget{ref-R-sugrrants}{}%
-Wang, Earo, Di Cook, and Rob Hyndman. 2018. \emph{Sugrrants: Supporting
-Graphs for Analysing Time Series}. \url{https://pkg.earo.me/sugrrants}.
-
-\leavevmode\hypertarget{ref-wickham2009ggplot2}{}%
-Wickham, Hadley. 2009. \emph{Ggplot2: Elegant Graphics for Data
-Analysis}. New York, NY: Springer-Verlag New York.
-
-\leavevmode\hypertarget{ref-wickham2014tidy}{}%
----------. 2014. ``Tidy Data.'' \emph{Journal of Statistical Software}
-59 (10). Foundation for Open Access Statistics: 1--23.
-
-\leavevmode\hypertarget{ref-R-tidyverse}{}%
----------. 2017. \emph{Tidyverse: Easily Install and Load the
-'Tidyverse'}. \url{https://CRAN.R-project.org/package=tidyverse}.
-
-\leavevmode\hypertarget{ref-R-ggplot2}{}%
-Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen,
-Kohske Takahashi, Claus Wilke, and Kara Woo. 2018. \emph{Ggplot2: Create
-Elegant Data Visualisations Using the Grammar of Graphics}.
-
-\leavevmode\hypertarget{ref-Wickham2012glyph}{}%
-Wickham, Hadley, Heike Hofmann, Charlotte Wickham, and Dianne Cook.
-2012. ``Glyph-Maps for Visually Exploring Temporal Patterns in Climate
-Data and Models.'' \emph{Environmetrics} 23 (5): 382--93.
-
-\leavevmode\hypertarget{ref-wilkinson2006grammar}{}%
-Wilkinson, Leland. 2005. \emph{The Grammar of Graphics (Statistics and
-Computing)}. Secaucus, NJ: Springer-Verlag New York, Inc.
-
-\bibliography{RJreferences.bib}
-
-\address{%
-Earo Wang\\
-Monash University\\
-Department of Econometrics and Business Statistics,\\ Monash University, VIC 3800\\ Australia\\
-}
-\href{mailto:earo.wang@monash.edu}{\nolinkurl{earo.wang@monash.edu}}
-
-\address{%
-Dianne Cook\\
-Monash University\\
-Department of Econometrics and Business Statistics,\\ Monash University, VIC 3800\\ Australia\\
-}
-\href{mailto:dicook@monash.edu}{\nolinkurl{dicook@monash.edu}}
-
-\address{%
-Rob J Hyndman\\
-Monash University\\
-Department of Econometrics and Business Statistics,\\ Monash University, VIC 3800\\ Australia\\
-}
-\href{mailto:rob.hyndman@monash.edu}{\nolinkurl{rob.hyndman@monash.edu}}
-
+\end{document}

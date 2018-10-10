@@ -1,34 +1,32 @@
 ---
 title: Calendar-based graphics for visualizing people's daily schedules
-author:
-  - name: Earo Wang
-    affiliation: Monash University
-    address:
-    - Department of Econometrics and Business Statistics,
-    - Monash University, VIC 3800
-    - Australia
-    email: earo.wang@monash.edu
-  - name: Dianne Cook
-    affiliation: Monash University
-    address:
-    - Department of Econometrics and Business Statistics,
-    - Monash University, VIC 3800
-    - Australia
-    email:  dicook@monash.edu
-  - name: Rob J Hyndman
-    affiliation: Monash University
-    address:
-    - Department of Econometrics and Business Statistics,
-    - Monash University, VIC 3800
-    - Australia
-    email:  rob.hyndman@monash.edu
-abstract: >
-  Calendars are broadly used in society to display temporal information, and events. This paper describes a new R package with functionality to organize and display temporal data, collected on sub-daily resolution, into a calendar layout. The function \code{frame\_calendar} uses linear algebra on the date variable to restructure data into a format lending itself to calendar layouts. The user can apply the grammar of graphics to create plots inside each calendar cell, and thus the displays synchronize neatly with \pkg{ggplot2} graphics. The motivating application is studying pedestrian behavior in Melbourne, Australia, based on counts which are captured at hourly intervals by sensors scattered around the city. Faceting by the usual features such as day and month, was insufficient to examine the behavior. Making displays on a monthly calendar format helps to understand pedestrian patterns relative to events such as work days, weekends, holidays, and special events. The layout algorithm has several format options and variations. It is implemented in the R package \pkg{sugrrants}.
-output: 
-  rticles::rjournal_article:
-  includes:
-    in_header: preamble.tex
-bibliography: ["RJreferences.bib"]
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: Earo Wang
+  affiliation: Department of Econometrics and Business Statistics, Monash University
+  email: earo.wang@monash.edu
+  
+- name: Dianne Cook
+  affiliation: Department of Econometrics and Business Statistics, Monash University
+  
+- name: Rob J Hyndman
+  affiliation: Department of Econometrics and Business Statistics, Monash University
+
+keywords:
+- data visualization
+- statistical graphics
+- time series
+- grammar of graphics
+- R
+
+abstract: |
+  Calendars are broadly used in society to display temporal information, and events. This paper describes a new R package with functionality to organize and display temporal data, collected on sub-daily resolution, into a calendar layout. The function `frame_calendar` uses linear algebra on the date variable to restructure data into a format lending itself to calendar layouts. The user can apply the grammar of graphics to create plots inside each calendar cell, and thus the displays synchronize neatly with **ggplot2** graphics. The motivating application is studying pedestrian behavior in Melbourne, Australia, based on counts which are captured at hourly intervals by sensors scattered around the city. Faceting by the usual features such as day and month, was insufficient to examine the behavior. Making displays on a monthly calendar format helps to understand pedestrian patterns relative to events such as work days, weekends, holidays, and special events. The layout algorithm has several format options and variations. It is implemented in the R package **sugrrants**.
+
+bibliography: bibliography.bib
+output: rticles::asa_article
 ---
 
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
@@ -47,7 +45,7 @@ read_chunk('src/main.R')
 
 # Introduction
 
-We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in \CRANpkg{ggplot2} [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the \CRANpkg{tidyverse} [@R-tidyverse] suite. The methods are implemented in a new package called \CRANpkg{sugrrants} [@R-sugrrants] .
+We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in **ggplot2** [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the **tidyverse** [@R-tidyverse] suite. The methods are implemented in a new package called **sugrrants** [@R-sugrrants] .
 
 The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
 
@@ -66,18 +64,18 @@ The conventional ways to display time series and constructing faceted displays a
 ```{r facet-time, fig.height = 6, fig.cap = "Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library."}
 ```
 
-The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps.  It is also related to recent work by @R-geofacet which provides methods in the \CRANpkg{geofacet} package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
+The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps.  It is also related to recent work by @R-geofacet which provides methods in the **geofacet** package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
 
-In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities, and special events. There is some existing work in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: \pkg{ggTimeSeries} [@R-ggTimeSeries] and \pkg{ggcal} [@R-ggcal]. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
+In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities, and special events. There is some existing work in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: **ggTimeSeries** [@R-ggTimeSeries] and **ggcal** [@R-ggcal]. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
 
-We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the \code{frame\_calendar} function in the \pkg{sugrrants} package using R.
+We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the `frame_calendar` function in the **sugrrants** package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the \code{frame\_calendar} function. Section \ref{sec:examples} presents some variations of its usage. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the `frame_calendar` function. Section \ref{sec:examples} presents some variations of its usage. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
 
 # Construction 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \code{frame\_calendar} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \pkg{ggplot2} package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
+Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
 ```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a 3 by 4 monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
 ```
@@ -132,7 +130,7 @@ The month labels located on the top left using $(\min{(x)}, \max{(y)})$ for ever
 # Options
 \label{sec:opt}
 
-The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function  \code{frame\_calendar}:
+The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function `frame_calendar`:
 
 ```
 frame_calendar(
@@ -142,35 +140,35 @@ frame_calendar(
 )
 ```
 
-It is assumed that the `data` is in tidy format [@wickham2014tidy], and \code{x}, \code{y} are the variables that will be mapped to the horizontal and vertical axes in each cell. For example, the \code{x} is the time of the day, and \code{y} is the count (Figure \ref{fig:flinders-2016}). The \code{date} argument specifies the date variable used to construct the calendar layout. 
+It is assumed that the `data` is in tidy format [@wickham2014tidy], and `x`, `y` are the variables that will be mapped to the horizontal and vertical axes in each cell. For example, the `x` is the time of the day, and `y` is the count (Figure \ref{fig:flinders-2016}). The `date` argument specifies the date variable used to construct the calendar layout. 
 
-The algorithm handles displaying a single month or several years. The  arguments \code{nrow} and \code{ncol} specify the layout of multiple months. For some time frames, some arrangements may be more beneficial than others. For example, to display data for three years, setting \code{nrow = 3} and \code{ncol = 12} would show each year on a single row. 
+The algorithm handles displaying a single month or several years. The  arguments `nrow` and `ncol` specify the layout of multiple months. For some time frames, some arrangements may be more beneficial than others. For example, to display data for three years, setting `nrow = 3` and `ncol = 12` would show each year on a single row. 
 
 ## Layouts
 
-The monthly calendar is the default, but two other formats, weekly and daily, are available with the \code{calendar} argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
+The monthly calendar is the default, but two other formats, weekly and daily, are available with the `calendar` argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
 
 ## Polar transformation
 
-When \code{polar = TRUE}, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
 ```{r flinders-polar, fig.height = 6.5, fig.cap = "Figure \\ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
 ```
 
 ## Scales
 
-By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components. The choices include: free scale within each cell (\code{free}), cells derived from the same day of the week (\code{free\_wday}), or cells from the same day of the month (\code{free\_mday}). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
+By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components. The choices include: free scale within each cell (`free`), cells derived from the same day of the week (`free_wday`), or cells from the same day of the month (`free_mday`). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
-With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} shows the same data as Figure \ref{fig:flinders-2016} scaled locally using \code{scale = "free"}. The daily trends are magnified. 
+With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} shows the same data as Figure \ref{fig:flinders-2016} scaled locally using `scale = "free"`. The daily trends are magnified. 
 
-The \code{free\_wday} scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the \code{free\_mday} uses free scaling for any day within a given month. 
+The `free_wday` scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month. 
 
 ```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
 ```
 
 ## Orientation
 
-By default, grids are laid out horizontally. This can be transposed by setting the \code{dir} parameter to \code{"v"}, in which case $i$ and $j$ are swapped in the Equation \ref{eq:grid}. This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
+By default, grids are laid out horizontally. This can be transposed by setting the `dir` parameter to `"v"`, in which case $i$ and $j$ are swapped in the Equation \ref{eq:grid}. This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
 
 ## Language support
 
@@ -193,7 +191,7 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 
 ## Different types of plots
 
-The \code{frame\_calendar} function is not constrained to line plots. The full range of plotting capabilities in \pkg{ggplot2} is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the lagged hourly count is assigned to the \code{x} argument and the current hourly count to the \code{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
+The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
 
 ```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
 ```
