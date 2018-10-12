@@ -219,6 +219,10 @@ This sort of layout will be useful for studying consumer trends, or human behavi
 
 The layout is achieved by utilizing linear combinations of temporal components and measured variables. This provides the data with the most screen real estate. It could be useful to develop this into a fully-fledged faceting method, with formal labels and axes. This is a future goal.
 
+# Acknowledgements {-}
+
+We would like to thank Stuart Lee and Heike Hofmann for their feedback about this work. The most recent version of the `frame_calendar` function is included in the **sugrrants** package, which can be accessed via the CRAN website <https://CRAN.R-project.org/package=sugrrants> or Github <https://github.com/earowang/sugrrants>. All materials required to reproduce this article and a history of the changes can be found at the project's Github repository <https://github.com/earowang/paper-calendar-vis>.
+
 ```{r write-bib}
 write_bib(c("ggplot2", "tidyverse", "sugrrants", "geofacet", .packages()), 'packages.bib')
 ```
