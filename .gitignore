@@ -4,3 +4,4 @@ cache/
 .Rproj.user
 data/*.csv
 *.bbl
+data-raw/

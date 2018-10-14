@@ -5,8 +5,9 @@ library(lubridate)
 library(tidyverse)
 library(sugrrants)
 library(showtext)
+library(tsibble)
 
-# loading data
+# loading pedestrian data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
 # selected sensors
@@ -110,44 +111,40 @@ flinders <- subdat %>%
   )
 
 flinders_cal <- flinders %>%
-  frame_calendar(x = Time, y = Hourly_Counts, date = Date, margin = 0.05)
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date)
 
 p_flinders <- flinders_cal %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
   geom_line() +
   theme(legend.position = "bottom")
-prettify(p_flinders, size = 3, label.padding = unit(0.18, "lines"))
+prettify(p_flinders)
 
 ## ---- flinders-free
 # calendar plot for flinders street station using local scale
 flinders_cal_free <- flinders %>% 
-  frame_calendar(
-    x = Time, y = Hourly_Counts, date = Date, scale = "free", margin = 0.05
-  )
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date, scale = "free")
 
 p_flinders_free <- flinders_cal_free %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
   geom_line() +
   theme(legend.position = "bottom")
-prettify(p_flinders_free, size = 3, label.padding = unit(0.18, "lines"))
+prettify(p_flinders_free)
 
 ## ---- flinders-polar
 # calendar plot for flinders street station in polar coordinates
 flinders_polar <- flinders %>% 
-  frame_calendar(
-    x = Time, y = Hourly_Counts, date = Date, polar = TRUE, margin = 0.05
-  )
+  frame_calendar(x = Time, y = Hourly_Counts, date = Date, polar = TRUE)
 
 p_flinders_polar <- flinders_polar %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
   geom_path() +
   theme(legend.position = "bottom")
-prettify(p_flinders_polar, size = 3, label.padding = unit(0.18, "lines"))
+prettify(p_flinders_polar)
 
 ## ---- overlay
 # overlaying calendar plots 
 subset_cal <- subdat %>% 
-  frame_calendar(Time, Hourly_Counts, Date, margin = 0.05)
+  frame_calendar(Time, Hourly_Counts, Date)
 
 sensor_cols <- c(
   "#1b9e77" = "#1b9e77", 
@@ -179,7 +176,7 @@ p_three <- subset_cal %>%
     guide = "legend"
   ) +
   theme(legend.position = "bottom")
-prettify(p_three, size = 3, label.padding = unit(0.18, "lines"))
+prettify(p_three)
 
 ## ---- facet
 # calendar plots faceted by the sensors
@@ -199,7 +196,7 @@ p_facet <- facet_cal %>%
     guide = guide_legend(title = "Sensor")
   ) +
   theme(legend.position = "bottom")
-prettify(p_facet, label = NULL)
+prettify(p_facet, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- scatterplot
 # lagged scatterplot for flinders street station in the daily calendar format
@@ -247,3 +244,63 @@ prettify(
   family = "wqy-microhei"
 )
 showtext.auto(FALSE) 
+
+## ---- load-elec
+elec <- read_rds("data/elec.rds")
+
+## ---- sample-elec
+elec %>% 
+  group_by(id) %>% 
+  slice(1:2)
+
+## ---- dow
+hol1718 <- holiday_aus(2017:2018, state = "VIC")
+
+elec <- elec %>% 
+  mutate(
+    weekday = wday(date, label = TRUE, week_start = 1),
+    workday = if_else(
+      (date %in% hol1718$date) | weekday %in% c("Sat", "Sun"),
+      "Non-work day", "Workday")
+  )
+
+elec %>% 
+  group_by(date, weekday, id) %>% 
+  summarise(kwh = sum(kwh, na.rm = TRUE)) %>% 
+  ggplot(aes(x = weekday, y = kwh)) +
+  lvplot::geom_lv(aes(fill = ..LV..), colour = "black", outlier.shape = 8) +
+  facet_wrap(~ id, labeller = label_both) +
+  xlab("Day of week") +
+  ylab("kWh") +
+  scale_fill_brewer(palette = "Blues", direction = -1) +
+  theme(legend.position = "bottom")
+
+## ---- hod
+avg_elec <- elec %>% 
+  group_by(id, workday, time) %>% 
+  summarise(avg = mean(kwh))
+
+ggplot(elec, aes(x = time, y = kwh)) +
+  geom_point(alpha = 0.5, size = 0.1) +
+  geom_line(aes(y = avg, colour = as.factor(id)), data = avg_elec, size = 1) +
+  facet_grid(workday ~ id) +
+  scale_colour_brewer(palette = "Dark2") +
+  scale_x_time(breaks = hms::hms(hours = c(6, 18))) +
+  xlab("Time of day") +
+  ylab("kWh") +
+  guides(colour = "none")
+
+## ---- household23
+hh <- elec %>% 
+  filter(id %in% c(1, 3))
+
+hh_cal <- hh %>% 
+  group_by(id) %>% 
+  frame_calendar(x = time, y = kwh, date = date)
+
+p_hh <- hh_cal %>% 
+  ggplot(aes(x = .time, y = .kwh, group = date)) +
+  geom_line(aes(colour = workday)) +
+  facet_grid(id ~ ., label = label_both) +
+  theme(legend.position = "bottom")
+prettify(p_hh)
