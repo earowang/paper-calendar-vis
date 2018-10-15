@@ -47,13 +47,15 @@ read_chunk('src/main.R')
 
 We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in **ggplot2** [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the **tidyverse** [@R-tidyverse] suite. The methods are implemented in a new package called **sugrrants** [@R-sugrrants] .
 
-The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns. The sensor data, like many temporal datasets on human behaviors, lends itself to a number of exploratory data visualization challenges:
+The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns.
 
+<!--
 1. Variations exist on multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
 2. Since the data are often collected at sub-daily frequencies, they typically involve a large number of observations.
 3. Measurements of a single type are made at multiple locations at a given time point, which creates the need for comparing and contrasting between locations.
+-->
 
-The conventional ways to display time series and constructing faceted displays are insufficient to address these challenges. 
+However, the conventional displays of time series data obscure patterns relative to special events (such as public holidays and recurring cultural/sport events), which may appear more fascinating to viewers.
 
 ```{r ped-map, fig.width = 7, out.width = "0.7\\linewidth", fig.cap = "Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper."}
 ```
@@ -70,7 +72,7 @@ In contrast, calendar-based graphics unpack the temporal variable, at different 
 
 We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the `frame_calendar` function in the **sugrrants** package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the `frame_calendar` function. Section \ref{sec:variations} presents some variations of its usage. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the `frame_calendar` function. Section \ref{sec:variations} presents some variations of its usage. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
 
 # Construction 
 \label{sec:algorithm}
@@ -214,9 +216,9 @@ include_graphics("img/chn-1-embedded.pdf")
 ```{r load-elec, cache.extra = tools::md5sum("data/elec.rds")}
 ```
 
-The case study uses individual-level energy usage from Australia. The dataset contains half-hourly electricity consumption data of 4 households over different time periods, with `r format(NROW(elec), big.mark = ",")` observations and `r NCOL(elec)` variables. The goal is to sketch typical profiles as well as unusual patterns in order to better understand each household's daily schedules.
+The case study uses individual-level energy usage from Australia. The dataset contains half-hourly electricity consumption data of 4 households over different time periods, with `r format(NROW(elec), big.mark = ",")` observations. The goal is to sketch typical profiles as well as unusual patterns in order to better understand each household's daily schedules.
 
-Firstly, a letter value plot (ref??) shown as Figure \ref{fig:dow} helps grasp an overview of the variability between households across days of week. Household 2 has seen a great deal of variability in daily energy consumption, depicting relatively large variations on Thursdays. By contrast, household 4 consumes much less energy with constant variations. The dark blue line (representing median) highlights more energy consumed by households 1, 2, and 4 over the weekends relative to weekdays.
+Firstly, a letter value plot [@hofmann2017letter] shown as Figure \ref{fig:dow} helps grasp an overview of the variability between households across days of week. Household 2 has seen a great deal of variability in daily energy consumption, depicting relatively large variations on Thursdays. By contrast, household 4 consumes much less energy with constant variations. The dark blue line (representing median) highlights more energy consumed by households 1, 2, and 4 over the weekends relative to weekdays.
 
 ```{r dow, fig.height = 7, fig.cap = "Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, compared to the rest households. Households 1, 2, and 4 use mose energy over the weekends."}
 ```

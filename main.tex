@@ -114,27 +114,11 @@ conventional time series plots to catch a glimpse of temporal patterns.
 The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
 picture of the foot traffic at 3 different sensors over 2016. Further
 faceting by day of the week (Figure \ref{fig:facet-time}) provides a
-better glimpse of the daily and sub-daily pedestrian patterns. The
-sensor data, like many temporal datasets on human behaviors, lends
-itself to a number of exploratory data visualization challenges:
+better glimpse of the daily and sub-daily pedestrian patterns.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Variations exist on multiple time scales including time of day, day of
-  week, and day of year (such as public holiday and recurring events).
-\item
-  Since the data are often collected at sub-daily frequencies, they
-  typically involve a large number of observations.
-\item
-  Measurements of a single type are made at multiple locations at a
-  given time point, which creates the need for comparing and contrasting
-  between locations.
-\end{enumerate}
-
-The conventional ways to display time series and constructing faceted
-displays are insufficient to address these challenges.
+However, the conventional displays of time series data obscure patterns
+relative to special events (such as public holidays and recurring
+cultural/sport events), which may appear more fascinating to viewers.
 
 \begin{figure}
 
@@ -203,9 +187,10 @@ The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
 in depth. Section \ref{sec:opt} lists and describes the options that
 come with the \texttt{frame\_calendar} function. Section
-\ref{sec:variations} presents some variations of its usage. Section
-\ref{sec:discussion} discusses the advantages and disadvantages of the
-method.
+\ref{sec:variations} presents some variations of its usage. Graphical
+analyses of sub-daily people's activities are illustrated with a case
+study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses
+the advantages and disadvantages of the method.
 
 \hypertarget{construction}{%
 \section{Construction}\label{construction}}
@@ -561,18 +546,18 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 
 The case study uses individual-level energy usage from Australia. The
 dataset contains half-hourly electricity consumption data of 4
-households over different time periods, with 64,128 observations and 5
-variables. The goal is to sketch typical profiles as well as unusual
-patterns in order to better understand each household's daily schedules.
+households over different time periods, with 64,128 observations. The
+goal is to sketch typical profiles as well as unusual patterns in order
+to better understand each household's daily schedules.
 
-Firstly, a letter value plot (ref??) shown as Figure \ref{fig:dow} helps
-grasp an overview of the variability between households across days of
-week. Household 2 has seen a great deal of variability in daily energy
-consumption, depicting relatively large variations on Thursdays. By
-contrast, household 4 consumes much less energy with constant
-variations. The dark blue line (representing median) highlights more
-energy consumed by households 1, 2, and 4 over the weekends relative to
-weekdays.
+Firstly, a letter value plot \citep{hofmann2017letter} shown as Figure
+\ref{fig:dow} helps grasp an overview of the variability between
+households across days of week. Household 2 has seen a great deal of
+variability in daily energy consumption, depicting relatively large
+variations on Thursdays. By contrast, household 4 consumes much less
+energy with constant variations. The dark blue line (representing
+median) highlights more energy consumed by households 1, 2, and 4 over
+the weekends relative to weekdays.
 
 \begin{figure}
 
