@@ -580,8 +580,20 @@ weekdays.
 
 }
 
-\caption{Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, cotrast to the rest households. Households 1, 2, and 4 use mose energy over the weekends.}\label{fig:dow}
+\caption{Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, compared to the rest households. Households 1, 2, and 4 use mose energy over the weekends.}\label{fig:dow}
 \end{figure}
+
+Then a snapshot is taken at a different time resolution to picture
+individual's energy usage against time of day, across workdays and
+non-work days. Figure \ref{fig:hod} gives a more detailed depiction of
+each household's life style. Household 1 appears an early bird, starting
+the day before 6 and going back home around 18 on workdays. There is an
+uncommon pattern occurring to household 2 only, with a cluster of points
+concentrated above 1 kWh across all time of day. It perhaps alerts
+household 2 to potential electricity leakage. Household 3 shows
+persistent trimodel behaviors across workdays and non-workdays.
+Nevertheless, the non-work life of household 4 distinguishes from the
+workdays when most energy is consumed after 18.
 
 \begin{figure}
 
@@ -589,14 +601,26 @@ weekdays.
 
 }
 
+\caption{Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day.}\label{fig:hod}
 \end{figure}
+
+Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical
+toolkits, are useful for summarizing overall deviations across days and
+households. Is there any untold story from these plots? Figure
+\ref{fig:household13} lays out the data points at the finest time
+resolution in a \(3 \times 4\) monthly grid, for household 1 and 3.
+Household 1 was on vacation over three weeks of June, and household 2
+was also away for holidays from September to early October and late June
+to mid July in the past year. This calendar plot evidently fills the
+missing piece of the picture.
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/household23-1} 
+{\centering \includegraphics[width=\textwidth]{figure/household13-1} 
 
 }
 
+\caption{Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \ref{fig:dow} and \ref{fig:hod}.}\label{fig:household13}
 \end{figure}
 
 \hypertarget{discussion}{%

@@ -77,7 +77,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 
 Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
-```{r flinders-2016, fig.height = 6.5, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
+```{r flinders-2016, fig.height = 7, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
 ```
 
 The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
@@ -152,7 +152,7 @@ The monthly calendar is the default, but two other formats, weekly and daily, ar
 
 When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
 
-```{r flinders-polar, fig.height = 6.5, fig.cap = "Figure \\ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
+```{r flinders-polar, fig.height = 7, fig.cap = "Figure \\ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
 ```
 
 ## Scales
@@ -163,7 +163,7 @@ With local scaling, the overall variation gives way to the individual shape. Fig
 
 The `free_wday` scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month. 
 
-```{r flinders-free, fig.height = 6.5, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
+```{r flinders-free, fig.height = 7, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
 ```
 
 ## Orientation
@@ -218,13 +218,17 @@ The case study uses individual-level energy usage from Australia. The dataset co
 
 Firstly, a letter value plot (ref??) shown as Figure \ref{fig:dow} helps grasp an overview of the variability between households across days of week. Household 2 has seen a great deal of variability in daily energy consumption, depicting relatively large variations on Thursdays. By contrast, household 4 consumes much less energy with constant variations. The dark blue line (representing median) highlights more energy consumed by households 1, 2, and 4 over the weekends relative to weekdays.
 
-```{r dow, fig.height = 7, fig.cap = "Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, cotrast to the rest households. Households 1, 2, and 4 use mose energy over the weekends."}
+```{r dow, fig.height = 7, fig.cap = "Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, compared to the rest households. Households 1, 2, and 4 use mose energy over the weekends."}
 ```
 
-```{r hod, fig.height = 6, fig.cap = ""}
+Then a snapshot is taken at a different time resolution to picture individual's energy usage against time of day, across workdays and non-work days. Figure \ref{fig:hod} gives a more detailed depiction of each household's life style. Household 1 appears an early bird, starting the day before 6 and going back home around 18 on workdays. There is an uncommon pattern occurring to household 2 only, with a cluster of points concentrated above 1 kWh across all time of day. It perhaps alerts household 2 to potential electricity leakage. Household 3 shows persistent trimodel behaviors across workdays and non-workdays. Nevertheless, the non-work life of household 4 distinguishes from the workdays when most energy is consumed after 18.
+
+```{r hod, fig.height = 6, fig.cap = "Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day."}
 ```
 
-```{r household23, fig.height = 11, fig.cap = ""}
+Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical toolkits, are useful for summarizing overall deviations across days and households. Is there any untold story from these plots? Figure \ref{fig:household13} lays out the data points at the finest time resolution in a $3 \times 4$ monthly grid, for household 1 and 3. Household 1 was on vacation over three weeks of June, and household 2 was also away for holidays from September to early October and late June to mid July in the past year. This calendar plot evidently fills the missing piece of the picture.
+
+```{r household13, fig.height = 11, fig.cap = "Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \\ref{fig:dow} and \\ref{fig:hod}."}
 ```
 
 # Discussion

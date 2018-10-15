@@ -290,7 +290,7 @@ ggplot(elec, aes(x = time, y = kwh)) +
   ylab("kWh") +
   guides(colour = "none")
 
-## ---- household23
+## ---- household13
 hh <- elec %>% 
   filter(id %in% c(1, 3))
 
