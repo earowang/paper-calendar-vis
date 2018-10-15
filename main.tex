@@ -197,8 +197,8 @@ the advantages and disadvantages of the method.
 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs framed in the
-monthly calendar over the year 2016. This is achieved by the
+Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
+calendar over the year 2016. This is achieved by the
 \texttt{frame\_calendar} function, which computes the coordinates on the
 calendar for the input data variables. These can then be plotted using
 the usual \textbf{ggplot2} package \citep{R-ggplot2} functions. All of
@@ -207,11 +207,11 @@ can be applied.
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/flinders-2016-1} 
+{\centering \includegraphics[width=\textwidth]{figure/fs-2016-1} 
 
 }
 
-\caption{The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:flinders-2016}
+\caption{The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:fs-2016}
 \end{figure}
 
 The algorithm for constructing a calendar plot uses linear algebra,
@@ -310,9 +310,9 @@ construction.
 
 Regarding the monthly calendar, the major reference lines separate every
 month panel and the minor ones separate every cell, represented by the
-thick and thin lines in Figure \ref{fig:flinders-2016}, respectively.
-The major reference lines are placed surrounding every month block: for
-each \(m\), the vertical lines are determined by \(\min{(x)}\) and
+thick and thin lines in Figure \ref{fig:fs-2016}, respectively. The
+major reference lines are placed surrounding every month block: for each
+\(m\), the vertical lines are determined by \(\min{(x)}\) and
 \(\max{(x)}\); for each \(n\), the horizontal lines are given by
 \(\min{(y)}\) and \(\max{(y)}\). The minor reference lines are only
 placed on the left side of every cell: for each \(i\), the vertical
@@ -347,7 +347,7 @@ It is assumed that the \texttt{data} is in tidy format
 \citep{wickham2014tidy}, and \texttt{x}, \texttt{y} are the variables
 that will be mapped to the horizontal and vertical axes in each cell.
 For example, the \texttt{x} is the time of the day, and \texttt{y} is
-the count (Figure \ref{fig:flinders-2016}). The \texttt{date} argument
+the count (Figure \ref{fig:fs-2016}). The \texttt{date} argument
 specifies the date variable used to construct the calendar layout.
 
 The algorithm handles displaying a single month or several years. The
@@ -378,17 +378,17 @@ patterns motivate which variant should be employed.
 
 When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
-\citet{Wickham2012glyph}. Figure \ref{fig:flinders-polar} shows star
-plots embedded in the monthly calendar layout, which is equivalent to
-Figure \ref{fig:flinders-2016} placed in polar coordinates.
+\citet{Wickham2012glyph}. Figure \ref{fig:fs-polar} shows star plots
+embedded in the monthly calendar layout, which is equivalent to Figure
+\ref{fig:fs-2016} placed in polar coordinates.
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/flinders-polar-1} 
+{\centering \includegraphics[width=\textwidth]{figure/fs-polar-1} 
 
 }
 
-\caption{Figure \ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:flinders-polar}
+\caption{Figure \ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:fs-polar}
 \end{figure}
 
 \hypertarget{scales}{%
@@ -405,9 +405,9 @@ for the comparisons of absolute or relative values, and the emphasis of
 different temporal variations.
 
 With local scaling, the overall variation gives way to the individual
-shape. Figure \ref{fig:flinders-free} shows the same data as Figure
-\ref{fig:flinders-2016} scaled locally using \texttt{scale\ =\ "free"}.
-The daily trends are magnified.
+shape. Figure \ref{fig:fs-free} shows the same data as Figure
+\ref{fig:fs-2016} scaled locally using \texttt{scale\ =\ "free"}. The
+daily trends are magnified.
 
 The \texttt{free\_wday} scales each week day together. It can be useful
 to comparing trends across week days, allowing relative patterns for
@@ -416,11 +416,11 @@ weekends versus week days to be examined. Similarly, the
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/flinders-free-1} 
+{\centering \includegraphics[width=\textwidth]{figure/fs-free-1} 
 
 }
 
-\caption{Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:flinders-free}
+\caption{Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:fs-free}
 \end{figure}
 
 \hypertarget{orientation}{%
@@ -452,18 +452,16 @@ subsets}\label{overlaying-and-faceting-subsets}}
 
 Plots can be layered. The comparison of sensors can be done by
 overlaying plot the values for each (Figure \ref{fig:overlay}).
-Differences between the pedestrian patterns for Flinders Street and
-Flagstaff train stations can be seen. Both Flinders Street and Flagstaff
-train stations exhibit strong commuters patterns, however, Flinders
-Street has higher pedestrian counts during the weekends and public
-holidays. This suggests that Flagstaff Station has limited functionality
-on non-work days, but other activities occur around the Flinders Street
-Station. From Figure \ref{fig:overlay} it can be seen that the State
-Library has a similar temporal trend to Flinders Street Station on
-non-work days. The nighttime events, such as White Night and New Year's
-Eve, have barely affected the operation of Flagstaff Station but heavily
-affected the incoming and outgoing traffic to Flinders Street Station
-and the State Library.
+Differences between the pedestrian patterns at these sensors can be
+seen. Flagstaff Station exhibits strong commuters patterns, with fewer
+pedestrian counts during the weekends and public holidays. This suggests
+that Flagstaff Station has limited functionality on non-work days. From
+Figure \ref{fig:overlay} it can be seen that the State Library has a
+similar temporal trend to Flagstaff Station on non-work days. The
+nighttime events, such as White Night and New Year's Eve, have barely
+affected the operation of Flagstaff Station but heavily affected the
+incoming and outgoing traffic to Flagstaff Station and the State
+Library.
 
 \begin{figure}
 
@@ -495,7 +493,7 @@ emphasising individual sensor variation.
 The \texttt{frame\_calendar} function is not constrained to line plots.
 The full range of plotting capabilities in \textbf{ggplot2} is
 essentially available. Figure \ref{fig:scatterplot} shows a lag
-scatterplot at Flinders Street Station, where the lagged hourly count is
+scatterplot at Flagstaff Station, where the lagged hourly count is
 assigned to the \texttt{x} argument and the current hourly count to the
 \texttt{y} argument. This figure is organized in the daily calendar
 layout. Figure \ref{fig:scatterplot} indicates two primary patterns,
@@ -503,7 +501,7 @@ strong autocorrelation on weekends, and weaker autocorrelation on work
 days. At the higher counts, on week days, the next hour sees possibly
 substantial increase or decrease in counts, essentially revealing a
 bimodal distribution of consecutive counts, as supported by Figure
-\ref{fig:flinders-2016}.
+\ref{fig:fs-2016}.
 
 \begin{figure}
 
@@ -511,7 +509,7 @@ bimodal distribution of consecutive counts, as supported by Figure
 
 }
 
-\caption{Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
+\caption{Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
 \end{figure}
 
 The algorithm can also produce more complicated plots, such as boxplots.

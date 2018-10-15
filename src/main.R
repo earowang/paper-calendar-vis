@@ -10,12 +10,30 @@ library(tsibble)
 # loading pedestrian data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
+hol16 <- holiday_aus(2016, state = "VIC")
+workday <- factor(c("Workday", "Non-work day"))
+# turning implicit missingness to explicit
+pedestrian_2016 <- pedestrian_2016 %>% 
+  as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
+  group_by(Sensor_Name) %>% 
+  fill_na(
+    Latitude = unique(Latitude), 
+    Longitude = unique(Longitude),
+    .full = TRUE
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    Year = year(Date_Time),
+    Day = wday(Date_Time, label = TRUE, week_start = 1),
+    Time = hour(Date_Time),
+    Date = as_date(Date_Time),
+    Workday = if_else(
+      (Date %in% hol16$date) | Day %in% c("Sat", "Sun"),
+      workday[2], workday[1])
+  )
+
 # selected sensors
-sensors <- c(
-  "State Library",
-  "Flagstaff Station",
-  "Flinders Street Station Underpass"
-)
+sensors <- c("State Library", "Flagstaff Station", "Birrarung Marr")
 
 ## ---- ped-map
 # plotting the sensor locations using ggmap
@@ -41,7 +59,7 @@ nonselected <- ped_loc %>%
 sensor_cols <- c(
   "State Library" = "#1b9e77", 
   "Flagstaff Station" = "#d95f02", 
-  "Flinders Street Station Underpass" = "#7570b3",
+  "Birrarung Marr" = "#7570b3",
   "Other" = "grey70"
 ) # Dark2
 ggmap(melb_map) +
@@ -102,44 +120,45 @@ subdat %>%
   xlab("Time") +
   ylab("Hourly Counts")
 
-## ---- flinders-2016
-# calendar plot for flinders street station
-flinders <- subdat %>% 
-  filter(Sensor_Name == "Flinders Street Station Underpass") %>% 
-  mutate(
-    Weekend = if_else(Day %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
-  )
+## ---- fs-2016
+puor <- c("Workday" = "#f1a340", "Non-work day" = "#998ec3")
+# calendar plot for Flagstaff station
+fs <- subdat %>% 
+  filter(Sensor_Name == "Flagstaff Station")
 
-flinders_cal <- flinders %>%
+fs_cal <- fs %>%
   frame_calendar(x = Time, y = Hourly_Counts, date = Date)
 
-p_flinders <- flinders_cal %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+p_fs <- fs_cal %>% 
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_line() +
+  scale_color_manual(values = puor) +
   theme(legend.position = "bottom")
-prettify(p_flinders)
+prettify(p_fs)
 
-## ---- flinders-free
-# calendar plot for flinders street station using local scale
-flinders_cal_free <- flinders %>% 
+## ---- fs-free
+# calendar plot for fs street station using local scale
+fs_cal_free <- fs %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, scale = "free")
 
-p_flinders_free <- flinders_cal_free %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+p_fs_free <- fs_cal_free %>% 
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_line() +
+  scale_color_manual(values = puor) +
   theme(legend.position = "bottom")
-prettify(p_flinders_free)
+prettify(p_fs_free)
 
-## ---- flinders-polar
-# calendar plot for flinders street station in polar coordinates
-flinders_polar <- flinders %>% 
+## ---- fs-polar
+# calendar plot for fs street station in polar coordinates
+fs_polar <- fs %>% 
   frame_calendar(x = Time, y = Hourly_Counts, date = Date, polar = TRUE)
 
-p_flinders_polar <- flinders_polar %>% 
-  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Weekend)) +
+p_fs_polar <- fs_polar %>% 
+  ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_path() +
+  scale_color_manual(values = puor) +
   theme(legend.position = "bottom")
-prettify(p_flinders_polar)
+prettify(p_fs_polar)
 
 ## ---- overlay
 # overlaying calendar plots 
@@ -171,7 +190,7 @@ p_three <- subset_cal %>%
     labels = c(
       "State Library", 
       "Flagstaff Station",
-      "Flinders Street Station Underpass"
+      "Birrarung Marr"
     ),
     guide = "legend"
   ) +
@@ -199,19 +218,20 @@ p_facet <- facet_cal %>%
 prettify(p_facet, size = 3, label.padding = unit(0.18, "lines"))
 
 ## ---- scatterplot
-# lagged scatterplot for flinders street station in the daily calendar format
-flinders_cal_day <- flinders %>% 
+# lagged scatterplot for fs street station in the daily calendar format
+fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
     calendar = "daily", width = 0.95, height = 0.8)
 
-p_flinders_day <- flinders_cal_day %>% 
+p_fs_day <- fs_cal_day %>% 
   ggplot(
-    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Weekend)
+    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Workday)
   ) +
   geom_point(size = 0.5, alpha = 0.6) +
+  scale_color_manual(values = puor) +
   theme(legend.position = "bottom")
-prettify(p_flinders_day, size = 3, label.padding = unit(0.15, "lines"))
+prettify(p_fs_day, size = 3, label.padding = unit(0.15, "lines"))
 
 ## ---- boxplot
 # boxplots for hourly counts across all the sensors in 2016 December
@@ -261,7 +281,7 @@ elec <- elec %>%
     weekday = wday(date, label = TRUE, week_start = 1),
     workday = if_else(
       (date %in% hol1718$date) | weekday %in% c("Sat", "Sun"),
-      "Non-work day", "Workday")
+      workday[2], workday[1])
   )
 
 elec %>% 
@@ -301,6 +321,7 @@ hh_cal <- hh %>%
 p_hh <- hh_cal %>% 
   ggplot(aes(x = .time, y = .kwh, group = date)) +
   geom_line(aes(colour = workday)) +
+  scale_color_manual(values = puor) +
   facet_grid(id ~ ., label = label_both) +
   theme(legend.position = "bottom")
 prettify(p_hh)

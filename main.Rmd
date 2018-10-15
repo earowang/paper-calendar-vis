@@ -77,9 +77,9 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 # Construction 
 \label{sec:algorithm}
 
-Figure \ref{fig:flinders-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
+Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
-```{r flinders-2016, fig.height = 7, fig.cap = "The calendar-based display of hourly foot traffic at Flinders Street Station using line glyphs. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
+```{r fs-2016, fig.height = 7, fig.cap = "The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
 ```
 
 The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
@@ -125,7 +125,7 @@ Note that for the vertical direction, the top left is the starting point of the 
  
 In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating week day and month are also computed before plot construction. 
 
-Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines in Figure \ref{fig:flinders-2016}, respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are only placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
+Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines in Figure \ref{fig:fs-2016}, respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are only placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
 
 The month labels located on the top left using $(\min{(x)}, \max{(y)})$ for every $(m, n)$. The week day texts are uniformly positioned on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
 
@@ -142,7 +142,7 @@ frame_calendar(
 )
 ```
 
-It is assumed that the `data` is in tidy format [@wickham2014tidy], and `x`, `y` are the variables that will be mapped to the horizontal and vertical axes in each cell. For example, the `x` is the time of the day, and `y` is the count (Figure \ref{fig:flinders-2016}). The `date` argument specifies the date variable used to construct the calendar layout. 
+It is assumed that the `data` is in tidy format [@wickham2014tidy], and `x`, `y` are the variables that will be mapped to the horizontal and vertical axes in each cell. For example, the `x` is the time of the day, and `y` is the count (Figure \ref{fig:fs-2016}). The `date` argument specifies the date variable used to construct the calendar layout. 
 
 The algorithm handles displaying a single month or several years. The  arguments `nrow` and `ncol` specify the layout of multiple months. For some time frames, some arrangements may be more beneficial than others. For example, to display data for three years, setting `nrow = 3` and `ncol = 12` would show each year on a single row. 
 
@@ -152,20 +152,20 @@ The monthly calendar is the default, but two other formats, weekly and daily, ar
 
 ## Polar transformation
 
-When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:flinders-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:flinders-2016} placed in polar coordinates.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:fs-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:fs-2016} placed in polar coordinates.
 
-```{r flinders-polar, fig.height = 7, fig.cap = "Figure \\ref{fig:flinders-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
+```{r fs-polar, fig.height = 7, fig.cap = "Figure \\ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
 ```
 
 ## Scales
 
 By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components. The choices include: free scale within each cell (`free`), cells derived from the same day of the week (`free_wday`), or cells from the same day of the month (`free_mday`). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
-With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:flinders-free} shows the same data as Figure \ref{fig:flinders-2016} scaled locally using `scale = "free"`. The daily trends are magnified. 
+With local scaling, the overall variation gives way to the individual shape. Figure \ref{fig:fs-free} shows the same data as Figure \ref{fig:fs-2016} scaled locally using `scale = "free"`. The daily trends are magnified. 
 
 The `free_wday` scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month. 
 
-```{r flinders-free, fig.height = 7, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flinders Street Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
+```{r fs-free, fig.height = 7, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
 ```
 
 ## Orientation
@@ -181,7 +181,7 @@ Most countries have adopted this western calendar layout, while the languages us
 
 ## Overlaying and faceting subsets
 
-Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Differences between the pedestrian patterns for Flinders Street and Flagstaff train stations can be seen. Both Flinders Street and Flagstaff train stations exhibit strong  commuters patterns, however, Flinders Street has higher pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days, but other activities occur around the Flinders Street Station. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flinders Street Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flinders Street Station and the State Library. 
+Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Differences between the pedestrian patterns at these sensors can be seen. Flagstaff Station exhibits strong commuters patterns, with fewer pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flagstaff Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flagstaff Station and the State Library. 
 
 ```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days."}
 ```
@@ -193,9 +193,9 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 
 ## Different types of plots
 
-The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flinders Street Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:flinders-2016}.
+The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:fs-2016}.
 
-```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flinders Street Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
+```{r scatterplot, fig.height = 5, fig.cap = "Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days."}
 ```
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve. 
