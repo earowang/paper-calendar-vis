@@ -12,7 +12,7 @@ theme_set(theme_bw())
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
 hol16 <- holiday_aus(2016, state = "VIC")
-workday <- factor(c("Workday", "Non-work day"))
+workday <- fct_inorder(c("Workday", "Non-work day"))
 # turning implicit missingness to explicit
 pedestrian_2016 <- pedestrian_2016 %>% 
   as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
@@ -269,27 +269,19 @@ showtext.auto(FALSE)
 
 ## ---- load-elec
 elec <- read_rds("data/elec.rds")
-
-## ---- sample-elec
-elec %>% 
-  group_by(id) %>% 
-  slice(1:2)
+puor <- c("Weekday" = "#f1a340", "Weekend" = "#998ec3")
 
 ## ---- dow
-hol1718 <- holiday_aus(2017:2018, state = "VIC")
-
 elec <- elec %>% 
   mutate(
-    weekday = wday(date, label = TRUE, week_start = 1),
-    workday = if_else(
-      (date %in% hol1718$date) | weekday %in% c("Sat", "Sun"),
-      workday[2], workday[1])
+    wday = wday(date, label = TRUE, week_start = 1),
+    weekday = if_else(wday %in% c("Sat", "Sun"), "Weekend", "Weekday")
   )
 
 elec %>% 
-  group_by(date, weekday, id) %>% 
+  group_by(date, wday, id) %>% 
   summarise(kwh = sum(kwh, na.rm = TRUE)) %>% 
-  ggplot(aes(x = weekday, y = kwh)) +
+  ggplot(aes(x = wday, y = kwh)) +
   lvplot::geom_lv(aes(fill = ..LV..), colour = "black", outlier.shape = 8) +
   facet_wrap(~ id, labeller = label_both) +
   xlab("Day of week") +
@@ -299,13 +291,13 @@ elec %>%
 
 ## ---- hod
 avg_elec <- elec %>% 
-  group_by(id, workday, time) %>% 
+  group_by(id, weekday, time) %>% 
   summarise(avg = mean(kwh))
 
 ggplot(elec, aes(x = time, y = kwh)) +
   geom_point(alpha = 0.5, size = 0.1) +
   geom_line(aes(y = avg, colour = as.factor(id)), data = avg_elec, size = 1) +
-  facet_grid(workday ~ id) +
+  facet_grid(weekday ~ id) +
   scale_colour_brewer(palette = "Dark2") +
   scale_x_time(breaks = hms::hms(hours = c(6, 18))) +
   xlab("Time of day") +
@@ -318,7 +310,7 @@ h12 <- elec %>%
   group_by(id) %>% 
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = workday)) +
+    geom_line(aes(colour = weekday)) +
     facet_grid(id ~ ., labeller = label_both) +
     scale_color_manual(values = puor) +
     theme(legend.position = "bottom")
@@ -330,7 +322,7 @@ h34 <- elec %>%
   group_by(id) %>% 
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = workday)) +
+    geom_line(aes(colour = weekday)) +
     facet_grid(id ~ ., labeller = label_both) +
     scale_color_manual(values = puor) +
     theme(legend.position = "bottom")
