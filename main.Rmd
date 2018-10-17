@@ -72,10 +72,12 @@ In contrast, calendar-based graphics unpack the temporal variable, at different 
 
 We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the `frame_calendar` function in the **sugrrants** package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the `frame_calendar` function. Section \ref{sec:variations} presents some variations of its usage. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the advantages and disadvantages of the method.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:opt} lists and describes the options that come with the `frame_calendar` function. Section \ref{sec:variations} presents some variations of its usage. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
 
-# Construction 
+# Creating a calendar display
 \label{sec:algorithm}
+
+## Data transformation
 
 Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** package [@R-ggplot2] functions. All of the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2] can be applied.
 
@@ -129,7 +131,7 @@ Regarding the monthly calendar, the major reference lines separate every month p
 
 The month labels located on the top left using $(\min{(x)}, \max{(y)})$ for every $(m, n)$. The week day texts are uniformly positioned on the bottom of the whole canvas, that is $\min{(y)}$, with the central position of a cell $x / 2$ for each $j$.
 
-# Options
+## Options
 \label{sec:opt}
 
 The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function `frame_calendar`:
@@ -146,18 +148,18 @@ It is assumed that the `data` is in tidy format [@wickham2014tidy], and `x`, `y`
 
 The algorithm handles displaying a single month or several years. The  arguments `nrow` and `ncol` specify the layout of multiple months. For some time frames, some arrangements may be more beneficial than others. For example, to display data for three years, setting `nrow = 3` and `ncol = 12` would show each year on a single row. 
 
-## Layouts
+### Layouts
 
 The monthly calendar is the default, but two other formats, weekly and daily, are available with the `calendar` argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
 
-## Polar transformation
+### Polar transformation
 
 When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:fs-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:fs-2016} placed in polar coordinates.
 
 ```{r fs-polar, fig.height = 7, fig.cap = "Figure \\ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
 ```
 
-## Scales
+### Scales
 
 By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components. The choices include: free scale within each cell (`free`), cells derived from the same day of the week (`free_wday`), or cells from the same day of the month (`free_mday`). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
@@ -168,18 +170,18 @@ The `free_wday` scales each week day together. It can be useful to comparing tre
 ```{r fs-free, fig.height = 7, fig.cap = "Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days."}
 ```
 
-## Orientation
+### Orientation
 
 By default, grids are laid out horizontally. This can be transposed by setting the `dir` parameter to `"v"`, in which case $i$ and $j$ are swapped in the Equation \ref{eq:grid}. This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
 
-## Language support
+### Language support
 
 Most countries have adopted this western calendar layout, while the languages used for week day and month would be different across countries. We also offer languages other than English for text labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure \ref{fig:boxplot} labelled using simplified Chinese characters.
 
-# Variations
+## Variations
 \label{sec:variations}
 
-## Overlaying and faceting subsets
+### Overlaying and faceting subsets
 
 Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Differences between the pedestrian patterns at these sensors can be seen. Flagstaff Station exhibits strong commuters patterns, with fewer pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flagstaff Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flagstaff Station and the State Library. 
 
@@ -188,10 +190,10 @@ Plots can be layered. The comparison of sensors can be done by overlaying plot t
 
 To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasising individual sensor variation. 
 
-```{r facet, fig.height = 11, fig.cap = "Line charts, embedded in the $6 \\times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
+```{r facet, fig.height = 10, fig.cap = "Line charts, embedded in the $6 \\times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors."}
 ```
 
-## Different types of plots
+### Different types of plots
 
 The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \ref{fig:fs-2016}.
 
@@ -210,27 +212,32 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 include_graphics("img/chn-1-embedded.pdf")
 ```
 
+## Interactivity
+
 # Case study
 \label{sec:case}
 
 ```{r load-elec, cache.extra = tools::md5sum("data/elec.rds")}
 ```
 
-The case study uses individual-level energy usage from Australia. The dataset contains half-hourly electricity consumption data of 4 households over different time periods, with `r format(NROW(elec), big.mark = ",")` observations. The goal is to sketch typical profiles as well as unusual patterns in order to better understand each household's daily schedules.
+The use of the calendar display is illustrated on smart meter energy usage from four households in Melbourne, Australia. Individuals can download their own data from the energy company, and these four households are the data of colleagues of the authors. The calendar display is useful to help people understand their energy use. The data contains half-hourly electricity consumption in 2017 and 2018. The analysis begins by looking at the distribution over days of week, then time of day split by workdays and non-work days, followed by the calendar display to inspect the daily schedules.
 
-Firstly, a letter value plot [@hofmann2017letter] shown as Figure \ref{fig:dow} helps grasp an overview of the variability between households across days of week. Household 2 has seen a great deal of variability in daily energy consumption, depicting relatively large variations on Thursdays. By contrast, household 4 consumes much less energy with constant variations. The dark blue line (representing median) highlights more energy consumed by households 1, 2, and 4 over the weekends relative to weekdays.
+Figure \ref{fig:dow} shows the energy use across days of week in the form of letter value plots [@hofmann2017letter]. As a variant of boxplots, letter value plots represent each pair of adjacent letter values using one box, instead of whiskers. Figure \ref{fig:dow} demonstrates three letter values and outliers marked as asterisks, with a line representing the median (thus M) and the innermost boxes corresponding to the fourth (F) and the eighth quantiles (E). Household 3, with a family size of one couple and two kids, uses more energy over the weekdays given the medians, compared to the others consisting of one or two people. Whereas, household 2 displays a great deal of variability in daily energy consumption with noticeable variations on Thursdays, and much higher usage over the weekends. The other two households (1 and 4) tend to consume more energy on average with increased variations during the weekends relative to the weekdays, as a reflection of work and leisure pattern.
 
-```{r dow, fig.height = 7, fig.cap = "Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, compared to the rest households. Households 1, 2, and 4 use mose energy over the weekends."}
+```{r dow, fig.height = 7, fig.cap = "Letter value plots of daily energy usage against day of week for four households, with one line dislaying the median (M) and each box corresponding to the fourth (F) and eighth (E) paired quantile estimates. Suggested by the medians, household 3 uses more enery than the others on the weekdays, due to a large family size. By constrast, household 2 sees considerally large variability."}
 ```
 
-Then a snapshot is taken at a different time resolution to picture individual's energy usage against time of day, across workdays and non-work days. Figure \ref{fig:hod} gives a more detailed depiction of each household's life style. Household 1 appears an early bird, starting the day before 6 and going back home around 18 on workdays. There is an uncommon pattern occurring to household 2 only, with a cluster of points concentrated above 1 kWh across all time of day. It perhaps alerts household 2 to potential electricity leakage. Household 3 shows persistent trimodel behaviors across workdays and non-workdays. Nevertheless, the non-work life of household 4 distinguishes from the workdays when most energy is consumed after 18.
+A snapshot is taken at a different time resolution to picture individual's energy usage against time of day, across workdays and non-work days. Figure \ref{fig:hod} gives a more detailed depiction of each household's life style. Household 1 appears an early bird, starting the day before 6 and going back home around 18 on workdays. There is an uncommon pattern occurring to household 2 only, with a cluster of points concentrated above 1 kWh across all time of day. It perhaps alerts household 2 to potential electricity leakage. Household 3 shows persistent trimodel behaviors across workdays and non-workdays. Nevertheless, the non-work life of household 4 distinguishes from the workdays when most energy is consumed after 18.
 
-```{r hod, fig.height = 6, fig.cap = "Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day."}
+```{r hod, fig.height = 6, fig.cap = "Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day. (too generic, when they get up and different between work day and non-work days)"}
 ```
 
-Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical toolkits, are useful for summarizing overall deviations across days and households. Is there any untold story from these plots? Figure \ref{fig:household13} lays out the data points at the finest time resolution in a $3 \times 4$ monthly grid, for household 1 and 3. Household 1 was on vacation over three weeks of June, and household 2 was also away for holidays from September to early October and late June to mid July in the past year. This calendar plot evidently fills the missing piece of the picture.
+Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical toolkits, are useful for summarizing overall deviations across days and households. Is there any untold story from these plots? Figure \ref{fig:household13} lays out the data points at the finest time resolution in a $3 \times 4$ monthly grid, for household 1 and 3. Household 1 was on vacation over three weeks of June, and household 2 was also away for holidays from September to early October and late June to mid July in the past year. This calendar plot evidently fills the missing piece of the picture. Also weekday and weekend
 
-```{r household13, fig.height = 11, fig.cap = "Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \\ref{fig:dow} and \\ref{fig:hod}."}
+```{r h12, fig.height = 10, fig.cap = "Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \\ref{fig:dow} and \\ref{fig:hod}."}
+```
+
+```{r h34, fig.height = 10, fig.cap = "Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \\ref{fig:dow} and \\ref{fig:hod}."}
 ```
 
 # Discussion
@@ -238,11 +245,11 @@ Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical toolkits, 
 
 The calendar-based visualization provides data plots in the familiar format of an everyday tool. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on a more commonly used week day and month faceted layout. 
 
-The focus is on the western calendar layout, because most countries have adopted this format. However the language of labels would differ across countries, and so support was added for changing the label language simply.
+The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labelling, which is supported by the software. Layouts beyond the western calendar could be achieved by the same modulars arithmetic approach.
 
-This sort of layout will be useful for studying consumer trends, or human behavior, such as pedestrian patterns or pollution peaks. It will not be so useful for physical patterns like temperature, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations, in order to study general trends.
+The calendar layout will be useful for studying consumer trends and human behavior. It will not be so useful for physical patterns like climate, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations, in order to study general trends.
 
-The layout is achieved by utilizing linear combinations of temporal components and measured variables. This provides the data with the most screen real estate. It could be useful to develop this into a fully-fledged faceting method, with formal labels and axes. This is a future goal.
+The layout is a type of faceting and could be useful to develop this into a fully-fledged faceting method, with formal labels and axes. This is a future goal.
 
 # Acknowledgements {-}
 

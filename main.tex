@@ -190,12 +190,16 @@ come with the \texttt{frame\_calendar} function. Section
 \ref{sec:variations} presents some variations of its usage. Graphical
 analyses of sub-daily people's activities are illustrated with a case
 study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses
-the advantages and disadvantages of the method.
+the limitations of calendar displays and possible new directions.
 
-\hypertarget{construction}{%
-\section{Construction}\label{construction}}
+\hypertarget{creating-a-calendar-display}{%
+\section{Creating a calendar
+display}\label{creating-a-calendar-display}}
 
 \label{sec:algorithm}
+
+\hypertarget{data-transformation}{%
+\subsection{Data transformation}\label{data-transformation}}
 
 Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
 calendar over the year 2016. This is achieved by the
@@ -326,7 +330,7 @@ uniformly positioned on the bottom of the whole canvas, that is
 \(j\).
 
 \hypertarget{options}{%
-\section{Options}\label{options}}
+\subsection{Options}\label{options}}
 
 \label{sec:opt}
 
@@ -358,7 +362,7 @@ than others. For example, to display data for three years, setting
 single row.
 
 \hypertarget{layouts}{%
-\subsection{Layouts}\label{layouts}}
+\subsubsection{Layouts}\label{layouts}}
 
 The monthly calendar is the default, but two other formats, weekly and
 daily, are available with the \texttt{calendar} argument. The daily
@@ -374,7 +378,7 @@ present, the monthly calendar would be a better choice. Temporal
 patterns motivate which variant should be employed.
 
 \hypertarget{polar-transformation}{%
-\subsection{Polar transformation}\label{polar-transformation}}
+\subsubsection{Polar transformation}\label{polar-transformation}}
 
 When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
@@ -392,7 +396,7 @@ embedded in the monthly calendar layout, which is equivalent to Figure
 \end{figure}
 
 \hypertarget{scales}{%
-\subsection{Scales}\label{scales}}
+\subsubsection{Scales}\label{scales}}
 
 By default, global scaling is done for values in each plot, with the
 global minimum and maximum used to fit values into each cell. If the
@@ -424,7 +428,7 @@ weekends versus week days to be examined. Similarly, the
 \end{figure}
 
 \hypertarget{orientation}{%
-\subsection{Orientation}\label{orientation}}
+\subsubsection{Orientation}\label{orientation}}
 
 By default, grids are laid out horizontally. This can be transposed by
 setting the \texttt{dir} parameter to \texttt{"v"}, in which case \(i\)
@@ -433,7 +437,7 @@ for creating calendar layouts for countries where vertical layout is the
 convention.
 
 \hypertarget{language-support}{%
-\subsection{Language support}\label{language-support}}
+\subsubsection{Language support}\label{language-support}}
 
 Most countries have adopted this western calendar layout, while the
 languages used for week day and month would be different across
@@ -442,12 +446,12 @@ labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure
 \ref{fig:boxplot} labelled using simplified Chinese characters.
 
 \hypertarget{variations}{%
-\section{Variations}\label{variations}}
+\subsection{Variations}\label{variations}}
 
 \label{sec:variations}
 
 \hypertarget{overlaying-and-faceting-subsets}{%
-\subsection{Overlaying and faceting
+\subsubsection{Overlaying and faceting
 subsets}\label{overlaying-and-faceting-subsets}}
 
 Plots can be layered. The comparison of sensors can be done by
@@ -488,7 +492,8 @@ emphasising individual sensor variation.
 \end{figure}
 
 \hypertarget{different-types-of-plots}{%
-\subsection{Different types of plots}\label{different-types-of-plots}}
+\subsubsection{Different types of
+plots}\label{different-types-of-plots}}
 
 The \texttt{frame\_calendar} function is not constrained to line plots.
 The full range of plotting capabilities in \textbf{ggplot2} is
@@ -537,25 +542,39 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 \caption{The same plot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.}\label{fig:chn-embedded}
 \end{figure}
 
+\hypertarget{interactivity}{%
+\subsection{Interactivity}\label{interactivity}}
+
 \hypertarget{case-study}{%
 \section{Case study}\label{case-study}}
 
 \label{sec:case}
 
-The case study uses individual-level energy usage from Australia. The
-dataset contains half-hourly electricity consumption data of 4
-households over different time periods, with 64,128 observations. The
-goal is to sketch typical profiles as well as unusual patterns in order
-to better understand each household's daily schedules.
+The use of the calendar display is illustrated on smart meter energy
+usage from four households in Melbourne, Australia. Individuals can
+download their own data from the energy company, and these four
+households are the data of colleagues of the authors. The calendar
+display is useful to help people understand their energy use. The data
+contains half-hourly electricity consumption in 2017 and 2018. The
+analysis begins by looking at the distribution over days of week, then
+time of day split by workdays and non-work days, followed by the
+calendar display to inspect the daily schedules.
 
-Firstly, a letter value plot \citep{hofmann2017letter} shown as Figure
-\ref{fig:dow} helps grasp an overview of the variability between
-households across days of week. Household 2 has seen a great deal of
-variability in daily energy consumption, depicting relatively large
-variations on Thursdays. By contrast, household 4 consumes much less
-energy with constant variations. The dark blue line (representing
-median) highlights more energy consumed by households 1, 2, and 4 over
-the weekends relative to weekdays.
+Figure \ref{fig:dow} shows the energy use across days of week in the
+form of letter value plots \citep{hofmann2017letter}. As a variant of
+boxplots, letter value plots represent each pair of adjacent letter
+values using one box, instead of whiskers. Figure \ref{fig:dow}
+demonstrates three letter values and outliers marked as asterisks, with
+a line representing the median (thus M) and the innermost boxes
+corresponding to the fourth (F) and the eighth quantiles (E). Household
+3, with a family size of one couple and two kids, uses more energy over
+the weekdays given the medians, compared to the others consisting of one
+or two people. Whereas, household 2 displays a great deal of variability
+in daily energy consumption with noticeable variations on Thursdays, and
+much higher usage over the weekends. The other two households (1 and 4)
+tend to consume more energy on average with increased variations during
+the weekends relative to the weekdays, as a reflection of work and
+leisure pattern.
 
 \begin{figure}
 
@@ -563,10 +582,10 @@ the weekends relative to weekdays.
 
 }
 
-\caption{Letter value plot of daily energy usage against day of week by households. The enery consumed by household 2 exhibits much larger variability, compared to the rest households. Households 1, 2, and 4 use mose energy over the weekends.}\label{fig:dow}
+\caption{Letter value plots of daily energy usage against day of week for four households, with one line dislaying the median (M) and each box corresponding to the fourth (F) and eighth (E) paired quantile estimates. Suggested by the medians, household 3 uses more enery than the others on the weekdays, due to a large family size. By constrast, household 2 sees considerally large variability.}\label{fig:dow}
 \end{figure}
 
-Then a snapshot is taken at a different time resolution to picture
+A snapshot is taken at a different time resolution to picture
 individual's energy usage against time of day, across workdays and
 non-work days. Figure \ref{fig:hod} gives a more detailed depiction of
 each household's life style. Household 1 appears an early bird, starting
@@ -584,7 +603,7 @@ workdays when most energy is consumed after 18.
 
 }
 
-\caption{Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day.}\label{fig:hod}
+\caption{Scatterplot between time of day and half-hourly energy usage, constrasting workdays and non-work days for each household. A distinctive pattern exclusive to household 2 is popped out: a fair amount of points are clustered above 1 kWh over all time of day. (too generic, when they get up and different between work day and non-work days)}\label{fig:hod}
 \end{figure}
 
 Figure \ref{fig:dow} and \ref{fig:hod}, part of traditional graphical
@@ -595,15 +614,24 @@ resolution in a \(3 \times 4\) monthly grid, for household 1 and 3.
 Household 1 was on vacation over three weeks of June, and household 2
 was also away for holidays from September to early October and late June
 to mid July in the past year. This calendar plot evidently fills the
-missing piece of the picture.
+missing piece of the picture. Also weekday and weekend
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/household13-1} 
+{\centering \includegraphics[width=\textwidth]{figure/h12-1} 
 
 }
 
-\caption{Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \ref{fig:dow} and \ref{fig:hod}.}\label{fig:household13}
+\caption{Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \ref{fig:dow} and \ref{fig:hod}.}\label{fig:h12}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h34-1} 
+
+}
+
+\caption{Arranging sub-daily energy usage into monthly grids reveals the vacation time periods for households 1 and 3, which are hidden in Figure \ref{fig:dow} and \ref{fig:hod}.}\label{fig:h34}
 \end{figure}
 
 \hypertarget{discussion}{%
@@ -617,24 +645,23 @@ like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily
 pop out to the viewer as public holidays, than they would on a more
 commonly used week day and month faceted layout.
 
-The focus is on the western calendar layout, because most countries have
-adopted this format. However the language of labels would differ across
-countries, and so support was added for changing the label language
-simply.
+The methodology creates the western calendar layout, because most
+countries have adopted this format. The main difference between
+countries is the use of different languages for labelling, which is
+supported by the software. Layouts beyond the western calendar could be
+achieved by the same modulars arithmetic approach.
 
-This sort of layout will be useful for studying consumer trends, or
-human behavior, such as pedestrian patterns or pollution peaks. It will
-not be so useful for physical patterns like temperature, which are not
-typically affected by human activity. The layout does not replace
-traditional displays, but serves to complement to further tease out
-structure in temporal data. Analysts would still be advised to plot
-overall summaries and deviations, in order to study general trends.
+The calendar layout will be useful for studying consumer trends and
+human behavior. It will not be so useful for physical patterns like
+climate, which are not typically affected by human activity. The layout
+does not replace traditional displays, but serves to complement to
+further tease out structure in temporal data. Analysts would still be
+advised to plot overall summaries and deviations, in order to study
+general trends.
 
-The layout is achieved by utilizing linear combinations of temporal
-components and measured variables. This provides the data with the most
-screen real estate. It could be useful to develop this into a
-fully-fledged faceting method, with formal labels and axes. This is a
-future goal.
+The layout is a type of faceting and could be useful to develop this
+into a fully-fledged faceting method, with formal labels and axes. This
+is a future goal.
 
 \hypertarget{acknowledgements}{%
 \section*{Acknowledgements}\label{acknowledgements}}

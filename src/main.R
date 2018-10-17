@@ -6,6 +6,7 @@ library(tidyverse)
 library(sugrrants)
 library(showtext)
 library(tsibble)
+theme_set(theme_bw())
 
 # loading pedestrian data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
@@ -44,14 +45,15 @@ ped_loc <- pedestrian_2016 %>%
     Highlight = factor(Highlight, levels = c(sensors, "Other")),
     Selected = if_else(Sensor_Name %in% sensors, TRUE, FALSE)
   )
-melb_map <- get_map(
-  location = c(
-    min(ped_loc$Longitude), min(ped_loc$Latitude),
-    max(ped_loc$Longitude), max(ped_loc$Latitude)
-  ),
-  zoom = 14
-)
+# melb_map <- get_map(
+#   location = c(
+#     min(ped_loc$Longitude), min(ped_loc$Latitude),
+#     max(ped_loc$Longitude), max(ped_loc$Latitude)
+#   ),
+#   zoom = 14)
+# write_rds(melb_map, "data/melb_map.rds")
 
+melb_map <- read_rds("data/melb_map.rds")
 selected <- ped_loc %>% 
   filter(Selected)
 nonselected <- ped_loc %>% 
@@ -215,7 +217,7 @@ p_facet <- facet_cal %>%
     guide = guide_legend(title = "Sensor")
   ) +
   theme(legend.position = "bottom")
-prettify(p_facet, size = 3, label.padding = unit(0.18, "lines"))
+prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 
 ## ---- scatterplot
 # lagged scatterplot for fs street station in the daily calendar format
@@ -310,18 +312,26 @@ ggplot(elec, aes(x = time, y = kwh)) +
   ylab("kWh") +
   guides(colour = "none")
 
-## ---- household13
-hh <- elec %>% 
-  filter(id %in% c(1, 3))
-
-hh_cal <- hh %>% 
+## ---- h12
+h12 <- elec %>% 
+  filter(id %in% 1:2) %>% 
   group_by(id) %>% 
-  frame_calendar(x = time, y = kwh, date = date)
+  frame_calendar(x = time, y = kwh, date = date) %>% 
+    ggplot(aes(x = .time, y = .kwh, group = date)) +
+    geom_line(aes(colour = workday)) +
+    facet_grid(id ~ ., labeller = label_both) +
+    scale_color_manual(values = puor) +
+    theme(legend.position = "bottom")
+prettify(h12, label.padding = unit(0.15, "lines"))
 
-p_hh <- hh_cal %>% 
-  ggplot(aes(x = .time, y = .kwh, group = date)) +
-  geom_line(aes(colour = workday)) +
-  scale_color_manual(values = puor) +
-  facet_grid(id ~ ., label = label_both) +
-  theme(legend.position = "bottom")
-prettify(p_hh)
+## ---- h34
+h34 <- elec %>% 
+  filter(id %in% 3:4) %>% 
+  group_by(id) %>% 
+  frame_calendar(x = time, y = kwh, date = date) %>% 
+    ggplot(aes(x = .time, y = .kwh, group = date)) +
+    geom_line(aes(colour = workday)) +
+    facet_grid(id ~ ., labeller = label_both) +
+    scale_color_manual(values = puor) +
+    theme(legend.position = "bottom")
+prettify(h34, label.padding = unit(0.15, "lines"))
