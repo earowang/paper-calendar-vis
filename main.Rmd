@@ -47,7 +47,7 @@ read_chunk('src/main.R')
 
 We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots, as used in **ggplot2** [@R-ggplot2]. The data restructuring approach is consistent with the tidy data principles available in the **tidyverse** [@R-tidyverse] suite. The methods are implemented in a new package called **sugrrants** [@R-sugrrants] .
 
-The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at 3 different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns.
+The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There have been 43 sensors installed that count pedestrians every hour across the downtown area (Figure \ref{fig:ped-map}). The dataset can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot}, give an overall picture of the foot traffic at three different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns.
 
 <!--
 1. Variations exist on multiple time scales including time of day, day of week, and day of year (such as public holiday and recurring events).
@@ -57,10 +57,10 @@ The purpose of the calendar-based visualization is to provide insights into peop
 
 However, the conventional displays of time series data obscure patterns relative to special events (such as public holidays and recurring cultural/sport events), which may appear more fascinating to viewers.
 
-```{r ped-map, fig.width = 7, out.width = "0.7\\linewidth", fig.cap = "Map of the Melbourne city area with dots indicating sensor locations. 3 sensors have been highlighted to give a closer look at in the paper."}
+```{r ped-map, fig.width = 7, out.width = "0.7\\linewidth", fig.cap = "Map of the Melbourne city area with dots indicating sensor locations. These three highlighted sensors will be inspected in the paper: (1) the State Library--a public library, (2) Flagstaff Station--a train station, closed on non-work days, (3) Birrarung Marr: an outdoor park hosting many cultural and sports events."}
 ```
 
-```{r time-series-plot, fig.height = 6, fig.cap = "Time series plots showing the number of pedestrians in 2016 measured at 3 different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these 3 sensors. There is an eye-catching spike which occurred at the State Library, caused by the annual White Night event on 20th of February."}
+```{r time-series-plot, fig.height = 6, fig.cap = "Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these three sensors. There are eye-catching spikes which occurred at the State Library and Birrarung Marr, caused by the annual White Night event on 20th of February."}
 ```
 
 ```{r facet-time, fig.height = 6, fig.cap = "Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library."}
@@ -154,7 +154,7 @@ The monthly calendar is the default, but two other formats, weekly and daily, ar
 
 ### Polar transformation
 
-When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:fs-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:fs-2016} placed in polar coordinates.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. Figure \ref{fig:fs-polar} shows star plots embedded in the monthly calendar layout, which is equivalent to Figure \ref{fig:fs-2016} placed in polar coordinates. The bimodal workday shape is also visible as boomerangs.
 
 ```{r fs-polar, fig.height = 7, fig.cap = "Figure \\ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible."}
 ```
@@ -183,9 +183,9 @@ Most countries have adopted this western calendar layout, while the languages us
 
 ### Overlaying and faceting subsets
 
-Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Differences between the pedestrian patterns at these sensors can be seen. Flagstaff Station exhibits strong commuters patterns, with fewer pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days. From Figure \ref{fig:overlay} it can be seen that the State Library has a similar temporal trend to Flagstaff Station on non-work days. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to Flagstaff Station and the State Library. 
+Plots can be layered. The comparison of sensors can be done by overlaying plot the values for each (Figure \ref{fig:overlay}). Differences between the pedestrian patterns at these sensors can be seen. Flagstaff Station exhibits strong commuters patterns, with fewer pedestrian counts during the weekends and public holidays. This suggests that Flagstaff Station has limited functionality on non-work days. From Figure \ref{fig:overlay} it can be seen that Birrarung Marr has a distinct temporal trend from the other two all year around. The nighttime events, such as White Night and New Year's Eve, have barely affected the operation of Flagstaff Station but heavily affected the incoming and outgoing traffic to the State Library and Birrarung Marr. 
 
-```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the 3 sensors in the monthly calendar. Flagstaff station is not as busy as the other two on non-work days."}
+```{r overlay, fig.height = 7, fig.cap = "Overlaying line graphs of the three sensors in the monthly calendar. Three sensors demonstrate very different traffic patterns. Birrarung Marr tends to attract many pedestrians for special events held on weekends, by contrasting to the bimodal commuting traffic at Flagstaff Station."}
 ```
 
 To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasising individual sensor variation. 
@@ -202,11 +202,8 @@ The `frame_calendar` function is not constrained to line plots. The full range o
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \ref{fig:boxplot} uses a loess smooth line superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve. 
 
-```{r boxplot, fig.height = 6.5, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest."}
+```{r boxplot, fig.height = 8, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest."}
 ```
-
-<!-- ```{r chn, dev.args = list(family = "wqy-microhei"), fig.height = 6.5, fig.cap = "(ref:chn-cap)"} -->
-<!-- ``` -->
 
 ```{r chn-embedded, fig.cap = "The same plot as Figure \\ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English."}
 include_graphics("img/chn-1-embedded.pdf")

@@ -258,14 +258,14 @@ prettify(p_boxplot, label = c("label", "text", "text2"))
 ## ---- chn
 # boxplots for hourly counts across all the sensors in 2016 Dec with Chinese 
 # labels
-showtext.auto()
+showtext_auto()
 prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
   size = 3, label.padding = unit(0.15, "lines"),
   label = c("label", "text", "text2"),
-  family = "wqy-microhei"
+  family = "STKaiti"
 )
-showtext.auto(FALSE) 
+showtext_auto(FALSE) 
 
 ## ---- load-elec
 elec <- read_rds("data/elec.rds")
