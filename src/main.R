@@ -12,7 +12,7 @@ theme_set(theme_bw())
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
 hol16 <- holiday_aus(2016, state = "VIC")
-workday <- fct_inorder(c("Workday", "Non-work day"))
+workday <- fct_inorder(c("Work day", "Non-work day"))
 # turning implicit missingness to explicit
 pedestrian_2016 <- pedestrian_2016 %>% 
   as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
@@ -123,7 +123,7 @@ subdat %>%
   ylab("Hourly Counts")
 
 ## ---- fs-2016
-puor <- c("Workday" = "#f1a340", "Non-work day" = "#998ec3")
+puor <- c("Work day" = "#f1a340", "Non-work day" = "#998ec3")
 # calendar plot for Flagstaff station
 fs <- subdat %>% 
   filter(Sensor_Name == "Flagstaff Station")

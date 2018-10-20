@@ -106,20 +106,20 @@ into people's daily schedules relative to events such as work days,
 weekends, holidays, and special events. This work was originally
 motivated by studying foot traffic in the city of Melbourne, Australia
 \citep{ped}. There have been 43 sensors installed that count pedestrians
-every hour across the downtown area (Figure \ref{fig:ped-map}). The
-dataset can shed light on people's daily rhythms, and assist the city
-administration and local businesses with event planning and operational
-management. A routine examination of the data would involve constructing
-conventional time series plots to catch a glimpse of temporal patterns.
-The faceted plots in Figure \ref{fig:time-series-plot}, give an overall
-picture of the foot traffic at three different sensors over 2016.
-Further faceting by day of the week (Figure \ref{fig:facet-time})
-provides a better glimpse of the daily and sub-daily pedestrian
-patterns.
+every hour across the inner-city area till the end of 2016 (Figure
+\ref{fig:ped-map}). The dataset can shed light on people's daily
+rhythms, and assist the city administration and local businesses with
+event planning and operational management. A routine examination of the
+data would involve constructing conventional time series plots to catch
+a glimpse of temporal patterns. The faceted plots in Figure
+\ref{fig:time-series-plot}, give an overall picture of the foot traffic
+at three different sensors over 2016. Further faceting by day of the
+week (Figure \ref{fig:facet-time}) provides a better glimpse of the
+daily and sub-daily pedestrian patterns.
 
 However, the conventional displays of time series data obscure patterns
 relative to special events (such as public holidays and recurring
-cultural/sport events), which may appear more fascinating to viewers.
+cultural/sport events), which may appear fascinating to viewers.
 
 \begin{figure}
 
@@ -136,7 +136,7 @@ cultural/sport events), which may appear more fascinating to viewers.
 
 }
 
-\caption{Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. The weekly patterns look distinctive across these three sensors. There are eye-catching spikes which occurred at the State Library and Birrarung Marr, caused by the annual White Night event on 20th of February.}\label{fig:time-series-plot}
+\caption{Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. A spike occurred at the State Library, caused by the annual White Night event on 20th of February. A relatively fixed pattern repeats from one week to another at Flagstaff Station. Birrarung Marr looks rather random and spiky, with chunks of missing records.}\label{fig:time-series-plot}
 \end{figure}
 
 \begin{figure}
@@ -145,7 +145,7 @@ cultural/sport events), which may appear more fascinating to viewers.
 
 }
 
-\caption{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It features at least two types of seasons---time of day and day of week---across all the sensors. The White Night effect on increasing pedestrian counts can be seen on Saturday in February at the State Library.}\label{fig:facet-time}
+\caption{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It primarily features two types of seasons---time of day and day of week---across all the sensors. Apparently other factors have influence over the number of pedestrians, which cannot captured by the faceted plots, such as the overnight White Night traffic on Saturday at the State Library and a variety of events at Birrarung Marr.}\label{fig:facet-time}
 \end{figure}
 
 The work is inspired by \citet{Wickham2012glyph}, which uses linear
@@ -186,8 +186,9 @@ function in the \textbf{sugrrants} package using R.
 
 The remainder of the paper is organized as follows. Section
 \ref{sec:algorithm} demonstrates the construction of the calendar layout
-in depth. Section \ref{sec:opt} lists and describes the options that
-come with the \texttt{frame\_calendar} function. Section
+in depth. Section \ref{sec:transformation} describes the algorithms of
+data transformation. Section \ref{sec:opt} lists and describes the
+options that come with the \texttt{frame\_calendar} function. Section
 \ref{sec:variations} presents some variations of its usage. Graphical
 analyses of sub-daily people's activities are illustrated with a case
 study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses
@@ -201,6 +202,8 @@ display}\label{creating-a-calendar-display}}
 
 \hypertarget{data-transformation}{%
 \subsection{Data transformation}\label{data-transformation}}
+
+\label{sec:transformation}
 
 Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
 calendar over the year 2016. This is achieved by the
@@ -341,11 +344,9 @@ coordinates. These are accessible to the user by the inputs to the
 function \texttt{frame\_calendar}:
 
 \begin{verbatim}
-frame_calendar(
-  data, x, y, date, calendar = "monthly", dir = "h", 
-  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, 
-  scale = "fixed", width = 0.95, height = 0.95, margin = NULL
-)
+frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
+  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed", 
+  width = 0.95, height = 0.95, margin = NULL)
 \end{verbatim}
 
 It is assumed that the \texttt{data} is in tidy format
@@ -385,8 +386,8 @@ When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
 \citet{Wickham2012glyph}. Figure \ref{fig:fs-polar} shows star plots
 embedded in the monthly calendar layout, which is equivalent to Figure
-\ref{fig:fs-2016} placed in polar coordinates. The bimodal workday shape
-is also visible as boomerangs.
+\ref{fig:fs-2016} placed in polar coordinates. The bimodal work day
+shape is also visible as boomerangs.
 
 \begin{figure}
 
@@ -474,14 +475,17 @@ incoming and outgoing traffic to the State Library and Birrarung Marr.
 
 }
 
-\caption{Overlaying line graphs of the three sensors in the monthly calendar. Three sensors demonstrate very different traffic patterns. Birrarung Marr tends to attract many pedestrians for special events held on weekends, by contrasting to the bimodal commuting traffic at Flagstaff Station.}\label{fig:overlay}
+\caption{Overlaying line graphs of the three sensors in the monthly calendar. Three sensors demonstrate very different traffic patterns. Birrarung Marr tends to attract many pedestrians for special events held on weekends, contrasting to the bimodal commuting traffic at Flagstaff Station.}\label{fig:overlay}
 \end{figure}
 
 To avoid the overlapping problem, the calendar layout can be embedded
 into a series of subplots for the different sensors. Figure
 \ref{fig:facet} presents the idea of faceting calendar plots. This
 allows comparing the overall structure between sensors, while
-emphasising individual sensor variation.
+emphasising individual sensor variation. In particular, we can
+immediately learn that when Birrarung Marr was crowded and why, such as
+Australian Open in the last two weeks of January. This does not pop out
+in the conventional graphics.
 
 \begin{figure}
 
@@ -546,16 +550,17 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 \hypertarget{interactivity}{%
 \subsubsection{Interactivity}\label{interactivity}}
 
-As a data re-structuring tool, the interactivity of calendar-based
+As a data restructuring tool, the interactivity of calendar-based
 display can be easily enabled, as long as the interactive graphic system
 remains true to the spirit of the grammar of graphics, for example
-\textbf{plotly} in R. As a standalone display, interactive tooltip can
-be added to show the actual values of a data point when mousing over it
-in the calendar layout, for example the hourly count with the time of
-day. It is difficult to sense the values in static display, but the
-tooltip makes it possible. Options in function \texttt{frame\_calendar}
-can be ported to a form of selection buttons or text input. The display
-will update on the fly accordingly via clicking or inputing, as desired.
+\textbf{plotly} \citep{plotly} in R. As a standalone display,
+interactive tooltip can be added to show the actual values of a data
+point when mousing over it in the calendar layout, for example the
+hourly count with the time of day. It is difficult to sense the values
+in static display, but the tooltip makes it possible. Options in
+function \texttt{frame\_calendar} can be ported to a form of selection
+buttons or text input. The display will update on the fly accordingly
+via clicking or inputing, as desired.
 
 Linking calendar displays to other types of charts is of great value to
 visually explore the interactions with many factors. It most naturally
@@ -581,7 +586,7 @@ households are the data of colleagues of the authors. The calendar
 display is useful to help people understand their energy use. The data
 contains half-hourly electricity consumption in 2017 and 2018. The
 analysis begins by looking at the distribution over days of week, then
-time of day split by workdays and non-work days, followed by the
+time of day split by work days and non-work days, followed by the
 calendar display to inspect the daily schedules.
 
 Figure \ref{fig:dow} shows the energy use across days of week in the
