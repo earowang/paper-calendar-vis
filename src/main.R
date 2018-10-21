@@ -11,7 +11,8 @@ theme_set(theme_bw())
 # loading pedestrian data
 pedestrian_2016 <- read_rds("data/pedestrian-2016.rds")
 
-hol16 <- holiday_aus(2016, state = "VIC")
+hol16 <- holiday_aus(2016, state = "VIC") %>% 
+  bind_rows(tibble(holiday = "AFL", date = ymd("20160930")))
 workday <- fct_inorder(c("Work day", "Non-work day"))
 # turning implicit missingness to explicit
 pedestrian_2016 <- pedestrian_2016 %>% 
