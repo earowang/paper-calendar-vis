@@ -6,20 +6,20 @@ fromWWW: earo.me
 fromemail: earo.wang@monash.edu
 fromphone: +61 4 4919 1031
 fromsignature: signature.png
-toname: Helen of Troy
+toname: Dr McCormick
 toaddress: Journal of Computational and Graphical Statistics
-opening: Dear Editor
-closing: Kind regards
+opening: Dear Dr McCormick
+closing: Sincerely
 spacing: 1.5
 output: MonashEBSTemplates::letter
 ---
 
-I am writing to submit our manuscript entitled, "Calendar-based graphics for visualizing people's daily schedules," to Journal of Computational and Graphical Statistics for consideration as an original research article.
+Please consider our manuscript titled, "Calendar-based graphics for visualizing people's daily schedules," for publication in the Journal of Computational and Graphical Statistics.
 
-The purpose of this research paper is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events, based on calendar layouts. We develop a new method for organizing and visualizing temporal data, collected at sub-daily resolutions, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots. Many options and variants are supported to fit into broader applications.
+This paper provides new graphical methods for organizing and visualizing temporal data, collected at sub-daily resolutions, into a calendar layout. It is useful to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events, based on calendar layouts. The calendar format is created using linear algebra, to restructure data, that can then be piped into ggplot2's plotting routines. Many options and variants are supported to make it broadly applicable.
 
-We include two data exmaples to illustrate the significance of new calendar displays. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on conventional graphics.
+An early version of the paper won the 2018 ASA Statistical Graphics Section best student paper.  We submitted that paper to the Journal of Statistical Software in September 2017. It took 12 months to received a review, and the decision was to reject without substantial feedback, other than a lack of examples. For this reason, we have added an additional contemporary data example of smart meter energy usage from several Melbourne households, to supplement the example of Melbourne pedestrian traffic. Because of the treatment by JSS, we also request that this paper is not handled by AE Paul Murrell. 
 
-We strongly believe that this manuscript is appropriate for publication by Journal of Computational and Graphical Statistics, because this new calendar-based graphical display is a siginificant contribution to visualizing people's activities. It will be of great interest to readers of your journal as well.
+We believe that this manuscript is a good fit for the Journal of Computational and Graphical Statistics, because it provides new graphics methodology. Because the software has already received considerable attention, we expect that the work will be of interest to readers of the journal.
 
 Thank you for receiving our manuscript and considering it for review. We appreciate your time and look forward to your response.
