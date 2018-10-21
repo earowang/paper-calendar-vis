@@ -1,0 +1,25 @@
+---
+from: Earo Wang
+fromqualifications: B.Comm.(Hons)
+fromtitle: PhD candidate
+fromWWW: earo.me
+fromemail: earo.wang@monash.edu
+fromphone: +61 4 4919 1031
+fromsignature: signature.png
+toname: Helen of Troy
+toaddress: Journal of Computational and Graphical Statistics
+opening: Dear Editor
+closing: Kind regards
+spacing: 1.5
+output: MonashEBSTemplates::letter
+---
+
+I am writing to submit our manuscript entitled, "Calendar-based graphics for visualizing people's daily schedules," to Journal of Computational and Graphical Statistics for consideration as an original research article.
+
+The purpose of this research paper is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events, based on calendar layouts. We develop a new method for organizing and visualizing temporal data, collected at sub-daily resolutions, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be piped into grammar of graphics definitions of plots. Many options and variants are supported to fit into broader applications.
+
+We include two data exmaples to illustrate the significance of new calendar displays. Patterns on special events for the region, like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily pop out to the viewer as public holidays, than they would on conventional graphics.
+
+We strongly believe that this manuscript is appropriate for publication by Journal of Computational and Graphical Statistics, because this new calendar-based graphical display is a siginificant contribution to visualizing people's activities. It will be of great interest to readers of your journal as well.
+
+Thank you for receiving our manuscript and considering it for review. We appreciate your time and look forward to your response.
