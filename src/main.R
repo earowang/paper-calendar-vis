@@ -18,11 +18,7 @@ workday <- fct_inorder(c("Work day", "Non-work day"))
 pedestrian_2016 <- pedestrian_2016 %>% 
   as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
   group_by(Sensor_Name) %>% 
-  fill_na(
-    Latitude = unique(Latitude), 
-    Longitude = unique(Longitude),
-    .full = TRUE
-  ) %>% 
+  fill_na(.full = TRUE) %>% 
   ungroup() %>% 
   mutate(
     Year = year(Date_Time),
@@ -40,6 +36,7 @@ sensors <- c("State Library", "Flagstaff Station", "Birrarung Marr")
 ## ---- ped-map
 # plotting the sensor locations using ggmap
 ped_loc <- pedestrian_2016 %>% 
+  filter(!is.na(Latitude)) %>% 
   distinct(Longitude, Latitude, Sensor_Name) %>% 
   mutate(
     Highlight = if_else(Sensor_Name %in% sensors, Sensor_Name, "Other"),
@@ -77,7 +74,7 @@ ggmap(melb_map) +
 # subsetting the data
 subdat <- pedestrian_2016 %>% 
   filter(Sensor_Name %in% sensors) %>% 
-  mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude))
+  mutate(Sensor_Name = fct_reorder(Sensor_Name, -Latitude, na.rm = TRUE))
 # conventional time series plot
 subdat %>% 
   ggplot(aes(x = Date_Time, y = Hourly_Counts, colour = Sensor_Name)) +
@@ -86,10 +83,7 @@ subdat %>%
     Sensor_Name ~ ., 
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
-  scale_colour_brewer(
-    palette = "Dark2", 
-    guide = guide_legend(title = "Sensor")
-  ) +
+  scale_colour_brewer(name = "Sensor", palette = "Dark2") +
   theme(legend.position = "bottom") +
   xlab("Date Time") +
   ylab("Hourly Counts")
@@ -104,10 +98,7 @@ subdat %>%
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
   scale_x_continuous(breaks = seq(6, 23, by = 6)) +
-  scale_colour_brewer(
-    palette = "Dark2", 
-    guide = guide_legend(title = "Sensor")
-  ) +
+  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
   theme(legend.position = "bottom") +
   xlab("Time") +
   ylab("Hourly Counts")
@@ -202,10 +193,7 @@ p_facet <- facet_cal %>%
     Sensor_Name ~ ., 
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
-  scale_colour_brewer(
-    palette = "Dark2", 
-    guide = guide_legend(title = "Sensor")
-  ) +
+  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
   theme(legend.position = "bottom")
 prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 
