@@ -290,7 +290,7 @@ h1 <- elec %>%
     geom_line(aes(colour = weekday)) +
     scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h1, label.padding = unit(0.15, "lines"))
+prettify(h1)
 
 ## ---- h2
 h2 <- elec %>% 
@@ -300,7 +300,7 @@ h2 <- elec %>%
     geom_line(aes(colour = weekday)) +
     scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h2, label.padding = unit(0.15, "lines"))
+prettify(h2)
 
 ## ---- h3
 h3 <- elec %>% 
@@ -310,7 +310,7 @@ h3 <- elec %>%
     geom_line(aes(colour = weekday)) +
     scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h3, label.padding = unit(0.15, "lines"))
+prettify(h3)
 
 ## ---- h4
 h4 <- elec %>% 
@@ -320,4 +320,4 @@ h4 <- elec %>%
     geom_line(aes(colour = weekday)) +
     scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h4, label.padding = unit(0.15, "lines"))
+prettify(h4)
