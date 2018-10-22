@@ -88,8 +88,7 @@ variations. It is implemented in the R package \textbf{sugrrants}.
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
@@ -194,14 +193,11 @@ analyses of sub-daily people's activities are illustrated with a case
 study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses
 the limitations of calendar displays and possible new directions.
 
-\hypertarget{creating-a-calendar-display}{%
-\section{Creating a calendar
-display}\label{creating-a-calendar-display}}
+\section{Creating a calendar display}\label{creating-a-calendar-display}
 
 \label{sec:algorithm}
 
-\hypertarget{data-transformation}{%
-\subsection{Data transformation}\label{data-transformation}}
+\subsection{Data transformation}\label{data-transformation}
 
 \label{sec:transformation}
 
@@ -333,8 +329,7 @@ uniformly positioned on the bottom of the whole canvas, that is
 \(\min{(y)}\), with the central position of a cell \(x / 2\) for each
 \(j\).
 
-\hypertarget{options}{%
-\subsection{Options}\label{options}}
+\subsection{Options}\label{options}
 
 \label{sec:opt}
 
@@ -363,8 +358,7 @@ than others. For example, to display data for three years, setting
 \texttt{nrow\ =\ 3} and \texttt{ncol\ =\ 12} would show each year on a
 single row.
 
-\hypertarget{layouts}{%
-\subsubsection{Layouts}\label{layouts}}
+\subsubsection{Layouts}\label{layouts}
 
 The monthly calendar is the default, but two other formats, weekly and
 daily, are available with the \texttt{calendar} argument. The daily
@@ -379,8 +373,7 @@ effect in the data (for example weather data). When both effects are
 present, the monthly calendar would be a better choice. Temporal
 patterns motivate which variant should be employed.
 
-\hypertarget{polar-transformation}{%
-\subsubsection{Polar transformation}\label{polar-transformation}}
+\subsubsection{Polar transformation}\label{polar-transformation}
 
 When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
@@ -398,8 +391,7 @@ shape is also visible as boomerangs.
 \caption{Figure \ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:fs-polar}
 \end{figure}
 
-\hypertarget{scales}{%
-\subsubsection{Scales}\label{scales}}
+\subsubsection{Scales}\label{scales}
 
 By default, global scaling is done for values in each plot, with the
 global minimum and maximum used to fit values into each cell. If the
@@ -430,8 +422,7 @@ weekends versus week days to be examined. Similarly, the
 \caption{Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:fs-free}
 \end{figure}
 
-\hypertarget{orientation}{%
-\subsubsection{Orientation}\label{orientation}}
+\subsubsection{Orientation}\label{orientation}
 
 By default, grids are laid out horizontally. This can be transposed by
 setting the \texttt{dir} parameter to \texttt{"v"}, in which case \(i\)
@@ -439,8 +430,7 @@ and \(j\) are swapped in the Equation \ref{eq:grid}. This can be useful
 for creating calendar layouts for countries where vertical layout is the
 convention.
 
-\hypertarget{language-support}{%
-\subsubsection{Language support}\label{language-support}}
+\subsubsection{Language support}\label{language-support}
 
 Most countries have adopted this western calendar layout, while the
 languages used for week day and month would be different across
@@ -448,14 +438,12 @@ countries. We also offer languages other than English for text
 labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure
 \ref{fig:boxplot} labelled using simplified Chinese characters.
 
-\hypertarget{variations}{%
-\subsection{Variations}\label{variations}}
+\subsection{Variations}\label{variations}
 
 \label{sec:variations}
 
-\hypertarget{overlaying-and-faceting-subsets}{%
 \subsubsection{Overlaying and faceting
-subsets}\label{overlaying-and-faceting-subsets}}
+subsets}\label{overlaying-and-faceting-subsets}
 
 Plots can be layered. The comparison of sensors can be done by
 overlaying plot the values for each (Figure \ref{fig:overlay}).
@@ -496,9 +484,7 @@ in the conventional graphics.
 \caption{Line charts, embedded in the $6 \times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
 \end{figure}
 
-\hypertarget{different-types-of-plots}{%
-\subsubsection{Different types of
-plots}\label{different-types-of-plots}}
+\subsubsection{Different types of plots}\label{different-types-of-plots}
 
 The \texttt{frame\_calendar} function is not constrained to line plots.
 The full range of plotting capabilities in \textbf{ggplot2} is
@@ -547,35 +533,32 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 \caption{The same plot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.}\label{fig:chn-embedded}
 \end{figure}
 
-\hypertarget{interactivity}{%
-\subsubsection{Interactivity}\label{interactivity}}
+\subsubsection{Interactivity}\label{interactivity}
 
 As a data restructuring tool, the interactivity of calendar-based
 display can be easily enabled, as long as the interactive graphic system
 remains true to the spirit of the grammar of graphics, for example
-\textbf{plotly} \citep{plotly} in R. As a standalone display,
-interactive tooltip can be added to show the actual values of a data
-point when mousing over it in the calendar layout, for example the
-hourly count with the time of day. It is difficult to sense the values
-in static display, but the tooltip makes it possible. Options in
-function \texttt{frame\_calendar} can be ported to a form of selection
-buttons or text input. The display will update on the fly accordingly
-via clicking or inputing, as desired.
+\textbf{plotly} \citep{plotly} in R. As a standalone display, an
+interactive tooltip can be added to show labels when mousing over it in
+the calendar layout, for example the hourly count with the time of day.
+It is difficult to sense the values from the static display, but the
+tooltip makes it possible. Options in function \texttt{frame\_calendar}
+can be ported to a form of selection button or text input in a graphical
+user interface like shiny \ref{XXX}. The display will update on the fly
+accordingly via clicking or text input, as desired.
 
-Linking calendar displays to other types of charts is of great value to
-visually explore the interactions with many factors. It most naturally
-serves as a toolbox of date selection. By selecting and brushing the
-glyphs in the calendar, it subsequently highlights the elements of
-corresponding dates in other time-based plots, or vice versa. For
-example, it would be interesting to learn if very hot/cold days and
-heavy rain affect the number of people walking in downtown Melbourne,
-especially outdoor areas. Melbourne's daily temperatures and
-precipitations can be acquired, and plotted against the dates. The
-linking between weather data and calendar display is achieved using the
-common dates.
+Linking calendar displays to other types of charts is valuable to
+visually explore the relationships between variables. An example can be
+found in \ref{YYY}. The calendar most naturally serves as a tool for
+date selection: by selecting and brushing the glyphs in the calendar, it
+subsequently highlights the elements of corresponding dates in other
+time-based plots. Conversely, selecting on weather data plots, linked to
+te calendar can help to assess if very hot/cold days and heavy rain
+affect the number of people walking in downtown Melbourne. The linking
+between weather data and calendar display is achieved using the common
+dates.
 
-\hypertarget{case-study}{%
-\section{Case study}\label{case-study}}
+\section{Case study}\label{case-study}
 
 \label{sec:case}
 
@@ -643,63 +626,24 @@ summarizing overall deviations across days and households.
 \caption{Scatterplot between half-hourly energy usage and time of day with the averages overlaid, constrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning and heating are noted in household 1 and 2.}\label{fig:hod}
 \end{figure}
 
-Figure \ref{fig:h12} and \ref{fig:h34} display the data in calendar
-layout individually for each household, unfolding their day-to-day life.
-Glancing through Figure \ref{fig:h12}, their week day energy use
-distinguishes from their weekends. We can exactly tell when their air
-conditioner and heater are turned on. Heating keeps functioning in
-consecutive hours at household 2, which is evident in the mid July;
-while household 1 uses them cautiously. This finding helps explain the
-stripes and clusters in Figure \ref{fig:hod}. The calendar plots speak
-the stories about vacation time that are untold by previous figures.
-Household 1 is on vacation over three weeks of June, and household 2 was
-also away for holidays during Christmas and the second week of June.
-Figure \ref{fig:h34} shows household 3 takes two one-month-long family
-trips in September till early October and in June/July, and household 4
-is away over two or three weeks in early October, December and late
-June. The use of air conditioning and heating leaves no trace in these
-two households.
-
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/h1-1} 
-
-}
-
-\caption{Calendar displays for household 1. They tend to use air conditioning in the late afternoon untill the mid-night in summer. It seems that they are on vacation in June.}\label{fig:h1}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/h2-1} 
-
-}
-
-\caption{Calendar displays for household 2. It reveals their regular tendency of using air conditioning and heating, and vacation periods. They leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June.}\label{fig:h2}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/h3-1} 
-
-}
-
-\caption{Calendar displays for household 3. Their energy use reveals different behaviors between summer and winter: only one peak in most summer days, while two peaks in winter. They are on long trips twice in the past year.}\label{fig:h3}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/h4-1} 
-
-}
-
-\caption{Calendar displays for household 4. Energy are heavily used in the evening for household 4. They also take three short trips in October, December, and June.}\label{fig:h4}
-\end{figure}
-
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
-
-\label{sec:discussion}
+Figure \ref{fig:h1}, \ref{fig:h2}, \ref{fig:h3} and \ref{fig:h4} display
+the data in calendar layout individually for each household, unfolding
+their day-to-day life. Glancing over household 1, you can see that their
+overall energy use is low. Their week day energy use is distinguishable
+from their weekends, indicating a working household. The air conditioner
+appears to be used in the summer months in the evening and weekends. In
+household 2, heating keeps functioning for consecutive hours, which is
+evident in the mid July; while household 1 uses heating cautiously.
+These observations help to explain the stripes and clusters in Figure
+\ref{fig:hod}. The calendar plots speak the stories about vacation time
+that are untold by previous plots. Household 1 is on vacation over three
+weeks of June, and household 2 was also away for holidays during
+Christmas and the second week of June. Figure \ref{fig:h3} shows
+household 3 takes two one-month-long family trips in September till
+early October and in June/July, and household 4 is away over two or
+three weeks in early October, December and late June. The use of air
+conditioning and heating leaves no trace in these two households. \#
+Discussion \label{sec:discussion}
 
 The calendar-based visualization provides data plots in the familiar
 format of an everyday tool. Patterns on special events for the region,
@@ -724,8 +668,43 @@ The layout is a type of faceting and could be useful to develop this
 into a fully-fledged faceting method, with formal labels and axes. This
 is a future goal.
 
-\hypertarget{acknowledgements}{%
-\section*{Acknowledgements}\label{acknowledgements}}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h1-1} 
+
+}
+
+\caption{Calendar display for household 1, indicates higher weekend usage, and in the summer months, November-February. It seems that they took a vacation in June.}\label{fig:h1}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h2-1} 
+
+}
+
+\caption{Calendar display for household 2, reveals their tendency to use air conditioning and heating continuously. Not many vacation were taken.}\label{fig:h2}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h3-1} 
+
+}
+
+\caption{Calendar display for household 3. Their energy use reveals higher energy use in the winter months, with multiple peaks daily on both week days and weekends. There are some high peaks in summer, perhaps indicating occasional air conditioner use. There have been several long vacations in the past year.}\label{fig:h3}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h4-1} 
+
+}
+
+\caption{Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, and June.}\label{fig:h4}
+\end{figure}
+
+\section*{Acknowledgements}\label{acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
 
 We would like to thank Stuart Lee and Heike Hofmann for their feedback

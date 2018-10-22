@@ -210,9 +210,9 @@ include_graphics("img/chn-1-embedded.pdf")
 
 ### Interactivity
 
-As a data restructuring tool, the interactivity of calendar-based display can be easily enabled, as long as the interactive graphic system remains true to the spirit of the grammar of graphics, for example **plotly** [@plotly] in R. As a standalone display, interactive tooltip can be added to show the actual values of a data point when mousing over it in the calendar layout, for example the hourly count with the time of day. It is difficult to sense the values in static display, but the tooltip makes it possible. Options in function `frame_calendar` can be ported to a form of selection buttons or text input. The display will update on the fly accordingly via clicking or inputing, as desired.
+As a data restructuring tool, the interactivity of calendar-based display can be easily enabled, as long as the interactive graphic system remains true to the spirit of the grammar of graphics, for example **plotly** [@plotly] in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over it in the calendar layout, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in function `frame_calendar` can be ported to a form of selection button or text input in a graphical user interface like shiny \ref{XXX}. The display will update on the fly accordingly via clicking or text input, as desired.
 
-Linking calendar displays to other types of charts is of great value to visually explore the interactions with many factors. It most naturally serves as a toolbox of date selection. By selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots, or vice versa. For example, it would be interesting to learn if very hot/cold days and heavy rain affect the number of people walking in downtown Melbourne, especially outdoor areas. Melbourne's daily temperatures and precipitations can be acquired, and plotted against the dates. The linking between weather data and calendar display is achieved using the common dates.
+Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in \ref{YYY}. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain affect the number of people walking in downtown Melbourne. The linking between weather data and calendar display is achieved using the common dates.
 
 # Case study
 \label{sec:case}
@@ -232,20 +232,7 @@ Figure \ref{fig:hod} shows energy consumption against time of day, separately by
 ```{r hod, fig.height = 6, fig.cap = "Scatterplot between half-hourly energy usage and time of day with the averages overlaid, constrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning and heating are noted in household 1 and 2."}
 ```
 
-Figure \ref{fig:h12} and \ref{fig:h34} display the data in calendar layout individually for each household, unfolding their day-to-day life. Glancing through Figure \ref{fig:h12}, their week day energy use distinguishes from their weekends. We can exactly tell when their air conditioner and heater are turned on. Heating keeps functioning in consecutive hours at household 2, which is evident in the mid July; while household 1 uses them cautiously. This finding helps explain the stripes and clusters in Figure \ref{fig:hod}. The calendar plots speak the stories about vacation time that are untold by previous figures. Household 1 is on vacation over three weeks of June, and household 2 was also away for holidays during Christmas and the second week of June. Figure \ref{fig:h34} shows household 3 takes two one-month-long family trips in September till early October and in June/July, and household 4 is away over two or three weeks in early October, December and late June. The use of air conditioning and heating leaves no trace in these two households.
-
-```{r h1, fig.height = 5, fig.cap = "Calendar displays for household 1. They tend to use air conditioning in the late afternoon untill the mid-night in summer. It seems that they are on vacation in June."}
-```
-
-```{r h2, fig.height = 5, fig.cap = "Calendar displays for household 2. It reveals their regular tendency of using air conditioning and heating, and vacation periods. They leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June."}
-```
-
-```{r h3, fig.height = 5, fig.cap = "Calendar displays for household 3. Their energy use reveals different behaviors between summer and winter: only one peak in most summer days, while two peaks in winter. They are on long trips twice in the past year."}
-```
-
-```{r h4, fig.height = 5, fig.cap = "Calendar displays for household 4. Energy are heavily used in the evening for household 4. They also take three short trips in October, December, and June."}
-```
-
+Figure \ref{fig:h1}, \ref{fig:h2}, \ref{fig:h3} and \ref{fig:h4} display the data in calendar layout individually for each household, unfolding their day-to-day life. Glancing over household 1, you can see that their overall energy use is low. Their week day energy use is distinguishable from their weekends, indicating a working household. The air conditioner appears to be used in the summer months in the evening and weekends. In household 2, heating keeps functioning for consecutive hours, which is evident in the mid July; while household 1 uses heating cautiously. These observations help to explain the stripes and clusters in Figure \ref{fig:hod}. The calendar plots speak the stories about vacation time that are untold by previous plots. Household 1 is on vacation over three weeks of June, and household 2 was also away for holidays during Christmas and the second week of June. Figure \ref{fig:h3} shows household 3 takes two one-month-long family trips in September till early October and in June/July, and household 4 is away over two or three weeks in early October, December and late June. The use of air conditioning and heating leaves no trace in these two households.
 # Discussion
 \label{sec:discussion}
 
@@ -256,6 +243,20 @@ The methodology creates the western calendar layout, because most countries have
 The calendar layout will be useful for studying consumer trends and human behavior. It will not be so useful for physical patterns like climate, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations, in order to study general trends.
 
 The layout is a type of faceting and could be useful to develop this into a fully-fledged faceting method, with formal labels and axes. This is a future goal.
+
+
+```{r h1, fig.height = 5, fig.cap = "Calendar display for household 1, indicates higher weekend usage, and in the summer months, November-February. It seems that they took a vacation in June."}
+```
+
+```{r h2, fig.height = 5, fig.cap = "Calendar display for household 2, reveals their tendency to use air conditioning and heating continuously. Not many vacation were taken."}
+```
+
+```{r h3, fig.height = 5, fig.cap = "Calendar display for household 3. Their energy use reveals higher energy use in the winter months, with multiple peaks daily on both week days and weekends. There are some high peaks in summer, perhaps indicating occasional air conditioner use. There have been several long vacations in the past year."}
+```
+
+```{r h4, fig.height = 5, fig.cap = "Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, and June."}
+```
+
 
 # Acknowledgements {-}
 
