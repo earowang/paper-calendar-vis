@@ -88,7 +88,8 @@ variations. It is implemented in the R package \textbf{sugrrants}.
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
@@ -193,11 +194,14 @@ analyses of sub-daily people's activities are illustrated with a case
 study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses
 the limitations of calendar displays and possible new directions.
 
-\section{Creating a calendar display}\label{creating-a-calendar-display}
+\hypertarget{creating-a-calendar-display}{%
+\section{Creating a calendar
+display}\label{creating-a-calendar-display}}
 
 \label{sec:algorithm}
 
-\subsection{Data transformation}\label{data-transformation}
+\hypertarget{data-transformation}{%
+\subsection{Data transformation}\label{data-transformation}}
 
 \label{sec:transformation}
 
@@ -329,7 +333,8 @@ uniformly positioned on the bottom of the whole canvas, that is
 \(\min{(y)}\), with the central position of a cell \(x / 2\) for each
 \(j\).
 
-\subsection{Options}\label{options}
+\hypertarget{options}{%
+\subsection{Options}\label{options}}
 
 \label{sec:opt}
 
@@ -358,7 +363,8 @@ than others. For example, to display data for three years, setting
 \texttt{nrow\ =\ 3} and \texttt{ncol\ =\ 12} would show each year on a
 single row.
 
-\subsubsection{Layouts}\label{layouts}
+\hypertarget{layouts}{%
+\subsubsection{Layouts}\label{layouts}}
 
 The monthly calendar is the default, but two other formats, weekly and
 daily, are available with the \texttt{calendar} argument. The daily
@@ -373,7 +379,8 @@ effect in the data (for example weather data). When both effects are
 present, the monthly calendar would be a better choice. Temporal
 patterns motivate which variant should be employed.
 
-\subsubsection{Polar transformation}\label{polar-transformation}
+\hypertarget{polar-transformation}{%
+\subsubsection{Polar transformation}\label{polar-transformation}}
 
 When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
@@ -391,7 +398,8 @@ shape is also visible as boomerangs.
 \caption{Figure \ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:fs-polar}
 \end{figure}
 
-\subsubsection{Scales}\label{scales}
+\hypertarget{scales}{%
+\subsubsection{Scales}\label{scales}}
 
 By default, global scaling is done for values in each plot, with the
 global minimum and maximum used to fit values into each cell. If the
@@ -422,7 +430,8 @@ weekends versus week days to be examined. Similarly, the
 \caption{Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:fs-free}
 \end{figure}
 
-\subsubsection{Orientation}\label{orientation}
+\hypertarget{orientation}{%
+\subsubsection{Orientation}\label{orientation}}
 
 By default, grids are laid out horizontally. This can be transposed by
 setting the \texttt{dir} parameter to \texttt{"v"}, in which case \(i\)
@@ -430,7 +439,8 @@ and \(j\) are swapped in the Equation \ref{eq:grid}. This can be useful
 for creating calendar layouts for countries where vertical layout is the
 convention.
 
-\subsubsection{Language support}\label{language-support}
+\hypertarget{language-support}{%
+\subsubsection{Language support}\label{language-support}}
 
 Most countries have adopted this western calendar layout, while the
 languages used for week day and month would be different across
@@ -438,12 +448,14 @@ countries. We also offer languages other than English for text
 labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure
 \ref{fig:boxplot} labelled using simplified Chinese characters.
 
-\subsection{Variations}\label{variations}
+\hypertarget{variations}{%
+\subsection{Variations}\label{variations}}
 
 \label{sec:variations}
 
+\hypertarget{overlaying-and-faceting-subsets}{%
 \subsubsection{Overlaying and faceting
-subsets}\label{overlaying-and-faceting-subsets}
+subsets}\label{overlaying-and-faceting-subsets}}
 
 Plots can be layered. The comparison of sensors can be done by
 overlaying plot the values for each (Figure \ref{fig:overlay}).
@@ -484,7 +496,9 @@ in the conventional graphics.
 \caption{Line charts, embedded in the $6 \times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.}\label{fig:facet}
 \end{figure}
 
-\subsubsection{Different types of plots}\label{different-types-of-plots}
+\hypertarget{different-types-of-plots}{%
+\subsubsection{Different types of
+plots}\label{different-types-of-plots}}
 
 The \texttt{frame\_calendar} function is not constrained to line plots.
 The full range of plotting capabilities in \textbf{ggplot2} is
@@ -533,7 +547,8 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 \caption{The same plot as Figure \ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.}\label{fig:chn-embedded}
 \end{figure}
 
-\subsubsection{Interactivity}\label{interactivity}
+\hypertarget{interactivity}{%
+\subsubsection{Interactivity}\label{interactivity}}
 
 As a data restructuring tool, the interactivity of calendar-based
 display can be easily enabled, as long as the interactive graphic system
@@ -559,7 +574,8 @@ precipitations can be acquired, and plotted against the dates. The
 linking between weather data and calendar display is achieved using the
 common dates.
 
-\section{Case study}\label{case-study}
+\hypertarget{case-study}{%
+\section{Case study}\label{case-study}}
 
 \label{sec:case}
 
@@ -643,23 +659,42 @@ two households.
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/h12-1} 
+{\centering \includegraphics[width=\textwidth]{figure/h1-1} 
 
 }
 
-\caption{Calendar displays for household 1 and 2. It reveals their regular tendency of using air conditioning and heating and vacation time periods. For example, household 2 leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June.}\label{fig:h12}
+\caption{Calendar displays for household 1. They tend to use air conditioning in the late afternoon untill the mid-night in summer. It seems that they are on vacation in June.}\label{fig:h1}
 \end{figure}
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/h34-1} 
+{\centering \includegraphics[width=\textwidth]{figure/h2-1} 
 
 }
 
-\caption{Calendar displays for household 3 and 4. Household 3 are on long trips twice in the past year, while household 4 takes three short trips in October, December, and June. Both households leave no clue if they use air conditioning and heating.}\label{fig:h34}
+\caption{Calendar displays for household 2. It reveals their regular tendency of using air conditioning and heating, and vacation periods. They leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June.}\label{fig:h2}
 \end{figure}
 
-\section{Discussion}\label{discussion}
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h3-1} 
+
+}
+
+\caption{Calendar displays for household 3. Their energy use reveals different behaviors between summer and winter: only one peak in most summer days, while two peaks in winter. They are on long trips twice in the past year.}\label{fig:h3}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/h4-1} 
+
+}
+
+\caption{Calendar displays for household 4. Energy are heavily used in the evening for household 4. They also take three short trips in October, December, and June.}\label{fig:h4}
+\end{figure}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
 \label{sec:discussion}
 
@@ -687,7 +722,8 @@ The layout is a type of faceting and could be useful to develop this
 into a fully-fledged faceting method, with formal labels and axes. This
 is a future goal.
 
-\section*{Acknowledgements}\label{acknowledgements}
+\hypertarget{acknowledgements}{%
+\section*{Acknowledgements}\label{acknowledgements}}
 \addcontentsline{toc}{section}{Acknowledgements}
 
 We would like to thank Stuart Lee and Heike Hofmann for their feedback

@@ -59,16 +59,10 @@ selected <- ped_loc %>%
   filter(Selected)
 nonselected <- ped_loc %>% 
   filter(!Selected)
-sensor_cols <- c(
-  "State Library" = "#1b9e77", 
-  "Flagstaff Station" = "#d95f02", 
-  "Birrarung Marr" = "#7570b3",
-  "Other" = "grey70"
-) # Dark2
 ggmap(melb_map) +
   geom_point(
-    data = nonselected, aes(x = Longitude, y = Latitude, colour = Highlight),
-    alpha = 0.8, size = 3
+    data = nonselected, aes(x = Longitude, y = Latitude),
+    colour = "grey70", alpha = 0.8, size = 3
   ) +
   geom_point(
     data = selected, aes(x = Longitude, y = Latitude, colour = Highlight),
@@ -76,12 +70,7 @@ ggmap(melb_map) +
   ) +
   xlab("Longitude") +
   ylab("Latitude") +
-  scale_colour_manual(
-    name = "Sensor",
-    breaks = names(sensor_cols),
-    values = sensor_cols,
-    guide = "legend"
-  ) +
+  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
   theme(legend.position = "bottom")
 
 ## ---- time-series-plot
@@ -305,26 +294,42 @@ ggplot(elec, aes(x = time, y = kwh)) +
   ylab("kWh") +
   guides(colour = "none")
 
-## ---- h12
-h12 <- elec %>% 
-  filter(id %in% 1:2) %>% 
-  group_by(id) %>% 
+## ---- h1
+h1 <- elec %>% 
+  filter(id == 1) %>% 
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    facet_grid(id ~ ., labeller = label_both) +
-    scale_color_manual(values = puor) +
+    scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h12, label.padding = unit(0.15, "lines"))
+prettify(h1, label.padding = unit(0.15, "lines"))
 
-## ---- h34
-h34 <- elec %>% 
-  filter(id %in% 3:4) %>% 
-  group_by(id) %>% 
+## ---- h2
+h2 <- elec %>% 
+  filter(id == 2) %>% 
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    facet_grid(id ~ ., labeller = label_both) +
-    scale_color_manual(values = puor) +
+    scale_color_manual(name = "", values = puor) +
     theme(legend.position = "bottom")
-prettify(h34, label.padding = unit(0.15, "lines"))
+prettify(h2, label.padding = unit(0.15, "lines"))
+
+## ---- h3
+h3 <- elec %>% 
+  filter(id == 3) %>% 
+  frame_calendar(x = time, y = kwh, date = date) %>% 
+    ggplot(aes(x = .time, y = .kwh, group = date)) +
+    geom_line(aes(colour = weekday)) +
+    scale_color_manual(name = "", values = puor) +
+    theme(legend.position = "bottom")
+prettify(h3, label.padding = unit(0.15, "lines"))
+
+## ---- h4
+h4 <- elec %>% 
+  filter(id == 4) %>% 
+  frame_calendar(x = time, y = kwh, date = date) %>% 
+    ggplot(aes(x = .time, y = .kwh, group = date)) +
+    geom_line(aes(colour = weekday)) +
+    scale_color_manual(name = "", values = puor) +
+    theme(legend.position = "bottom")
+prettify(h4, label.padding = unit(0.15, "lines"))

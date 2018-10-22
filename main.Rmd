@@ -234,10 +234,16 @@ Figure \ref{fig:hod} provides a more detailed depiction of each household's life
 
 Figure \ref{fig:h12} and \ref{fig:h34} apply the new calendar displays individually for each household, unfolding their day-to-day life. Glancing through Figure \ref{fig:h12}, their week day energy use distinguishes from their weekends. We can exactly tell when their air conditioner and heater are turned on. Heating keeps functioning in consecutive hours at household 2, which is evident in the mid July; while household 1 uses them cautiously. This finding helps explain the strips and clusters in Figure \ref{fig:hod}. The calendar plots speak the stories about vacation time that are untold by previous figures. Household 1 is on vacation over three weeks of June, and household 2 was also away for holidays during Christmas and the second week of June. Figure \ref{fig:h34} shows household 3 takes two one-month-long family trips in September till early October and in June/July, and household 4 is away over two or three weeks in early October, December and late June. The use of air conditioning and heating leaves no trace in these two households.
 
-```{r h12, fig.height = 10, fig.cap = "Calendar displays for household 1 and 2. It reveals their regular tendency of using air conditioning and heating and vacation time periods. For example, household 2 leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June."}
+```{r h1, fig.height = 5, fig.cap = "Calendar displays for household 1. They tend to use air conditioning in the late afternoon untill the mid-night in summer. It seems that they are on vacation in June."}
 ```
 
-```{r h34, fig.height = 10, fig.cap = "Calendar displays for household 3 and 4. Household 3 are on long trips twice in the past year, while household 4 takes three short trips in October, December, and June. Both households leave no clue if they use air conditioning and heating."}
+```{r h2, fig.height = 5, fig.cap = "Calendar displays for household 2. It reveals their regular tendency of using air conditioning and heating, and vacation periods. They leaves heating on consecutively in the mid July, is on holiday for Christmas and the second week of June."}
+```
+
+```{r h3, fig.height = 5, fig.cap = "Calendar displays for household 3. Their energy use reveals different behaviors between summer and winter: only one peak in most summer days, while two peaks in winter. They are on long trips twice in the past year."}
+```
+
+```{r h4, fig.height = 5, fig.cap = "Calendar displays for household 4. Energy are heavily used in the evening for household 4. They also take three short trips in October, December, and June."}
 ```
 
 # Discussion
