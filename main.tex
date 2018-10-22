@@ -590,20 +590,25 @@ time of day split by work days and non-work days, followed by the
 calendar display to inspect the daily schedules.
 
 Figure \ref{fig:dow} shows the energy use across days of week in the
-form of letter value plots \citep{hofmann2017letter}. As a variant of
-boxplots, letter value plots represent each pair of adjacent letter
-values using one box, instead of whiskers. Figure \ref{fig:dow}
-demonstrates three letter values and outliers marked as asterisks, with
-a line representing the median (thus M) and the innermost boxes
-corresponding to the fourth (F) and the eighth quantiles (E). Household
-3, with a family size of one couple and two kids, uses more energy over
-the week days given the medians, compared to the others consisting of
-one or two people. Whereas, household 2 displays a great deal of
+form of letter value plots \citep{hofmann2017letter}. Letter value plots
+are a variant of boxplots for large data, with other quantiles
+represented by boxes. Letters indicate the fraction of the data
+divisions, for example, F indicates fourths or quartiles, and the two
+outer ends of the box are the 25th and 75th percentile, the same
+traditional ends of the box as a boxplot. The letter E indicates
+eighths, with box ends being 12.5th and 87.5th percentiles of the data.
+These additional boxes replace the whiskers in a traditional boxplot.
+The letter value plots for the households, show a line indicating the
+median (M) and the innermost boxes corresponding to the fourth (F) and
+the eighth (E) quantile divisions. Inspecting the medians across
+households tells us that household 3, a family size of one couple and
+two kids, uses more energy over the week days, than other households.
+The relatively larger boxes for household 2 indicates greater
 variability in daily energy consumption with noticeable variations on
 Thursdays, and much higher usage over the weekends. The other two
-households (1 and 4) tend to consume more energy on average with
-increased variations during the weekends relative to the week days, as a
-reflection of work and leisure patterns.
+households (1 and 4) tend to consume more energy with more variation on
+the weekends relative to the week days, reflecting of work and leisure
+patterns.
 
 \begin{figure}
 
@@ -614,22 +619,20 @@ reflection of work and leisure patterns.
 \caption{Letter value plots of daily energy usage against day of week for four households, with one line dislaying the median (M) and each box corresponding to the fourth (F) and eighth (E) paired quantile estimates. Suggested by the medians, household 3 uses more enery than the others on the week days, due to a large family size. By constrast, household 2 sees considerally large variability.}\label{fig:dow}
 \end{figure}
 
-Figure \ref{fig:hod} provides a more detailed depiction of each
-household's life style, by plotting energy consumption against time of
-day between week days and weekends. Household 1 is an early bird,
+Figure \ref{fig:hod} shows energy consumption against time of day,
+separately by week day and weekend. Household 1 is an early bird,
 starting their day before 6 and going back home around 18 on week days.
 They switch air conditioning or heating on when they get home from work
-and keep it operated till mid-night, while learned from the tiny cluster
-of points below 1 kWh. On the other hand, the strips above 1 kWh tells
-that household 2 perhaps have air conditioning or heating on all time
-during the days, consuming the energy almost as double as household 1.
-Apart from the morning and night peak use, a third peak occurs around
-3pm for household 3 only, when the kids are home from school. They also
-share a consistent energy pattern between week days and weekends. As for
-household 4, their home routine starts after 6pm on week days. Figure
-\ref{fig:dow} and \ref{fig:hod}, part of traditional graphical toolkits,
-are useful for summarizing overall deviations across days and
-households.
+and keep it operating till mid-night, learned from the small horizontal
+cluster of points around 0.8 kWh. On the other hand, the stripes above 1
+kWh for household 2 indicates that perhaps air conditioning or heating
+runs continuously for some periods, consuming the twice the energy as
+household 1. A third peak occurs around 3pm for household 3 only, likely
+when the kids are home from school. They also have a consistent energy
+pattern between week days and weekends. As for household 4, their home
+routine starts after 6pm on week days. Figures \ref{fig:dow} and
+\ref{fig:hod}, part of a traditional graphical toolkit, are useful for
+summarizing overall deviations across days and households.
 
 \begin{figure}
 
@@ -640,14 +643,14 @@ households.
 \caption{Scatterplot between half-hourly energy usage and time of day with the averages overlaid, constrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning and heating are noted in household 1 and 2.}\label{fig:hod}
 \end{figure}
 
-Figure \ref{fig:h12} and \ref{fig:h34} apply the new calendar displays
-individually for each household, unfolding their day-to-day life.
+Figure \ref{fig:h12} and \ref{fig:h34} display the data in calendar
+layout individually for each household, unfolding their day-to-day life.
 Glancing through Figure \ref{fig:h12}, their week day energy use
 distinguishes from their weekends. We can exactly tell when their air
 conditioner and heater are turned on. Heating keeps functioning in
 consecutive hours at household 2, which is evident in the mid July;
 while household 1 uses them cautiously. This finding helps explain the
-strips and clusters in Figure \ref{fig:hod}. The calendar plots speak
+stripes and clusters in Figure \ref{fig:hod}. The calendar plots speak
 the stories about vacation time that are untold by previous figures.
 Household 1 is on vacation over three weeks of June, and household 2 was
 also away for holidays during Christmas and the second week of June.
@@ -700,15 +703,14 @@ two households.
 
 The calendar-based visualization provides data plots in the familiar
 format of an everyday tool. Patterns on special events for the region,
-like Anzac Day in Australia, or Thanksgiving Day in the USA, more easily
-pop out to the viewer as public holidays, than they would on a more
-commonly used week day and month faceted layout.
+like Anzac Day in Australia, or Thanksgiving Day in the USA, are more
+visible to the viewer as public holidays.
 
 The methodology creates the western calendar layout, because most
 countries have adopted this format. The main difference between
 countries is the use of different languages for labelling, which is
 supported by the software. Layouts beyond the western calendar could be
-achieved by the same modulars arithmetic approach.
+achieved by the same modular arithmetic approach.
 
 The calendar layout will be useful for studying consumer trends and
 human behavior. It will not be so useful for physical patterns like
