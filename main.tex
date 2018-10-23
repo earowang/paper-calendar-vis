@@ -117,9 +117,9 @@ at three different sensors over 2016. Further faceting by day of the
 week (Figure \ref{fig:facet-time}) provides a better glimpse of the
 daily and sub-daily pedestrian patterns.
 
-However, the conventional displays of time series data obscure patterns
+However, the conventional displays of time series data conceal patterns
 relative to special events (such as public holidays and recurring
-cultural/sport events), which may appear fascinating to viewers.
+cultural/sport events), which may be worth noting to viewers.
 
 \begin{figure}
 
@@ -136,7 +136,7 @@ cultural/sport events), which may appear fascinating to viewers.
 
 }
 
-\caption{Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. A spike occurred at the State Library, caused by the annual White Night event on 20th of February. A relatively persistent pattern repeats from one week to another at Flagstaff Station. Birrarung Marr looks rather noisy and spiky, with chunks of missing records.}\label{fig:time-series-plot}
+\caption{Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. A spike occurred at the State Library, caused by the annual White Night event on 20th of February. A relatively persistent pattern repeats from one week to another at Flagstaff Station. Birrarung Marr looks rather noisy and spiky, with a couple of chunks of missing records.}\label{fig:time-series-plot}
 \end{figure}
 
 \begin{figure}
@@ -145,7 +145,7 @@ cultural/sport events), which may appear fascinating to viewers.
 
 }
 
-\caption{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It primarily features two types of seasons---time of day and day of week---across all the sensors. Apparently other factors have influence over the number of pedestrians, which cannot captured by the faceted plots, such as the overnight White Night traffic on Saturday at the State Library and a variety of events at Birrarung Marr.}\label{fig:facet-time}
+\caption{Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It primarily features two types of seasons---time of day and day of week---across all the sensors. Apparently other factors have influence over the number of pedestrians, which cannot be captured by the faceted plots, such as the overnight White Night traffic on Saturday at the State Library and a variety of events at Birrarung Marr.}\label{fig:facet-time}
 \end{figure}
 
 The work is inspired by \citet{Wickham2012glyph}, which uses linear
@@ -205,14 +205,6 @@ display}\label{creating-a-calendar-display}}
 
 \label{sec:transformation}
 
-Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
-calendar over the year 2016. This is achieved by the
-\texttt{frame\_calendar} function, which computes the coordinates on the
-calendar for the input data variables. These can then be plotted using
-the usual \textbf{ggplot2} package \citep{R-ggplot2} functions. All of
-the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}
-can be applied.
-
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/fs-2016-1} 
@@ -221,6 +213,14 @@ can be applied.
 
 \caption{The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent.}\label{fig:fs-2016}
 \end{figure}
+
+Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
+calendar over the year 2016. This is achieved by the
+\texttt{frame\_calendar} function, which computes the coordinates on the
+calendar for the input data variables. These can then be plotted using
+the usual \textbf{ggplot2} package \citep{R-ggplot2} functions. All of
+the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}
+can be applied.
 
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
@@ -416,11 +416,6 @@ shape. Figure \ref{fig:fs-free} shows the same data as Figure
 \ref{fig:fs-2016} scaled locally using \texttt{scale\ =\ "free"}. The
 daily trends are magnified.
 
-The \texttt{free\_wday} scales each week day together. It can be useful
-to comparing trends across week days, allowing relative patterns for
-weekends versus week days to be examined. Similarly, the
-\texttt{free\_mday} uses free scaling for any day within a given month.
-
 \begin{figure}
 
 {\centering \includegraphics[width=\textwidth]{figure/fs-free-1} 
@@ -429,6 +424,11 @@ weekends versus week days to be examined. Similarly, the
 
 \caption{Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.}\label{fig:fs-free}
 \end{figure}
+
+The \texttt{free\_wday} scales each week day together. It can be useful
+to comparing trends across week days, allowing relative patterns for
+weekends versus week days to be examined. Similarly, the
+\texttt{free\_mday} uses free scaling for any day within a given month.
 
 \hypertarget{orientation}{%
 \subsubsection{Orientation}\label{orientation}}
@@ -464,10 +464,10 @@ seen. Flagstaff Station exhibits strong commuters patterns, with fewer
 pedestrian counts during the weekends and public holidays. This suggests
 that Flagstaff Station has limited functionality on non-work days. From
 Figure \ref{fig:overlay} it can be seen that Birrarung Marr has a
-distinct temporal trend from the other two all year around. The
-nighttime events, such as White Night and New Year's Eve, have barely
-affected the operation of Flagstaff Station but heavily affected the
-incoming and outgoing traffic to the State Library and Birrarung Marr.
+distinct temporal trend from the other two all year round. The nighttime
+events, such as White Night, have barely affected the operation of
+Flagstaff Station but heavily affected the incoming and outgoing traffic
+to the State Library and Birrarung Marr.
 
 \begin{figure}
 
@@ -482,10 +482,10 @@ To avoid the overlapping problem, the calendar layout can be embedded
 into a series of subplots for the different sensors. Figure
 \ref{fig:facet} presents the idea of faceting calendar plots. This
 allows comparing the overall structure between sensors, while
-emphasizing individual sensor variation. In particular, we can
-immediately learn that when Birrarung Marr was crowded and why, such as
-Australian Open in the last two weeks of January. This does not pop out
-in the conventional graphics.
+emphasizing individual sensor variation. In particular, it can be
+immediately learned that when Birrarung Marr was busy and packed, for
+example Australian Open in the last two weeks of January. This is
+concealed in the conventional graphics.
 
 \begin{figure}
 
