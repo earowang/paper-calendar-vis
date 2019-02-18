@@ -63,7 +63,7 @@
 
 \bigskip
 \begin{abstract}
-Calendars are broadly used in society to display temporal information,
+Calendars are broadly used in society to display temporal information
 and events. This paper describes a new R package with functionality to
 organize and display temporal data, collected on sub-daily resolution,
 into a calendar layout. The function \texttt{frame\_calendar} uses
@@ -95,10 +95,11 @@ We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
 format is created using linear algebra, giving a restructuring of the
 data, that can then be piped into grammar of graphics definitions of
-plots, as used in \textbf{ggplot2} \citep{R-ggplot2}. The data
-restructuring approach is consistent with the tidy data principles
-available in the \textbf{tidyverse} \citep{R-tidyverse} suite. The
-methods are implemented in a new package called \textbf{sugrrants}
+plots \citep{wilkinson2006grammar, wickham2009ggplot2}, as used in
+\textbf{ggplot2} \citep{R-ggplot2}. The data restructuring approach is
+consistent with the tidy data principles available in the
+\textbf{tidyverse} \citep{R-tidyverse} suite. The methods are
+implemented in a new R package called \textbf{sugrrants}
 \citep{R-sugrrants}.
 
 The purpose of the calendar-based visualization is to provide insights
@@ -106,13 +107,13 @@ into people's daily schedules relative to events such as work days,
 weekends, holidays, and special events. This work was originally
 motivated by studying foot traffic in the city of Melbourne, Australia
 \citep{ped}. There have been 43 sensors installed that count pedestrians
-every hour across the inner-city area till the end of 2016 (Figure
+every hour across the inner-city area until the end of 2016 (Figure
 \ref{fig:ped-map}). The data set can shed light on people's daily
 rhythms, and assist the city administration and local businesses with
 event planning and operational management. A routine examination of the
 data would involve constructing conventional time series plots to catch
 a glimpse of temporal patterns. The faceted plots in Figure
-\ref{fig:time-series-plot}, give an overall picture of the foot traffic
+\ref{fig:time-series-plot} give an overall picture of the foot traffic
 at three different sensors over 2016. Further faceting by day of the
 week (Figure \ref{fig:facet-time}) provides a better glimpse of the
 daily and sub-daily pedestrian patterns.
@@ -127,7 +128,7 @@ cultural/sport events), which may be worth noting to viewers.
 
 }
 
-\caption{Map of the Melbourne city area with dots indicating sensor locations. These three highlighted sensors will be inspected in the paper: (1) the State Library--a public library, (2) Flagstaff Station--a train station, closed on non-work days, (3) Birrarung Marr: an outdoor park hosting many cultural and sports events.}\label{fig:ped-map}
+\caption{Map of the Melbourne city area with dots indicating sensor locations. These three highlighted sensors will be inspected in the paper: (1) the State Library---a public library, (2) Flagstaff Station---a train station, closed on non-work days, (3) Birrarung Marr---an outdoor park hosting many cultural and sports events.}\label{fig:ped-map}
 \end{figure}
 
 \begin{figure}
@@ -151,12 +152,12 @@ cultural/sport events), which may be worth noting to viewers.
 The work is inspired by \citet{Wickham2012glyph}, which uses linear
 algebra to display spatio-temporal data as glyphs on maps. It is also
 related to recent work by \citet{R-geofacet} which provides methods in
-the \textbf{geofacet} package to arrange data plots into a grid, while
+the \textbf{geofacet} R package to arrange data plots into a grid, while
 preserving the geographical position. Both of these show data in a
 spatial context.
 
 In contrast, calendar-based graphics unpack the temporal variable, at
-different resolutions, to digest multiple seasonalities, and special
+different resolutions, to digest multiple seasonalities and special
 events. There is some existing work in this area. For example,
 \citet{VanWijkCluster1999} developed a calendar view of the heatmap to
 represent the number of employees in the work place over a year, where
@@ -218,9 +219,8 @@ Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly
 calendar over the year 2016. This is achieved by the
 \texttt{frame\_calendar} function, which computes the coordinates on the
 calendar for the input data variables. These can then be plotted using
-the usual \textbf{ggplot2} package \citep{R-ggplot2} functions. All of
-the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}
-can be applied.
+the usual \textbf{ggplot2} R package \citep{R-ggplot2} functions. All of
+the grammar of graphics can be applied.
 
 The algorithm for constructing a calendar plot uses linear algebra,
 similar to that used in the glyph map displays for spatio-temporal data
@@ -435,8 +435,8 @@ weekends versus week days to be examined. Similarly, the
 
 By default, grids are laid out horizontally. This can be transposed by
 setting the \texttt{dir} parameter to \texttt{"v"}, in which case \(i\)
-and \(j\) are swapped in the Equation \ref{eq:grid}. This can be useful
-for creating calendar layouts for countries where vertical layout is the
+and \(j\) are swapped in Equation \ref{eq:grid}. This can be useful for
+creating calendar layouts for countries where vertical layout is the
 convention.
 
 \hypertarget{language-support}{%
@@ -464,10 +464,10 @@ seen. Flagstaff Station exhibits strong commuters patterns, with fewer
 pedestrian counts during the weekends and public holidays. This suggests
 that Flagstaff Station has limited functionality on non-work days. From
 Figure \ref{fig:overlay} it can be seen that Birrarung Marr has a
-distinct temporal trend from the other two all year round. The nighttime
-events, such as White Night, have barely affected the operation of
-Flagstaff Station but heavily affected the incoming and outgoing traffic
-to the State Library and Birrarung Marr.
+distinct temporal pattern from the other two all year round. The
+nighttime events, such as White Night, have barely affected the
+operation of Flagstaff Station but heavily affected the incoming and
+outgoing traffic to the State Library and Birrarung Marr.
 
 \begin{figure}
 
@@ -484,8 +484,9 @@ into a series of subplots for the different sensors. Figure
 allows comparing the overall structure between sensors, while
 emphasizing individual sensor variation. In particular, it can be
 immediately learned that when Birrarung Marr was busy and packed, for
-example Australian Open in the last two weeks of January. This is
-concealed in the conventional graphics.
+example during the Australian Open, a major international tennis
+tournament, in the last two weeks of January. This is concealed in the
+conventional graphics.
 
 \begin{figure}
 
@@ -526,8 +527,9 @@ The algorithm can also produce more complicated plots, such as boxplots.
 Figure \ref{fig:boxplot} uses a loess smooth line superimposed on
 side-by-side boxplots. It shows the distribution of hourly counts across
 all 43 sensors during December. The last week of December is the holiday
-season: people are off work on the day before Christmas, go shopping on
-the Boxing day, and stay out for the fireworks on New Year's Eve.
+season: people are off work on the day before Christmas (December 24),
+go shopping on the Boxing day (December 26), and stay out for the
+fireworks on New Year's Eve.
 
 \begin{figure}
 
@@ -551,16 +553,16 @@ the Boxing day, and stay out for the fireworks on New Year's Eve.
 \subsubsection{Interactivity}\label{interactivity}}
 
 As a data restructuring tool, the interactivity of calendar-based
-display can be easily enabled, as long as the interactive graphic system
-remains true to the spirit of the grammar of graphics, for example
-\textbf{plotly} \citep{plotly} in R. As a standalone display, an
+displays can be easily enabled, as long as the interactive graphic
+system remains true to the spirit of the grammar of graphics, for
+example \textbf{plotly} \citep{plotly} in R. As a standalone display, an
 interactive tooltip can be added to show labels when mousing over it in
 the calendar layout, for example the hourly count with the time of day.
 It is difficult to sense the values from the static display, but the
-tooltip makes it possible. Options in function \texttt{frame\_calendar}
-can be ported to a form of selection button or text input in a graphical
-user interface like R shiny \citep{R-shiny}. The display will update on
-the fly accordingly via clicking or text input, as desired.
+tooltip makes it possible. Options in the \texttt{frame\_calendar}
+function can be ported to a form of selection button or text input in a
+graphical user interface like R shiny \citep{R-shiny}. The display will
+update on the fly accordingly via clicking or text input, as desired.
 
 Linking calendar displays to other types of charts is valuable to
 visually explore the relationships between variables. An example can be
@@ -623,7 +625,7 @@ Figure \ref{fig:hod} shows energy consumption against time of day,
 separately by week day and weekend. Household 1 is an early bird,
 starting their day before 6 and going back home around 18 on week days.
 They switch air conditioning or heating on when they get home from work
-and keep it operating till mid-night, learned from the small horizontal
+and keep it operating until mid-night, learned from the small horizontal
 cluster of points around 0.8 kWh. On the other hand, the stripes above 1
 kWh for household 2 indicates that perhaps air conditioning or heating
 runs continuously for some periods, consuming the twice the energy as
@@ -645,21 +647,22 @@ summarizing overall deviations across days and households.
 
 Figure \ref{fig:h1}, \ref{fig:h2}, \ref{fig:h3} and \ref{fig:h4} display
 the data in calendar layout individually for each household, unfolding
-their day-to-day life. Glancing over household 1, you can see that their
+their day-to-day life. Glancing over household 1, we can see that their
 overall energy use is low. Their week day energy use is distinguishable
 from their weekends, indicating a working household. The air conditioner
-appears to be used in the summer months in the evening and weekends. In
-household 2, heating keeps functioning for consecutive hours, which is
-evident in the mid July; while household 1 uses heating cautiously.
-These observations help to explain the stripes and clusters in Figure
-\ref{fig:hod}. The calendar plots speak the stories about vacation time
-that are untold by previous plots. Household 1 is on vacation over three
-weeks of June, and household 2 was also away for holidays during
-Christmas and the second week of June. Figure \ref{fig:h3} shows
-household 3 takes two one-month-long family trips in September till
-early October and in June/July, and household 4 is away over two or
-three weeks in early October, December and late June. The use of air
-conditioning and heating leaves no trace in these two households.
+appears to be used in the summer months (December--February) in the
+evening and weekends. In household 2, heating keeps functioning for
+consecutive hours, which is evident in the mid July. In contrast,
+household 1 uses heating cautiously. These observations help to explain
+the stripes and clusters in Figure \ref{fig:hod}. The calendar plots
+speak the stories about vacation time that are untold by previous plots.
+Household 1 is on vacation over three weeks of June, and household 2 was
+also away for vacation in late December and in the second week of June.
+Figure \ref{fig:h3} shows household 3 takes two one-month-long family
+trips in September until early October and in June/July. Household 4 is
+away over two or three weeks in early October, December and late June.
+The use of air conditioning and heating leaves no trace in these two
+households.
 
 \begin{figure}
 
@@ -718,11 +721,11 @@ human behavior. It will not be so useful for physical patterns like
 climate, which are not typically affected by human activity. The layout
 does not replace traditional displays, but serves to complement to
 further tease out structure in temporal data. Analysts would still be
-advised to plot overall summaries and deviations, in order to study
+advised to plot overall summaries and deviations in order to study
 general trends.
 
 The layout is a type of faceting and could be useful to develop this
-into a fully-fledged faceting method, with formal labels and axes. This
+into a fully-fledged faceting method with formal labels and axes. This
 is a future goal.
 
 \hypertarget{acknowledgements}{%
@@ -731,7 +734,7 @@ is a future goal.
 
 We would like to thank Stuart Lee and Heike Hofmann for their feedback
 about this work. The most recent version of the \texttt{frame\_calendar}
-function is included in the \textbf{sugrrants} package, which can be
+function is included in the \textbf{sugrrants} R package, which can be
 accessed via the CRAN website
 \url{https://CRAN.R-project.org/package=sugrrants} or Github
 \url{https://github.com/earowang/sugrrants}. All materials required to
