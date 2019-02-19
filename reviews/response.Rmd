@@ -1,0 +1,13 @@
+---
+title: Response to reviewers
+author: JCGS-18-293
+output:
+  MonashEBSTemplates::memo:
+    includes:
+      in_header: preamble2.tex
+fontfamily: mathpazo
+---
+
+Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
+
+# Reviewer 1 comments

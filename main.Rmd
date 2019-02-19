@@ -208,6 +208,8 @@ As a data restructuring tool, the interactivity of calendar-based displays can b
 
 Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the **wanderer4melb** shiny application [@R-wanderer4melb]. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain affect the number of people walking in downtown Melbourne. The linking between weather data and calendar display is achieved using the common dates.
 
+## Reasons to use calendar-based displays
+
 # Case study
 \label{sec:case}
 

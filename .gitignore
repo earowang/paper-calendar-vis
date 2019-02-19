@@ -6,4 +6,3 @@ data/*.csv
 *.bbl
 data-raw/
 cover-letter/signature.png
-reviews/
