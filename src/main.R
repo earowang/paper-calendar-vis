@@ -18,7 +18,7 @@ workday <- fct_inorder(c("Work day", "Non-work day"))
 pedestrian_2016 <- pedestrian_2016 %>% 
   as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
   group_by(Sensor_Name) %>% 
-  fill_na(.full = TRUE) %>% 
+  fill_gaps(.full = TRUE) %>% 
   ungroup() %>% 
   mutate(
     Year = year(Date_Time),
@@ -51,6 +51,12 @@ ped_loc <- pedestrian_2016 %>%
 #   zoom = 14)
 # write_rds(melb_map, "data/melb_map.rds")
 
+# display better in grayscale
+sensor_cols <- c(
+  "State Library" = "#5e3c99", 
+  "Flagstaff Station" = "#b2abd2", 
+  "Birrarung Marr" = "#e66101"
+) # 4-class PuOr without #fdb863
 melb_map <- read_rds("data/melb_map.rds")
 selected <- ped_loc %>% 
   filter(Selected)
@@ -67,7 +73,7 @@ ggmap(melb_map) +
   ) +
   xlab("Longitude") +
   ylab("Latitude") +
-  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
+  scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
   theme(legend.position = "bottom")
 
 ## ---- time-series-plot
@@ -83,7 +89,7 @@ subdat %>%
     Sensor_Name ~ ., 
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
-  scale_colour_brewer(name = "Sensor", palette = "Dark2") +
+  scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
   theme(legend.position = "bottom") +
   xlab("Date Time") +
   ylab("Hourly Counts")
@@ -98,13 +104,13 @@ subdat %>%
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
   scale_x_continuous(breaks = seq(6, 23, by = 6)) +
-  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
+  scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
   theme(legend.position = "bottom") +
   xlab("Time") +
   ylab("Hourly Counts")
 
 ## ---- fs-2016
-puor <- c("Work day" = "#f1a340", "Non-work day" = "#998ec3")
+rdbu <- c("Work day" = "#d7191c", "Non-work day" = "#2c7bb6")
 # calendar plot for Flagstaff station
 fs <- subdat %>% 
   filter(Sensor_Name == "Flagstaff Station")
@@ -115,7 +121,7 @@ fs_cal <- fs %>%
 p_fs <- fs_cal %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_line() +
-  scale_color_manual(values = puor) +
+  scale_color_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs)
 
@@ -127,7 +133,7 @@ fs_cal_free <- fs %>%
 p_fs_free <- fs_cal_free %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_line() +
-  scale_color_manual(values = puor) +
+  scale_color_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs_free)
 
@@ -139,7 +145,7 @@ fs_polar <- fs %>%
 p_fs_polar <- fs_polar %>% 
   ggplot(aes(x = .Time, y = .Hourly_Counts, group = Date, colour = Workday)) +
   geom_path() +
-  scale_color_manual(values = puor) +
+  scale_color_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs_polar)
 
@@ -148,28 +154,28 @@ prettify(p_fs_polar)
 subset_cal <- subdat %>% 
   frame_calendar(Time, Hourly_Counts, Date)
 
-sensor_cols <- c(
-  "#1b9e77" = "#1b9e77", 
-  "#d95f02" = "#d95f02", 
-  "#7570b3" = "#7570b3"
-) # Dark2
+sensor_cols2 <- c(
+  "#5e3c99" = "#5e3c99", 
+  "#b2abd2" = "#b2abd2", 
+  "#e66101" = "#e66101"
+) # 4-class PuOr without #fdb863
 p_three <- subset_cal %>% 
   ggplot() +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[1]),
-    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[1])
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols2[1])
   ) +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[2]),
-    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[2])
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols2[2])
   ) +
   geom_line(
     data = filter(subset_cal, Sensor_Name == sensors[3]),
-    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols[3])
+    aes(.Time, .Hourly_Counts, group = Date, colour = sensor_cols2[3])
   ) +
   scale_colour_identity(
     name = "Sensor",
-    breaks = names(sensor_cols),
+    breaks = names(sensor_cols2),
     labels = c(
       "State Library", 
       "Flagstaff Station",
@@ -193,7 +199,7 @@ p_facet <- facet_cal %>%
     Sensor_Name ~ ., 
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
-  scale_colour_brewer(palette = "Dark2", name = "Sensor") +
+  scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
   theme(legend.position = "bottom")
 prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 
@@ -202,14 +208,14 @@ prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
-    calendar = "daily", width = 0.95, height = 0.8)
+    calendar = "daily", width = 0.95, height = 0.8, scale = "free")
 
 p_fs_day <- fs_cal_day %>% 
   ggplot(
     aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Workday)
   ) +
   geom_point(size = 0.5, alpha = 0.6) +
-  scale_color_manual(values = puor) +
+  scale_color_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs_day, size = 3, label.padding = unit(0.15, "lines"))
 
@@ -247,7 +253,7 @@ showtext_auto(FALSE)
 
 ## ---- load-elec
 elec <- read_rds("data/elec.rds")
-puor <- c("Weekday" = "#f1a340", "Weekend" = "#998ec3")
+rdbl <- c("Weekday" = "#d7191c", "Weekend" = "#2c7bb6")
 
 ## ---- dow
 elec <- elec %>% 
@@ -274,9 +280,9 @@ avg_elec <- elec %>%
 
 ggplot(elec, aes(x = time, y = kwh)) +
   geom_point(alpha = 0.5, size = 0.1) +
-  geom_line(aes(y = avg, colour = as.factor(id)), data = avg_elec, size = 1) +
+  geom_line(aes(y = avg, colour = as.factor(id)), data = avg_elec, size = 1.5) +
   facet_grid(weekday ~ id) +
-  scale_colour_brewer(palette = "Dark2") +
+  scale_colour_brewer(palette = "PiYG") +
   scale_x_time(breaks = hms::hms(hours = c(6, 18))) +
   xlab("Time of day") +
   ylab("kWh") +
@@ -288,7 +294,7 @@ h1 <- elec %>%
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = puor) +
+    scale_color_manual(name = "", values = rdbl) +
     theme(legend.position = "bottom")
 prettify(h1)
 
@@ -298,7 +304,7 @@ h2 <- elec %>%
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = puor) +
+    scale_color_manual(name = "", values = rdbl) +
     theme(legend.position = "bottom")
 prettify(h2)
 
@@ -308,7 +314,7 @@ h3 <- elec %>%
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = puor) +
+    scale_color_manual(name = "", values = rdbl) +
     theme(legend.position = "bottom")
 prettify(h3)
 
@@ -318,6 +324,6 @@ h4 <- elec %>%
   frame_calendar(x = time, y = kwh, date = date) %>% 
     ggplot(aes(x = .time, y = .kwh, group = date)) +
     geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = puor) +
+    scale_color_manual(name = "", values = rdbl) +
     theme(legend.position = "bottom")
 prettify(h4)
