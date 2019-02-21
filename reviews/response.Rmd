@@ -11,3 +11,9 @@ fontfamily: mathpazo
 Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
 
 # Reviewer 1 comments
+
+# Reviewer 2 comments
+
+> p.10, l.1-15 It wasn't clear to me why the subtraction was performed in the equation (2) because I couldn't find any description for the global coordinate system of the canvas. The value of y could be negative. Please add the description how to deal with the coordinate system, especially the y-axis.
+
+The reason why the subtraction is performed was given in the following paragraph of Equation (2).

@@ -3,3 +3,6 @@ render:
 
 open:
 	open main.pdf
+
+response:
+	Rscript -e 'rmarkdown::render("reviews/response.Rmd")'
