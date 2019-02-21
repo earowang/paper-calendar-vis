@@ -34,7 +34,7 @@ library(knitr)
 opts_chunk$set(
   warning = FALSE, message = FALSE, echo = FALSE, 
   fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
-  fig.show = 'hold', cache = FALSE, external = TRUE, dev = "pdf",
+  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "pdf",
   fig.height = 5, fig.width = 8, out.width = "\\textwidth"
 )
 read_chunk('src/main.R')
@@ -198,8 +198,11 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 ```{r boxplot, fig.height = 8, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. There is one sensor attracting a larger number of people on New Year's Eve than the rest."}
 ```
 
+```{r chn}
+```
+
 ```{r chn-embedded, fig.cap = "The same plot as Figure \\ref{fig:boxplot}, but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English."}
-include_graphics("img/chn-1-embedded.pdf")
+include_graphics("figure/chn-1.pdf")
 ```
 
 ### Interactivity

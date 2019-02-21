@@ -242,13 +242,15 @@ prettify(p_boxplot, label = c("label", "text", "text2"))
 ## ---- chn
 # boxplots for hourly counts across all the sensors in 2016 Dec with Chinese 
 # labels
+# font_install(source_han_serif())
 showtext_auto()
-prettify(
+p_chn <- prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
   size = 3, label.padding = unit(0.15, "lines"),
   label = c("label", "text", "text2"),
-  family = "STKaiti"
+  family = "source-han-serif-cn"
 )
+ggsave("figure/chn-1.pdf", p_chn, width = 8, height = 8)
 showtext_auto(FALSE) 
 
 ## ---- load-elec
