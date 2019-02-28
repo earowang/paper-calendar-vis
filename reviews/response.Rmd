@@ -10,10 +10,45 @@ fontfamily: mathpazo
 
 Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
 
-# Reviewer 1 comments
+# Reviewer 1 comments {-}
 
-# Reviewer 2 comments
+# Reviewer 2 comments {-}
 
 > p.10, l.1-15 It wasn't clear to me why the subtraction was performed in the equation (2) because I couldn't find any description for the global coordinate system of the canvas. The value of y could be negative. Please add the description how to deal with the coordinate system, especially the y-axis.
 
-The reason why the subtraction is performed was given in the following paragraph of Equation (2).
+The reason why the subtraction is performed was originally given in the following paragraph of Equation (2).
+
+# Reviewer 3 comments {-}
+
+> p1, l32: "information, and events." - remove the comma
+
+We have removed the comma and elsewhere, and adjusted the language based on the comments.
+
+> p2, l9: "grammar of graphics" - provide reference immediately here and not only later in the article and explain what the grammar of graphics is; also "piped into" may not be understood by outsiders
+
+Done.
+
+> Fig.1 (& related figs): I suppose you use a "3-class Dark2" color scheme from Rcolorbrewer? This does not work well when printed in grayscale: The colors become almost indistinguishable. ...
+
+We have changed the colour scheme from "Dark2" to "4-class PuOr" (without faint orange) in Figure 1 and all consecutive figures.
+
+> Fig.4: Colors orange & purple are hard to distinguish in grayscale. Moreover, you should use different colors here as these 2 colors are already related to the 3 stations.
+
+We have changed the colour to red and blue picked from a "4-class RdYlBu" colour scheme, which is different from the colours used for the 3 stations.
+
+> Fig.2: Instead of "Jan 2016" ... "Jan 2017", be specific and list "Jan 1, 2016" ... "Jan 1, 2017"
+
+Done.
+
+> Fig.2: Can you match the minor gridlines with the start of a month, rather than the middle of a month? This will make it much easier to identify the approximate dates for some of the other spikes. No need to label these minor gridlines.
+
+Done.
+
+> Fig.2: You mention "small multiples" only in a figure caption. This concept is a central
+part of your calendar graphics and should be summarized in more details (including references) in the main text. Also mention Unwin & Valero-Mora's "Ensemble Graphics", JCGS, 27(1), as a major concept that applies to both sets of related figures in your article.
+
+ToDo
+
+> Fig.3: Add ticmarks at 0 and 24. See whether ticmark labels fit. If not, OK to omit those for 0 and 24.
+
+Done.

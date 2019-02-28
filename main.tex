@@ -94,12 +94,14 @@ variations. It is implemented in the R package \textbf{sugrrants}.
 We develop a method for organizing and visualizing temporal data,
 collected at sub-daily intervals, into a calendar layout. The calendar
 format is created using linear algebra, giving a restructuring of the
-data, that can then be piped into grammar of graphics definitions of
-plots \citep{wilkinson2006grammar, wickham2009ggplot2}, as used in
-\textbf{ggplot2} \citep{R-ggplot2}. The data restructuring approach is
-consistent with the tidy data principles available in the
-\textbf{tidyverse} \citep{R-tidyverse} suite. The methods are
-implemented in a new R package called \textbf{sugrrants}
+data, that can then be integrated into a data pipeline. The core
+component of the pipeline is to visualise the resulting data using the
+grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}, as
+used in \textbf{ggplot2} \citep{R-ggplot2}, which defines plots as a
+functional mapping from data points to graphical primitives. The data
+restructuring approach is consistent with the tidy data principles
+available in the \textbf{tidyverse} \citep{R-tidyverse} suite. The
+methods are implemented in a new R package called \textbf{sugrrants}
 \citep{R-sugrrants}.
 
 The purpose of the calendar-based visualization is to provide insights

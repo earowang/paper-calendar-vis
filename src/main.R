@@ -69,7 +69,7 @@ ggmap(melb_map) +
   ) +
   geom_point(
     data = selected, aes(x = Longitude, y = Latitude, colour = Highlight),
-    size = 6
+    size = 6, shape = 17
   ) +
   xlab("Longitude") +
   ylab("Latitude") +
@@ -90,6 +90,7 @@ subdat %>%
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
   scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
+  scale_x_datetime(date_labels = "%d %b %Y", date_minor_breaks = "1 month") +
   theme(legend.position = "bottom") +
   xlab("Date Time") +
   ylab("Hourly Counts")
@@ -103,7 +104,7 @@ subdat %>%
     Sensor_Name ~ Day, 
     labeller = labeller(Sensor_Name = label_wrap_gen(20))
   ) +
-  scale_x_continuous(breaks = seq(6, 23, by = 6)) +
+  scale_x_continuous(breaks = seq(0, 24, by = 6)) +
   scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
   theme(legend.position = "bottom") +
   xlab("Time") +
