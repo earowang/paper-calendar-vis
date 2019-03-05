@@ -28,7 +28,7 @@ We have removed the comma and elsewhere, and adjusted the language based on the 
 
 Done.
 
-> Fig.1 (& related figs): I suppose you use a "3-class Dark2" color scheme from Rcolorbrewer? This does not work well when printed in grayscale: The colors become almost indistinguishable. ...
+> Fig.1 (& related figs): I suppose you use a "3-class Dark2" color scheme from Rcolorbrewer? This does not work well when printed in gray scale: The colors become almost indistinguishable. ...
 
 We have changed the colour scheme from "Dark2" to "4-class PuOr" (without faint orange) in Figure 1 and all consecutive figures.
 
@@ -40,7 +40,7 @@ We have changed the colour to red and blue picked from a "4-class RdYlBu" colour
 
 Done.
 
-> Fig.2: Can you match the minor gridlines with the start of a month, rather than the middle of a month? This will make it much easier to identify the approximate dates for some of the other spikes. No need to label these minor gridlines.
+> Fig.2: Can you match the minor grid lines with the start of a month, rather than the middle of a month? This will make it much easier to identify the approximate dates for some of the other spikes. No need to label these minor grid lines.
 
 Done.
 
@@ -49,6 +49,39 @@ part of your calendar graphics and should be summarized in more details (includi
 
 ToDo
 
-> Fig.3: Add ticmarks at 0 and 24. See whether ticmark labels fit. If not, OK to omit those for 0 and 24.
+> Fig.3: Add tick marks at 0 and 24. See whether tick mark labels fit. If not, OK to omit those for 0 and 24.
+
+Done.
+
+> p6, l8: You mention ggTimeSeries & ggcal. For completeness, also cite Jones (2016) Calendar Heatmaps, https://rpubs.com/haj3/calheatmap, and possibly Wong's TimeProjection R package, https://cran.r-project.org/web/packages/TimeProjection/index.html
+
+Done.
+
+> p6, l49-...: Starting a section called "Data transformation" with an example/figure seems to be strange. Can you first start with the formal steps and then place this example/figure after the formal part, i.e., around p.8, l38.
+
+Done.
+
+> Fig.4: Colors orange & purple are hard to distinguish in grayscale. Moreover, you should use different colors here as these 2 colors are already related to the 3 stations.
+
+Done.
+
+> Fig.4: Prior to reading the text on p8, I was really confused and even assumed there was a major bug in your R code. Having 2 days in early May and 1 day in early Oct, then 3 days missing, and then the remainder of the month is really confusing for someone who only looks at the figure without reading the text in detail. At least mention this layout anomaly in the figure caption.
+
+Thanks. I have pointed out the layout anomalies for May and October in the Figure 6 caption (previously Figure 4).
+
+> p8, l19: "wrap the last few days up to the top row of the block": This answers
+my comment for Fig.4 now, but this layout still remains misleading. We expect to
+see some similar temporal pattern in nearby graphs. But there could be considerable differences over a 30-day period, e.g., in your example from Section 3:
+What if these 1 or 2 days are after some summer vacation with lots of air conditioning
+use, but the vacation already started in the previous month and continued through the middle of the current month. Suddenly, there will be a few huge spikes that interrupt
+the overall low-energy pattern. I could think of 2 possible solutions:
+(i) Add a 6th week for each month; or (ii) Add the extra days to the
+start of the next month. This is sometimes called a
+"Calendar Heatmap Tetris Chart", see for example https://stackoverflow.com/questions/27000131/calendar-heat-map-tetris-chart
+[both of these features could become additional user options for your R function]
+
+ToDo.
+
+> p8, l44: "Between each month requires some small amount of white space, denoted by b." - strange sentence; rephrase
 
 Done.

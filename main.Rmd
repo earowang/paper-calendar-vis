@@ -62,7 +62,7 @@ However, the conventional displays of time series data conceal patterns relative
 
 The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps.  It is also related to recent work by @R-geofacet which provides methods in the **geofacet** R package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
 
-In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There is some existing work in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. The calendar-based heatmap was implemented in two R packages: **ggTimeSeries** [@R-ggTimeSeries] and **ggcal** [@R-ggcal]. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
+In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There is some existing work in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. Alongside @Jones-heatmap, @R-TimeProjection, @R-ggTimeSeries, and @R-ggcal implemented some variants of calendar-based heatmaps as in R packages: **TimeProjection**, **ggTimeSeries**, and **ggcal** respectively. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity [@cleveland1984graphical; @lam2007overview].
 
 We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the `frame_calendar` function in the **sugrrants** package using R.
 
@@ -74,12 +74,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 ## Data transformation
 \label{sec:transformation}
 
-```{r fs-2016, fig.height = 7, fig.cap = "The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. The disparities between week day and weekend along with public holiday are immediately apparent."}
-```
-
-Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** R package [@R-ggplot2] functions. All of the grammar of graphics can be applied.
-
-The algorithm for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
+The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 $\times$ 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows: 
 
 * $k = 1, \dots , 7$ is the day of the week that is the first day of the month.
 * $d = 28, 29, 30$ or $31$ representing the number of days in any month.
@@ -101,13 +96,13 @@ Figure \ref{fig:month-diagram} illustrates this $(i,j)$ layout for a month where
 include_graphics("img/month.pdf")
 ```
 
-To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$. Between each month requires some small amount of white space, denoted by $b$. Figure \ref{fig:year-diagram} illustrates this layout where $M = 3$ and $N = 4$.
+To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$; $b$ denotes the small amount of white space between each month for visual separation. Figure \ref{fig:year-diagram} illustrates this layout where $M = 3$ and $N = 4$.
 
 ```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells."}
 include_graphics("img/year-diagram.pdf")
 ```
 
-Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0,1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
+Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0, 1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
 
 Then the final points for making the calendar line plots of the pedestrian sensor data is given by:
 
@@ -119,6 +114,11 @@ Then the final points for making the calendar line plots of the pedestrian senso
 \end{equation}
 
 Note that for the vertical direction, the top left is the starting point of the grid (in Figure \ref{fig:month-diagram}) which is why subtraction is performed. Within each cell, the starting position is the bottom left. 
+
+```{r fs-2016, fig.height = 7, fig.cap = "The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The disparities between week day and weekend along with public holiday are immediately apparent. The arrangement of the data into a $3 \\times 4$ monthly grid represents all the traffic in 2016. Note that the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs to May and October."}
+```
+
+Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** R package [@R-ggplot2] functions. All of the grammar of graphics can be applied.
  
 In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating week day and month are also computed before plot construction. 
 
