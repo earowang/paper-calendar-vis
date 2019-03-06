@@ -85,3 +85,48 @@ ToDo.
 > p8, l44: "Between each month requires some small amount of white space, denoted by b." - strange sentence; rephrase
 
 Done.
+
+> p11, l44: "star plots": briefly explain what these are and cite a basic reference for these.
+
+Done.
+
+> Fig.7: Where is "noon" and "midnight" here - on top/bottom or on the 0/180 degree position on the right/left side? And what is the direction? I suppose clockwise, but this needs to be mentioned somewhere.
+
+The start plots have been removed from the paper, since it doesn't add more information to other existing plots.
+
+> p13, l28: "swapped in the Equation 1." -> "swapped in Equation (1)."
+
+Done.
+
+> p13, l39: "Figure 13 shows the same plot as Figure 12 labelled": You can't jump forward to a figure before all intermediate figures have been introduced. The previous fig was Fig.8. Figs 9-11 have not been mentioned yet. Either rearrange your figures so that 12-13 become 9-10, or use Chinese characters for one of the previously introduced figs (1-8).
+
+Sure. "Figure 13 shows the same plot as Figure 12 labelled" is deleted.
+
+> p13, possible subsection 2.2.6: You seem to have a "sunday = FALSE" default. If TRUE, does this make Sunday the start of the week (as used in the US & Canada)? If so, mention this as an option. No need for a figure.
+
+Done. More to fill in the section
+
+> p13, possible subsection 2.2.7: How can you enter specific holidays? These are different from country to country, e.g., based on national holidays such as Thanksgiving, Labor Day, independence days, religious holidays, etc.
+
+ToDo.
+
+> Fig.8: "impossible to compare the size of peaks between days." - Correct; since this is based on ggplot, could you use colors from a sequential color scheme that maps the counts, e.g., from faint yellow (0) to dark red (for the overall max)? This might be another
+useful argument for a future extension of your function.
+
+ToDo.
+
+> p15, l5: "distinct temporal trend" -> "distinct temporal pattern"
+
+Done.
+
+> p15, l12: "idea of faceting": explain what "faceting" means in general (and cite 1 or 2 main references)
+
+ToDo.
+
+> p15, l16: "In particular, it can be immediately learned that when Birrarung Marr was busy and packed, for example Australian Open in the last two weeks of January." -> "In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January."
+
+Done.
+
+> p15, l45: "the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.": Some of these names may not be known to non-Christian / non-British readers. List the date in parentheses, e.g., December 24, December 26, etc.
+
+Done.

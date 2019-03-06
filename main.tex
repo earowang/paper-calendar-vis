@@ -388,19 +388,9 @@ patterns motivate which variant should be employed.
 
 When \texttt{polar\ =\ TRUE}, a polar transformation is carried out on
 the data. The computation is similar to the one described in
-\citet{Wickham2012glyph}. Figure \ref{fig:fs-polar} shows star plots
-embedded in the monthly calendar layout, which is equivalent to Figure
-\ref{fig:fs-2016} placed in polar coordinates. The bimodal work day
-shape is also visible as boomerangs.
-
-\begin{figure}
-
-{\centering \includegraphics[width=\textwidth]{figure/fs-polar-1} 
-
-}
-
-\caption{Figure \ref{fig:fs-2016} in circular layout, which is referred to as star plots. The daily periodicity on work days are clearly visible.}\label{fig:fs-polar}
-\end{figure}
+\citet{Wickham2012glyph}. The resulting plot is star glyphs embedded in
+the monthly calendar layout. Star glyphs are time series lines
+transformed in polar coordinates.
 
 \hypertarget{scales}{%
 \subsubsection{Scales}\label{scales}}
@@ -448,9 +438,11 @@ convention.
 
 Most countries have adopted this western calendar layout, while the
 languages used for week day and month would be different across
-countries. We also offer languages other than English for text
-labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure
-\ref{fig:boxplot} labelled using simplified Chinese characters.
+countries. We also offer language specifications other than English for
+text labelling.
+
+\hypertarget{start-of-the-week}{%
+\subsubsection{Start of the week}\label{start-of-the-week}}
 
 \hypertarget{variations}{%
 \subsection{Variations}\label{variations}}
@@ -462,16 +454,16 @@ labelling. Figure \ref{fig:chn-embedded} shows the same plot as Figure
 subsets}\label{overlaying-and-faceting-subsets}}
 
 Plots can be layered. The comparison of sensors can be done by
-overlaying plot the values for each (Figure \ref{fig:overlay}).
-Differences between the pedestrian patterns at these sensors can be
-seen. Flagstaff Station exhibits strong commuters patterns, with fewer
-pedestrian counts during the weekends and public holidays. This suggests
-that Flagstaff Station has limited functionality on non-work days. From
-Figure \ref{fig:overlay} it can be seen that Birrarung Marr has a
-distinct temporal pattern from the other two all year round. The
-nighttime events, such as White Night, have barely affected the
-operation of Flagstaff Station but heavily affected the incoming and
-outgoing traffic to the State Library and Birrarung Marr.
+overlaying the values for each (Figure \ref{fig:overlay}). Differences
+between the pedestrian patterns at these sensors can be seen. Flagstaff
+Station exhibits strong commuters patterns, with fewer pedestrian counts
+during the weekends and public holidays. This suggests that Flagstaff
+Station has limited functionality on non-work days. From Figure
+\ref{fig:overlay} it can be seen that Birrarung Marr has a distinct
+temporal pattern from the other two all year round. The nighttime
+events, such as White Night, have barely affected the operation of
+Flagstaff Station but heavily affected the incoming and outgoing traffic
+to the State Library and Birrarung Marr.
 
 \begin{figure}
 
@@ -487,10 +479,10 @@ into a series of subplots for the different sensors. Figure
 \ref{fig:facet} presents the idea of faceting calendar plots. This
 allows comparing the overall structure between sensors, while
 emphasizing individual sensor variation. In particular, it can be
-immediately learned that when Birrarung Marr was busy and packed, for
-example during the Australian Open, a major international tennis
-tournament, in the last two weeks of January. This is concealed in the
-conventional graphics.
+immediately learned that Birrarung Marr was busy and packed, for example
+during the Australian Open, a major international tennis tournament, in
+the last two weeks of January. This is concealed in the conventional
+graphics.
 
 \begin{figure}
 
