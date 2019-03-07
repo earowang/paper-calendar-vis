@@ -94,10 +94,6 @@ Done.
 
 The start plots have been removed from the paper, since it doesn't add more information to other existing plots.
 
-> p13, l28: "swapped in the Equation 1." -> "swapped in Equation (1)."
-
-Done.
-
 > p13, l39: "Figure 13 shows the same plot as Figure 12 labelled": You can't jump forward to a figure before all intermediate figures have been introduced. The previous fig was Fig.8. Figs 9-11 have not been mentioned yet. Either rearrange your figures so that 12-13 become 9-10, or use Chinese characters for one of the previously introduced figs (1-8).
 
 Sure. "Figure 13 shows the same plot as Figure 12 labelled" is deleted.
@@ -115,10 +111,6 @@ useful argument for a future extension of your function.
 
 ToDo.
 
-> p15, l5: "distinct temporal trend" -> "distinct temporal pattern"
-
-Done.
-
 > p15, l12: "idea of faceting": explain what "faceting" means in general (and cite 1 or 2 main references)
 
 ToDo.
@@ -130,3 +122,36 @@ Done.
 > p15, l45: "the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.": Some of these names may not be known to non-Christian / non-British readers. List the date in parentheses, e.g., December 24, December 26, etc.
 
 Done.
+
+> Fig.12: "loess smooth": cite main reference
+
+Done.
+
+> p21, l36: "these four households are the data of colleagues of the authors." - strange sentence; rephrase
+
+Done.
+
+> p22, l17-35: inconsistent use of times, e.g., "before 6", "around 18", "3pm", etc. - adjust to times used in the figures and be consistent. Also adjust caption of Fig.15.
+
+Done.
+
+> p22, l36: "Figure 16, 17, 18 and 19" -> "Figures 16-19"
+
+Done.
+
+> "individually for each household": This seems to suggest that a scale from
+0 to max(household_i) [but not to max(all households)] has been used. But what is this max in each of the 4 figures? The reader has no way to easily infer this. Also mention that these 4 figs are not true small multiples as the vertical scales for the 4 households differ from figure to figure.
+
+ToDo.
+
+> Fig.15: Use labels 6, 12 & 18 and extra tick marks at 0 & 24, matching Fig 3.
+
+Done.
+
+> p25, l3: What about April? If added here, also add to caption of Fig.19.
+
+Done.
+
+> p25, l14: "Anzac Day in Australia, or Thanksgiving Day in the USA,": Never mentioned before in this article. Refer back to the special events/holidays from earlier in the article.
+
+ToDo.

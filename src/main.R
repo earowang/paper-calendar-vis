@@ -286,7 +286,10 @@ ggplot(elec, aes(x = time, y = kwh)) +
   geom_line(aes(y = avg, colour = as.factor(id)), data = avg_elec, size = 1.5) +
   facet_grid(weekday ~ id) +
   scale_colour_brewer(palette = "PiYG") +
-  scale_x_time(breaks = hms::hms(hours = c(6, 18))) +
+  scale_x_time(
+    breaks = hms::hms(hours = seq(0, 24, by = 6)),
+    labels = seq(0, 24, by = 6)
+  ) +
   xlab("Time of day") +
   ylab("kWh") +
   guides(colour = "none")

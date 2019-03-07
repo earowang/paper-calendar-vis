@@ -520,12 +520,13 @@ bimodal distribution of consecutive counts, as supported by Figure
 \end{figure}
 
 The algorithm can also produce more complicated plots, such as boxplots.
-Figure \ref{fig:boxplot} uses a loess smooth line superimposed on
-side-by-side boxplots. It shows the distribution of hourly counts across
-all 43 sensors during December. The last week of December is the holiday
-season: people are off work on the day before Christmas (December 24),
-go shopping on the Boxing day (December 26), and stay out for the
-fireworks on New Year's Eve.
+Figure \ref{fig:boxplot} uses a loess smooth line
+\citep{cleveland1979loess} superimposed on side-by-side boxplots. It
+shows the distribution of hourly counts across all 43 sensors during
+December. The last week of December is the holiday season: people are
+off work on the day before Christmas (December 24), go shopping on the
+Boxing day (December 26), and stay out for the fireworks on New Year's
+Eve.
 
 \begin{figure}
 
@@ -583,12 +584,12 @@ displays}\label{reasons-to-use-calendar-based-displays}}
 
 The use of the calendar display is illustrated on smart meter energy
 usage from four households in Melbourne, Australia. Individuals can
-download their own data from the energy company, and these four
-households are the data of colleagues of the authors. The calendar
-display is useful to help people understand their energy use. The data
-contains half-hourly electricity consumption in 2017 and 2018. The
-analysis begins by looking at the distribution over days of week, then
-time of day split by work days and non-work days, followed by the
+download their own data from the energy supplier, and the data contained
+in the paper is made available from four colleagues of the authors. The
+calendar display is useful to help people understand their energy use.
+The data contains half-hourly electricity consumption in 2017 and 2018.
+The analysis begins by looking at the distribution over days of week,
+then time of day split by work days and non-work days, followed by the
 calendar display to inspect the daily schedules.
 
 Figure \ref{fig:dow} shows the energy use across days of week in the
@@ -629,7 +630,7 @@ and keep it operating until mid-night, learned from the small horizontal
 cluster of points around 0.8 kWh. On the other hand, the stripes above 1
 kWh for household 2 indicates that perhaps air conditioning or heating
 runs continuously for some periods, consuming the twice the energy as
-household 1. A third peak occurs around 3pm for household 3 only, likely
+household 1. A third peak occurs around 15 for household 3 only, likely
 when the kids are home from school. They also have a consistent energy
 pattern between week days and weekends. As for household 4, their home
 routine starts after 18 on week days. Figures \ref{fig:dow} and
@@ -645,24 +646,24 @@ summarizing overall deviations across days and households.
 \caption{Scatterplot between half-hourly energy usage and time of day with the averages overlaid, constrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning and heating are noted in household 1 and 2.}\label{fig:hod}
 \end{figure}
 
-Figure \ref{fig:h1}, \ref{fig:h2}, \ref{fig:h3} and \ref{fig:h4} display
-the data in calendar layout individually for each household, unfolding
-their day-to-day life. Glancing over household 1, we can see that their
-overall energy use is low. Their week day energy use is distinguishable
-from their weekends, indicating a working household. The air conditioner
-appears to be used in the summer months (December--February) in the
-evening and weekends. In household 2, heating keeps functioning for
-consecutive hours, which is evident in the mid July. In contrast,
-household 1 uses heating cautiously. These observations help to explain
-the stripes and clusters in Figure \ref{fig:hod}. The calendar plots
-speak the stories about vacation time that are untold by previous plots.
-Household 1 is on vacation over three weeks of June, and household 2 was
-also away for vacation in late December and in the second week of June.
-Figure \ref{fig:h3} shows household 3 takes two one-month-long family
-trips in September until early October and in June/July. Household 4 is
-away over two or three weeks in early October, December and late June.
-The use of air conditioning and heating leaves no trace in these two
-households.
+Figure \ref{fig:h1}-\ref{fig:h4} display the data in calendar layout
+individually for each household, unfolding their day-to-day life.
+Glancing over household 1, we can see that their overall energy use is
+low. Their week day energy use is distinguishable from their weekends,
+indicating a working household. The air conditioner appears to be used
+in the summer months (December--February) in the evening and weekends.
+In household 2, heating keeps functioning for consecutive hours, which
+is evident in the mid July. In contrast, household 1 uses heating
+cautiously. These observations help to explain the stripes and clusters
+in Figure \ref{fig:hod}. The calendar plots speak the stories about
+vacation time that are untold by previous plots. Household 1 is on
+vacation over three weeks of June, and household 2 was also away for
+vacation in late December and in the second week of June. Figure
+\ref{fig:h3} shows household 3 takes two one-month-long family trips in
+September until early October and in June/July. Household 4 is away over
+two or three weeks in early October, December, early April, and late
+June. The use of air conditioning and heating leaves no trace in these
+two households.
 
 \begin{figure}
 
@@ -697,7 +698,7 @@ households.
 
 }
 
-\caption{Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, and June.}\label{fig:h4}
+\caption{Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, April, and June.}\label{fig:h4}
 \end{figure}
 
 \hypertarget{discussion}{%
