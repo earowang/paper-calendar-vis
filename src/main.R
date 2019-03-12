@@ -251,8 +251,9 @@ p_chn <- prettify(
   label = c("label", "text", "text2"),
   family = "source-han-serif-cn"
 )
-ggsave("figure/chn-1.pdf", p_chn, width = 8, height = 8)
-showtext_auto(FALSE) 
+p_chn
+# ggsave("figure/chn-1.pdf", p_chn, width = 8, height = 8)
+# showtext_auto(FALSE) 
 
 ## ---- load-elec
 elec <- read_rds("data/elec.rds")
