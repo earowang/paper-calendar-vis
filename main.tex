@@ -148,8 +148,9 @@ The grid position for any day in the month is given by
 \begin{equation}
   \begin{aligned}
   i &= \lceil (g \text{ mod } 35) / 7\rceil, \\
-  j &= g \text{ mod } 7. \label{eq:grid}
+  j &= g \text{ mod } 7.
   \end{aligned}
+  \label{eq:grid}
 \end{equation}
 
 Figure \ref{fig:month-diagram} illustrates this \((i,j)\) layout for a month where \(k=5\).
@@ -185,8 +186,9 @@ Then the final points for making the calendar line plots of the pedestrian senso
 \begin{equation}
   \begin{aligned}
   x &= j + (n - 1) \times 7 + (n - 1) \times b + h, \\
-  y &= i - (m - 1) \times 5 - (m - 1) \times b + c. \label{eq:final}
+  y &= i - (m - 1) \times 5 - (m - 1) \times b + c.
   \end{aligned}
+  \label{eq:final}
 \end{equation}
 
 Note that for the vertical direction, the top left is the starting point of the grid (in Figure \ref{fig:month-diagram}) which is why subtraction is performed. Within each cell, the starting position is the bottom left.

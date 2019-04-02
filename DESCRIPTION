@@ -1,0 +1,23 @@
+Type: Compendium
+Package: paper-calendar
+Version: 0.1.0
+Authors@R: 
+    person(given = "Earo",
+           family = "Wang",
+           role = c("aut", "cre"),
+           email = "earo.wang@gmail.com")
+URL: https://github.com/earowang/paper-calendar/issues
+BugReports: https://github.com/earowang/paper-calendar/issues
+Depends:
+    R (>= 3.1),
+    forcats,
+    ggmap,
+    lubridate,
+    showtext,
+    sugrrants,
+    tidyverse,
+    tsibble
+Imports:
+    knitr,
+    spelling
+Language: en-GB

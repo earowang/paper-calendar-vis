@@ -29,15 +29,18 @@ bibliography: bibliography.bib
 output: 
   bookdown::pdf_book:
     base_format: rticles::asa_article
+    fig_height: 5
+    fig_width: 8
+    dev: "pdf"
 ---
 
 ```{r initial, echo = FALSE, cache = FALSE, include = FALSE}
+options("knitr.graphics.auto_pdf" = TRUE)
 library(knitr)
 opts_chunk$set(
   warning = FALSE, message = FALSE, echo = FALSE, 
   fig.path = 'figure/', cache.path = 'cache/', fig.align = 'center', 
-  fig.show = 'hold', cache = TRUE, external = TRUE, dev = "pdf",
-  fig.height = 5, fig.width = 8, out.width = "\\textwidth"
+  fig.show = 'hold', cache = TRUE, external = TRUE, out.width = "\\textwidth"
 )
 read_chunk('src/main.R')
 ```
@@ -92,14 +95,15 @@ The grid position for any day in the month is given by
 \begin{equation}
   \begin{aligned}
   i &= \lceil (g \text{ mod } 35) / 7\rceil, \\
-  j &= g \text{ mod } 7. (\#eq:grid)
+  j &= g \text{ mod } 7.
   \end{aligned}
+  (\#eq:grid)
 \end{equation}
 
 Figure \@ref(fig:month-diagram) illustrates this $(i,j)$ layout for a month where $k=5$. 
 
 ```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:month-diagram-cap)"}
-include_graphics("img/month.pdf")
+include_graphics("img/month.png")
 ```
 
 (ref:month-diagram-cap) Illustration of the indexing layout for cells in a month, where $k$ is day of the week, $g$ is day of the month, $(i, j)$ indicates grid position.
@@ -107,7 +111,7 @@ include_graphics("img/month.pdf")
 To create the layout for a full year, $(m, n)$ denotes the position of the month arranged in the plot, where $1 \le m \le M$ and $1 \le n \le N$; $b$ denotes the small amount of white space between each month for visual separation. Figure \@ref(fig:year-diagram) illustrates this layout where $M = 3$ and $N = 4$.
 
 ```{r year-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:year-diagram-cap)"}
-include_graphics("img/year-diagram.pdf")
+include_graphics("img/year-diagram.png")
 ```
 
 (ref:year-diagram-cap) Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells.
@@ -119,8 +123,9 @@ Then the final points for making the calendar line plots of the pedestrian senso
 \begin{equation}
   \begin{aligned}
   x &= j + (n - 1) \times 7 + (n - 1) \times b + h, \\
-  y &= i - (m - 1) \times 5 - (m - 1) \times b + c. (\#eq:final)
+  y &= i - (m - 1) \times 5 - (m - 1) \times b + c.
   \end{aligned}
+  (\#eq:final)
 \end{equation}
 
 Note that for the vertical direction, the top left is the starting point of the grid (in Figure \@ref(fig:month-diagram)) which is why subtraction is performed. Within each cell, the starting position is the bottom left. 
