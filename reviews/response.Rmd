@@ -155,3 +155,44 @@ Done.
 > p25, l14: "Anzac Day in Australia, or Thanksgiving Day in the USA,": Never mentioned before in this article. Refer back to the special events/holidays from earlier in the article.
 
 ToDo.
+
+> p25, after l35: List my suggestions for software additions from above that you do not want to implement now as options for future work.
+
+ToDo.
+
+> Fig.16 caption: "Calendar display for household 1, indicates higher weekend usage, and in the summer months, November-February. It seems that they took a vacation in June." ->
+"The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June."
+
+Done.
+
+> Fig.17 caption: "Calendar display for household 2, reveals their tendency to use air conditioning and heating continuously. Not many vacation were taken." ->
+"The calendar display for household 2 reveals their tendency to use air conditioning
+and heating continuously. Some vacation days were taken in late December and in the
+second week of June."
+
+Done.
+
+> Fig.17: I am concerned: Is this a "fair" comparison when you drop the months August-October (& part of November) 2017 for household 2, while these 3+ months
+are part of the graphics for households 1, 3 & 4? Wouldn't it be better to
+restrict all households to Dec 2017 - July 2018? This would drop the winter/spring months from the aggregated displays in Figs.14-15. But household 2 still would have most variation, but now, this is based on matching time periods.
+
+ToDo.
+
+> Fig.18 caption: "Calendar display for household 3. Their energy use reveals higher energy use in
+the winter months, with multiple peaks daily on both week days and weekends. There are some high peaks in summer, perhaps indicating occasional air conditioner use. There have been several long vacations in the past year." ->
+"The calendar display for household 3 reveals higher energy use in
+the winter months (May-August), with multiple peaks daily on both week days and weekends. There are
+some high peaks in summer (November-February), perhaps indicating occasional air conditioner use. There have
+been several long vacations ... [match the main text]."
+
+Done.
+
+> Fig.19 caption: "Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, and June." ->
+"The calendar display for household 4 shows energy use mostly in the evenings and
+on weekends. Three short trips were taken in October, December, and June." [also April? - match with p25, l13]
+
+Done.
+
+> p.30: City of Melbourne (2017) [& other URLs]: Does JCGS require the "last accessed" information for web-based references? If so, add where needed.
+
+Done.

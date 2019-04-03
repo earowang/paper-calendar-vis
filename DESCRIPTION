@@ -18,6 +18,8 @@ Depends:
     tidyverse,
     tsibble
 Imports:
+    bookdown,
+    rticles,
     knitr,
     spelling
 Language: en-GB
