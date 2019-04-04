@@ -100,11 +100,11 @@ Sure. "Figure 13 shows the same plot as Figure 12 labelled" is deleted.
 
 > p13, possible subsection 2.2.6: You seem to have a "sunday = FALSE" default. If TRUE, does this make Sunday the start of the week (as used in the US & Canada)? If so, mention this as an option. No need for a figure.
 
-Done. More to fill in the section
+Done. We deprecate argument `sunday` in favor of `week_start` that appears more general. We added a new subsection on "Start of the week" to briefly explain the option. We have reorganized the order of the subsections to be consistent with the function argument's ordering.
 
 > p13, possible subsection 2.2.7: How can you enter specific holidays? These are different from country to country, e.g., based on national holidays such as Thanksgiving, Labor Day, independence days, religious holidays, etc.
 
-ToDo.
+We used `tsibble::holiday_aus()` for generating Australian public holidays, prior to creating calendar displays. Whether to use holidays or not is a data-specific problem, which is beyond the scope of the calendar plot.
 
 > Fig.8: "impossible to compare the size of peaks between days." - Correct; since this is based on ggplot, could you use colors from a sequential color scheme that maps the counts, e.g., from faint yellow (0) to dark red (for the overall max)? This might be another
 useful argument for a future extension of your function.

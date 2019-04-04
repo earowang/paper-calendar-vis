@@ -150,7 +150,7 @@ The algorithm has several optional parameters that modify the layout, direction 
 
 ```
 frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
-  sunday = FALSE, nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed", 
+  week_start = 1, nrow = NULL, ncol = NULL, polar = FALSE, scale = "fixed", 
   width = 0.95, height = 0.95, margin = NULL)
 ```
 
@@ -161,6 +161,14 @@ The algorithm handles displaying a single month or several years. The  arguments
 ### Layouts
 
 The monthly calendar is the default, but two other formats, weekly and daily, are available with the `calendar` argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
+
+### Orientation
+
+By default, grids are laid out horizontally. This can be transposed by setting the `dir` parameter to `"v"`, in which case $i$ and $j$ are swapped in Equation \@ref(eq:grid). This can be useful for creating calendar layouts for countries where vertical layout is the convention.
+
+### Start of the week
+
+The start of the week for a monthly calendar is adjustable. The default is Monday (`1`), which is chosen from the data perspective. The week, however, can begin with Sunday (`7`) as commonly used in the US and Canada, or other week day subject to different countries and cultures.
 
 ### Polar transformation
 
@@ -184,15 +192,9 @@ With local scaling, the overall variation gives way to the individual shape. Fig
 
 The `free_wday` scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month. 
 
-### Orientation
-
-By default, grids are laid out horizontally. This can be transposed by setting the `dir` parameter to `"v"`, in which case $i$ and $j$ are swapped in Equation \@ref(eq:grid). This can be useful for creating  calendar layouts for countries where vertical layout is the convention.
-
 ### Language support
 
 Most countries have adopted this western calendar layout, while the languages used for week day and month would be different across countries. We also offer language specifications other than English for text labelling.
-
-### Start of the week
 
 ## Variations {#sec:variations}
 
