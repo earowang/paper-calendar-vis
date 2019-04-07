@@ -80,7 +80,9 @@ start of the next month. This is sometimes called a
 "Calendar Heatmap Tetris Chart", see for example https://stackoverflow.com/questions/27000131/calendar-heat-map-tetris-chart
 [both of these features could become additional user options for your R function]
 
-ToDo.
+It is intentional to conform a calendar layout of 5 rows and 7 columns for the purpose of compactness. Only one or two months in a year will span over 6 weeks, which would result in more unused space for a year-long calendar plot. We don't shift the extra days to the next month because it is difficult for readers to distinguish which month contains these additional days without proper labelling. But we agree that it is disruptive since time is usually perceived as linear.
+
+That said, the algorithm that lays out the calendar is flexible to incorporate these two options. We have included them as the options for future work. Thanks for the suggestions.
 
 > p8, l44: "Between each month requires some small amount of white space, denoted by b." - strange sentence; rephrase
 
@@ -92,7 +94,7 @@ Done.
 
 > Fig.7: Where is "noon" and "midnight" here - on top/bottom or on the 0/180 degree position on the right/left side? And what is the direction? I suppose clockwise, but this needs to be mentioned somewhere.
 
-The start plots have been removed from the paper, since it doesn't add more information to other existing plots.
+The star plots have been removed from the paper, since it doesn't add more information to other existing plots.
 
 > p13, l39: "Figure 13 shows the same plot as Figure 12 labelled": You can't jump forward to a figure before all intermediate figures have been introduced. The previous fig was Fig.8. Figs 9-11 have not been mentioned yet. Either rearrange your figures so that 12-13 become 9-10, or use Chinese characters for one of the previously introduced figs (1-8).
 

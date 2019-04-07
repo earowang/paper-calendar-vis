@@ -78,7 +78,7 @@ Calendars are broadly used in society to display temporal information and events
 
 We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using linear algebra, giving a restructuring of the data, that can then be integrated into a data pipeline. The core component of the pipeline is to visualise the resulting data using the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}, as used in \textbf{ggplot2} \citep{R-ggplot2}, which defines plots as a functional mapping from data points to graphical primitives. The data restructuring approach is consistent with the tidy data principles available in the \textbf{tidyverse} \citep{R-tidyverse} suite. The methods are implemented in a new R package called \textbf{sugrrants} \citep{R-sugrrants}.
 
-The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia \citep{ped}. There have been 43 sensors installed that count pedestrians every hour across the inner-city area until the end of 2016 (Figure \ref{fig:ped-map}). The data set can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot} give an overall picture of the foot traffic at three different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns.
+The purpose of the calendar-based visualization is to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia \citep{ped}. There have been 43 sensors installed that count pedestrians every hour across the inner-city area until the end of 2016 (Figure \ref{fig:ped-map}). The data set can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. A routine examination of the data would involve constructing conventional time series plots to catch a glimpse of temporal patterns. {[}ToDo: summarise small multiples in more details including citations.{]} The faceted plots in Figure \ref{fig:time-series-plot} give an overall picture of the foot traffic at three different sensors over 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better glimpse of the daily and sub-daily pedestrian patterns.
 
 However, the conventional displays of time series data conceal patterns relative to special events (such as public holidays and recurring cultural/sport events), which may be worth noting to viewers.
 
@@ -121,7 +121,7 @@ In contrast, calendar-based graphics unpack the temporal variable, at different 
 
 We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable overlaying plots consisting of multiple time series. The proposed algorithm has been implemented in the \texttt{frame\_calendar} function in the \textbf{sugrrants} package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:transformation} describes the algorithms of data transformation. Section \ref{sec:opt} lists and describes the options that come with the \texttt{frame\_calendar} function. Section \ref{sec:variations} presents some variations of its usage. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:transformation} describes the algorithms of data transformation. Section \ref{sec:opt} lists and describes the options that come with the \texttt{frame\_calendar} function. Section \ref{sec:variations} presents some variations of its usage. The calendar layout is a type of faceting, and Section \ref{sec:facet-calendar} develops this into a fully-fledged faceting method with formal labels and axes. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
 
 \hypertarget{sec:algorithm}{%
 \section{Creating a calendar display}\label{sec:algorithm}}
@@ -129,7 +129,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 \hypertarget{sec:transformation}{%
 \subsection{Data transformation}\label{sec:transformation}}
 
-The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month can be captured with 35 (5 \(\times\) 7) cells, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and each month could extend over six weeks but the convention in these months is to wrap the last few days up to the top row of the block. The notation for creating these cells is as follows:
+The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and some months could extend over six weeks but for these months we intentionally wrap the last few days up to the top row of the block for the purpose of compact displays. The notation for creating these cells is as follows:
 
 \begin{itemize}
 \tightlist
@@ -153,7 +153,7 @@ The grid position for any day in the month is given by
   \label{eq:grid}
 \end{equation}
 
-Figure \ref{fig:month-diagram} illustrates this \((i,j)\) layout for a month where \(k=5\).
+Figure \ref{fig:month-diagram} illustrates this \((i, j)\) layout for a month where \(k=5\).
 
 \begin{figure}
 
@@ -354,6 +354,9 @@ Linking calendar displays to other types of charts is valuable to visually explo
 \hypertarget{reasons-to-use-calendar-based-displays}{%
 \subsection{Reasons to use calendar-based displays}\label{reasons-to-use-calendar-based-displays}}
 
+\hypertarget{sec:facet-calendar}{%
+\section{A fully-fledged faceting calendar method}\label{sec:facet-calendar}}
+
 \hypertarget{sec:case}{%
 \section{Case study}\label{sec:case}}
 
@@ -427,8 +430,6 @@ The calendar-based visualization provides data plots in the familiar format of a
 The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labeling, which is supported by the software. Layouts beyond the western calendar could be achieved by the same modular arithmetic approach.
 
 The calendar layout will be useful for studying consumer trends and human behavior. It will not be so useful for physical patterns like climate, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations in order to study general trends.
-
-The layout is a type of faceting and could be useful to develop this into a fully-fledged faceting method with formal labels and axes. This is a future goal.
 
 \hypertarget{acknowledgements}{%
 \section*{Acknowledgements}\label{acknowledgements}}
