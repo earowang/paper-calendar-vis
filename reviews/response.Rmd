@@ -12,6 +12,26 @@ Thanks to the three reviewers for some very helpful comments which have led to m
 
 # Reviewer 1 comments {-}
 
+> Figure 2 and Figure 10 show much the same information.  You can see the Australian Open period in both.  There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
+
+ToDo.
+
+> Figure 11 is not described well.  What does the V-pattern mean?  How can you see the strong autocorrelation at weekends?  There are only dots.  
+
+We have used the local scaling for the lag scatterplot (as Figure 10 now) to accurately represent the autocorrelation. The strong autocorrelation is clearly revealed at weekends.
+
+We have elaborated more about the V-shape on weed days.
+
+> The colours are not well chosen in Figure 15.  It is hard to see the averages for households 1 and 3.
+
+Done.
+
+> There are too many large plots in the paper.  Figure 6 is not needed and Figure 12 is not needed.  How do you know that the New Year's Eve outliers in Figure 12 are from the same sensor?  That is not in the plot.
+
+> Do Figures 16-19 show much?  Drawing all four series as rows in facets one above the other would show the holidays better.  Comparisons of the households would be easier.  The six-weeks months confuse looking at holidays.  What are the one-day peaks in the middle of holidays?
+
+> There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
+
 # Reviewer 2 comments {-}
 
 > p.10, l.1-15 It wasn't clear to me why the subtraction was performed in the equation (2) because I couldn't find any description for the global coordinate system of the canvas. The value of y could be negative. Please add the description how to deal with the coordinate system, especially the y-axis.

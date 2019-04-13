@@ -216,12 +216,12 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 
 ### Different types of plots
 
-The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \@ref(fig:scatterplot) shows a lag scatterplot at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \@ref(fig:scatterplot) indicates two primary patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts, on week days, the next hour sees possibly substantial increase or decrease in counts, essentially revealing a bimodal distribution of consecutive counts, as supported by Figure \@ref(fig:fs-2016).
+The `frame_calendar` function is not constrained to line plots. The full range of plotting capabilities in **ggplot2** is essentially available. Figure \@ref(fig:scatterplot) shows a lag scatterplot with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. This figure is organized in the daily calendar layout. Figure \@ref(fig:scatterplot) indicates two dominate patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts on week days, the next hour sees possibly substantial increase or decrease in counts, as is depicted as the V-shape in the graphs. This is consistent with the bimodality from Figure \@ref(fig:fs-2016), since positive correlations are perceived when approaching to the peak hour yet negative correlations when moving away from the peak hour.
 
 ```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
 
-(ref:scatterplot-cap) Lag scatterplot in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
+(ref:scatterplot-cap) Lag scatterplot with local scaling in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:boxplot) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. 
 

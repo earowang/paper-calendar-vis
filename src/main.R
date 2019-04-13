@@ -209,7 +209,7 @@ prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
-    calendar = "daily", width = 0.95, height = 0.8, scale = "free")
+    calendar = "daily", width = 0.8, height = 0.8, scale = "free")
 
 p_fs_day <- fs_cal_day %>% 
   ggplot(
