@@ -12,13 +12,13 @@ Thanks to the three reviewers for some very helpful comments which have led to m
 
 # Reviewer 1 comments {-}
 
-> Figure 2 and Figure 10 show much the same information.  You can see the Australian Open period in both.  There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
+> Figure 2 and Figure 10 show much the same information. You can see the Australian Open period in both. There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
 
-ToDo.
+We add a new subsetion "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and what information revealed by calendar plots is but not revealed by other plots. The calendar display doesn't replace traditional displays, but serves to complement to further tease out interesting structures in the data.
 
 > Figure 11 is not described well.  What does the V-pattern mean?  How can you see the strong autocorrelation at weekends?  There are only dots.  
 
-We have used the local scaling for the lag scatterplot (as Figure 10 now) to accurately represent the autocorrelation. The strong autocorrelation is clearly revealed at weekends.
+We have switched to use the local scaling for the lag scatterplot (as Figure 10 now) to accurately represent the autocorrelation. The strong autocorrelation is clearly revealed at weekends.
 
 We have elaborated more about the V-shape on weed days.
 
@@ -28,9 +28,15 @@ Done.
 
 > There are too many large plots in the paper.  Figure 6 is not needed and Figure 12 is not needed.  How do you know that the New Year's Eve outliers in Figure 12 are from the same sensor?  That is not in the plot.
 
+Thanks for correcting it. We have pointed out the variability instead of the outliers on New Year's Eve.
+
 > Do Figures 16-19 show much?  Drawing all four series as rows in facets one above the other would show the holidays better.  Comparisons of the households would be easier.  The six-weeks months confuse looking at holidays.  What are the one-day peaks in the middle of holidays?
 
+ToDo.
+
 > There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
+
+ToDo.
 
 # Reviewer 2 comments {-}
 
@@ -67,7 +73,7 @@ Done.
 > Fig.2: You mention "small multiples" only in a figure caption. This concept is a central
 part of your calendar graphics and should be summarized in more details (including references) in the main text. Also mention Unwin & Valero-Mora's "Ensemble Graphics", JCGS, 27(1), as a major concept that applies to both sets of related figures in your article.
 
-ToDo
+We have explained the idea of faceting and also referred to small multiples, trellis charts, and ensemble graphics at the end of the second paragraph in Introduction section.
 
 > Fig.3: Add tick marks at 0 and 24. See whether tick mark labels fit. If not, OK to omit those for 0 and 24.
 
@@ -135,7 +141,7 @@ ToDo.
 
 > p15, l12: "idea of faceting": explain what "faceting" means in general (and cite 1 or 2 main references)
 
-ToDo.
+We added the explanation of "faceting" in the Introduction section.
 
 > p15, l16: "In particular, it can be immediately learned that when Birrarung Marr was busy and packed, for example Australian Open in the last two weeks of January." -> "In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January."
 
