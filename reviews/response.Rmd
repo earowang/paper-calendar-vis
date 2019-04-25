@@ -32,11 +32,11 @@ Thanks for correcting it. We have pointed out the variability instead of the out
 
 > Do Figures 16-19 show much?  Drawing all four series as rows in facets one above the other would show the holidays better.  Comparisons of the households would be easier.  The six-weeks months confuse looking at holidays.  What are the one-day peaks in the middle of holidays?
 
-ToDo.
+Thanks for the suggestion. We have restricted the data to Jan-June 2018 and combined four separate plots to a single plot using faceting.
 
 > There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
 
-ToDo.
+ToDo: add text description on the shiny app.
 
 # Reviewer 2 comments {-}
 
@@ -170,7 +170,7 @@ Done.
 > "individually for each household": This seems to suggest that a scale from
 0 to max(household_i) [but not to max(all households)] has been used. But what is this max in each of the 4 figures? The reader has no way to easily infer this. Also mention that these 4 figs are not true small multiples as the vertical scales for the 4 households differ from figure to figure.
 
-ToDo.
+We merge these four figures into one plot (Figure 15) using global scales.
 
 > Fig.15: Use labels 6, 12 & 18 and extra tick marks at 0 & 24, matching Fig 3.
 
@@ -182,7 +182,7 @@ Done.
 
 > p25, l14: "Anzac Day in Australia, or Thanksgiving Day in the USA,": Never mentioned before in this article. Refer back to the special events/holidays from earlier in the article.
 
-ToDo.
+We have removed that bit from the sentence.
 
 > p25, after l35: List my suggestions for software additions from above that you do not want to implement now as options for future work.
 
@@ -204,7 +204,7 @@ Done.
 are part of the graphics for households 1, 3 & 4? Wouldn't it be better to
 restrict all households to Dec 2017 - July 2018? This would drop the winter/spring months from the aggregated displays in Figs.14-15. But household 2 still would have most variation, but now, this is based on matching time periods.
 
-ToDo.
+Thanks. We have restricted the data to Jan-June 2018 and combined four separate plots to a single plot using faceting. They all share common scales so that comparison can be made.
 
 > Fig.18 caption: "Calendar display for household 3. Their energy use reveals higher energy use in
 the winter months, with multiple peaks daily on both week days and weekends. There are some high peaks in summer, perhaps indicating occasional air conditioner use. There have been several long vacations in the past year." ->

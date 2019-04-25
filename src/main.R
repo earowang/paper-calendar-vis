@@ -16,7 +16,7 @@ hol16 <- holiday_aus(2016, state = "VIC") %>%
 workday <- fct_inorder(c("Work day", "Non-work day"))
 # turning implicit missingness to explicit
 pedestrian_2016 <- pedestrian_2016 %>% 
-  as_tsibble(key = id(Sensor_Name), index = Date_Time) %>% 
+  as_tsibble(key = Sensor_Name, index = Date_Time) %>% 
   group_by(Sensor_Name) %>% 
   fill_gaps(.full = TRUE) %>% 
   ungroup() %>% 
@@ -255,9 +255,28 @@ p_chn
 # ggsave("figure/chn-1.pdf", p_chn, width = 8, height = 8)
 # showtext_auto(FALSE) 
 
+## ---- facet-calendar
+subdat %>% 
+  filter_index(~ "2016-04") %>% 
+  ggplot(aes(x = Time, y = Hourly_Counts, colour = Sensor_Name)) +
+  geom_line() +
+  facet_calendar(~ Date) +
+  scale_x_continuous(breaks = seq(0, 24, by = 12)) +
+  scale_colour_manual(name = "Sensor", values = sensor_cols, guide = "legend") +
+  theme(legend.position = "bottom") +
+  xlab("Time") +
+  ylab("Hourly Counts")
+
 ## ---- load-elec
-elec <- read_rds("data/elec.rds")
+elec <- read_rds("data/elec.rds") %>% 
+  filter(date >= ymd("20180101"), date < ymd("20180701"))
 rdbl <- c("Weekday" = "#d7191c", "Weekend" = "#2c7bb6")
+
+## ---- elec-line
+elec %>% 
+  ggplot(aes(x = date_time, y = kwh)) +
+  geom_line() +
+  facet_wrap(~ id, labeller = label_both, ncol = 1)
 
 ## ---- dow
 elec <- elec %>% 
@@ -294,6 +313,16 @@ ggplot(elec, aes(x = time, y = kwh)) +
   xlab("Time of day") +
   ylab("kWh") +
   guides(colour = "none")
+
+## ---- calendar-elec
+p_cal_elec <- elec %>% 
+  frame_calendar(x = time, y = kwh, date = date, nrow = 1) %>% 
+    ggplot(aes(x = .time, y = .kwh, group = date)) +
+    geom_line(aes(colour = as.factor(id)), size = 0.5) +
+    scale_colour_brewer(name = "", palette = "PiYG") +
+    facet_grid(id ~ ., labeller = label_both) +
+    theme(legend.position = "bottom")
+prettify(p_cal_elec, size = 2.5, label.padding = unit(0.1, "lines"))
 
 ## ---- h1
 h1 <- elec %>% 
