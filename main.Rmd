@@ -172,7 +172,7 @@ The start of the week for a monthly calendar is adjustable. The default is Monda
 
 ### Polar transformation
 
-When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. The resulting plot is star glyphs embedded in the monthly calendar layout. Star glyphs are time series lines transformed in polar coordinates.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. The resulting plot is star glyphs---time series lines transformed in polar coordinates---embedded in the monthly calendar layout.
 
 ```{r fs-polar, fig.height = 7, fig.cap = "(ref:fs-polar-cap)", eval = FALSE}
 ```
@@ -267,7 +267,7 @@ Figure \@ref(fig:hod) shows energy consumption against time of day, separately b
 
 Figure \@ref(fig:calendar-elec) displays the global scaling of each household's data in calendar layout, unfolding their day-to-day life via electricity usage. Glancing over household 1, we can see that their overall energy use is relatively low. Their week day energy use is distinguishable from their weekends, indicating a working household. The air conditioner appears to be used in the summer months (January and February) for a couple of hours in the evening and weekends. In contrast, household 2 keeps cooling system functioning for much longer hours, which becomes more evident from late Wednesday through Thursday to early Friday in the mid January. These observations help to explain the stripes and clusters of household 2 in Figure \@ref(fig:hod). It is difficult to give a succinct description of household 3 since everyday energy pattern is variable, but May and June see more structures than the previous months. Individual data can be idiosyncratic, hence aggregated plots like Figure \@ref(fig:dow) and \@ref(fig:hod) are essential for assembling pieces to pictures. However, the calendar plots speak the stories about the exact vacation time that are untold by previous plots, for example their vacation time. Household 1 is on vacation over three weeks of mid June, and household 2 also planned to take some days off in the second week of June. Further household 3 takes one short trip in January and the other one starting in the fourth week of June. Household 4 is away over two or three weeks early April and late June. They all tend to take breaks during June due to the fact that the University winter break starts in June.
 
-```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays for each household using common scales. We can precisely tell each indidual's vacation days to take off and the overnight use for household 2."}
+```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays for each household using common scales. We can precisely tell each indidual's vacation days taking off and the overnight use for household 2 in mid January."}
 ```
 
 ```{r h1, fig.height = 7, fig.cap = "The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June.", eval = FALSE}
@@ -286,9 +286,9 @@ Figure \@ref(fig:calendar-elec) displays the global scaling of each household's 
 
 The calendar-based visualization provides data plots in the familiar format of an everyday tool. Patterns on special events and public holidays for the region are more visible to the viewer.
 
-The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labeling, which is supported by the software. Layouts beyond the western calendar could be achieved by the same modular arithmetic approach.
+The calendar layout will be useful for studying consumer trends and human behavior. It will be less useful for physical patterns like climate, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations in order to study general trends.
 
-The calendar layout will be useful for studying consumer trends and human behavior. It will not be so useful for physical patterns like climate, which are not typically affected by human activity. The layout does not replace traditional displays, but serves to complement to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations in order to study general trends.
+The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labeling, which is supported by the software. Formats beyond the western calendar, or six-weeks and tetris-like layouts could be achieved by slightly tweaking the modular arithmetic approach. These features will be added as new options for the future.
 
 # Acknowledgements {-}
 

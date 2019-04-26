@@ -186,7 +186,7 @@ We have removed that bit from the sentence.
 
 > p25, after l35: List my suggestions for software additions from above that you do not want to implement now as options for future work.
 
-ToDo.
+Done.
 
 > Fig.16 caption: "Calendar display for household 1, indicates higher weekend usage, and in the summer months, November-February. It seems that they took a vacation in June." ->
 "The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June."
