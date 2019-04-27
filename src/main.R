@@ -289,7 +289,8 @@ elec %>%
   group_by(date, wday, id) %>% 
   summarise(kwh = sum(kwh, na.rm = TRUE)) %>% 
   ggplot(aes(x = wday, y = kwh)) +
-  lvplot::geom_lv(aes(fill = ..LV..), colour = "black", outlier.shape = 8) +
+  geom_boxplot(colour = "black", outlier.shape = 8) +
+  # lvplot::geom_lv(aes(fill = ..LV..), colour = "black", outlier.shape = 8) +
   facet_wrap(~ id, labeller = label_both) +
   xlab("Day of week") +
   ylab("kWh") +

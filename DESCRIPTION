@@ -12,7 +12,6 @@ Depends:
     forcats (>= 0.4.0),
     ggmap (>= 3.0.0),
     lubridate (>= 1.7.4),
-    lvplot (>= 0.2.0),
     R (>= 3.1),
     showtext (>= 0.6),
     sugrrants (>= 0.2.4),

@@ -8,9 +8,9 @@ output:
 fontfamily: mathpazo
 ---
 
-Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
-
 We add a new short section "3 A fully-fledged faceting calendar method" describing a new function `facet_calendar()` written with **ggplot2** intervals, which complements the existing function `frame_calendar()`.
+
+Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
 
 # Reviewer 1 comments {-}
 
