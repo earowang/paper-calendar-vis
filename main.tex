@@ -63,7 +63,7 @@
 
 \bigskip
 \begin{abstract}
-Calendars are broadly used in society to display temporal information and events. This paper describes a new R package with functionality to organize and display temporal data, collected on sub-daily resolution, into a calendar layout. The function \texttt{frame\_calendar} uses linear algebra on the date variable to restructure data into a format lending itself to calendar layouts. The user can apply the grammar of graphics to create plots inside each calendar cell, and thus the displays synchronize neatly with \textbf{ggplot2} graphics. The motivating application is studying pedestrian behavior in Melbourne, Australia, based on counts which are captured at hourly intervals by sensors scattered around the city. Faceting by the usual features such as day and month, was insufficient to examine the behavior. Making displays on a monthly calendar format helps to understand pedestrian patterns relative to events such as work days, weekends, holidays, and special events. The layout algorithm has several format options and variations. It is implemented in the R package \textbf{sugrrants}.
+Calendars are broadly used in society to display temporal information and events. This paper describes a new R package with functionality to organize and display temporal data, collected on sub-daily resolution, into a calendar layout. The functions \texttt{frame\_calendar()} and \texttt{facet\_calendar()} use linear algebra on the date variable to restructure data into a format lending itself to calendar layouts. The user can apply the grammar of graphics to create plots inside each calendar cell, and thus the displays synchronize neatly with \textbf{ggplot2} graphics. The motivating application is studying pedestrian behavior in Melbourne, Australia, based on counts which are captured at hourly intervals by sensors scattered around the city. Faceting by the usual features such as day and month, was insufficient to examine the behavior. Making displays on a monthly calendar format helps to understand pedestrian patterns relative to events such as work days, weekends, holidays, and special events. The layout algorithm has several format options and variations. It is implemented in the R package \textbf{sugrrants}.
 \end{abstract}
 
 \noindent%
@@ -119,9 +119,9 @@ The work is inspired by \citet{Wickham2012glyph}, which uses linear algebra to d
 
 In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There is some existing work in this area. For example, \citet{VanWijkCluster1999} developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. Alongside \citet{Jones-heatmap}, \citet{R-TimeProjection}, \citet{R-ggTimeSeries}, and \citet{R-ggcal} implemented some variants of calendar-based heatmaps as in R packages: \textbf{TimeProjection}, \textbf{ggTimeSeries}, and \textbf{ggcal} respectively. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Additionally, if simply using colored blocks rather than curves, it may become perceptually difficult to estimate the shape positions and changes, although using curves comes with the cost of more display capacity \citep{cleveland1984graphical, lam2007overview}.
 
-We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable patterns related to special events more easily pop-up to viewers. The proposed algorithm has been implemented in the \texttt{frame\_calendar} function in the \textbf{sugrrants} package using R.
+We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable patterns related to special events more easily pop-up to viewers. The proposed algorithm has been implemented in the \texttt{frame\_calendar()} and \texttt{facet\_calendar()} functions in the \textbf{sugrrants} package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:transformation} describes the algorithms of data transformation. Section \ref{sec:opt} lists and describes the options that come with the \texttt{frame\_calendar} function. Section \ref{sec:variations} presents some variations of its usage. The calendar layout is a type of faceting, and Section \ref{sec:facet-calendar} develops this into a fully-fledged faceting method with formal labels and axes. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} demonstrates the construction of the calendar layout in depth. Section \ref{sec:transformation} describes the algorithms of data transformation. Section \ref{sec:opt} lists and describes the options that come with the \texttt{frame\_calendar()} function. Section \ref{sec:variations} presents some variations of its usage. The calendar layout is a type of faceting, and Section \ref{sec:facet-calendar} develops this into a fully-fledged faceting method (\texttt{facet\_calendar()}) with formal labels and axes. Graphical analyses of sub-daily people's activities are illustrated with a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
 
 \hypertarget{sec:algorithm}{%
 \section{Creating a calendar display}\label{sec:algorithm}}
@@ -204,7 +204,7 @@ Note that for the vertical direction, the top left is the starting point of the 
 
 
 
-Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \texttt{frame\_calendar} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \textbf{ggplot2} R package \citep{R-ggplot2} functions. All of the grammar of graphics can be applied.
+Figure \ref{fig:fs-2016} shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the \texttt{frame\_calendar()} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \textbf{ggplot2} R package \citep{R-ggplot2} functions. All of the grammar of graphics can be applied.
 
 In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating week day and month are also computed before plot construction.
 
@@ -215,7 +215,7 @@ The month labels located on the top left using \((\min{(x)}, \max{(y)})\) for ev
 \hypertarget{sec:opt}{%
 \subsection{Options}\label{sec:opt}}
 
-The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function \texttt{frame\_calendar}:
+The algorithm has several optional parameters that modify the layout, direction of display, scales, plot size and switching to polar coordinates. These are accessible to the user by the inputs to the function \texttt{frame\_calendar()}:
 
 \begin{verbatim}
 frame_calendar(data, x, y, date, calendar = "monthly", dir = "h", 
@@ -293,7 +293,7 @@ Plots can be layered. The comparison of sensors can be done by overlaying the va
 
 
 
-To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots. This allows comparing the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January. This is concealed in the conventional graphics.
+To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots by sensors. This allows comparing the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January. This is concealed in the conventional graphics.
 
 \begin{figure}
 
@@ -347,7 +347,7 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 \hypertarget{interactivity}{%
 \subsubsection{Interactivity}\label{interactivity}}
 
-As a data restructuring tool, the interactivity of calendar-based displays can be easily enabled, as long as the interactive graphic system remains true to the spirit of the grammar of graphics, for example \textbf{plotly} \citep{plotly} in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over it in the calendar layout, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the \texttt{frame\_calendar} function can be ported to a form of selection button or text input in a graphical user interface like R shiny \citep{R-shiny}. The display will update on the fly accordingly via clicking or text input, as desired.
+As a data restructuring tool, the interactivity of calendar-based displays can be easily enabled, as long as the interactive graphic system remains true to the spirit of the grammar of graphics, for example \textbf{plotly} \citep{plotly} in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over it in the calendar layout, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the \texttt{frame\_calendar()} function can be ported to a form of selection button or text input in a graphical user interface like R shiny \citep{R-shiny}. The display will update on the fly accordingly via clicking or text input, as desired.
 
 Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the \textbf{wanderer4melb} shiny application \citep{R-wanderer4melb}. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain affect the number of people walking in downtown Melbourne. The linking between weather data and calendar display is achieved using the common dates.
 
@@ -359,7 +359,22 @@ The calendar-based graphics provides a contextual canvas to plot glyphs into a f
 \hypertarget{sec:facet-calendar}{%
 \section{A fully-fledged faceting calendar method}\label{sec:facet-calendar}}
 
-\begin{center}\includegraphics[width=\textwidth]{figure/facet-calendar-1} \end{center}
+The \texttt{frame\_calendar()} function described in Section \ref{sec:algorithm} is a data restructuring function rather than a plotting tool. Thus, a full pipeline inevitably involves two separate steps: data transforming and data plotting. We provide an alternative method \texttt{facet\_calendar()} that extends the \textbf{ggplot2} graphical system so that to be able to make a calendar plot with one shot. A faceting method lays out panels in a grid. The faceting calendar method simply requires a variable containing dates for preparing a sequence of panels defined by Equation \eqref{eq:grid}, and the coordinates and everything else have been taken care by \textbf{ggplot2} internals.
+
+Formal axes and labels previously absent from plots generated by the \texttt{frame\_calendar()} are now made available, noted in Figure \ref{fig:facet-calendar}. It is much easier for readers to infer the scaling employed for the plot. Non-existing panels mean non-existing days in the month, and blank panels indicate missing data on the day. This avoids the confusion about missing data or days when missingness lives in the ends of month panels, which is brought by the \texttt{frame\_calendar()}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=\textwidth]{figure/facet-calendar-1} 
+
+}
+
+\caption{A fraction of Figure \ref{fig:overlay} is reconstructed with \texttt{facet\_calendar()} for native \textbf{ggplot2} support on labels and axes.}\label{fig:facet-calendar}
+\end{figure}
+
+
+
+However, the \texttt{facet\_calendar()} takes much more run time comparing to data rearranging, since so many panels need rendering as well as other visual elements. The faceting calendar plot also uses lots of real estate for making room for strips and axises. Figure \ref{fig:facet-calendar} also takes much more graphic space than the compact display in Figure \ref{fig:overlay}, but the amount of the data is as one third as the latter. For fast rendering and economic of space, we still recommend the \texttt{frame\_calendar()} approach.
 
 \hypertarget{sec:case}{%
 \section{Case study}\label{sec:case}}
@@ -412,7 +427,7 @@ The methodology creates the western calendar layout, because most countries have
 \section*{Acknowledgements}\label{acknowledgements}}
 \addcontentsline{toc}{section}{Acknowledgements}
 
-We would like to thank Stuart Lee and Heike Hofmann for their feedback about this work. The most recent version of the \texttt{frame\_calendar} function is included in the \textbf{sugrrants} R package, which can be accessed via the CRAN website \url{https://CRAN.R-project.org/package=sugrrants} or Github \url{https://github.com/earowang/sugrrants}. All materials required to reproduce this article and a history of the changes can be found at the project's Github repository \url{https://github.com/earowang/paper-calendar-vis}.
+We would like to thank Stuart Lee and Heike Hofmann for their feedback on earlier versions of this work. We thank Thomas Lin Pedersen for pointing out some critical \textbf{ggplot2} internals, which makes the \texttt{facet\_calendar()} implementation possible. We are very grateful for anonymous reviewers for helpful comments that have led to many improvements of the paper. The most recent versions of the \texttt{frame\_calendar()} and \texttt{facet\_calendar()} functions are included in the \textbf{sugrrants} R package, which can be accessed via the CRAN website \url{https://CRAN.R-project.org/package=sugrrants} or Github \url{https://github.com/earowang/sugrrants}. All materials required to reproduce this article and a history of the changes can be found at the project's Github repository \url{https://github.com/earowang/paper-calendar-vis}.
 
 \bibliographystyle{agsm}
 \bibliography{bibliography.bib}

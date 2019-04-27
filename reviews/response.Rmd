@@ -10,6 +10,8 @@ fontfamily: mathpazo
 
 Thanks to the three reviewers for some very helpful comments which have led to many improvements of the paper. My response are in black, the reviewers' comments are in red.
 
+We add a new short section "3 A fully-fledged faceting calendar method" describing a new function `facet_calendar()` written with **ggplot2** intervals, which complements the existing function `frame_calendar()`.
+
 # Reviewer 1 comments {-}
 
 > Figure 2 and Figure 10 show much the same information. You can see the Australian Open period in both. There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
@@ -20,7 +22,7 @@ We add a new subsetion "2.4 Reasons to use calendar-based graphics" to explain w
 
 We have switched to use the local scaling for the lag scatterplot (as Figure 10 now) to accurately represent the autocorrelation. The strong autocorrelation is clearly revealed at weekends.
 
-We have elaborated more about the V-shape on weed days.
+We have elaborated more about the V-shape on week days.
 
 > The colours are not well chosen in Figure 15.  It is hard to see the averages for households 1 and 3.
 
@@ -36,7 +38,7 @@ Thanks for the suggestion. We have restricted the data to Jan-June 2018 and comb
 
 > There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
 
-ToDo: add text description on the shiny app.
+Thanks. We have added text descriptions in the shiny app instead.
 
 # Reviewer 2 comments {-}
 

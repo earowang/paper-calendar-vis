@@ -9,17 +9,19 @@ Authors@R:
 URL: https://github.com/earowang/paper-calendar/issues
 BugReports: https://github.com/earowang/paper-calendar/issues
 Depends:
+    forcats (>= 0.4.0),
+    ggmap (>= 3.0.0),
+    lubridate (>= 1.7.4),
+    lvplot (>= 0.2.0),
     R (>= 3.1),
-    forcats,
-    ggmap,
-    lubridate,
-    showtext,
-    sugrrants,
-    tidyverse,
-    tsibble
+    showtext (>= 0.6),
+    sugrrants (>= 0.2.4),
+    tidyverse (>= 1.2.1),
+    tsibble (>= 0.7.9.9300)
 Imports:
-    bookdown,
-    rticles,
-    knitr,
-    spelling
+    bookdown (>= 0.9),
+    knitr (>= 1.22),
+    rticles (>= 0.7),
+    spelling (>= 2.1)
+Encoding: UTF-8
 Language: en-GB

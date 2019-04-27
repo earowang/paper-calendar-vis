@@ -226,7 +226,7 @@ pedestrian_dec <- pedestrian_2016 %>%
   filter(Month == "December") %>% 
   frame_calendar(
     x = Time, y = Hourly_Counts, date = Date, width = 0.97, height = 0.97
-)
+  )
 p_boxplot <- pedestrian_dec %>% 
   ggplot() +
   geom_boxplot(
