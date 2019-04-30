@@ -223,15 +223,15 @@ The `frame_calendar` function is not constrained to line plots. The full range o
 
 (ref:scatterplot-cap) Lag scatterplot with local scaling in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
 
-The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:boxplot) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. 
+The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:chn) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. The text in the plot is labeled in Chinese, showcasing the support for other languages.
 
-```{r boxplot, fig.height = 8, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased varibility is noted on the last day of December as approaching towards New Year's Eve."}
+```{r boxplot, fig.height = 8, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased varibility is noted on the last day of December as approaching towards New Year's Eve.", fig.show = "hide"}
 ```
 
 ```{r chn, fig.height = 8, fig.cap = "(ref:chn-cap)", fig.showtext = TRUE}
 ```
 
-(ref:chn-cap) The same plot as Figure \@ref(fig:boxplot), but with the month and week day labels in Chinese. It demonstrates the natural support for languages other than English.
+(ref:chn-cap) Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased variability is noted on the last day of December as approaching towards New Year's Eve. The month and week day are labeled in Chinese, which demonstrates the natural support for languages other than English.
 
 ### Interactivity
 
