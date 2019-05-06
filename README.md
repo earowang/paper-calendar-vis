@@ -10,7 +10,7 @@ remotes::install_github("earowang/paper-calendar-vis")
 
 ## Directories
 
-* `src/`: R code to reproduce tables, figures and analysis.
+* `scripts/`: R code to reproduce tables, figures and analysis.
 * `data/`: Cleaned data used for thesis document.
 * `img/`: Images made with other tools to illustrate ideas. 
 
