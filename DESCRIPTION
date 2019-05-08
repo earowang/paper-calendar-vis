@@ -1,6 +1,6 @@
 Type: Compendium
 Package: paperCalendarVis
-Version: 0.1.0
+Version: 2.1
 Authors@R: 
     person(given = "Earo",
            family = "Wang",
@@ -21,6 +21,9 @@ Imports:
     bookdown (>= 0.9),
     knitr (>= 1.22),
     rticles (>= 0.7),
-    spelling (>= 2.1)
+    spelling (>= 2.1),
+    wanderer4melb (>= 0.2.0)
+Remotes:
+    earowang/wanderer4melb
 Encoding: UTF-8
 Language: en-GB
