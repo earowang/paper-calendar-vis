@@ -212,7 +212,7 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 ```{r facet, fig.height = 10.2, fig.cap = "(ref:facet-cap)"}
 ```
 
-(ref:facet-cap) Line charts, embedded in the $6 \times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasised, and the shapes can be compared across the cells and sensors.
+(ref:facet-cap) Line charts, embedded in the $6 \times 2$ monthly calendar, colored and faceted by the 3 sensors. The variations of an individual sensor are emphasized, and the shapes can be compared across the cells and sensors.
 
 ### Different types of plots
 
@@ -267,12 +267,12 @@ The use of the calendar display is illustrated on smart meter energy usage from 
 
 Figure \@ref(fig:dow) shows the energy use across days of week using boxplots. Inspecting the medians across households tells us that household 3, a family size of one couple and two kids, uses more energy over the week days, than other households. The relatively larger boxes for household 2 indicates greater variability in daily energy consumption with noticeable variations on Thursdays, and much higher usage over the weekends. The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting of work and leisure patterns.
 
-```{r dow, fig.height = 7, fig.cap = "Boxplots of daily energy usage against day of week for four households. Suggested by the medians, household 3 uses more energy than the others on the week days, due to a large family size. By constrast, household 2 sees considerably larger variability."}
+```{r dow, fig.height = 7, fig.cap = "Boxplots of daily energy usage against day of week for four households. Suggested by the medians, household 3 uses more energy than the others on the week days, due to a large family size. By contrast, household 2 sees considerably larger variability."}
 ```
 
 Figure \@ref(fig:hod) shows energy consumption against time of day, separately by week day and weekend. Household 1 is an early bird, starting their day before 6 and going back home around 18 on week days. They switch air conditioning on when they get home from work and keep it operating until mid-night, learned from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that perhaps air conditioning runs continuously for some periods, consuming the twice the energy as household 1. A third peak occurs around 15 for household 3 only, likely when the kids are home from school. They also have a consistent energy pattern between week days and weekends. As for household 4, their home routine starts after 18 on week days. Figures \@ref(fig:dow) and \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
 
-```{r hod, fig.height = 6, fig.cap = "Scatterplot between half-hourly energy usage and time of day with the averages overlaid, constrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning is noted in household 1 and 2."}
+```{r hod, fig.height = 6, fig.cap = "Scatterplot between half-hourly energy usage and time of day with the averages overlaid, contrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning is noted in household 1 and 2."}
 ```
 
 ```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays faceted by each household based on common scales. We can precisely tell each individual's vacation days and the overnight use for household 2 in mid January."}
@@ -300,7 +300,7 @@ The calendar layout will be useful for studying consumer trends and human behavi
 
 The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labeling, which is supported by the software. Formats beyond the western calendar, or six-weeks and tetris-like layouts could be achieved by slightly tweaking the modular arithmetic approach. These features will be added as new options in the future.
 
-# Acknowledgements {-}
+# Acknowledgments {-}
 
 We would like to thank Stuart Lee and Heike Hofmann for their feedback on earlier versions of this work. We thank Thomas Lin Pedersen for pointing out some critical **ggplot2** internals, which makes the `facet_calendar()` implementation possible. We are very grateful to anonymous reviewers for helpful comments that have led to many improvements of the paper. The **sugrrants** R package is available from CRAN <https://CRAN.R-project.org/package=sugrrants> and the development version is available on Github <https://github.com/earowang/sugrrants>. All materials required to reproduce this article and a history of the changes can be found at the project's Github repository <https://github.com/earowang/paper-calendar-vis>.
 
