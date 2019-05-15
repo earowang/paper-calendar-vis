@@ -51,7 +51,7 @@ read_chunk('scripts/main.R')
 
 # Introduction
 
-We develop a method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout. The calendar format is created using modulus arithmetic, giving a restructuring of the data, that can then be integrated into a data pipeline. The core component of the pipeline is to visualize the resulting data using the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2], as used in **ggplot2** [@R-ggplot2], where plots are defined as a functional mapping from variables in the data to graphical elements. The data restructuring approach is consistent with the tidy data principles available in the **tidyverse** suite of tools [@R-tidyverse]. The methods are implemented in a new R package called **sugrrants** [@R-sugrrants].
+A new method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout is developed. The format is created using modulus arithmetic, giving a restructuring of the data, that can then be integrated into a data pipeline. The core component of the pipeline is to visualize the resulting data using the grammar of graphics [@wilkinson2006grammar; @wickham2009ggplot2], as used in **ggplot2** [@R-ggplot2], where plots are defined as a functional mapping from variables in the data to graphical elements. The data restructuring approach is consistent with the tidy data principles available in the **tidyverse** suite of tools [@R-tidyverse]. The methods are implemented in a new R package called **sugrrants** [@R-sugrrants].
 
 The purpose of the calendar-based visualization is to provide insights into people's daily schedules, relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia [@ped]. There are many sensors installed across the inner-city area, that count pedestrians every hour (Figure \@ref(fig:ped-map)). Data from 43 sensors in 2016 is analyzed here. This data can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. Patterns relative to special events (such as public holidays and recurring cultural/sporting events) would be worth studying in comparison to regular days, but the conventional displays of time series data may bury this detail.
 
@@ -62,23 +62,23 @@ Faceting, initially called trellis displays [@becker_visual_1996], is an example
 ```{r ped-map, fig.width = 7, out.width = "0.7\\linewidth", fig.cap = "(ref:ped-map-cap)"}
 ```
 
-(ref:ped-map-cap) Map of the Melbourne city area with dots indicating sensor locations. These three highlighted sensors will be inspected in the paper: (1) the State Library---a public library, (2) Flagstaff Station---a train station, closed on non-work days, (3) Birrarung Marr---an outdoor park hosting many cultural and sports events.
+(ref:ped-map-cap) Google map of the Melbourne city area, dots indicate all the sensor locations. The three locations highlighted will be analyzed in the paper: the State Library is a public library; Flagstaff Station is a train station, closed on non-work days; Birrarung Marr is an outdoor park hosting many cultural and sports events.
 
 ```{r time-series-plot, fig.height = 6, fig.cap = "(ref:time-series-plot)"}
 ```
 
-(ref:time-series-plot) Time series plots showing the number of pedestrians in 2016 measured at three different sensors in the city of Melbourne. Colored by the sensors, small multiples of lines show that the foot traffic varies from one sensor to another in terms of both time and number. A spike occurred at the State Library, caused by the annual White Night event on 20th of February. A relatively persistent pattern repeats from one week to another at Flagstaff Station. Birrarung Marr looks rather noisy and spiky, with a couple of chunks of missing records.
+(ref:time-series-plot) Time series plots showing 2016 pedestrian counts, measured by three different sensors in the city of Melbourne. Small multiples of lines show that the foot traffic varies at one location to another. The spike in counts at the State Library corresponds to the timing of the event "White Night", where there were many people taking part in activities in the city throughout the night. A relatively persistent pattern repeats from one week to another at Flagstaff Station. Birrarung Marr looks rather noisy and spiky, with several runs of missing records.
 
 ```{r facet-time, fig.height = 6, fig.cap = "(ref:facet-time-cap)"}
 ```
 
-(ref:facet-time-cap) Hourly pedestrian counts for 2016 faceted by sensors and days of the week using lines. It primarily features two types of seasons---time of day and day of week---across all the sensors. Apparently other factors have influence over the number of pedestrians, which cannot be captured by the faceted plots, such as the overnight White Night traffic on Saturday at the State Library and a variety of events at Birrarung Marr.
+(ref:facet-time-cap) Hourly pedestrian counts for 2016, faceted by sensors, and days of the week. The focus is on time of day and day of week across the sensors. Daily commuter patterns at Flagstaff Station, the variability of the foot traffic at Birrarung Marr, and the consistent pedestrian behavior at the State Library, can be seen.
 
-The work is inspired by @Wickham2012glyph, which uses linear algebra to display spatio-temporal data as glyphs on maps. It is also related to recent work by @R-geofacet which provides methods in the **geofacet** R package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
+The work is inspired by @Wickham2012glyph, which uses modulus arithmetic to display spatio-temporal data as glyphs on maps. It is also related to recent work by @R-geofacet which provides methods in the **geofacet** R package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
 
 In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There are some existing works in this area. For example, @VanWijkCluster1999 developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts week days and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. @Jones-heatmap, @R-TimeProjection, @R-ggTimeSeries, and @R-ggcal implemented some variants of calendar-based heatmaps as in R packages: **TimeProjection**, **ggTimeSeries**, and **ggcal** respectively. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Color-encoding is also low on the hierarchy of optimal variable mapping [@cleveland1984graphical; @lam2007overview].
 
-We propose a new algorithm to go beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable patterns related to special events more easily pop-up to viewers. The proposed algorithm has been implemented in the `frame_calendar()` and `facet_calendar()` functions in the **sugrrants** package using R.
+The proposed algorithm goes beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate line graphs and other types of glyphs into the graphical toolkit for the calendar layout; (3) to enable patterns related to special events more easily pop-up to viewers. The proposed algorithm has been implemented in the `frame_calendar()` and `facet_calendar()` functions in the **sugrrants** package using R.
 
 The remainder of the paper is organized as follows. Section \@ref(sec:algorithm) details the construction of the calendar layout in depth. It describes the algorithms of data transformation (Section \@ref(sec:transformation)), the available options (Section \@ref(sec:opt)), and variations of its usage (Section \@ref(sec:variations)). Section \@ref(sec:facet-calendar) explains the full faceting extension, that is equipped with formal labels and axes. An analysis of half-hourly household energy consumption, using the calendar display, is illustrated in a case study in Section \@ref(sec:case). Section \@ref(sec:discussion) discusses the limitations of calendar displays and possible new directions.
 
@@ -86,11 +86,11 @@ The remainder of the paper is organized as follows. Section \@ref(sec:algorithm)
 
 ## Data transformation {#sec:transformation}
 
-The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is determined by the year of the calendar. Months are of different lengths, ranging from 28 to 31 days, and some months could extend over six weeks but for these months we intentionally wrap the last few days up to the top row of the block for the purpose of compact displays. The notation for creating these cells is as follows:
+The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data [@Wickham2012glyph]. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is deterministic given the year of the calendar. Months are of different lengths, ranging from 28 to 31 days. Some months could extend over six weeks, but for these months the last few days are wrapped up to the top row of the block for compactness, and because it is convention. The notation for creating these cells is as follows:
 
-* $k = 1, \dots , 7$ is the day of the week that is the first day of the month.
+* $k = 1, \dots , 7$ is the day of the week, that is the first day of the month.
 * $d = 28, 29, 30$ or $31$ representing the number of days in any month.
-* $(i, j)$ is the grid position where $1 \le i \le 5$ is week within the month, $1 \le j \le 7$, is day of the week.
+* $(i, j)$ is the grid position where $1 \le i \le 5$, is week within the month, $1 \le j \le 7$, is day of the week.
 * $g = k, \dots,(k+d)$ indexes the day in the month, inside the 35 possible cells.
 
 The grid position for any day in the month is given by
@@ -102,7 +102,7 @@ The grid position for any day in the month is given by
   (\#eq:grid)
 \end{equation}
 
-Figure \@ref(fig:month-diagram) illustrates this $(i, j)$ layout for a month where $k=5$.
+\noindent Figure \@ref(fig:month-diagram) illustrates this $(i, j)$ layout for a month where $k=5$.
 
 ```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:month-diagram-cap)"}
 include_graphics("img/month.png")
@@ -118,9 +118,9 @@ include_graphics("img/year-diagram.png")
 
 (ref:year-diagram-cap) Illustration of the indexing layout for months of one year, where $M$ and $N$ indicate number of rows and columns, $b$ is a space parameter separating cells.
 
-Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally and count is plotted vertically. Each variable is scaled to have values in $[0, 1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ the scaled count.
+Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits $[0, 1]$ both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally, and count is plotted vertically. Each variable is scaled to have values in $[0, 1]$, using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let $h$ be the scaled hour, and $c$ be the scaled count.
 
-Then the final points for making the calendar line plots of the pedestrian sensor data is given by:
+Then the final coordinates for making the calendar plots of the pedestrian sensor data is given by:
 \begin{equation}
   \begin{aligned}
   x &= j + (n - 1) \times 7 + (n - 1) \times b + h, \\
@@ -129,16 +129,16 @@ Then the final points for making the calendar line plots of the pedestrian senso
   (\#eq:final)
 \end{equation}
 
-Note that for the vertical direction, the top left is the starting point of the grid (in Figure \@ref(fig:month-diagram)) which is why subtraction is performed. Within each cell, the starting position is the bottom left.
+Note that for the vertical direction, the top left is the starting point of the grid (in Figure \@ref(fig:month-diagram)), which is easier to lay out and why the subtraction is performed. Within each cell, the starting position is the bottom left.
 
 ```{r fs-2016, fig.height = 7, fig.cap = "(ref:fs-2016-cap)"}
 ```
 
-(ref:fs-2016-cap) The calendar-based display of hourly foot traffic at Flagstaff Station using line glyphs. The disparities between week day and weekend along with public holiday are immediately apparent. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. Note that the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs to May and October.
+(ref:fs-2016-cap) The calendar plot of hourly foot traffic at Flagstaff Station, using line glyphs. The disparities between week day and weekend along with public holiday, are immediately apparent. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. Note that, the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs to May and October.
 
-Figure \@ref(fig:fs-2016) shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar()` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** R package [@R-ggplot2] functions. All of the grammar of graphics can be applied.
+Figure \@ref(fig:fs-2016) shows the line glyphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar()` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** R package [@R-ggplot2]. Thus, the grammar of graphics can be applied.
 
-In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block as well as labels indicating week day and month are also computed before plot construction.
+In order to make calendar-based graphics more accessible and informative, reference lines dividing each cell and block, as well as labels indicating week day and month are also computed before plot construction.
 
 Regarding the monthly calendar, the major reference lines separate every month panel and the minor ones separate every cell, represented by the thick and thin lines in Figure \@ref(fig:fs-2016), respectively. The major reference lines are placed surrounding every month block: for each $m$, the vertical lines are determined by $\min{(x)}$ and $\max{(x)}$; for each $n$, the horizontal lines are given by $\min{(y)}$ and $\max{(y)}$. The minor reference lines are only placed on the left side of every cell: for each $i$, the vertical division is $\min{(x)}$; for each $j$, the horizontal is $\min{(y)}$.
 
@@ -160,7 +160,7 @@ The algorithm handles displaying a single month or several years. The arguments 
 
 ### Layouts
 
-The monthly calendar is the default, but two other formats, weekly and daily, are available with the `calendar` argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
+The monthly calendar is the default, but two other formats, weekly and daily, are available with the `calendar` argument. The daily calendar arranges days along a row, one row per month. The weekly calendar stacks weeks of the year vertically, one row for each week, and one column for each day. The reader can scan down all the Mondays of the year, for example. The daily layout puts more emphasis on day of the month. The weekly calendar is appropriate if most of the variation can be characterized by days of the week. On the other hand, the daily calendar should be used when there is a yearly effect but not a weekly effect in the data (for example, weather data). When both effects are present, the monthly calendar would be a better choice. Temporal patterns motivate which variant should be employed.
 
 ### Orientation
 
@@ -168,11 +168,11 @@ By default, grids are laid out horizontally. This can be transposed by setting t
 
 ### Start of the week
 
-The start of the week for a monthly calendar is adjustable. The default is Monday (`1`), which is chosen from the data perspective. The week, however, can begin with Sunday (`7`) as commonly used in the US and Canada, or other week day subject to different countries and cultures.
+The start of the week for a monthly calendar is adjustable. The default is Monday (`1`), which is chosen from the data perspective. The week, however, can begin with Sunday (`7`) as commonly used in the US and Canada, or other week day, subject to different countries and cultures.
 
 ### Polar transformation
 
-When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. The resulting plot is star glyphs [@chambers2017graphical], where time series lines are transformed in polar coordinates, embedded in the monthly calendar layout.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. This produces star glyphs [@chambers2017graphical], where time series lines are transformed in polar coordinates, embedded in the monthly calendar layout.
 
 ```{r fs-polar, fig.height = 7, fig.cap = "(ref:fs-polar-cap)", eval = FALSE}
 ```
@@ -181,20 +181,20 @@ When `polar = TRUE`, a polar transformation is carried out on the data. The comp
 
 ### Scales
 
-By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is comparing trend rather than magnitude, it is useful to scale locally. For temporal data this would harness the temporal components. The choices include: free scale within each cell (`free`), cells derived from the same day of the week (`free_wday`), or cells from the same day of the month (`free_mday`). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
+By default, global scaling is done for values in each plot, with the global minimum and maximum used to fit values into each cell. If the emphasis is on comparing trend rather than magnitude, it is useful to scale locally. For temporal data, this would harness the temporal components. The choices include: free scale within each cell (`free`), cells derived from the same day of the week (`free_wday`), or cells from the same day of the month (`free_mday`). The scaling allows for the comparisons of absolute or relative values, and the emphasis of different temporal variations.
 
-With local scaling, the overall variation gives way to the individual shape. Figure \@ref(fig:fs-free) shows the same data as Figure \@ref(fig:fs-2016) scaled locally using `scale = "free"`. The daily trends are magnified.
+With local scaling, the overall variation gives way to the individual shape. Figure \@ref(fig:fs-free) shows the same data as Figure \@ref(fig:fs-2016), scaled locally using `scale = "free"`. The daily trends are magnified.
 
 ```{r fs-free, fig.height = 7, fig.cap = "(ref:fs-free-cap)"}
 ```
 
-(ref:fs-free-cap) Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled over all the days. The individual shape on a single day becomes more distinctive, however it is impossible to compare the size of peaks between days.
+(ref:fs-free-cap) Line glyphs on the calendar format showing hourly foot traffic at Flagstaff Station, scaled individually by day. The shape on a single day becomes more distinctive, as compared to Figure \@ref(fig:fs-2016).
 
-The `free_wday` scales each week day together. It can be useful to comparing trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month.
+The `free_wday` scales each week day together. It can be useful to compare trends across week days, allowing relative patterns for weekends versus week days to be examined. Similarly, the `free_mday` uses free scaling for any day within a given month.
 
 ### Language support
 
-Most countries have adopted this western calendar layout, while the languages used for week day and month would be different across countries. We also offer language specifications other than English for text labeling.
+Most countries have adopted this western calendar layout, while the languages used for week day and month would be different across countries. Other language specifications than English, for text labeling, are available.
 
 ## Variations {#sec:variations}
 
@@ -205,7 +205,7 @@ Plots can be layered. The comparison of sensors can be done by overlaying the va
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
 
-(ref:overlay-cap) Overlaying line graphs of the three sensors in the monthly calendar. Three sensors demonstrate very different traffic patterns. Birrarung Marr tends to attract many pedestrians for special events held on weekends, contrasting to the bimodal commuting traffic at Flagstaff Station.
+(ref:overlay-cap) Overlaying line graphs of the three sensors in the monthly calendar. The three sensors demonstrate very different traffic patterns. Birrarung Marr tends to attract many pedestrians for special events held on weekends, contrasting to the bimodal commuting traffic at Flagstaff Station.
 
 To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \@ref(fig:facet) presents the idea of faceting calendar plots by sensors. This allows comparing the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January. This is concealed in the conventional graphics.
 
@@ -221,7 +221,7 @@ The `frame_calendar` function is not constrained to line plots. The full range o
 ```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
 
-(ref:scatterplot-cap) Lag scatterplot with local scaling in the daily calendar layout. Each hour's count is plotted against previous hour's count at Flagstaff Station to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
+(ref:scatterplot-cap) Lag scatterplots, with local scaling, in the daily calendar layout. Each hour's count is plotted against the previous hour's count at Flagstaff Station, to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:chn) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. The text in the plot is labeled in Chinese, showcasing the support for other languages.
 
@@ -231,13 +231,13 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 ```{r chn, fig.height = 8, fig.cap = "(ref:chn-cap)", fig.showtext = TRUE}
 ```
 
-(ref:chn-cap) Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased variability is noted on the last day of December as approaching towards New Year's Eve. The month and week day are labeled in Chinese, which demonstrates the natural support for languages other than English.
+(ref:chn-cap) Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased variability is notable on the last day of December as New Year's Eve approaches. The month and week day are labeled in Chinese, which demonstrates the support for languages other than English.
 
 ### Interactivity
 
-As a data restructuring tool, the interactivity of calendar-based displays can be easily enabled, as long as the interactive graphic system remains true to the spirit of the grammar of graphics, for example **plotly** [@plotly] in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over it in the calendar layout, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the `frame_calendar()` function can be ported to a form of selection button or text input in a graphical user interface like R shiny [@R-shiny]. The display will update on the fly accordingly via clicking or text input, as desired.
+As a data restructuring tool, the interactivity of calendar-based displays can be easily enabled, as long as the interactive graphics system remains true to the spirit of the grammar of graphics, for example, **plotly** [@plotly] in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over a point in the calendar plot, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the `frame_calendar()` function can be ported to a form of selection button or text input in a graphical user interface like R shiny [@R-shiny]. The display will update on the fly accordingly, via clicking or text input, as desired.
 
-Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the **wanderer4melb** shiny application [@R-wanderer4melb]. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain affect the number of people walking in downtown Melbourne. The linking between weather data and calendar display is achieved using the common dates.
+Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the **wanderer4melb** shiny application [@R-wanderer4melb]. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain, affect the number of people walking in downtown Melbourne. The linking between weather data and calendar displays is achieved using the common dates.
 
 ## Reasons to use calendar-based graphics
 
@@ -254,7 +254,7 @@ Formal axes and labels unavailable in calendar plots generated by the `frame_cal
 ```{r facet-calendar, fig.height = 9, fig.cap = "(ref:facet-calendar-cap)"}
 ```
 
-(ref:facet-calendar-cap) A fraction of Figure \@ref(fig:overlay) is reconstructed with `facet_calendar()` for native **ggplot2** support on labels and axes.
+(ref:facet-calendar-cap) A faceted calendar showing a fraction of the data shown in Figure \@ref(fig:overlay). The faceted calendar takes more plot real estate than the calendar plot, but it provides native **ggplot2** support for labels and axes.
 
 However, the `facet_calendar()` takes much more run time compared with `frame_calendar()`. The faceted calendar also uses more plot real estate for panel headings and axes. The reader can compare the two approaches by examining the compact Figure \@ref(fig:overlay), relative to Figure \@ref(fig:facet-calendar). The space consumed by the former shows a full year, and the latter shows four months, only a third of the data. For fast rendering and economy of space, `frame_calendar()` is recommended.
 
@@ -267,18 +267,18 @@ The use of the calendar display is illustrated on smart meter energy usage from 
 
 Figure \@ref(fig:dow) shows the energy use across days of week using boxplots. Inspecting the medians across households tells us that household 3, a family size of one couple and two children, uses more energy over the week days than other households. The relatively larger boxes for household 2 indicate greater variability in daily energy consumption with noticeable variations on Thursdays, and much higher usage over the weekends. The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns.
 
-```{r dow, fig.height = 7, fig.cap = "Boxplots of daily energy usage against day of week for four households. Suggested by the medians, household 3 uses more energy than the others on the week days due to a large family size. By contrast, household 2 sees considerably larger variability."}
+```{r dow, fig.height = 7, fig.cap = "Boxplots of daily energy usage against day of week for four households. Suggested by the medians, household 3 uses more energy than the others on the week days. By contrast, household 2 sees considerably larger variability."}
 ```
 
-Figure \@ref(fig:hod) shows energy consumption against time of day, separately by week day and weekend. Household 1 is an early riser, starting their day before 6 and going back home around 18 on week days. They switch air conditioning on when they get home from work and keep it operating until midnight, evident from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that air conditioning may run continuously for some periods, consuming twice the energy as household 1. A third peak occurs around 15 for household 3 only, likely coinciding when the children arrive home from school. They also have a consistent energy pattern between week days and weekends. As for household 4, their home routine starts after 18 on week days. Figures \@ref(fig:dow) and \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
+Figure \@ref(fig:hod) shows energy consumption against time of day, separately by week day and weekend. Household 1 is an early riser, starting their day before 6am and going back home around 6pm on week days. They switch air conditioning on when they get home from work and keep it operating until midnight, evident from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that air conditioning may run continuously for some periods, consuming twice the energy as household 1. A third peak occurs around 3pm for household 3 only, likely coinciding when the children arrive home from school. They also have a consistent energy pattern between week days and weekends. As for household 4, their home routine starts after 6pm on week days. Figures \@ref(fig:dow) and \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
 
-```{r hod, fig.height = 6, fig.cap = "Scatterplot between half-hourly energy usage and time of day with the averages overlaid, contrasting week days and weekends for each household. All have different daily routines between week days and weekends, except for household 3. On week days, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning is noted in households 1 and 2."}
+```{r hod, fig.height = 6, fig.cap = "Scatterplots of half-hourly energy usage by time of day, with hourly averages overlaid, faceted by household and type of day. All households have different week days versus weekends daily routines. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning is notable in households 1 and 2, as seen by horizontal clusters of points."}
 ```
 
-```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays faceted by each household based on common scales. We can precisely tell each individual's vacation days and the overnight use for household 2 in mid-January."}
+```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays faceted by each household using global scales. Long flat low energy usage indicates vacation time, and high energy comsumption by household 2 is visible in January and February."}
 ```
 
-Figure \@ref(fig:calendar-elec) displays the global scaling of each household's data in a calendar layout, unfolding their day-to-day life via electricity usage. Glancing over household 1, we can see that their overall energy use is relatively low. Their week day energy use is distinguishable from their weekends, indicating a working household. The air conditioner appears to be used in the summer months (January and February) for a couple of hours in the evening and weekends. In contrast, household 2 keeps a cooling system functioning for much longer hours, which becomes more evident from late Wednesday through Thursday to early Friday in mid-January. These observations help to explain the stripes and clusters of household 2 in Figure \@ref(fig:hod). It is difficult to give a succinct description of household 3 since everyday energy pattern is variable, but May and June see more structure than the previous months. Individual data can be idiosyncratic, hence aggregated plots like Figure \@ref(fig:dow) and \@ref(fig:hod) are essential for assembling pieces to form a picture. However, the calendar plots speak the stories that are untold by previous plots, for example their vacation time. Household 1 is on vacation over three weeks of mid-June, and household 2 also took some days off in the second week of June. Further household 3 takes one short trip in January and the another one starting in the fourth week of June. Household 4 is away over two or three weeks in early April and late June. They all tend to take breaks during June due to the fact that the University winter break starts in June.
+Figure \@ref(fig:calendar-elec) displays the global scaling of each household's data in a calendar layout, unfolding their day-to-day life via electricity usage. Glancing over household 1, their overall energy use is relatively low. Their week day energy use is distinguishable from their weekends, indicating a working household. The air conditioner appears to be used in the summer months (January and February) for a couple of hours in the evening and weekends. In contrast, household 2 keeps a cooling system functioning for much longer hours, which becomes more evident from late Wednesday through Thursday to early Friday in mid-January. These observations help to explain the stripes and clusters of household 2 in Figure \@ref(fig:hod). It is difficult to give a succinct description of household 3 since everyday energy pattern is variable, but May and June see more structure than the previous months. Individual data can be idiosyncratic, hence aggregated plots like Figure \@ref(fig:dow) and \@ref(fig:hod) are essential for assembling pieces to form a picture. However, the calendar plots speak the stories that are untold by previous plots, for example, their vacation time. Household 1 is on vacation over three weeks of mid-June, and household 2 also took some days off in the second week of June. Further, household 3 takes one short trip in January and the another one starting in the fourth week of June. Household 4 is away over two or three weeks in early April and late June. They all tend to take breaks during June probably due to the fact that the University winter break starts in June.
 
 ```{r h1, fig.height = 7, fig.cap = "The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June.", eval = FALSE}
 ```
