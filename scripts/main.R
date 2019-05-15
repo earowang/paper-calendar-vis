@@ -220,7 +220,11 @@ p_fs_day <- fs_cal_day %>%
   theme(legend.position = "bottom")
 prettify(p_fs_day, size = 3, label.padding = unit(0.15, "lines"))
 
-## ---- boxplot
+## ---- chn
+# boxplots for hourly counts across all the sensors in 2016 Dec with Chinese 
+# labels
+# font_install(source_han_serif())
+showtext_auto()
 # boxplots for hourly counts across all the sensors in 2016 December
 pedestrian_dec <- pedestrian_2016 %>% 
   filter(Month == "December") %>% 
@@ -238,13 +242,6 @@ p_boxplot <- pedestrian_dec %>%
     aes(.Time, .Hourly_Counts, group = Date), 
     se = FALSE, method = "loess"
   )
-prettify(p_boxplot, label = c("label", "text", "text2"))
-
-## ---- chn
-# boxplots for hourly counts across all the sensors in 2016 Dec with Chinese 
-# labels
-# font_install(source_han_serif())
-showtext_auto()
 p_chn <- prettify(
   p_boxplot, locale = "zh", abbr = FALSE, 
   size = 3, label.padding = unit(0.15, "lines"),
@@ -324,43 +321,3 @@ p_cal_elec <- elec %>%
     facet_grid(id ~ ., labeller = label_both) +
     theme(legend.position = "bottom")
 prettify(p_cal_elec, size = 2.5, label.padding = unit(0.1, "lines"))
-
-## ---- h1
-h1 <- elec %>% 
-  filter(id == 1) %>% 
-  frame_calendar(x = time, y = kwh, date = date) %>% 
-    ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = rdbl) +
-    theme(legend.position = "bottom")
-prettify(h1)
-
-## ---- h2
-h2 <- elec %>% 
-  filter(id == 2) %>% 
-  frame_calendar(x = time, y = kwh, date = date) %>% 
-    ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = rdbl) +
-    theme(legend.position = "bottom")
-prettify(h2)
-
-## ---- h3
-h3 <- elec %>% 
-  filter(id == 3) %>% 
-  frame_calendar(x = time, y = kwh, date = date) %>% 
-    ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = rdbl) +
-    theme(legend.position = "bottom")
-prettify(h3)
-
-## ---- h4
-h4 <- elec %>% 
-  filter(id == 4) %>% 
-  frame_calendar(x = time, y = kwh, date = date) %>% 
-    ggplot(aes(x = .time, y = .kwh, group = date)) +
-    geom_line(aes(colour = weekday)) +
-    scale_color_manual(name = "", values = rdbl) +
-    theme(legend.position = "bottom")
-prettify(h4)

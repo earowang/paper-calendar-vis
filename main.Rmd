@@ -229,9 +229,6 @@ The `frame_calendar()` function is not constrained to line plots. The full range
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:chn) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. The text in the plot is labeled in Chinese, showcasing the support for other languages.
 
-```{r boxplot, fig.height = 8, fig.cap = "Side-by-side boxplots of hourly counts for all the 43 sensors in December 2016, with the loess smooth line superimposed on each day. It shows the hourly distribution in the city as a whole. The increased variability is noted on the last day of December as approaching towards New Year's Eve.", fig.show = "hide"}
-```
-
 ```{r chn, fig.height = 8, fig.cap = "(ref:chn-cap)", fig.showtext = TRUE}
 ```
 
@@ -276,25 +273,17 @@ Figure \@ref(fig:dow) shows the energy use across days of week using boxplots. I
 
 Figure \@ref(fig:hod) shows energy consumption against time of day, separately by week day and weekend. Household 1 is an early riser, starting their day before 6am and going back home around 6pm on week days. They switch air conditioning on when they get home from work and keep it operating until midnight, evident from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that air conditioning may run continuously for some periods, consuming twice the energy as household 1. A third peak occurs around 3pm for household 3 only, likely coinciding when the children arrive home from school. They also have a consistent energy pattern between week days and weekends. As for household 4, their home routine starts after 6pm on week days. Figures \@ref(fig:dow) and \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
 
-```{r hod, fig.height = 6, fig.cap = "Scatterplots of half-hourly energy usage by time of day, with hourly averages overlaid, faceted by household and type of day. All households have different week days versus weekends daily routines. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning is notable in households 1 and 2, as seen by horizontal clusters of points."}
+```{r hod, fig.height = 6, fig.cap = "(ref:hod-cap)"}
 ```
 
-```{r calendar-elec, fig.height = 10.5, fig.cap = "Calendar displays faceted by each household using global scales. Long flat low energy usage indicates vacation time, and high energy comsumption by household 2 is visible in January and February."}
+(ref:hod-cap) Scatterplots of half-hourly energy usage by time of day, with hourly averages overlaid, faceted by household and type of day. All households have different week days versus weekends daily routines. On week days, household 1 wakes up early before 6am, and household 2 around 6am, followed by household 3 and 4. The use of air conditioning is notable in households 1 and 2, as seen by horizontal clusters of points.
+
+```{r calendar-elec, fig.height = 10.5, fig.cap = "(ref:calendar-elec-cap)"}
 ```
+
+(ref:calendar-elec-cap) Calendar displays faceted by each household using global scales. Long flat low energy usage indicates vacation time, and high energy consumption by household 2 is visible in January and February.
 
 Figure \@ref(fig:calendar-elec) displays the global scaling of each household's data in a calendar layout, unfolding their day-to-day life via electricity usage. Glancing over household 1, their overall energy use is relatively low. Their week day energy use is distinguishable from their weekends, indicating a working household. The air conditioner appears to be used in the summer months (January and February) for a couple of hours in the evening and weekends. In contrast, household 2 keeps a cooling system functioning for much longer hours, which becomes more evident from late Wednesday through Thursday to early Friday in mid-January. These observations help to explain the stripes and clusters of household 2 in Figure \@ref(fig:hod). It is difficult to give a succinct description of household 3 since everyday energy pattern is variable, but May and June see more structure than the previous months. Individual data can be idiosyncratic, hence aggregated plots like Figure \@ref(fig:dow) and \@ref(fig:hod) are essential for assembling pieces to form a picture. However, the calendar plots speak the stories that are untold by previous plots, for example, their vacation time. Household 1 is on vacation over three weeks of mid-June, and household 2 also took some days off in the second week of June. Further, household 3 takes one short trip in January and the another one starting in the fourth week of June. Household 4 is away over two or three weeks in early April and late June. They all tend to take breaks during June probably due to the fact that the University winter break starts in June.
-
-```{r h1, fig.height = 7, fig.cap = "The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June.", eval = FALSE}
-```
-
-```{r h2, fig.height = 7, fig.cap = "The calendar display for household 2 reveals their tendency to use air conditioning and heating continuously. Some vacation days were taken in late December and in the second week of June.", eval = FALSE}
-```
-
-```{r h3, fig.height = 7, fig.cap = "The calendar display for household 3 reveals higher energy use in the winter months (May-August), with multiple peaks daily on both week days and weekends. There are some high peaks in summer (November-February), perhaps indicating occasional air conditioner use. There have been several long vacations in the past year.", eval = FALSE}
-```
-
-```{r h4, fig.height = 7, fig.cap = "The calendar display for household 4 shows energy use mostly in the evenings and on weekends. Four short trips were taken in October, December, April, and June.", eval = FALSE}
-```
 
 # Discussion {#sec:discussion}
 
