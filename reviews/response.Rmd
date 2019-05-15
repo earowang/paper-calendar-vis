@@ -10,18 +10,18 @@ fontfamily: mathpazo
 
 We thank the reviewers for their helpful feedback which has led to many improvements in the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
 
-In addition, we have expanded the paper by adding a short section titled "3. A fully-fledged faceting calendar method" which describes a new function `facet_calendar()`, that extends **ggplot2** intervals and complements the existing function `frame_calendar()`. It allows this algorithm to integrate more deeply with the **ggplot2** architecture.
+In addition, we have expanded the paper by adding a subsection titled "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and a short section titled "3 Making calendar facets" which describes a new function `facet_calendar()`, that extends **ggplot2** intervals and complements the existing function `frame_calendar()`. It allows this algorithm to integrate more deeply with the **ggplot2** architecture.
 
 
 # Reviewer 1 comments {-}
 
 > Figure 2 and Figure 10 show much the same information. You can see the Australian Open period in both. There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
 
-We have explained the purpose of showing both displays in the revised paper, by adding a new subsection "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and what information is typically revealed by calendar plots but not by other plots. The calendar display doesn't replace traditional displays, but serves to complement to further tease out interesting structures in the data.
+We have explained the purpose of showing both displays in the revised paper, by adding a new subsection "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and what information is typically revealed by calendar plots but not by other plots. The calendar display doesn't replace traditional displays, but serves to complement them to further tease out interesting structures in the data.
 
 > Figure 11 is not described well.  What does the V-pattern mean?  How can you see the strong autocorrelation at weekends?  There are only dots.  
 
-We have changed the explanation of Fig 11 to make it clearer. In the revised paper this is now Fig 10. The V pattern is due to morning and evening commuter pattern on weekdays. We realised that the daily lag relationshsips would be read more easily if local scale was used, that is, each day is scaled relative to itself. This has been done, and the different autocorrelation pattern for week days and weekends is now clearer.  
+We have changed the explanation of Fig 11 to make it clearer. In the revised paper this is now Fig 10. The V pattern is due to morning and evening commuter pattern on weekdays. We realised that the daily lag relationships would be read more easily if local scale was used, that is, each day is scaled relative to itself. This has been done, and the different autocorrelation pattern for week days and weekends is now clearer.
 
 > The colours are not well chosen in Figure 15.  It is hard to see the averages for households 1 and 3.
 
@@ -41,7 +41,7 @@ Yes, we agree, they take up too much space. But the message of comparing multipl
 
 > There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
 
-We have added a text box underneath the plots in the shiny app. To describe the app in this paper would be too distracting for the reader. Cumulating monthly precip provides a more interesting look at rainfall, and it approximates how the NY Times displays weather. Only one day can be selected.
+We have added a text box underneath the plots in the shiny app. To describe the app in this paper would be too distracting for the reader. Cumulating monthly precipitation provides a more interesting look at rainfall, and it approximates how the NY Times displays weather. Only one day can be selected.
 
 # Reviewer 2 comments {-}
 
@@ -80,7 +80,7 @@ Done.
 > Fig.2: You mention "small multiples" only in a figure caption. This concept is a central
 part of your calendar graphics and should be summarized in more details (including references) in the main text. Also mention Unwin & Valero-Mora's "Ensemble Graphics", JCGS, 27(1), as a major concept that applies to both sets of related figures in your article.
 
-We have explained the idea of faceting and also referred to small multiples, trellis charts, and ensemble graphics in the text now, at the end of the second paragraph in Introduction section.
+We have explained the concept of faceting and also referred to small multiples, trellis charts, and ensemble graphics in a new paragraph in the  Introduction section.
 
 > Fig.3: Add tick marks at 0 and 24. See whether tick mark labels fit. If not, OK to omit those for 0 and 24.
 
@@ -100,7 +100,7 @@ Done.
 
 > Fig.4: Prior to reading the text on p8, I was really confused and even assumed there was a major bug in your R code. Having 2 days in early May and 1 day in early Oct, then 3 days missing, and then the remainder of the month is really confusing for someone who only looks at the figure without reading the text in detail. At least mention this layout anomaly in the figure caption.
 
-Thanks. I have pointed out the layout anomalies for May and October in the Figure 4  (now 6) caption.
+Thanks. We have pointed out the layout anomalies for May and October in the Figure 4 (now 6) caption.
 
 > p8, l19: "wrap the last few days up to the top row of the block": This answers
 my comment for Fig.4 now, but this layout still remains misleading. We expect to
@@ -144,7 +144,7 @@ We used `tsibble::holiday_aus()` for generating Australian public holidays, prio
 > Fig.8: "impossible to compare the size of peaks between days." - Correct; since this is based on ggplot, could you use colors from a sequential color scheme that maps the counts, e.g., from faint yellow (0) to dark red (for the overall max)? This might be another
 useful argument for a future extension of your function.
 
-We recommend against this idea. The better approach is to re-make the plot with global scaling to focus on counts. No need to make one plot show everything possible, but more confuding, better to make multiple plots. 
+We recommend against this idea. The better approach is to re-make the plot with global scaling to focus on counts. No need to make one plot show everything possible, but better to make multiple plots. 
 
 > p15, l12: "idea of faceting": explain what "faceting" means in general (and cite 1 or 2 main references)
 

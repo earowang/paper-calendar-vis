@@ -335,7 +335,7 @@ Plots can be layered. The comparison of sensors can be done by overlaying the va
 
 
 
-To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots by sensors. This allows comparing the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January. This is concealed in the conventional graphics.
+To avoid the overlapping problem, the calendar layout can be embedded into a series of subplots for the different sensors. Figure \ref{fig:facet} presents the idea of faceting calendar plots by sensors. This allows comparing the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed over many weekends, but events took place on Friday evenings only in September. The Australian Open, a major international tennis tournament, attracted much traffic constantly in the last two weeks of January.
 
 \begin{figure}
 
@@ -351,7 +351,7 @@ To avoid the overlapping problem, the calendar layout can be embedded into a ser
 \hypertarget{different-types-of-plots}{%
 \subsubsection{Different types of plots}\label{different-types-of-plots}}
 
-The \texttt{frame\_calendar} function is not constrained to line plots. The full range of plotting capabilities in \textbf{ggplot2} is essentially available. Figure \ref{fig:scatterplot} shows a lag scatterplot with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates two dominate patterns, strong autocorrelation on weekends, and weaker autocorrelation on work days. At the higher counts on week days, the next hour sees possibly substantial increase or decrease in counts, as is depicted as the V-shape in the graphs. This is consistent with the bimodality from Figure \ref{fig:fs-2016}, since positive correlations are perceived when approaching to the peak hour yet negative correlations when moving away from the peak hour.
+The \texttt{frame\_calendar()} function is not constrained to line plots. The full range of plotting capabilities in \textbf{ggplot2} is essentially available. Figure \ref{fig:scatterplot} shows lag scatterplots with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. This figure is organized in the daily calendar layout. Figure \ref{fig:scatterplot} indicates strong autocorrelation on weekends, and weak autocorrelation on work days. At the higher counts on work days, the next hour sees possibly substantial increase or decrease in counts, as is depicted as the V-shape in the graphs. This is due to the morning and afternoon commuter patterns in Figure \ref{fig:fs-2016}: the adjacent hours are positively correlated when approaching to the peak hour but negatively correlated when moving away from the peak.
 
 \begin{figure}
 
