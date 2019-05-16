@@ -4,7 +4,7 @@ cache/
 .Rproj.user
 data/*.csv
 *.bbl
-data-raw/
+data-raw/*.csv
 cover-letter/signature.png
 *.log
 figure/
