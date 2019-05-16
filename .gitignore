@@ -8,3 +8,5 @@ data-raw/
 cover-letter/signature.png
 *.log
 figure/
+/*.png
+/*.jpg
