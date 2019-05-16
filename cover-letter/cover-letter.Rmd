@@ -14,10 +14,10 @@ spacing: 1.4
 output: MonashEBSTemplates::letter
 ---
 
-Please consider our manuscript titled, "Calendar-based graphics for visualizing people's daily schedules," for publication in the Journal of Computational and Graphical Statistics.
+We have undertaken major revision on our manuscript titled, "Calendar-based graphics for visualizing people's daily schedules," based on reviewers' comments.
 
-This paper provides new graphical methods for organizing and visualizing temporal data, collected at sub-daily resolutions, into a calendar layout. It is useful to provide insights into people's daily schedules relative to events such as work days, weekends, holidays, and special events, based on calendar layouts. The calendar format is created using linear algebra, to restructure data, that can then be piped into ggplot2's plotting routines. Many options and variants are supported to make it broadly applicable. The methods are implemented in the R package **sugrrants**, which is on CRAN. The paper is written in RMarkdown, which contains the R code to reproduce the results.
+We have included a new subsection "2.4 Reasons to use calendar-based graphics" to explain why calendar displays are useful and when to use them, and a new section "3 Making calendar facets" to describe a new calendar faceting method `facet_calendar()`, that extends **ggplot2** intervals and complements the existing function `frame_calendar()`.
 
-An early version of the paper won the 2018 ASA Statistical Graphics Section best student paper. We submitted that paper to the Journal of Statistical Software in September 2017. It took 12 months to received a review, and the decision was to reject without substantial feedback, other than a lack of examples. For this reason, we have added an additional contemporary data example of smart meter energy usage from several Melbourne households, to supplement the example of Melbourne pedestrian traffic. Because of the treatment by JSS, we also request that this paper is not handled by AE Paul Murrell. 
+We have provided a detailed response letter to reviewers, as attached.
 
-We believe that this manuscript is a good fit for the Journal of Computational and Graphical Statistics, because it provides new graphics methodology. Because the software has already received considerable attention, we expect that the work will be of interest to readers of the journal.
+We believe that this manuscript has been significantly improved, that is a good fit for the Journal of Computational and Graphical Statistics.
