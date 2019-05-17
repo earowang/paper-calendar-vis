@@ -10,8 +10,7 @@ fontfamily: mathpazo
 
 We thank the reviewers for their helpful feedback which has led to many improvements in the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
 
-In addition, we have expanded the paper by including a subsection titled "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and a short section titled "3 Making calendar facets" which describes a new function `facet_calendar()`, that extends **ggplot2** intervals and complements the existing function `frame_calendar()`. It allows this algorithm to integrate more deeply with the **ggplot2** architecture.
-
+In addition, a subsection titled "2.3.5 Faceted calendar", that describes a new function `facet_calendar()`, is included. It extends **ggplot2** intervals and complements the existing function `frame_calendar()` and allows this algorithm to integrate more deeply with the **ggplot2** architecture. We have added a subsection titled "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots.
 
 # Reviewer 1 comments {-}
 

@@ -209,11 +209,11 @@ Plots can be layered. A comparison of sensors can be done by overlaying them in 
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
 
-(ref:overlay-cap) Overlaying line graphs of the three sensors in the monthly calendar, to enable a direct comparison of the counts at three locations. Theey have very different traffic patterns. Birrarung Marr tends to attract large numbers of pedestrians for special events typically held on weekends, contrasting to the bimodal massive peaks shoing commuting traffic at Flagstaff Station.
+(ref:overlay-cap) Overlaying line graphs of the three sensors in the monthly calendar, to enable a direct comparison of the counts at three locations. They have very different traffic patterns. Birrarung Marr tends to attract large numbers of pedestrians for special events typically held on weekends, contrasting to the bimodal massive peaks showing commuting traffic at Flagstaff Station.
 
 ### Faceting by covariates
 
-To avoid overlapping, when differences between groups are large enough to be seen separately, the calendar layout can be facetted into a series of subplots for the different sensors. Figure \@ref(fig:facet) shows calendar plots that are facetted by sensors. This arrangement allows comparison of the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed over many weekends, but events took place on Friday evenings only in September. The Australian Open, a major international tennis tournament, attracted constant foot traffic in the last two weeks of January. The calendar plot can be facetted by any categorical variable in the data.
+To avoid overlapping, when differences between groups are large enough to be seen separately, the calendar layout can be faceted into a series of subplots for the different sensors. Figure \@ref(fig:facet) shows calendar plots that are faceted by sensors. This arrangement allows comparison of the overall structure between sensors, while emphasizing individual sensor variation. In particular, it can be immediately learned that Birrarung Marr was busy and packed over many weekends, but events took place on Friday evenings only in September. The Australian Open, a major international tennis tournament, attracted constant foot traffic in the last two weeks of January. The calendar plot can be faceted by any categorical variable in the data.
 
 ```{r facet, fig.height = 10.2, fig.cap = "(ref:facet-cap)"}
 ```
@@ -242,7 +242,7 @@ As a data restructuring tool, the interactivity of calendar-based displays can b
 
 Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the **wanderer4melb** shiny application [@R-wanderer4melb]. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain, affect the number of people walking in downtown Melbourne. The linking between weather data and calendar displays is achieved using the common dates.
 
-### Facetted calendar {#sec:facet-calendar}
+### Faceted calendar {#sec:facet-calendar}
 
 The `frame_calendar()` function described in Section \@ref(sec:algorithm) is a data restructuring function, neatly integrating into a data pipeline but it requires two steps: data transformation and then plot. There is also little freedom to tailor axes and labels, because specialist code needs to be applied.
 
