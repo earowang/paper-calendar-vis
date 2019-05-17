@@ -204,7 +204,7 @@ Most countries have adopted this western calendar layout, while the languages us
 
 ### Information overlay 
 
-Plots can be layered. A comparison of sensors can be done by overlaying them in the same calendar pane. Figure \@ref(fig:overlay)) overlays the pedestrian counts for three locations on the same calendar. Differences between the pedestrian patterns at these locations can be more directly compared. For example, the magnitude of the difference in pedestrians at Flagstaff Station at peak hours of commuter can be seen. The big peak in pedestrian counts for special events at Birrarung Marr is clear. Birrarung Marr has a very distinct temporal pattern relative to the other two locations. The nighttime events, such as White Night (third Saturday in February), only affects the foot traffic at the State Library and Birrarung Marr.
+Plots can be layered. A comparison of sensors can be done by overlaying them in the same calendar pane. Figure \@ref(fig:overlay) overlays the pedestrian counts for three locations on the same calendar. Differences between the pedestrian patterns at these locations can be more directly compared. For example, the magnitude of the difference in pedestrians at Flagstaff Station at peak hours of commuter can be seen. The big peak in pedestrian counts for special events at Birrarung Marr is clear. Birrarung Marr has a very distinct temporal pattern relative to the other two locations. The nighttime events, such as White Night (third Saturday in February), only affects the foot traffic at the State Library and Birrarung Marr.
 
 ```{r overlay, fig.height = 7, fig.cap = "(ref:overlay-cap)"}
 ```
@@ -222,7 +222,7 @@ To avoid overlapping, when differences between groups are large enough to be see
 
 ### Different types of plots
 
-Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in **ggplot2** is available. An example is shown in Figure \@ref(fig:scatterplot): the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The the V-shape in the week day graphs, arises when the next hour sees a substantial increase or decrease in counts. This is due to the morning and afternoon commuter patterns in Figure \@ref(fig:fs-2016): the adjacent hours are positively correlated when approaching to the peak hour but negatively correlated when moving away from the peak.
+Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in **ggplot2** is available. An example is shown in Figure \@ref(fig:scatterplot): the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the week day graphs arises when the next hour sees a substantial increase or decrease in counts. This is due to the morning and afternoon commuter patterns in Figure \@ref(fig:fs-2016): the adjacent hours are positively correlated when approaching to the peak hour but negatively correlated when moving away from the peak.
 
 ```{r scatterplot, fig.height = 5, fig.cap = "(ref:scatterplot-cap)"}
 ```
@@ -244,7 +244,7 @@ Linking calendar displays to other types of charts is valuable to visually explo
 
 ### Faceted calendar {#sec:facet-calendar}
 
-The `frame_calendar()` function described in Section \@ref(sec:algorithm) is a data restructuring function, neatly integrating into a data pipeline but it requires two steps: data transformation and then plot. There is also little freedom to tailor axes and labels, because specialist code needs to be applied.
+The `frame_calendar()` function described in Section \@ref(sec:opt) is a data restructuring function, neatly integrating into a data pipeline but it requires two steps: data transformation and then plot. There is also little freedom to tailor axes and labels, because specialist code needs to be applied.
 
 The `facet_calendar()` integrates the algorithm into the **ggplot2** graphical system so that the calendar layout is automatic, and the full functionality of axes, labels, and customization is accessible. A faceting method lays out panels in a grid. The user needs to supply the variable containing dates, in order for the faceting calendar function to prepare the arrangement of panels, as defined by Equation \@ref(eq:grid). The remainder of the plot construction for each panel is handled entirely by **ggplot2** internals.
 
@@ -261,6 +261,7 @@ However, the `facet_calendar()` takes much more run time compared with `frame_ca
 
 The purpose of the calendar display is to facilitate quick discoveries of unusual patterns in people's activities, which is consistent with why analysts should and do use data visualization. It complements the traditional graphical toolbox used to understand general trends, and better profiles vivid and detailed data stories about the way we live. Comparing the conventional displays (Figure \@ref(fig:time-series-plot) and \@ref(fig:facet-time)) with the new display (Figure \@ref(fig:facet)), it can be seen that the calendar display is more informatively compelling: when special events happened, and on what day of the week, and whether they were day or night events. For example, Figure \@ref(fig:facet) informs the reader that many events were held in Birrarung Marr on weekend days, while September's events took place on Friday evenings, which is difficult to discern from the conventional displays.
 
+\newpage
 
 # Case study {#sec:case}
 
