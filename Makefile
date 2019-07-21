@@ -1,11 +1,5 @@
 render:
-	Rscript -e 'rmarkdown::render("main.Rmd")'
+	Rscript -e 'Sys.setenv("RSTUDIO_PANDOC" = "/Applications/RStudio.app/Contents/MacOS/pandoc"); rmarkdown::render("$(file).Rmd")'
 
 open:
-	open main.pdf
-
-response:
-	Rscript -e 'rmarkdown::render("reviews/response.Rmd")'
-
-cover:
-	Rscript -e 'rmarkdown::render("cover-letter/cover-letter.Rmd")'
+	open $(file).pdf
