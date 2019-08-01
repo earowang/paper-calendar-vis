@@ -40,13 +40,13 @@ library(knitr)
 opts_chunk$set(
   echo = FALSE, warning = FALSE, message = FALSE, comment = "#>",
   fig.path = 'figure/', fig.align = 'center', fig.show = 'hold', 
-  cache = FALSE, cache.path = 'cache/', 
+  cache = TRUE, cache.path = 'cache/', 
   out.width = ifelse(is_html_output(), "100%", "\\textwidth")
 )
 knitr::opts_knit$set(root.dir = here::here())
 ```
 
-```{r external, include = FALSE}
+```{r external, include = FALSE, cache = FALSE}
 read_chunk('scripts/main.R')
 ```
 
