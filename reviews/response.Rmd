@@ -1,6 +1,6 @@
 ---
 title: Response to reviewers
-author: JCGS-18-293
+author: JCGS-18-293-R1
 output:
   MonashEBSTemplates::memo:
     includes:
@@ -10,223 +10,108 @@ fontfamily: mathpazo
 
 We thank the reviewers for their helpful feedback which has led to many improvements in the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
 
-In addition, a subsection titled "2.3.5 Faceted calendar", that describes a new function `facet_calendar()`, is included. It extends **ggplot2** intervals and complements the existing function `frame_calendar()` and allows this algorithm to integrate more deeply with the **ggplot2** architecture. We have added a subsection titled "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots.
+# Associate editor {-}
 
-# Reviewer 1 comments {-}
+> What if the data's collected over different time zones?
 
-> Figure 2 and Figure 10 show much the same information. You can see the Australian Open period in both. There is more detail in Figure 10 for the State Library.  The gaps in the Birrarung Marr data are easier to see in Figure 2.
+> Abstract: "modular arithmetic" is more accurate. Or omit the sentence altogether. I agree with comments  of reviewer 1 on this topic.
 
-We have explained the purpose of showing both displays in the revised paper, by including a new subsection "2.4 Reasons to use calendar-based graphics" to explain why to use calendar plots, and what information is typically revealed by calendar plots but not by other plots. The calendar display doesn't replace traditional displays, but serves to complement them to further tease out interesting structures in the data.
+> Page 2 par 2 first sentence. There are other broader applications than this, eg, pollution monitoring. Last sentence "but conventional displays" (omit "the")
 
-> Figure 11 is not described well.  What does the V-pattern mean?  How can you see the strong autocorrelation at weekends?  There are only dots.  
+> Page 3 Figure 1 legend. Say "grey dots indicate sensor locations".
 
-We have changed the explanation of Fig 11 to make it clearer. In the revised paper this is now Fig 10. The V pattern is due to morning and evening commuter pattern on weekdays. We realised that the daily lag relationships would be read more easily if local scale was used, that is, each day is scaled relative to itself. This has been done, and the different autocorrelation pattern for week days and weekends is now clearer.
+> Page 6 line 4. omit "as" in "as in R packages".
 
-> The colours are not well chosen in Figure 15.  It is hard to see the averages for households 1 and 3.
+> Par 2. rephrase "more easily pop-up to viewers".
 
-Colours have been changed to make it clearer.
+> Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
 
-> There are too many large plots in the paper.  Figure 6 is not needed and Figure 12 is not needed.  
+> Should be g= k, ... (k+d-1) I think. 
 
-We are not sure if you mean Fig 6 here. Fig 6 is the diagram illustrating the yearly layout, and we think it is important to keep this illustration in the paper. On Fig 12, we think you mean Fig 13 is not necessary along with Fig 12. We have kept Fig 13 with the Chinese labels, to illustrate variety in language labels as well as the examination of variability using boxplots.
+> Equation 1. Modular arithmetic will give j in 0..6, not in 1..7.
 
-> How do you know that the New Year's Eve outliers in Figure 12 are from the same sensor?  That is not in the plot.
+> Line 36, what are M and N? You explain them later, but should be at first usage.
 
-Yes, you are correct. You can't see that it is one sensor from this plot. The explanation of Fig 12 (now 11) focuses on the variability of counts across days, instead of outliers.
+> Page 8. I agree with reviewer 1. These figures are not needed. Move to supplementary material.
 
-> Do Figures 16-19 show much?  Drawing all four series as rows in facets one above the other would show the holidays better.  Comparisons of the households would be easier.  The six-weeks months confuse looking at holidays.  What are the one-day peaks in the middle of holidays?
+> Figure 6. Could the figure have some indicator of the wrapping of few days to first row? It would help the reader.
 
-Yes, we agree, they take up too much space. But the message of comparing multiple households is good to illustrate the benefits of the calendar plots, so we have reduced the plots to focus only on Jan-June 2018 and show all four households in one plot.
+> Somewhere in this section you should mention that labels and axes are discussed later.
 
-> There is a shiny app that presents some of the data.  It is not well described.  The plot at lower left is cumulative precipitation for each month, but it does not say so.  Why is cumulative precipitation by month interesting?  Months are of different lengths.  You can select single days in the time series.  Can you select more than one day?
+> Page 11 line 1. Write "For example in Figure 6..."
 
-We have added a text box underneath the plots in the shiny app. To describe the app in this paper would be too distracting for the reader. Cumulating monthly precipitation provides a more interesting look at rainfall, and it approximates how the NY Times displays weather. Only one day can be selected.
+> Page 12. Say why polar transformation is useful.
 
-# Reviewer 2 comments {-}
+> In your figures is global scaling used, unless otherwise stated?
 
-> p.10, l.1-15 It wasn't clear to me why the subtraction was performed in the equation (2) because I couldn't find any description for the global coordinate system of the canvas. The value of y could be negative. Please add the description how to deal with the coordinate system, especially the y-axis.
+> Page 17, figure 10. I don't see negative correlation. Just two slopes, both positive. Am I missing something?
 
-This is already explained directly after the equation. It is because plots are measured from top left of the display area, which is the common computer graphics standard.
+> Page 19, first sentence. The meaning of this is not clear. Rephrase.
 
-# Reviewer 3 comments {-}
+> Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing. Two of the line colours are very similar here and in other plots.
 
-Thank you for carefully reading of our paper. 
+> Page 23. Suggest dropping figure 13. Or move to supplementary material.
 
-> p1, l32: "information, and events." - remove the comma (and all of the other similar small details)
+> Page 24 Line 15: "calendar plots tell the stories"
 
-Fixed in multiple places. The language in many places has been modified according to these comments. 
+# Reviewer 1 {-}
 
-> p2, l9: "grammar of graphics" - provide reference immediately here and not only later in the article and explain what the grammar of graphics is; also "piped into" may not be understood by outsiders
+> "Would it be possible to have a plot for each day in a calendar plot with thick lines separating the months?  That kind of plot is common for calendar heatmaps."  I think that is important.  Perhaps they can build it in.  If not, why not?
 
-Done.
+> The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
-> Fig.1 (& related figs): I suppose you use a "3-class Dark2" color scheme from Rcolorbrewer? This does not work well when printed in gray scale: The colors become almost indistinguishable. ...
+> The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
-We have changed the colour scheme from ColorBrewer palette "Dark2" to "4-class PuOr" in Figure 1 and related figures. This works better on the grey background, but still can be read on a white background in the other plots.
+> p6 "Jones (2016), Wong (2013), Kothari & Ather (2016), and Jacobs (2017) implemented some variants of calendar-based heatmaps as in R packages: TimeProjection, ggTimeSeries, and ggcal respectively."  Four articles, three packages, one must be missing.  Better when references are next to package names.
 
-> Fig.4: Colors orange & purple are hard to distinguish in grayscale. Moreover, you should use different colors here as these 2 colors are already related to the 3 stations.
+> p7 "Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default."  This is not true for six-week months.
 
-In Fig 4, we have changed the colour to red and blue picked from a ColorBrewer "4-class RdYlBu" colour scheme. Fig 1-3 colours used for the 3 stations use a different palette.
+> p7 "Each variable is scaled to have values in [0,1], using the minimum and maximum of all the data values to be displayed, assuming fixed scales."  Can the scale be set by the user?  Starting at 0, not minimum, can be useful.
 
-> Fig.2: Instead of "Jan 2016" ... "Jan 2017", be specific and list "Jan 1, 2016" ... "Jan 1, 2017"
+> p8 Figures 4 and 5 are unnecessary.  Figure 4 is misleading, it does not apply to six-week months and the bottom right cell may be empty.
 
-Done.
+> p10 Figure 6  Could the vertical scale be given in the caption?
 
-> Fig.2: Can you match the minor grid lines with the start of a month, rather than the middle of a month? This will make it much easier to identify the approximate dates for some of the other spikes. No need to label these minor grid lines.
+> p14 and 15-16 Figure 9 is better than Figure 8.  Are both necessary?
 
-Done.
+> p14 "Almost any kind of plot can be shown in a calendar pane."  This is excellent.  An impressive example would be useful.  Figure 10 is disappointing.  It is difficult to read and the information it provides could be seen in earlier figures.
 
-> Fig.2: You mention "small multiples" only in a figure caption. This concept is a central
-part of your calendar graphics and should be summarized in more details (including references) in the main text. Also mention Unwin & Valero-Mora's "Ensemble Graphics", JCGS, 27(1), as a major concept that applies to both sets of related figures in your article.
+> p17 Figure 10  Why not align by days of the week?
 
-We have explained the concept of faceting and also referred to small multiples, trellis charts, and ensemble graphics in a new paragraph in the  Introduction section.
+> p19 Text implies that more than one date can be selected in the Shiny app.  The app was kludgy and did not work smoothly.  It is a nice idea, but interaction has to be fast and work well.  Zooming did not work properly and was not able to link from the weather plots.  Fix or do not mention in article.
 
-> Fig.3: Add tick marks at 0 and 24. See whether tick mark labels fit. If not, OK to omit those for 0 and 24.
+> p21 Figure 12 is an interesting possibility, but not well implemented.  The repetition of the scales in unhelpful.  0 12 24 looks like 240 12 240.  There is too much labelling and too little information.
 
-Done.
+> The case study is interesting.  Why are the data for household 2 different (fewer possible values)?
 
-> p6, l8: You mention ggTimeSeries & ggcal. For completeness, also cite Jones (2016) Calendar Heatmaps, https://rpubs.com/haj3/calheatmap, and possibly Wong's TimeProjection R package, https://cran.r-project.org/web/packages/TimeProjection/index.html
+> p22 "with noticeable variations on Thursdays" based on only 26 data points is overinterpretation.
 
-Done.
+> p22 "The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns."  The vertical scaling makes it very difficult to see this.  Inspecting the data with individual scales offers some support but not a lot.
 
-> p6, l49-...: Starting a section called "Data transformation" with an example/figure seems to be strange. Can you first start with the formal steps and then place this example/figure after the formal part, i.e., around p.8, l38.
+> p24 "All households have different week days versus weekends daily routines."  This does not look so true for households 3 or 4.
 
-Done.
+# Reviewer 3 {-}
 
-> Fig.4: Colors orange & purple are hard to distinguish in grayscale. Moreover, you should use different colors here as these 2 colors are already related to the 3 stations.
+> general: please check (multiple times): Shouldn't it be "weekday[s]" (without a space) instead of "week day[s]" (or speak of "day of the week" if that is intended). Major online dictionaries only list the "weekday" spelling.
 
-Done.
+> p2, l9: "restructuring of the data, that can" - remove the comma
 
-> Fig.4: Prior to reading the text on p8, I was really confused and even assumed there was a major bug in your R code. Having 2 days in early May and 1 day in early Oct, then 3 days missing, and then the remainder of the month is really confusing for someone who only looks at the figure without reading the text in detail. At least mention this layout anomaly in the figure caption.
+> p7: In your (i, j) grid position notation, make clear immediately that i is the row and j is the column, with (1, 1) being in the upper left corner. This becomes apparent from the figures, but not from the text itself. Same for (m, n). Your first paragraph on p9 comes too late and only provides part of the explanation.
 
-Thanks. We have pointed out the layout anomalies for May and October in the Figure 4 (now 6) caption.
+> p10, l48: "Note that, the algorithm" - remove the comma
 
-> p8, l19: "wrap the last few days up to the top row of the block": This answers
-my comment for Fig.4 now, but this layout still remains misleading. We expect to
-see some similar temporal pattern in nearby graphs. But there could be considerable differences over a 30-day period, e.g., in your example from Section 3:
-What if these 1 or 2 days are after some summer vacation with lots of air conditioning
-use, but the vacation already started in the previous month and continued through the middle of the current month. Suddenly, there will be a few huge spikes that interrupt
-the overall low-energy pattern. I could think of 2 possible solutions:
-(i) Add a 6th week for each month; or (ii) Add the extra days to the
-start of the next month. This is sometimes called a
-"Calendar Heatmap Tetris Chart", see for example https://stackoverflow.com/questions/27000131/calendar-heat-map-tetris-chart
-[both of these features could become additional user options for your R function]
+> p10, l50: "which occurs to May and October." -> "which occurs in May and October."
 
-It is intentional to conform a calendar layout of 5 rows and 7 columns for the purpose of compactness. Only one or two months in a year will span over 6 weeks, which would result in more unused space for a year-long calendar plot. We don't shift the extra days to the next month because it is difficult for readers to distinguish which month contains these additional days without proper labelling. We agree that it is disruptive since time is usually perceived as linear, but it is also a common calendar convention.
+> p11, l5: "The date argument specifies the date variable used to construct the calendar layout." Not very informative. Either omit or provide an example, e.g., date in which format (numerical, text, ...), from-to dates, etc.
 
-That said, the algorithm that lays out the calendar is flexible to incorporate these two options. We have included them as the options for future work. Thanks for the suggestions.
+> Figs 6-9 captions: You speak of "line glyphs", "line graphs", and "line charts". These mean the same - so be consistent and use just one of the three terms throughout the figure captions (and main text).
 
-> p8, l44: "Between each month requires some small amount of white space, denoted by b." - strange sentence; rephrase
+> p22, l23: You wrote "boxes for household 2 indicate greater variability in daily energy consumption with noticeable variations on Thursdays," -- isn't this on Fridays?
 
-Done.
+> p22 vs. Fig 14: You speak of 6am, 6pm, 3pm, etc. in the text, but use 0, 6, 12, 18, 24 hour labels in the graph. Be consistent and use the international 0-24 hour notation in the text as well.
 
-> p11, l44: "star plots": briefly explain what these are and cite a basic reference for these.
+> Fig 15: It appears that April 30 is wrapped to the start of the monthly display? 
 
-Done.
+> If so, add a comment similar to the one from Fig 6 to the figure caption. - p26, l20: "and the another one starting" - delete "the"
 
-> Fig.7: Where is "noon" and "midnight" here - on top/bottom or on the 0/180 degree position on the right/left side? And what is the direction? I suppose clockwise, but this needs to be mentioned somewhere.
-
-The star plots have been removed from the paper, since it doesn't add more information to other existing plots.
-
-> p13, l39: "Figure 13 shows the same plot as Figure 12 labelled": You can't jump forward to a figure before all intermediate figures have been introduced. The previous fig was Fig.8. Figs 9-11 have not been mentioned yet. Either rearrange your figures so that 12-13 become 9-10, or use Chinese characters for one of the previously introduced figs (1-8).
-
-Fixed. "Figure 13 shows the same plot as Figure 12 labelled" is deleted.
-
-> p13, possible subsection 2.2.6: You seem to have a "sunday = FALSE" default. If TRUE, does this make Sunday the start of the week (as used in the US & Canada)? If so, mention this as an option. No need for a figure.
-
-Done. We deprecated argument `sunday` in favor of `week_start` that is more general. We added a new subsection on "Start of the week" to briefly explain the option. We have reorganized the order of the subsections to be consistent with the function argument's ordering.
-
-> p13, possible subsection 2.2.7: How can you enter specific holidays? These are different from country to country, e.g., based on national holidays such as Thanksgiving, Labor Day, independence days, religious holidays, etc.
-
-We used `tsibble::holiday_aus()` for generating Australian public holidays, prior to creating calendar displays. Whether to use holidays or not is a data-specific problem, and would depend on local analysts incorporating a holiday calculator into their country specific analyses. This is beyond the scope of this paper.
-
-> Fig.8: "impossible to compare the size of peaks between days." - Correct; since this is based on ggplot, could you use colors from a sequential color scheme that maps the counts, e.g., from faint yellow (0) to dark red (for the overall max)? This might be another
-useful argument for a future extension of your function.
-
-We recommend against this idea. The better approach is to re-make the plot with global scaling to focus on counts. No need to make one plot show everything possible, but better to make multiple plots. 
-
-> p15, l12: "idea of faceting": explain what "faceting" means in general (and cite 1 or 2 main references)
-
-We added the explanation of "faceting" in the Introduction section.
-
-> p15, l16: "In particular, it can be immediately learned that when Birrarung Marr was busy and packed, for example Australian Open in the last two weeks of January." -> "In particular, it can be immediately learned that Birrarung Marr was busy and packed, for example during the Australian Open, a major international tennis tournament, in the last two weeks of January."
-
-Done.
-
-> p15, l45: "the day before Christmas, go shopping on the Boxing day, and stay out for the fireworks on New Year's Eve.": Some of these names may not be known to non-Christian / non-British readers. List the date in parentheses, e.g., December 24, December 26, etc.
-
-Done.
-
-> Fig.12: "loess smooth": cite main reference
-
-Done.
-
-> p21, l36: "these four households are the data of colleagues of the authors." - strange sentence; rephrase
-
-Done.
-
-> p22, l17-35: inconsistent use of times, e.g., "before 6", "around 18", "3pm", etc. - adjust to times used in the figures and be consistent. Also adjust caption of Fig.15.
-
-Done.
-
-> p22, l36: "Figure 16, 17, 18 and 19" -> "Figures 16-19"
-
-Done.
-
-> "individually for each household": This seems to suggest that a scale from
-0 to max(household_i) [but not to max(all households)] has been used. But what is this max in each of the 4 figures? The reader has no way to easily infer this. Also mention that these 4 figs are not true small multiples as the vertical scales for the 4 households differ from figure to figure.
-
-We merge these four figures into one plot (Figure 15) using global scales.
-
-> Fig.15: Use labels 6, 12 & 18 and extra tick marks at 0 & 24, matching Fig 3.
-
-Done.
-
-> p25, l3: What about April? If added here, also add to caption of Fig.19.
-
-Done.
-
-> p25, l14: "Anzac Day in Australia, or Thanksgiving Day in the USA,": Never mentioned before in this article. Refer back to the special events/holidays from earlier in the article.
-
-This is removed.
-
-> p25, after l35: List my suggestions for software additions from above that you do not want to implement now as options for future work.
-
-Done.
-
-> Fig.16 caption: "Calendar display for household 1, indicates higher weekend usage, and in the summer months, November-February. It seems that they took a vacation in June." ->
-"The calendar display for household 1 indicates higher weekend usage and higher usage in the summer months (November-February). It seems that this household took a vacation in June."
-
-Done.
-
-> Fig.17 caption: "Calendar display for household 2, reveals their tendency to use air conditioning and heating continuously. Not many vacation were taken." ->
-"The calendar display for household 2 reveals their tendency to use air conditioning
-and heating continuously. Some vacation days were taken in late December and in the
-second week of June."
-
-Done.
-
-> Fig.17: I am concerned: Is this a "fair" comparison when you drop the months August-October (& part of November) 2017 for household 2, while these 3+ months
-are part of the graphics for households 1, 3 & 4? Wouldn't it be better to
-restrict all households to Dec 2017 - July 2018? This would drop the winter/spring months from the aggregated displays in Figs.14-15. But household 2 still would have most variation, but now, this is based on matching time periods.
-
-Thanks. We have restricted the data to Jan-June 2018 and combined four separate plots to a single plot using faceting. They all share common scales so that comparison can be made.
-
-> Fig.18 caption: "Calendar display for household 3. Their energy use reveals higher energy use in
-the winter months, with multiple peaks daily on both week days and weekends. There are some high peaks in summer, perhaps indicating occasional air conditioner use. There have been several long vacations in the past year." ->
-"The calendar display for household 3 reveals higher energy use in
-the winter months (May-August), with multiple peaks daily on both week days and weekends. There are
-some high peaks in summer (November-February), perhaps indicating occasional air conditioner use. There have
-been several long vacations ... [match the main text]."
-
-Done.
-
-> Fig.19 caption: "Calendar display for household 4, shows energy use mostly in the evenings and on weekends. Three short trips were taken in October, December, and June." ->
-"The calendar display for household 4 shows energy use mostly in the evenings and
-on weekends. Three short trips were taken in October, December, and June." [also April? - match with p25, l13]
-
-Done.
-
-> p.30: City of Melbourne (2017) [& other URLs]: Does JCGS require the "last accessed" information for web-based references? If so, add where needed.
-
-Done.
+> Kothari, A. & Ather (2016). I visited https://github.com/AtherEnergy/ggTimeSeries. Ather seems to be a company, so perhaps this needs to be listed as "Ather Energy Pvt Ltd" as on the parent github page?!?
