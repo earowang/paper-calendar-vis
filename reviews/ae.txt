@@ -1,0 +1,42 @@
+Overall I like the paper. It is generally well-written. I’ve some suggestions and minor corrections listed below.
+
+What if the data s collected over different time zones?
+
+Abstract: “modular arithmetic” is more accurate. Or omit the sentence altogether. I agree with comments  of reviewer 1 on this topic.
+
+Page 2 par 2 first sentence. There are other broader applications than this, eg, pollution monitoring.
+Last sentence “but conventional displays” (omit “the”)
+
+Page 3 Figure 1 legend. Say “grey dots indicate sensor locations”.
+
+Page 6 line 4. omit “as” in “as in R packages”.
+Par 2. rephrase “more easily pop-up to viewers”.
+
+Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
+Should be g= k, ... (k+d-1)  I think
+Equation 1. Modular arithmetic will give j in 0..6, not in 1..7.
+Line 36, what are M and N? You explain them later, but should be at first usage.
+
+Page 8. I agree with reviewer 1. These figures are not needed. Move to supplementary material.
+
+Figure 6. Could the figure have some indicator of the wrapping of few days to first row? It would help the reader.
+
+Somewhere in this section you should mention that labels and axes are discussed later.
+
+Page 11 line 1. Write "For example in Figure 6..."
+
+Page 12. Say why polar transformation is useful.
+
+In your figures is global scaling used, unless otherwise stated?
+
+Page 17, figure 10. I don’t see negative correlation. Just two slopes, both positive. Am I missing something?
+
+Page 19, first sentence. The meaning of this is not clear. Rephrase.
+
+Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing.  Two of the line colours are very similar here and in other plots.
+
+Page 23. Suggest dropping figure 13. Or move to supplementary material.
+
+Page 24 Line 15: “calendar plots tell the stories”
+
+The discussion is on the brief side.

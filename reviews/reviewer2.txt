@@ -1,2 +1,0 @@
-p.10, l.1-15
-It wasn't clear to me why the subtraction was performed in the equation (2) because I couldn't find any description for the global coordinate system of the canvas. The value of y could be negative. Please add the description how to deal with the coordinate system, especially the y-axis.
