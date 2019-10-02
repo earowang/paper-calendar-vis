@@ -8,51 +8,93 @@ output:
 fontfamily: mathpazo
 ---
 
-We thank the reviewers for their helpful feedback which has led to many improvements in the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
+We thank the reviewers for their helpful feedback which has improved the readability of the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
 
 # Associate editor {-}
 
 > What if the data's collected over different time zones?
 
+TODO
+
 > Abstract: "modular arithmetic" is more accurate. Or omit the sentence altogether. I agree with comments  of reviewer 1 on this topic.
+
+Thanks. We've revised to "modular arithmetic".
 
 > Page 2 par 2 first sentence. There are other broader applications than this, eg, pollution monitoring. Last sentence "but conventional displays" (omit "the")
 
+TODO
+
 > Page 3 Figure 1 legend. Say "grey dots indicate sensor locations".
+
+Done.
 
 > Page 6 line 4. omit "as" in "as in R packages".
 
+Done.
+
 > Par 2. rephrase "more easily pop-up to viewers".
+
+We've rephrased to "to accentuate unusual patterns, such as those related to special events, for viewers".
 
 > Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
 
+TODO
+
 > Should be g= k, ... (k+d-1) I think. 
+
+TODO
 
 > Equation 1. Modular arithmetic will give j in 0..6, not in 1..7.
 
+TODO
+
 > Line 36, what are M and N? You explain them later, but should be at first usage.
+
+TODO
 
 > Page 8. I agree with reviewer 1. These figures are not needed. Move to supplementary material.
 
+TODO
+
 > Figure 6. Could the figure have some indicator of the wrapping of few days to first row? It would help the reader.
+
+TODO
 
 > Somewhere in this section you should mention that labels and axes are discussed later.
 
+TODO
+
 > Page 11 line 1. Write "For example in Figure 6..."
+
+Done.
 
 > Page 12. Say why polar transformation is useful.
 
+TODO
+
 > In your figures is global scaling used, unless otherwise stated?
+
+TODO
 
 > Page 17, figure 10. I don't see negative correlation. Just two slopes, both positive. Am I missing something?
 
+TODO
+
 > Page 19, first sentence. The meaning of this is not clear. Rephrase.
+
+TODO
 
 > Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing. Two of the line colours are very similar here and in other plots.
 
+TODO
+
 > Page 23. Suggest dropping figure 13. Or move to supplementary material.
 
+TODO
+
 > Page 24 Line 15: "calendar plots tell the stories"
+
+Done.
 
 # Reviewer 1 {-}
 
@@ -68,7 +110,7 @@ We thank the reviewers for their helpful feedback which has led to many improvem
 
 > p7 "Each variable is scaled to have values in [0,1], using the minimum and maximum of all the data values to be displayed, assuming fixed scales."  Can the scale be set by the user?  Starting at 0, not minimum, can be useful.
 
-> p8 Figures 4 and 5 are unnecessary.  Figure 4 is misleading, it does not apply to six-week months and the bottom right cell may be empty.
+> p8 Figures 4 and 5 are unnecessary. Figure 4 is misleading, it does not apply to six-week months and the bottom right cell may be empty.
 
 > p10 Figure 6  Could the vertical scale be given in the caption?
 
@@ -94,24 +136,48 @@ We thank the reviewers for their helpful feedback which has led to many improvem
 
 > general: please check (multiple times): Shouldn't it be "weekday[s]" (without a space) instead of "week day[s]" (or speak of "day of the week" if that is intended). Major online dictionaries only list the "weekday" spelling.
 
+Thanks. Done.
+
 > p2, l9: "restructuring of the data, that can" - remove the comma
+
+Done.
 
 > p7: In your (i, j) grid position notation, make clear immediately that i is the row and j is the column, with (1, 1) being in the upper left corner. This becomes apparent from the figures, but not from the text itself. Same for (m, n). Your first paragraph on p9 comes too late and only provides part of the explanation.
 
+TODO
+
 > p10, l48: "Note that, the algorithm" - remove the comma
+
+Done.
 
 > p10, l50: "which occurs to May and October." -> "which occurs in May and October."
 
+Done.
+
 > p11, l5: "The date argument specifies the date variable used to construct the calendar layout." Not very informative. Either omit or provide an example, e.g., date in which format (numerical, text, ...), from-to dates, etc.
+
+TODO
 
 > Figs 6-9 captions: You speak of "line glyphs", "line graphs", and "line charts". These mean the same - so be consistent and use just one of the three terms throughout the figure captions (and main text).
 
+TODO
+
 > p22, l23: You wrote "boxes for household 2 indicate greater variability in daily energy consumption with noticeable variations on Thursdays," -- isn't this on Fridays?
+
+TODO
 
 > p22 vs. Fig 14: You speak of 6am, 6pm, 3pm, etc. in the text, but use 0, 6, 12, 18, 24 hour labels in the graph. Be consistent and use the international 0-24 hour notation in the text as well.
 
+TODO
+
 > Fig 15: It appears that April 30 is wrapped to the start of the monthly display? 
+
+TODO
 
 > If so, add a comment similar to the one from Fig 6 to the figure caption. - p26, l20: "and the another one starting" - delete "the"
 
+TODO
+
 > Kothari, A. & Ather (2016). I visited https://github.com/AtherEnergy/ggTimeSeries. Ather seems to be a company, so perhaps this needs to be listed as "Ather Energy Pvt Ltd" as on the parent github page?!?
+
+TODO
