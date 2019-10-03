@@ -144,7 +144,7 @@ Done.
 
 > p7: In your (i, j) grid position notation, make clear immediately that i is the row and j is the column, with (1, 1) being in the upper left corner. This becomes apparent from the figures, but not from the text itself. Same for (m, n). Your first paragraph on p9 comes too late and only provides part of the explanation.
 
-TODO
+Done.
 
 > p10, l48: "Note that, the algorithm" - remove the comma
 
@@ -160,7 +160,7 @@ TODO
 
 > Figs 6-9 captions: You speak of "line glyphs", "line graphs", and "line charts". These mean the same - so be consistent and use just one of the three terms throughout the figure captions (and main text).
 
-TODO
+Done. We used "line graphs" consistently throughout the manuscript.
 
 > p22, l23: You wrote "boxes for household 2 indicate greater variability in daily energy consumption with noticeable variations on Thursdays," -- isn't this on Fridays?
 
@@ -168,16 +168,16 @@ TODO
 
 > p22 vs. Fig 14: You speak of 6am, 6pm, 3pm, etc. in the text, but use 0, 6, 12, 18, 24 hour labels in the graph. Be consistent and use the international 0-24 hour notation in the text as well.
 
-TODO
+Done.
 
-> Fig 15: It appears that April 30 is wrapped to the start of the monthly display? 
-
-TODO
-
-> If so, add a comment similar to the one from Fig 6 to the figure caption. - p26, l20: "and the another one starting" - delete "the"
+> Fig 15: It appears that April 30 is wrapped to the start of the monthly display? If so, add a comment similar to the one from Fig 6 to the figure caption.
 
 TODO
+
+> p26, l20: "and the another one starting" - delete "the"
+
+Done.
 
 > Kothari, A. & Ather (2016). I visited https://github.com/AtherEnergy/ggTimeSeries. Ather seems to be a company, so perhaps this needs to be listed as "Ather Energy Pvt Ltd" as on the parent github page?!?
 
-TODO
+Done.
