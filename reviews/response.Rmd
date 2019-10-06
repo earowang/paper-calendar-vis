@@ -100,37 +100,71 @@ Done.
 
 > "Would it be possible to have a plot for each day in a calendar plot with thick lines separating the months?  That kind of plot is common for calendar heatmaps."  I think that is important.  Perhaps they can build it in.  If not, why not?
 
+TODO
+
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
+
+TODO
 
 > The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
+TODO
+
 > p6 "Jones (2016), Wong (2013), Kothari & Ather (2016), and Jacobs (2017) implemented some variants of calendar-based heatmaps as in R packages: TimeProjection, ggTimeSeries, and ggcal respectively."  Four articles, three packages, one must be missing.  Better when references are next to package names.
+
+TODO
 
 > p7 "Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default."  This is not true for six-week months.
 
+TODO
+
 > p7 "Each variable is scaled to have values in [0,1], using the minimum and maximum of all the data values to be displayed, assuming fixed scales."  Can the scale be set by the user?  Starting at 0, not minimum, can be useful.
+
+Users can scale the original data before passing to the `frame_calendar()`.
 
 > p8 Figures 4 and 5 are unnecessary. Figure 4 is misleading, it does not apply to six-week months and the bottom right cell may be empty.
 
+TODO
+
 > p10 Figure 6  Could the vertical scale be given in the caption?
+
+TODO
 
 > p14 and 15-16 Figure 9 is better than Figure 8.  Are both necessary?
 
+TODO
+
 > p14 "Almost any kind of plot can be shown in a calendar pane."  This is excellent.  An impressive example would be useful.  Figure 10 is disappointing.  It is difficult to read and the information it provides could be seen in earlier figures.
+
+TODO
 
 > p17 Figure 10  Why not align by days of the week?
 
+TODO
+
 > p19 Text implies that more than one date can be selected in the Shiny app.  The app was kludgy and did not work smoothly.  It is a nice idea, but interaction has to be fast and work well.  Zooming did not work properly and was not able to link from the weather plots.  Fix or do not mention in article.
+
+TODO
 
 > p21 Figure 12 is an interesting possibility, but not well implemented.  The repetition of the scales in unhelpful.  0 12 24 looks like 240 12 240.  There is too much labelling and too little information.
 
+TODO
+
 > The case study is interesting.  Why are the data for household 2 different (fewer possible values)?
+
+Data is of the same time lengths (and the same amount of data points) across four households. Different households have different lifestyles.
 
 > p22 "with noticeable variations on Thursdays" based on only 26 data points is overinterpretation.
 
+It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points.
+
 > p22 "The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns."  The vertical scaling makes it very difficult to see this.  Inspecting the data with individual scales offers some support but not a lot.
 
+TODO
+
 > p24 "All households have different week days versus weekends daily routines."  This does not look so true for households 3 or 4.
+
+TODO
 
 # Reviewer 3 {-}
 
