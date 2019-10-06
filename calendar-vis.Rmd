@@ -95,18 +95,18 @@ The algorithm of transforming data for constructing a calendar plot uses linear 
 * $k = 1, \dots , 7$ is the day of the week, that is the first day of the month.
 * $d = 28, 29, 30$ or $31$ representing the number of days in any month.
 * $(i, j)$ is the grid position where $1 \le i \le 5$, is the row (week within the month), $1 \le j \le 7$, is the column (day of the week), with $(1, 1)$ being in the upper left corner.
-* $g = k, \dots,(k+d)$ indexes the day in the month, inside the 35 possible cells.
+* $g = k, \dots,(k + d - 1)$ indexes the day in the month, inside the 35 possible cells.
 
 The grid position for any day in the month is given by
 \begin{equation}
   \begin{aligned}
   i &= \lceil (g \text{ mod } 35) / 7\rceil, \\
-  j &= g \text{ mod } 7.
+  j &= g \text{ mod } 7 + 1.
   \end{aligned}
   (\#eq:grid)
 \end{equation}
 
-\noindent Figure \@ref(fig:month-diagram) illustrates this $(i, j)$ layout for a month where $k=5$.
+\noindent Figure \@ref(fig:month-diagram) illustrates this $(i, j)$ layout for a month where $k = 5$.
 
 ```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:month-diagram-cap)"}
 include_graphics("img/month.png")
@@ -176,7 +176,7 @@ The start of the week for a monthly calendar is adjustable. The default is Monda
 
 ### Polar transformation
 
-When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. This produces star glyphs [@chambers2017graphical], where time series lines are transformed in polar coordinates, embedded in the monthly calendar layout.
+When `polar = TRUE`, a polar transformation is carried out on the data. The computation is similar to the one described in @Wickham2012glyph. This produces star glyphs [@chambers2017graphical], where time series lines are transformed in polar coordinates, embedded in the monthly calendar layout. It is most useful in exhibiting cyclical patterns in the data.
 
 ```{r fs-polar, fig.height = 7, fig.cap = "(ref:fs-polar-cap)", eval = FALSE}
 ```
@@ -238,7 +238,7 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 
 ### Interactivity
 
-As a data restructuring tool, the interactivity of calendar-based displays can be easily enabled, as long as the interactive graphics system remains true to the spirit of the grammar of graphics, for example, **plotly** [@plotly] in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over a point in the calendar plot, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the `frame_calendar()` function can be ported to a form of selection button or text input in a graphical user interface like R shiny [@R-shiny]. The display will update on the fly accordingly, via clicking or text input, as desired.
+The previous calendar plots are static, made with **ggplot2**. The interactivity of calendar-based displays can be easily enabled, as long as the interactive graphics system remains true to the spirit of the grammar of graphics, for example, **plotly** [@plotly] in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over a point in the calendar plot, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the `frame_calendar()` function can be ported to a form of selection button or text input in a graphical user interface like R shiny [@R-shiny]. The display will update on the fly accordingly, via clicking or text input, as desired.
 
 Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the **wanderer4melb** shiny application [@R-wanderer4melb]. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain, affect the number of people walking in downtown Melbourne. The linking between weather data and calendar displays is achieved using the common dates.
 

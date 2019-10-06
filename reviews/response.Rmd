@@ -42,15 +42,15 @@ TODO
 
 > Should be g= k, ... (k+d-1) I think. 
 
-TODO
+Thanks for pointing it out. Corrected.
 
 > Equation 1. Modular arithmetic will give j in 0..6, not in 1..7.
 
-TODO
+Thanks. Added the missing $+1$ back.
 
 > Line 36, what are M and N? You explain them later, but should be at first usage.
 
-TODO
+Done.
 
 > Page 8. I agree with reviewer 1. These figures are not needed. Move to supplementary material.
 
@@ -70,11 +70,11 @@ Done.
 
 > Page 12. Say why polar transformation is useful.
 
-TODO
+We added "It is most useful in exhibiting cyclical patterns in the data." at the end of paragraph. 
 
 > In your figures is global scaling used, unless otherwise stated?
 
-TODO
+Yes.
 
 > Page 17, figure 10. I don't see negative correlation. Just two slopes, both positive. Am I missing something?
 
@@ -82,7 +82,7 @@ TODO
 
 > Page 19, first sentence. The meaning of this is not clear. Rephrase.
 
-TODO
+Done. We rephrased to "The previous calendar plots are static, made with **ggplot2**."
 
 > Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing. Two of the line colours are very similar here and in other plots.
 
