@@ -154,7 +154,7 @@ TODO
 
 Data is of the same time lengths (and the same amount of data points) across four households. Different households have different lifestyles.
 
-> p22 "with noticeable variations on Thursdays" based on only 26 data points is overinterpretation.
+> p22 "with noticeable variations on Thursdays" based on only 26 data points is over-interpretation.
 
 It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points.
 
@@ -198,7 +198,7 @@ Done. We used "line graphs" consistently throughout the manuscript.
 
 > p22, l23: You wrote "boxes for household 2 indicate greater variability in daily energy consumption with noticeable variations on Thursdays," -- isn't this on Fridays?
 
-TODO
+Yes, fixed.
 
 > p22 vs. Fig 14: You speak of 6am, 6pm, 3pm, etc. in the text, but use 0, 6, 12, 18, 24 hour labels in the graph. Be consistent and use the international 0-24 hour notation in the text as well.
 
@@ -206,7 +206,7 @@ Done.
 
 > Fig 15: It appears that April 30 is wrapped to the start of the monthly display? If so, add a comment similar to the one from Fig 6 to the figure caption.
 
-TODO
+Done.
 
 > p26, l20: "and the another one starting" - delete "the"
 
