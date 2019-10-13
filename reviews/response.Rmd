@@ -60,10 +60,6 @@ We argue to go against this comment. These figures serve as the graphical explan
 
 TODO
 
-> Somewhere in this section you should mention that labels and axes are discussed later.
-
-TODO
-
 > Page 11 line 1. Write "For example in Figure 6..."
 
 Done.
@@ -86,7 +82,9 @@ Done. We rephrased to "The previous calendar plots are static, made with **ggplo
 
 > Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing. Two of the line colours are very similar here and in other plots.
 
-TODO
+We've reduced the size of panel labels to give more room to the data display. Time labels are now made to show 6 and 18 to avoid confusion.
+
+The colour scheme is suggested by reviewer 3 before, which is colour-blind and grey-scale print friendly.
 
 > Page 23. Suggest dropping figure 13. Or move to supplementary material.
 
@@ -112,11 +110,11 @@ Done.
 
 > p6 "Jones (2016), Wong (2013), Kothari & Ather (2016), and Jacobs (2017) implemented some variants of calendar-based heatmaps as in R packages: TimeProjection, ggTimeSeries, and ggcal respectively."  Four articles, three packages, one must be missing.  Better when references are next to package names.
 
-TODO
+We removed the Jones (2016), since it's an online post. We also rephrased the sentence so that references are next to package names.
 
 > p7 "Each month conforms to a layout of 5 rows and 7 columns, where the top left is Monday of week 1, and the bottom right is Sunday of week 5 by default."  This is not true for six-week months.
 
-TODO
+Thanks. We revised this sentence to "Each month conforms to a layout of 5 rows and 7 columns, where rows and columns refer to the week of month and the day of week respectively."
 
 > p7 "Each variable is scaled to have values in [0,1], using the minimum and maximum of all the data values to be displayed, assuming fixed scales."  Can the scale be set by the user?  Starting at 0, not minimum, can be useful.
 
@@ -148,7 +146,7 @@ TODO
 
 > p21 Figure 12 is an interesting possibility, but not well implemented. The repetition of the scales in unhelpful. 0 12 24 looks like 240 12 240.  There is too much labelling and too little information.
 
-TODO
+We've reduced the size of panel labels to give more room to the data display. Time labels are now made to show 6 and 18 to avoid confusion.
 
 > The case study is interesting.  Why are the data for household 2 different (fewer possible values)?
 
