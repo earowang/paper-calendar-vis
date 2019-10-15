@@ -208,15 +208,16 @@ prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 # lagged scatterplot for fs street station in the daily calendar format
 fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
+  filter_index(~ "2016-05-22") %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
-    calendar = "daily", width = 0.8, height = 0.8, scale = "free")
+    calendar = "weekly", width = 0.6, height = 0.6, scale = "free")
 
 p_fs_day <- fs_cal_day %>% 
   ggplot(
-    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Workday)
+    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, fill = Workday)
   ) +
-  geom_point(size = 0.5, alpha = 0.6) +
-  scale_color_manual(values = rdbu) +
+  geom_hex(size = 0.5, alpha = 0.8, bins = 100) +
+  scale_fill_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs_day, size = 3, label.padding = unit(0.15, "lines"))
 

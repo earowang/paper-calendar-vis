@@ -8,13 +8,13 @@ output:
 fontfamily: mathpazo
 ---
 
-We thank the reviewers for their helpful feedback which has improved the readability of the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
+We thank the reviewers for their helpful feedback which has improved the paper. The point by point description of changes are below: the reviewers' comments are in red and our response is in black.
 
 # Associate editor {-}
 
 > What if the data's collected over different time zones?
 
-In R, a vector (a column in a data frame) only allows for one time zone. Users need to adjust these time zones to a unified one so that data over different periods can be comparable.
+TODO. In R, a vector (a column in a data frame) only allows for one time zone. Users need to adjust these time zones to a unified one so that data over different periods can be comparable.
 
 > Abstract: "modular arithmetic" is more accurate. Or omit the sentence altogether. I agree with comments  of reviewer 1 on this topic.
 
@@ -22,7 +22,7 @@ Thanks. We've revised to "modular arithmetic".
 
 > Page 2 par 2 first sentence. There are other broader applications than this, eg, pollution monitoring. Last sentence "but conventional displays" (omit "the")
 
-TODO
+We've rephrased "people's daily schedules" to "human activities" that would include pollution monitoring.
 
 > Page 3 Figure 1 legend. Say "grey dots indicate sensor locations".
 
@@ -38,7 +38,7 @@ We've rephrased to "to accentuate unusual patterns, such as those related to spe
 
 > Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
 
-TODO
+We have opened a github ticket on this issue, which will be implemented in the future.
 
 > Should be g= k, ... (k+d-1) I think. 
 
@@ -54,11 +54,11 @@ Done.
 
 > Page 8. I agree with reviewer 1. These figures are not needed. Move to supplementary material.
 
-We argue to go against this comment. These figures serve as the graphical explanations of Equations (1) and (2). Readers can easily and quickly grasp the layout idea by skimming through these figures, without diving into the body.
+We dropped figure 4 and 5 (diagrams for laying out the calendar).
 
 > Figure 6. Could the figure have some indicator of the wrapping of few days to first row? It would help the reader.
 
-TODO
+We noted this in the figure caption. If adding some indicators, these indicators would possibly receive more attentions from the viewers, thus deemphasizing the main message.
 
 > Page 11 line 1. Write "For example in Figure 6..."
 
@@ -74,7 +74,7 @@ Yes.
 
 > Page 17, figure 10. I don't see negative correlation. Just two slopes, both positive. Am I missing something?
 
-TODO
+We deleted the sentence, "This is due to the morning and afternoon commuter patterns in Figure 6: the adjacent hours are positively correlated when approaching to the peak hour but negatively correlated when moving away from the peak.", to mitigate the confusion.
 
 > Page 19, first sentence. The meaning of this is not clear. Rephrase.
 
@@ -98,7 +98,7 @@ Done.
 
 > "Would it be possible to have a plot for each day in a calendar plot with thick lines separating the months?  That kind of plot is common for calendar heatmaps."  I think that is important.  Perhaps they can build it in.  If not, why not?
 
-The lines separating the months are thicker than the ones separating the days in the calendar plot. The white space between months also helps to emphasise the separations between months.
+The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot.
 
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
@@ -118,19 +118,19 @@ Thanks. We revised this sentence to "Each month conforms to a layout of 5 rows a
 
 > p7 "Each variable is scaled to have values in [0,1], using the minimum and maximum of all the data values to be displayed, assuming fixed scales."  Can the scale be set by the user?  Starting at 0, not minimum, can be useful.
 
-Users can scale the original data before passing to the `frame_calendar()`.
+Yes, it is possible with `facet_calendar()`.
 
 > p8 Figures 4 and 5 are unnecessary. Figure 4 is misleading, it does not apply to six-week months and the bottom right cell may be empty.
 
-TODO
+We dropped figure 4 and 5 (diagrams for laying out the calendar).
 
 > p10 Figure 6  Could the vertical scale be given in the caption?
 
-TODO
+We gave the range of vertical scale in the caption.
 
 > p14 and 15-16 Figure 9 is better than Figure 8.  Are both necessary?
 
-TODO
+TODO. Yes.
 
 > p14 "Almost any kind of plot can be shown in a calendar pane."  This is excellent.  An impressive example would be useful.  Figure 10 is disappointing.  It is difficult to read and the information it provides could be seen in earlier figures.
 
@@ -142,7 +142,7 @@ TODO
 
 > p19 Text implies that more than one date can be selected in the Shiny app.  The app was kludgy and did not work smoothly.  It is a nice idea, but interaction has to be fast and work well.  Zooming did not work properly and was not able to link from the weather plots.  Fix or do not mention in article.
 
-TODO
+We deleted the sentence "Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain, affect the number of people walking in downtown Melbourne." from Section 2.3.4.
 
 > p21 Figure 12 is an interesting possibility, but not well implemented. The repetition of the scales in unhelpful. 0 12 24 looks like 240 12 240.  There is too much labelling and too little information.
 
@@ -162,7 +162,7 @@ TODO
 
 > p24 "All households have different week days versus weekends daily routines."  This does not look so true for households 3 or 4.
 
-TODO
+We removed this from the figure caption.
 
 # Reviewer 3 {-}
 

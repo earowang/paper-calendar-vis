@@ -118,7 +118,7 @@ Calendars are broadly used in society to display temporal information and events
 
 A new method for organizing and visualizing temporal data, collected at sub-daily intervals, into a calendar layout is developed. The format is created using modular arithmetic, giving a restructuring of the data that can then be integrated into a data pipeline. The core component of the pipeline is to visualize the resulting data using the grammar of graphics \citep{wilkinson2006grammar, wickham2009ggplot2}, as used in \textbf{ggplot2} \citep{R-ggplot2}, where plots are defined as a functional mapping from variables in the data to graphical elements. The data restructuring approach is consistent with the tidy data principles available in the \textbf{tidyverse} suite of tools \citep{R-tidyverse}. The methods are implemented in a new R package called \textbf{sugrrants} \citep{R-sugrrants}.
 
-The purpose of the calendar-based visualization is to provide insights into people's daily schedules, relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia \citep{ped}. There are many sensors installed across the inner-city area, that count pedestrians every hour (Figure \ref{fig:ped-map}). Data from 43 sensors in 2016 is analyzed here. This data can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. Patterns relative to special events (such as public holidays and recurring cultural/sporting events) would be worth studying in comparison to regular days, but conventional displays of time series data may bury this detail.
+The purpose of the calendar-based visualization is to provide insights into human activities, especially relative to events such as work days, weekends, holidays, and special events. This work was originally motivated by studying foot traffic in the city of Melbourne, Australia \citep{ped}. There are many sensors installed across the inner-city area, that count pedestrians every hour (Figure \ref{fig:ped-map}). Data from 43 sensors in 2016 is analyzed here. This data can shed light on people's daily rhythms, and assist the city administration and local businesses with event planning and operational management. Patterns relative to special events (such as public holidays and recurring cultural/sporting events) would be worth studying in comparison to regular days, but conventional displays of time series data may bury this detail.
 
 A routine examination of the data would involve constructing a time series plot to examine the temporal patterns. The faceted plots in Figure \ref{fig:time-series-plot} give an overall picture of the foot traffic at three different sensors in 2016. Further faceting by day of the week (Figure \ref{fig:facet-time}) provides a better view of the daily and sub-daily (hourly) pedestrian patterns. Flagstaff Station has a strong commuter pattern, with peaks in the morning and evening, and no pedestrians on the weekend. Around the State Library there are pedestrians walking around during the day, and an unusually large number on one Saturday night and Sunday morning. Birrarung Marr has a varied pedestrian pattern, with very different numbers of people on different days and times.
 
@@ -159,7 +159,7 @@ Faceting, initially called trellis displays \citep{becker_visual_1996}, is an ex
 
 The work is inspired by \citet{Wickham2012glyph}, which uses modular arithmetic to display spatio-temporal data as glyphs on maps. It is also related to recent work by \citet{R-geofacet} which provides methods in the \textbf{geofacet} R package to arrange data plots into a grid, while preserving the geographical position. Both of these show data in a spatial context.
 
-In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There are some existing works in this area. For example, \citet{VanWijkCluster1999} developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts weekdays and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. \citet{Jones-heatmap}, \citet{R-TimeProjection}, \citet{R-ggTimeSeries}, and \citet{R-ggcal} implemented some variants of calendar-based heatmaps in R packages: \textbf{TimeProjection}, \textbf{ggTimeSeries}, and \textbf{ggcal} respectively. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Color-encoding is also low on the hierarchy of optimal variable mapping \citep{cleveland1984graphical, lam2007overview}.
+In contrast, calendar-based graphics unpack the temporal variable, at different resolutions, to digest multiple seasonalities and special events. There are some existing works in this area. For example, \citet{VanWijkCluster1999} developed a calendar view of the heatmap to represent the number of employees in the work place over a year, where colors indicate different clusters derived from the days. It contrasts weekdays and weekends, highlights public holidays, and presents other known seasonal variation such as school vacations, all of which have influence over the turn-outs in the office. Some variants of calendar-based heatmaps have been implemented in R packages: \textbf{TimeProjection} \citep{R-TimeProjection}, \textbf{ggTimeSeries} \citep{R-ggTimeSeries}, and \textbf{ggcal} \citep{R-ggcal}. However, these techniques are limited to color-encoding graphics and are unable to use time scales smaller than a day. Time of day, which serves as one of the most important aspects in explaining substantial variations arising from the pedestrian sensor data, will be neglected through daily aggregation. Color-encoding is also low on the hierarchy of optimal variable mapping \citep{cleveland1984graphical, lam2007overview}.
 
 The proposed algorithm goes beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate lines and other types of glyphs into the graphical toolkit for the calendar layout; (3) to accentuate unusual patterns, such as those related to special events, for viewers. The proposed algorithm has been implemented in the \texttt{frame\_calendar()} and \texttt{facet\_calendar()} functions in the \textbf{sugrrants} package using R.
 
@@ -171,7 +171,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 \hypertarget{sec:transformation}{%
 \subsection{Data transformation}\label{sec:transformation}}
 
-The algorithm of transforming data for constructing a calendar plot uses linear algebra, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where rows and columns refer to the week of month and the day of week respectively. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is deterministic given the year of the calendar. Months are of different lengths, ranging from 28 to 31 days. Some months could extend over six weeks, but for these months the last few days are wrapped up to the top row of the block for compactness, and because it is convention. The notation for creating these cells is as follows:
+The algorithm of transforming data for constructing a calendar plot uses modular arithmetic, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where rows and columns refer to weeks of the month and days of the week respectively. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is deterministic given the year of the calendar. Months are of different lengths, ranging from 28 to 31 days. Some months could extend over six weeks, but for these months the last few days are wrapped up to the top row of the block for compactness, and because it is convention. The notation for creating these cells is as follows:
 
 \begin{itemize}
 \tightlist
@@ -196,29 +196,7 @@ The grid position for any day in the month is given by
 
 \noindent Figure \ref{fig:month-diagram} illustrates this \((i, j)\) layout for a month where \(k = 5\).
 
-\begin{figure}
-
-{\centering \includegraphics[width=360pt,height=250pt]{img/month} 
-
-}
-
-\caption{Illustration of the indexing layout for cells in a month, where \(k\) is day of the week, \(g\) is day of the month, \((i, j)\) indicates grid position.}\label{fig:month-diagram}
-\end{figure}
-
-
-
 To create the layout for a full year, \((m, n)\) denotes the position of the month arranged in the plot, where \(1 \le m \le M\) is the row and \(1 \le n \le N\) is the column; \(b\) denotes the small amount of white space between each month for visual separation. Figure \ref{fig:year-diagram} illustrates this layout where \(M = 3\) and \(N = 4\).
-
-\begin{figure}
-
-{\centering \includegraphics[width=360pt,height=250pt]{img/year-diagram} 
-
-}
-
-\caption{Illustration of the indexing layout for months of one year, where \(M\) and \(N\) indicate number of rows and columns, \(b\) is a space parameter separating cells.}\label{fig:year-diagram}
-\end{figure}
-
-
 
 Each cell forms a canvas on which to draw the data. Initialize the canvas to have limits \([0, 1]\) both horizontally and vertically. For the pedestrian sensor data, within each cell, hour is plotted horizontally, and count is plotted vertically. Each variable is scaled to have values in \([0, 1]\), using the minimum and maximum of all the data values to be displayed, assuming fixed scales. Let \(h\) be the scaled hour, and \(c\) be the scaled count.
 
@@ -239,7 +217,7 @@ Note that for the vertical direction, the top left is the starting point of the 
 
 }
 
-\caption{The calendar plot of hourly foot traffic at Flagstaff Station, using line graphs. The disparities between weekday and weekend along with public holiday, are immediately apparent. The arrangement of the data into a \(3 \times 4\) monthly grid represents all the traffic in 2016. Note that the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs in May and October.}\label{fig:fs-2016}
+\caption{The calendar plot of hourly foot traffic at Flagstaff Station ranging from 0 to 6952, using line graphs. The disparities between weekday and weekend along with public holiday, are immediately apparent. The arrangement of the data into a \(3 \times 4\) monthly grid represents all the traffic in 2016. Note that the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs in May and October.}\label{fig:fs-2016}
 \end{figure}
 
 
@@ -354,15 +332,15 @@ To avoid overlapping, when differences between groups are large enough to be see
 \hypertarget{different-types-of-plots}{%
 \subsubsection{Different types of plots}\label{different-types-of-plots}}
 
-Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in \textbf{ggplot2} is available. An example is shown in Figure \ref{fig:scatterplot}: the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts. This is due to the morning and afternoon commuter patterns in Figure \ref{fig:fs-2016}: the adjacent hours are positively correlated when approaching to the peak hour but negatively correlated when moving away from the peak.
+Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in \textbf{ggplot2} is available. An example is shown in Figure \ref{fig:scatterplot}: the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts.
 
 \begin{figure}
 
-{\centering \includegraphics[width=\textwidth]{figure/scatterplot-1} 
+{\centering \includegraphics[width=0.75\linewidth]{figure/scatterplot-1} 
 
 }
 
-\caption{Lag scatterplots, with local scaling, in the daily calendar layout. Each hour's count is plotted against the previous hour's count at Flagstaff Station, to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days than work days.}\label{fig:scatterplot}
+\caption{Lag scatterplots, with local scaling, in the daily calendar layout. Each hour's count is plotted against the previous hour's count at Flagstaff Station, to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days (blue) than work days (red).}\label{fig:scatterplot}
 \end{figure}
 
 
@@ -385,7 +363,7 @@ The algorithm can also produce more complicated plots, such as boxplots. Figure 
 
 The previous calendar plots are static, made with \textbf{ggplot2}. The interactivity of calendar-based displays can be easily enabled, as long as the interactive graphics system remains true to the spirit of the grammar of graphics, for example, \textbf{plotly} \citep{plotly} in R. As a standalone display, an interactive tooltip can be added to show labels when mousing over a point in the calendar plot, for example the hourly count with the time of day. It is difficult to sense the values from the static display, but the tooltip makes it possible. Options in the \texttt{frame\_calendar()} function can be ported to a form of selection button or text input in a graphical user interface like R shiny \citep{R-shiny}. The display will update on the fly accordingly, via clicking or text input, as desired.
 
-Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the \textbf{wanderer4melb} shiny application \citep{R-wanderer4melb}. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. Conversely, selecting on weather data plots, linked to the calendar can help to assess if very hot/cold days and heavy rain, affect the number of people walking in downtown Melbourne. The linking between weather data and calendar displays is achieved using the common dates.
+Linking calendar displays to other types of charts is valuable to visually explore the relationships between variables. An example can be found in the \textbf{wanderer4melb} shiny application \citep{R-wanderer4melb}. The calendar most naturally serves as a tool for date selection: by selecting and brushing the glyphs in the calendar, it subsequently highlights the elements of corresponding dates in other time-based plots. The linking between weather data and calendar displays is achieved using the common dates.
 
 \hypertarget{sec:facet-calendar}{%
 \subsubsection{Faceted calendar}\label{sec:facet-calendar}}
@@ -414,8 +392,6 @@ However, the \texttt{facet\_calendar()} takes much more run time compared with \
 
 The purpose of the calendar display is to facilitate quick discoveries of unusual patterns in people's activities, which is consistent with why analysts should and do use data visualization. It complements the traditional graphical toolbox used to understand general trends, and better profiles vivid and detailed data stories about the way we live. Comparing the conventional displays (Figure \ref{fig:time-series-plot} and \ref{fig:facet-time}) with the new display (Figure \ref{fig:facet}), it can be seen that the calendar display is more informatively compelling: when special events happened, and on what day of the week, and whether they were day or night events. For example, Figure \ref{fig:facet} informs the reader that many events were held in Birrarung Marr on weekend days, while September's events took place on Friday evenings, which is difficult to discern from conventional displays.
 
-\newpage
-
 \hypertarget{sec:case}{%
 \section{Case study}\label{sec:case}}
 
@@ -440,7 +416,7 @@ Figure \ref{fig:hod} shows energy consumption against time of day, separately by
 
 }
 
-\caption{Scatterplots of half-hourly energy usage by time of day, with hourly averages overlaid, faceted by household and type of day. All households have different weekdays versus weekends daily routines. On weekdays, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning is notable in households 1 and 2, as seen by horizontal clusters of points.}\label{fig:hod}
+\caption{Scatterplots of half-hourly energy usage by time of day, with hourly averages overlaid, faceted by household and type of day. On weekdays, household 1 wakes up early before 6, and household 2 around 6, followed by household 3 and 4. The use of air conditioning is notable in households 1 and 2, as seen by horizontal clusters of points.}\label{fig:hod}
 \end{figure}
 
 
