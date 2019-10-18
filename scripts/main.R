@@ -208,16 +208,16 @@ prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 # lagged scatterplot for fs street station in the daily calendar format
 fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
-  filter_index(~ "2016-05-22") %>% 
+  filter_index("2016-01-04" ~ "2016-05-8") %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
     calendar = "weekly", width = 0.6, height = 0.6, scale = "free")
 
 p_fs_day <- fs_cal_day %>% 
   ggplot(
-    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, fill = Workday)
+    aes(x = .Lagged_Counts, y = .Hourly_Counts, group = Date, colour = Workday)
   ) +
-  geom_hex(size = 0.5, alpha = 0.8, bins = 100) +
-  scale_fill_manual(values = rdbu) +
+  geom_point(size = 0.8, alpha = 0.8) +
+  scale_colour_manual(values = rdbu) +
   theme(legend.position = "bottom")
 prettify(p_fs_day, size = 3, label.padding = unit(0.15, "lines"))
 
@@ -292,7 +292,7 @@ elec %>%
   ggplot(aes(x = wday, y = kwh)) +
   geom_boxplot(colour = "black", outlier.shape = 8) +
   # lvplot::geom_lv(aes(fill = ..LV..), colour = "black", outlier.shape = 8) +
-  facet_wrap(~ id, labeller = label_both) +
+  facet_wrap(~ id, labeller = label_both, scales = "free_y") +
   xlab("Day of week") +
   ylab("kWh") +
   scale_fill_brewer(palette = "Blues", direction = -1) +

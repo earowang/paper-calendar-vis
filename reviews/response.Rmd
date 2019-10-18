@@ -38,7 +38,7 @@ We've rephrased to "to accentuate unusual patterns, such as those related to spe
 
 > Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
 
-We have opened a github ticket on this issue, which will be implemented in the future.
+Thanks, we added the note "The fifth row could be blank for February if the month starts on Monday." in the paragraph. We have mentioned the option of 6-week format as part of the future work.
 
 > Should be g= k, ... (k+d-1) I think. 
 
@@ -88,7 +88,7 @@ The colour scheme is suggested by reviewer 3 before, which is colour-blind and g
 
 > Page 23. Suggest dropping figure 13. Or move to supplementary material.
 
-TODO
+We dropped the boxplots as in figure 13, and the corresponding paragraph.
 
 > Page 24 Line 15: "calendar plots tell the stories"
 
@@ -132,13 +132,17 @@ We gave the range of vertical scale in the caption.
 
 TODO. Yes.
 
+<!--
+
 > p14 "Almost any kind of plot can be shown in a calendar pane."  This is excellent.  An impressive example would be useful.  Figure 10 is disappointing.  It is difficult to read and the information it provides could be seen in earlier figures.
 
 TODO
 
+-->
+
 > p17 Figure 10  Why not align by days of the week?
 
-TODO
+We have changed figure 10 (now figure 8) to align by days of the week instead of by days of the month.
 
 > p19 Text implies that more than one date can be selected in the Shiny app.  The app was kludgy and did not work smoothly.  It is a nice idea, but interaction has to be fast and work well.  Zooming did not work properly and was not able to link from the weather plots.  Fix or do not mention in article.
 
@@ -158,7 +162,7 @@ It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points.
 
 > p22 "The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns."  The vertical scaling makes it very difficult to see this.  Inspecting the data with individual scales offers some support but not a lot.
 
-TODO
+We dropped the boxplot as in figure 13, and the corresponding paragraph including this sentence.
 
 > p24 "All households have different week days versus weekends daily routines."  This does not look so true for households 3 or 4.
 
