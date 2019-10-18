@@ -208,7 +208,7 @@ prettify(p_facet, size = 3, label.padding = unit(0.1, "lines"))
 # lagged scatterplot for fs street station in the daily calendar format
 fs_cal_day <- fs %>% 
   mutate(Lagged_Counts = dplyr::lag(Hourly_Counts)) %>% 
-  filter_index("2016-01-04" ~ "2016-05-8") %>% 
+  filter_index("2016-01-04" ~ "2016-05-01") %>% 
   frame_calendar(x = Lagged_Counts, y = Hourly_Counts, date = Date, 
     calendar = "weekly", width = 0.6, height = 0.6, scale = "free")
 

@@ -84,7 +84,7 @@ In contrast, calendar-based graphics unpack the temporal variable, at different 
 
 The proposed algorithm goes beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate lines and other types of glyphs into the graphical toolkit for the calendar layout; (3) to accentuate unusual patterns, such as those related to special events, for viewers. The proposed algorithm has been implemented in the `frame_calendar()` and `facet_calendar()` functions in the **sugrrants** package using R.
 
-The remainder of the paper is organized as follows. Section \@ref(sec:algorithm) details the construction of the calendar layout in depth. It describes the algorithms of data transformation (Section \@ref(sec:transformation)), the available options (Section \@ref(sec:opt)), variations of its usage (Section \@ref(sec:variations)), and the full faceting extension equipped with formal labels and axes (Section \@ref(sec:facet-calendar)). An analysis of half-hourly household energy consumption, using the calendar display, is illustrated in a case study in Section \@ref(sec:case). Section \@ref(sec:discussion) discusses the limitations of calendar displays and possible new directions.
+The remainder of the paper is organized as follows. Section \@ref(sec:algorithm) details the construction of the calendar layout in depth. It describes the algorithms of data transformation (Section \@ref(sec:transformation)), the available options (Section \@ref(sec:opt)), variations of its usage (Section \@ref(sec:variations)), including the full faceting extension equipped with formal labels and axes (Section \@ref(sec:facet-calendar)). An analysis of half-hourly household energy consumption, using the calendar display, is illustrated in a case study in Section \@ref(sec:case). Section \@ref(sec:discussion) discusses the limitations of calendar displays and possible new directions.
 
 # Creating a calendar display {#sec:algorithm}
 
@@ -105,8 +105,6 @@ The grid position for any day in the month is given by
   \end{aligned}
   (\#eq:grid)
 \end{equation}
-
-\noindent Figure \@ref(fig:month-diagram) illustrates this $(i, j)$ layout for a month where $k = 5$.
 
 <!--
 ```{r month-diagram, out.width = "360pt", out.height = "250pt", fig.cap = "(ref:month-diagram-cap)"}
@@ -143,6 +141,8 @@ Note that for the vertical direction, the top left is the starting point of the 
 ```
 
 (ref:fs-2016-cap) The calendar plot of hourly foot traffic at Flagstaff Station ranging from 0 to 6952, using line graphs. The disparities between weekday and weekend along with public holiday, are immediately apparent. The arrangement of the data into a $3 \times 4$ monthly grid represents all the traffic in 2016. Note that the algorithm wraps the last few days in the sixth week to the top row of each month block for a compact layout, which occurs in May and October.
+
+The R package, **lubridate** [@R-lubridate], is used to extract the components of time, such as days of the week and the number of days in a month, that create the layout. These time variables are converted to integers for the modular arithmetic. Note that for any date-time information is associated with time zone. If your data is collected over multiple time zones, you will need to convert them to the same time zone before conducting any temporal analysis.
 
 Figure \@ref(fig:fs-2016) shows the line graphs framed in the monthly calendar over the year 2016. This is achieved by the `frame_calendar()` function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual **ggplot2** R package [@R-ggplot2]. Thus, the grammar of graphics can be applied.
 
@@ -226,12 +226,12 @@ To avoid overlapping, when differences between groups are large enough to be see
 
 ### Different types of plots
 
-Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in **ggplot2** is available. An example is shown in Figure \@ref(fig:scatterplot): the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts.
+Many types of plot can be shown in a calendar pane, by taking advantage of the existing **ggplot2** plotting capabilities. An example is shown in Figure \@ref(fig:scatterplot): the panes contain lag scatterplots for Flagstaff Station from Week 1 to 17 in 2016, constructed with the scaling for each day and aligning by days of the week, where the lagged hourly count is assigned to the `x` argument and the current hourly count to the `y` argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts.
 
-```{r scatterplot, fig.height = 12, out.width = "75%", fig.cap = "(ref:scatterplot-cap)"}
+```{r scatterplot, fig.height = 12, out.width = "70%", fig.cap = "(ref:scatterplot-cap)"}
 ```
 
-(ref:scatterplot-cap) Lag scatterplots, with local scaling, in the weekly calendar layout. Each hour's count is plotted against the previous hour's count at Flagstaff Station, to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days (blue) than work days (red).
+(ref:scatterplot-cap) Examining lag 1 autocorrelation for Flagstaff Station from week 1 to 17, using lag scatterplots scaled by each day and aligned by days of the week. Each hour's count is plotted against the previous hour's count. The autocorrelation is stronger on non-work days (blue) than work days (red).
 
 The algorithm can also produce more complicated plots, such as boxplots. Figure \@ref(fig:chn) uses a loess smooth line [@cleveland1979loess] superimposed on side-by-side boxplots. It shows the distribution of hourly counts across all 43 sensors during December. The last week of December is the holiday season: people are off work on the day before Christmas (December 24), go shopping on the Boxing day (December 26), and stay out for the fireworks on New Year's Eve. The text in the plot is labeled in Chinese, showcasing the support for other languages.
 

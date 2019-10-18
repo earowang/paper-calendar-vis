@@ -163,7 +163,7 @@ In contrast, calendar-based graphics unpack the temporal variable, at different 
 
 The proposed algorithm goes beyond the calendar-based heatmap. The approach is developed with three conditions in mind: (1) to display time-of-day variation in addition to longer temporal components such as day-of-week and day-of-year; (2) to incorporate lines and other types of glyphs into the graphical toolkit for the calendar layout; (3) to accentuate unusual patterns, such as those related to special events, for viewers. The proposed algorithm has been implemented in the \texttt{frame\_calendar()} and \texttt{facet\_calendar()} functions in the \textbf{sugrrants} package using R.
 
-The remainder of the paper is organized as follows. Section \ref{sec:algorithm} details the construction of the calendar layout in depth. It describes the algorithms of data transformation (Section \ref{sec:transformation}), the available options (Section \ref{sec:opt}), variations of its usage (Section \ref{sec:variations}), and the full faceting extension equipped with formal labels and axes (Section \ref{sec:facet-calendar}). An analysis of half-hourly household energy consumption, using the calendar display, is illustrated in a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
+The remainder of the paper is organized as follows. Section \ref{sec:algorithm} details the construction of the calendar layout in depth. It describes the algorithms of data transformation (Section \ref{sec:transformation}), the available options (Section \ref{sec:opt}), variations of its usage (Section \ref{sec:variations}), including the full faceting extension equipped with formal labels and axes (Section \ref{sec:facet-calendar}). An analysis of half-hourly household energy consumption, using the calendar display, is illustrated in a case study in Section \ref{sec:case}. Section \ref{sec:discussion} discusses the limitations of calendar displays and possible new directions.
 
 \hypertarget{sec:algorithm}{%
 \section{Creating a calendar display}\label{sec:algorithm}}
@@ -171,7 +171,7 @@ The remainder of the paper is organized as follows. Section \ref{sec:algorithm} 
 \hypertarget{sec:transformation}{%
 \subsection{Data transformation}\label{sec:transformation}}
 
-The algorithm of transforming data for constructing a calendar plot uses modular arithmetic, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where rows and columns refer to weeks of the month and days of the week respectively. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is deterministic given the year of the calendar. Months are of different lengths, ranging from 28 to 31 days. Some months could extend over six weeks, but for these months the last few days are wrapped up to the top row of the block for compactness, and because it is convention. The notation for creating these cells is as follows:
+The algorithm of transforming data for constructing a calendar plot uses modular arithmetic, similar to that used in the glyph map displays for spatio-temporal data \citep{Wickham2012glyph}. To make a year long calendar requires cells for days, embedded in blocks corresponding to months, organized into a grid layout for a year. Each month conforms to a layout of 5 rows and 7 columns, where rows and columns refer to weeks of the month and days of the week respectively. These cells provide a micro canvas on which to plot the data. The first day of the month could be any of Monday--Sunday, which is deterministic given the year of the calendar. Months are of different lengths, ranging from 28 to 31 days. Some months could extend over six weeks, but for these months the last few days are wrapped up to the top row of the block for compactness, and because it is convention. The fifth row could be blank for February if the month starts on Monday. The notation for creating these cells is as follows:
 
 \begin{itemize}
 \tightlist
@@ -193,8 +193,6 @@ The grid position for any day in the month is given by
   \end{aligned}
   \label{eq:grid}
 \end{equation}
-
-\noindent Figure \ref{fig:month-diagram} illustrates this \((i, j)\) layout for a month where \(k = 5\).
 
 To create the layout for a full year, \((m, n)\) denotes the position of the month arranged in the plot, where \(1 \le m \le M\) is the row and \(1 \le n \le N\) is the column; \(b\) denotes the small amount of white space between each month for visual separation.
 
@@ -221,6 +219,8 @@ Note that for the vertical direction, the top left is the starting point of the 
 \end{figure}
 
 
+
+The R package, \textbf{lubridate} \citep{R-lubridate}, is used to extract the components of time, such as days of the week and the number of days in a month, that create the layout. These time variables are converted to integers for the modular arithmetic. Note that for any date-time information is associated with time zone. If your data is collected over multiple time zones, you will need to convert them to the same time zone before conducting any temporal analysis.
 
 Figure \ref{fig:fs-2016} shows the line graphs framed in the monthly calendar over the year 2016. This is achieved by the \texttt{frame\_calendar()} function, which computes the coordinates on the calendar for the input data variables. These can then be plotted using the usual \textbf{ggplot2} R package \citep{R-ggplot2}. Thus, the grammar of graphics can be applied.
 
@@ -332,15 +332,15 @@ To avoid overlapping, when differences between groups are large enough to be see
 \hypertarget{different-types-of-plots}{%
 \subsubsection{Different types of plots}\label{different-types-of-plots}}
 
-Almost any type of plot can be shown in a calendar pane. Most of the full range of plotting capabilities in \textbf{ggplot2} is available. An example is shown in Figure \ref{fig:scatterplot}: the panes contain lag scatterplots, constructed with local scaling for each day at Flagstaff Station, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts.
+Many types of plot can be shown in a calendar pane, by taking advantage of the existing \textbf{ggplot2} plotting capabilities. An example is shown in Figure \ref{fig:scatterplot}: the panes contain lag scatterplots for Flagstaff Station from Week 1 to 17 in 2016, constructed with the scaling for each day and aligning by days of the week, where the lagged hourly count is assigned to the \texttt{x} argument and the current hourly count to the \texttt{y} argument. It indicates strong autocorrelation on weekends, and weak autocorrelation on work days. The V-shape in the weekday graphs arises when the next hour sees a substantial increase or decrease in counts.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.75\linewidth]{figure/scatterplot-1} 
+{\centering \includegraphics[width=0.7\linewidth]{figure/scatterplot-1} 
 
 }
 
-\caption{Lag scatterplots, with local scaling, in the weekly calendar layout. Each hour's count is plotted against the previous hour's count at Flagstaff Station, to demonstrate the autocorrelation at lag 1. The correlation between them is more consistent on non-work days (blue) than work days (red).}\label{fig:scatterplot}
+\caption{Examining lag 1 autocorrelation for Flagstaff Station from week 1 to 17, using lag scatterplots scaled by each day and aligned by days of the week. Each hour's count is plotted against the previous hour's count. The autocorrelation is stronger on non-work days (blue) than work days (red).}\label{fig:scatterplot}
 \end{figure}
 
 

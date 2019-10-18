@@ -14,7 +14,9 @@ We thank the reviewers for their helpful feedback which has improved the paper. 
 
 > What if the data's collected over different time zones?
 
-TODO. In R, a vector (a column in a data frame) only allows for one time zone. Users need to adjust these time zones to a unified one so that data over different periods can be comparable.
+We added a short paragraph in Section 2.1 after "Note that for the vertical direction" to address the time zone problem.
+
+"The R package, **lubridate**, is used to extract the components of time, such as days of the week and the number of days in a month, that create the layout. These time variables are converted to integers for the modular arithmetic. Note that for any date-time information is associated with time zone. If your data is collected over multiple time zones, you will need to convert them to the same time zone before conducting any temporal analysis."
 
 > Abstract: "modular arithmetic" is more accurate. Or omit the sentence altogether. I agree with comments  of reviewer 1 on this topic.
 
@@ -98,11 +100,15 @@ Done.
 
 > "Would it be possible to have a plot for each day in a calendar plot with thick lines separating the months?  That kind of plot is common for calendar heatmaps."  I think that is important.  Perhaps they can build it in.  If not, why not?
 
-The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot.
+The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot. These sit in the background to make the data plot more visible, which follows the Tufte's rules.
+
+<!--
 
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
 TODO
+
+-->
 
 > The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
@@ -126,23 +132,19 @@ We dropped figure 4 and 5 (diagrams for laying out the calendar).
 
 > p10 Figure 6  Could the vertical scale be given in the caption?
 
-We gave the range of vertical scale in the caption.
+We added the range of vertical scale in the caption.
 
 > p14 and 15-16 Figure 9 is better than Figure 8.  Are both necessary?
 
-TODO. Yes.
-
-<!--
+We kept both figures in, to show what users can do with the calendar plots, for example both overlaying and faceting.
 
 > p14 "Almost any kind of plot can be shown in a calendar pane."  This is excellent.  An impressive example would be useful.  Figure 10 is disappointing.  It is difficult to read and the information it provides could be seen in earlier figures.
 
-TODO
-
--->
+We have rephrased this sentence to "Many types of plot can be shown in a calendar pane, by taking advantage of the existing **ggplot2** plotting capabilities.". You have inspired us to try to make more exciting calendar plots, and they are possible but not useful. The lag scatterplots (now figure 8) is the sensible data plot for the pedestrian dataset, that fits into the Section 2.3.3. To make the information easier to read, we plot a subset from week 1 to 17 instead of the whole year before.
 
 > p17 Figure 10  Why not align by days of the week?
 
-We have changed figure 10 (now figure 8) to align by days of the week instead of by days of the month.
+We have changed figure 10 (now figure 8) to align by days of the week instead of by days of the month. Since the best display for the pedestrian dataset is monthly layout, we wanted to showcase other possible layouts.
 
 > p19 Text implies that more than one date can be selected in the Shiny app.  The app was kludgy and did not work smoothly.  It is a nice idea, but interaction has to be fast and work well.  Zooming did not work properly and was not able to link from the weather plots.  Fix or do not mention in article.
 
@@ -158,7 +160,8 @@ Data is of the same time lengths (and the same amount of data points) across fou
 
 > p22 "with noticeable variations on Thursdays" based on only 26 data points is over-interpretation.
 
-It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points.
+It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points. But we dropped the boxplot as in figure 13 including this sentence.
+
 
 > p22 "The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns."  The vertical scaling makes it very difficult to see this.  Inspecting the data with individual scales offers some support but not a lot.
 
