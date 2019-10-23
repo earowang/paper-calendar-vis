@@ -14,7 +14,7 @@ We thank the reviewers for their helpful feedback which has improved the paper. 
 
 > What if the data's collected over different time zones?
 
-We added a short paragraph in Section 2.1 after "Note that for the vertical direction" to address the time zone problem.
+We added a short paragraph in Section 2.1 starting with "The R package, lubridate, ..." to address the time zone problem.
 
 "The R package, **lubridate**, is used to extract the components of time, such as days of the week and the number of days in a month, that create the layout. These time variables are converted to integers for the modular arithmetic. Note that for any date-time information is associated with time zone. If your data is collected over multiple time zones, you will need to convert them to the same time zone before conducting any temporal analysis."
 
@@ -62,6 +62,10 @@ We dropped figure 4 and 5 (diagrams for laying out the calendar).
 
 We noted this in the figure caption. If adding some indicators, these indicators would possibly receive more attentions from the viewers, thus deemphasizing the main message.
 
+> Somewhere in this section you should mention that labels and axes are discussed later.
+
+Thanks. We have mentioned this at the end of Section 2.1.
+
 > Page 11 line 1. Write "For example in Figure 6..."
 
 Done.
@@ -102,13 +106,9 @@ Done.
 
 The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot. These sit in the background to make the data plot more visible, which follows the Tufte's rules.
 
-<!--
-
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
-TODO
-
--->
+We recommend to make as many data plots as possible, including the calendar plots, to form a comprehensive picture about the data during the EDA process. Except for the calendar plots, the paper shows traditional displays in Figure 2, 3, and 11 as possible plots. The figure captions describe the main features that we can read from the plots. However, these typically focus on one temporal aspect, like time of day or day of week, which means that the information from other time resolutions cannot be seen. The calendar display is to complement them, laying out all possible resolutions simultaneously.
 
 > The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
