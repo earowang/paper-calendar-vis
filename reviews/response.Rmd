@@ -108,7 +108,7 @@ The white space between months already emphasises the separations between months
 
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
-We recommend to make as many data plots as possible, including the calendar plots, to form a comprehensive picture about the data during the EDA process. Except for the calendar plots, the paper shows traditional displays in Figure 2, 3, and 11 as possible plots. The figure captions describe the main features that we can read from the plots. However, these typically focus on one temporal aspect, like time of day or day of week, which means that the information from other time resolutions cannot be seen. The calendar display is not to replace but to complement them, laying out all possible resolutions simultaneously.
+Many data plots is recommended by Unwin (), to form a comprehensive picture about the data during the EDA process. It is distracting for the main message of this paper to make a list of possible plots with pros and cons. However, our paper shows traditional displays in Figure 2, 3, and 11 as possible plots, and the captions describe the main features that we can read from the plots. The calendar display is not to replace but to complement them, and this should be apparent from the captions and text associated with the full suite of plots.
 
 > The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
