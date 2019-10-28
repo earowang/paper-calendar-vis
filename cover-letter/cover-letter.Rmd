@@ -14,10 +14,8 @@ spacing: 1.4
 output: MonashEBSTemplates::letter
 ---
 
-We have undertaken major revision on our manuscript titled, "Calendar-based graphics for visualizing people's daily schedules," based on reviewers' comments.
-
-The major changes include two new sections: a subsection "2.3.5 Faceted calendar" to describe a new calendar faceting method `facet_calendar()`, that extends **ggplot2** intervals and complements the existing function `frame_calendar()`, and a subsection "2.4 Reasons to use calendar-based graphics" to explain why calendar displays are useful and when to use them. 
+We have done minor revision on our manuscript titled, "Calendar-based graphics for visualizing people's daily schedules," based on associate editor and reviewers' comments.
 
 A detailed response letter to reviewers has been provided.
 
-We believe that this manuscript has been significantly improved, that is a good fit for the Journal of Computational and Graphical Statistics.
+We believe that this manuscript has been improved, that is a good fit for the Journal of Computational and Graphical Statistics.
