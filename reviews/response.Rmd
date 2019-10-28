@@ -84,7 +84,7 @@ We deleted the sentence, "This is due to the morning and afternoon commuter patt
 
 > Page 19, first sentence. The meaning of this is not clear. Rephrase.
 
-Done. We rephrased to "The previous calendar plots are static, made with **ggplot2**."
+Done. We rephrased "As a data restructuring tool" to "The previous calendar plots are static, made with **ggplot2**."
 
 > Page 21, figure 12. I agree with reviewer 1 that this needs some tweaking. Too much vertical space given to panel labels. Time labels are confusing. Two of the line colours are very similar here and in other plots.
 
@@ -94,7 +94,7 @@ The colour scheme is suggested by reviewer 3 before, which is colour-blind and g
 
 > Page 23. Suggest dropping figure 13. Or move to supplementary material.
 
-We dropped the boxplots as in figure 13, and the corresponding paragraph.
+We dropped the boxplots as in figure 13, and the associated paragraph.
 
 > Page 24 Line 15: "calendar plots tell the stories"
 
@@ -104,11 +104,11 @@ Done.
 
 > "Would it be possible to have a plot for each day in a calendar plot with thick lines separating the months?  That kind of plot is common for calendar heatmaps."  I think that is important.  Perhaps they can build it in.  If not, why not?
 
-The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot. These sit in the background to make the data plot more visible, which follows the Tufte's rules.
+The white space between months already emphasises the separations between months. The lines separating the months are also thicker than the ones separating the days in the calendar plot. These sit in the background to make the data plot more visible.
 
 > The paper describes a display based on months.  Months have different lengths and are not comparable.  The paper says that a mixture of different plots is best.  A list of possible plots with pros and cons would be helpful.  Which features can be seen in one plot, which in another?
 
-Many data plots is recommended by Unwin (), to form a comprehensive picture about the data during the EDA process. It is distracting for the main message of this paper to make a list of possible plots with pros and cons. However, our paper shows traditional displays in Figure 2, 3, and 11 as possible plots, and the captions describe the main features that we can read from the plots. The calendar display is not to replace but to complement them, and this should be apparent from the captions and text associated with the full suite of plots.
+Many data plots is recommended by Unwin & Valero-Mora (2018), to form a comprehensive picture about the data during the EDA process. It is distracting for the main message of this paper to make a list of possible plots with pros and cons. However, our paper shows traditional displays in Figure 2, 3, and 11 as possible plots, and the captions describe the main features that we can read from the plots. The calendar display is not to replace but to complement them, and this should be apparent from the captions and text associated with the full suite of plots.
 
 > The authors mention "modulus arithmetic" three times and linear algebra once, so I expected complicated mathematics.  The mathematics is simple.  These remarks are not needed.  Most people say "modular arithmetic".
 
@@ -162,10 +162,9 @@ Data is of the same time lengths (and the same amount of data points) across fou
 
 It's half-hourly data, meaning 26 Thursdays * 48 per day = 1248 data points. But we dropped the boxplot as in figure 13 including this sentence.
 
-
 > p22 "The other two households (1 and 4) tend to consume more energy with more variation on the weekends relative to the week days, reflecting work and leisure patterns."  The vertical scaling makes it very difficult to see this.  Inspecting the data with individual scales offers some support but not a lot.
 
-We dropped the boxplot as in figure 13, and the corresponding paragraph including this sentence.
+We dropped the boxplot as in figure 13, and the associated paragraph including this sentence.
 
 > p24 "All households have different week days versus weekends daily routines."  This does not look so true for households 3 or 4.
 

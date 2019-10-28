@@ -6,14 +6,14 @@ blinded: 0
 
 authors:
 - name: Earo Wang
-  affiliation: Department of Econometrics and Business Statistics, Monash University
+  affiliation: Monash University & CSIRO Data61
   email: earo.wang@monash.edu
 
 - name: Dianne Cook
-  affiliation: Department of Econometrics and Business Statistics, Monash University
+  affiliation: Monash University
 
 - name: Rob J Hyndman
-  affiliation: Department of Econometrics and Business Statistics, Monash University
+  affiliation: Monash University
 
 keywords:
 - data visualization
@@ -94,7 +94,7 @@ The algorithm of transforming data for constructing a calendar plot uses modular
 
 * $k = 1, \dots , 7$ is the day of the week, that is the first day of the month.
 * $d = 28, 29, 30$ or $31$ representing the number of days in any month.
-* $(i, j)$ is the grid position where $1 \le i \le 5$, is the row (week within the month), $1 \le j \le 7$, is the column (day of the week), with $(1, 1)$ being in the upper left corner.
+* $(i, j)$ is the grid position, where $1 \le i \le 5$ is the row (week of the month), and $1 \le j \le 7$ is the column (day of the week), with $(1, 1)$ being in the upper left corner.
 * $g = k, \dots,(k + d - 1)$ indexes the day in the month, inside the 35 possible cells.
 
 The grid position for any day in the month is given by
