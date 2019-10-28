@@ -40,7 +40,7 @@ We've rephrased to "to accentuate unusual patterns, such as those related to spe
 
 > Page 7. Second line. You might want to add that fifth row could be blank. Wrapping around the last few days could be confusing. Could this be made optional?
 
-Thanks, we added the note "The fifth row could be blank for February if the month starts on Monday." in the paragraph. We have mentioned the option of 6-week format as part of the future work.
+Thanks, we added the note "The fifth row could be blank for February if the month starts on Monday." in the paragraph. It is a deliberate design choice to wrap the last few days for a more compact display. We have mentioned the option of 6-week format as part of the future work.
 
 > Should be g= k, ... (k+d-1) I think. 
 
