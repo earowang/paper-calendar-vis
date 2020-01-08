@@ -6,7 +6,7 @@ blinded: 0
 
 authors:
 - name: Earo Wang
-  affiliation: Monash University & CSIRO Data61
+  affiliation: The University of Auckland, Monash University, CSIRO Data61
   email: earo.wang@monash.edu
 
 - name: Dianne Cook
@@ -283,7 +283,7 @@ Figure \@ref(fig:dow) shows the energy use across days of week using boxplots. I
 
 -->
 
-Figure \@ref(fig:hod) shows energy consumption against time of day, separately by weekday and weekend. Household 1 is an early riser, starting their day before 6 and going back home around 18 on weekdays. They switch air conditioning on when they get home from work and keep it operating until midnight, evident from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that air conditioning may run continuously for some periods, consuming twice the energy as household 1. A third peak occurs around 15 for household 3 only, likely coinciding when the children arrive home from school. They also have a consistent energy pattern between weekdays and weekends. As for household 4, their home routine starts after 18 on weekdays. Figures \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
+Figure \@ref(fig:hod) shows energy consumption against time of day, separately by weekday and weekend. Household 1 is an early riser, starting their day before 6:00 and going back home around 18:00 on weekdays. They switch air conditioning on when they get home from work and keep it operating until midnight, evident from the small horizontal cluster of points around 0.8 kWh. On the other hand, the stripes above 1 kWh for household 2 indicates that air conditioning may run continuously for some periods, consuming twice the energy as household 1. A third peak occurs around 15:00 for household 3 only, likely coinciding when the children arrive home from school. They also have a consistent energy pattern between weekdays and weekends. As for household 4, their home routine starts after 18 on weekdays. Figures \@ref(fig:hod), part of a traditional graphical toolkit, are useful for summarizing overall deviations across days and households.
 
 ```{r hod, fig.height = 6, fig.cap = "(ref:hod-cap)"}
 ```
@@ -304,6 +304,9 @@ The calendar-based visualization provides data plots in the familiar format of a
 The calendar layout will be useful for studying consumer trends and human behavior. It will be less useful for physical processes such as weather. The layout does not replace traditional displays, but serves to complement them to further tease out structure in temporal data. Analysts would still be advised to plot overall summaries and deviations in order to study general trends.
 
 The methodology creates the western calendar layout, because most countries have adopted this format. The main difference between countries is the use of different languages for labeling, which is supported by the software. Formats beyond the western calendar, or six-weeks and tetris-like layouts could be achieved by slightly tweaking the modular arithmetic approach. These features will be added as new options in the future.
+
+# Supplementary Materials {-}
+The supplementary files include code and datasets used in this article. More is available at <https://github.com/earowang/paper-calendar-vis>.
 
 # Acknowledgements {-}
 
